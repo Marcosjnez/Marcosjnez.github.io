@@ -1,0 +1,18 @@
+name: marcos-website
+output_dir: '.'
+navbar:
+  title: Marcos Jiménez
+  left:
+  - text: Home
+    href: index.html
+  - text: About Me
+    href: about.html
+  - text: TFG
+    href: Apendice.html
+output:
+  html_document:
+    theme: flatly
+    css: style.css
+    lib_dir: site_libs
+    self_contained: no
+
