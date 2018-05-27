@@ -629,7 +629,7 @@ $\indent$ Sin embargo, la información procedente de un p-valor o un intervalo d
 
 $\indent$ En la sección anterior habíamos visto que las $\beta_{XY_j}$, $\beta_{XM}$ y $\beta^\prime_{MY}$ son significativas ya que los límites de los intervalos de confianza excluyen el 1 aportando evidencia de una discrepancia de la hipótesis nula. En esta situación, en lugar de limitarse a establecer o no la superioridad, inferioridad o inconclusibilidad de las estimaciones respecto a un mínimo efecto de interés, conviene establecer la máxima o mínima discrepancia que estamos en situación de inferir con rigor. Para ello, dado que los parámetros de la regresión betabinomial y ordinal logística siguen una distribución gausiana, debemos computar la probabilidad cumulativa
 
-$$\frac{1}{{\hat{\sigma}_{\beta}^2 \sqrt {2\pi } }} ~~ \int_{\infty}^{\beta} \text{exp}{~ - \frac{ ( {\hat{\beta} - \beta } )^2 }{2\hat{\sigma}_{\beta}^2} } \, d\beta$$
+$$\frac{1}{\hat{\sigma}_{\beta}^2 \sqrt {2\pi } } ~~ \int_{\infty}^{\beta} \text{exp}{~ - \frac{ ( {\hat{\beta} - \beta } )^2 }{2\hat{\sigma}_{\beta}^2} } \, d\beta$$
 
 para cada posible valor que pueda tomar $\beta$ [^8].
 
@@ -637,7 +637,7 @@ para cada posible valor que pueda tomar $\beta$ [^8].
 
 $\indent$ Por el contrario, una vez incluimos el mediador en la regresión, las $\beta^\prime_{XY_j}$ dejan de ser significativamente distintas de 1. En este otro caso, empleamos la función cumulativa complementaria ya que conviene establecer la máxima discrepancia que podemos descartar con rigor:
 
-$$\frac{1}{{\hat{\sigma}_{\beta^\prime_{XY_j}}^2 \sqrt {2\pi } }} ~~ \int_{\beta^\prime_{XY_j}}^{\infty} \text{exp}{~ - \frac{ \left( {\hat{\beta^\prime}_{XY_j} - \beta^\prime_{XY_j} } \right)^2 }{2\hat{\sigma}_{\beta^\prime_{XY_j}}^2} } \, d\beta^\prime_{XY_j}$$
+$$\frac{1}{\hat{\sigma}_{\beta^\prime_{XY_j}}^2 \sqrt {2\pi } } ~~ \int_{\beta^\prime_{XY_j}}^{\infty} \text{exp}{~ - \frac{ \left( {\hat{\beta^\prime}_{XY_j} - \beta^\prime_{XY_j} } \right)^2 }{2\hat{\sigma}_{\beta^\prime_{XY_j}}^2} } \, d\beta^\prime_{XY_j}$$
 
 $\indent$ Volviendo al experimento que nos concierne y siguiendo el método mencionado, la siguiente figura muestra el rigor con el que distintas inferencias sobre los parámetros, estimados en razón de momios, pasan o no el test.
 
