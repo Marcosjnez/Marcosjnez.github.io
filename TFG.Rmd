@@ -70,7 +70,7 @@ En este trabajo se ofrece una breve descripción e interpretación de algunos de
 
 $\indent$ El reciente proyecto de replicación @OSC2015 ha intensificado el desarrollo de un gran número de trabajos que busca revertir la pérdida de credibilidad en la psicología y, aunque el criterio utilizado para considerar la replicación de un experimento resulta discutible [^1] [@Senn2002], son ineludibles las carencias de una disciplina que adolece de los mismos problemas de los que Yates y Sterling advertían hace más de medio siglo:
 
-[^1]: En el @OSC2015 se volvieron a contrastar experimentalmente 97 hipótesis reportadas con resultados estadísticamente signifcativos, considerando como replicación la repetición de un p-valor (*p-value*) menor a 0.05. Sin embargo, 
+[^1]: En el @OSC2015 se volvieron a contrastar experimentalmente 97 hipótesis reportadas con resultados estadísticamente significativos (4 de las cuales tenían p-valores ligeramente por encima de 0.05), considerando como replicación la repetición de un p-valor (*p-value*) menor a 0.05. Sin embargo, tras esta regla subyace una dicotomización arbitraria de la evidencia. 
 
 > The emphasis on tests of significance and the consideration of the results of each experiment in isolation, have had the unfortunate consequence that scientific workers have often regarded the execution of a test of significance on an experiment as the ultimate objective. - @Yates1951
 
@@ -458,7 +458,7 @@ $\indent$ En segundo lugar, utilizaremos un modelo logístico cumulativo parcial
 
 $$\text{logit}(Y \le j) = \alpha_j - X\beta^\prime_{XY_j} - M\beta^\prime_{MY}$$
 
-$\indent$ Para comprobar si el efecto de la decisión de administrar el fármaco no es lineal, ajustamos el modelo ordinal con un término spline y comprobamos si su grados de libertad difieren de 1:
+$\indent$ Para comprobar si el efecto de la decisión de administrar el fármaco no es lineal, ajustamos el modelo ordinal con un término *spline* y comprobamos si su grados de libertad difieren de 1:
 ```{r Modelos_3, eval = T, echo = T}
 summary(vgam(Indicador ~ Grupo + sm.os(Si), family = cumulative(parallel = F ~ Grupo), data = mydata))
 ```
@@ -670,7 +670,7 @@ kable(TEs, digits = 3, caption = "Efecto Total", align = "c") %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
-```{r Effects_2, eval = T, echo = T, warning = FALSE}
+```{r Effects_2, eval = T, echo = F, warning = FALSE}
 kable(NDEs, digits = 3, caption = "Efecto Natural Directo", align = "c") %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 kable(NIEs, digits = 3, caption = "Efecto Natural Indirecto", align = "c") %>%
@@ -1182,22 +1182,22 @@ BF23 <- bf(ML_M2, ML_M3)$bf # Factor de Bayes.
 BF23
 ```
 
-$\indent$ Siguiendo estos pasos, se estima que los datos obtenidos en el experimento son 518 veces más probables de observar en el modelo betabinomial con el parámetro $\beta_{XM}$ ($M_1$) que en el mismo modelo sin dicho parámetro ($M_0$), es decir, $\text{BF}_{10} \simeq 518$. Por contraparte, $\text{BF}_{23}$ arroja una cifra de 12 dígitos ($5.4 \cdot 10^{12}$), es decir, una evidencia tan grande a favor del modelo ordinal con el parámetro $\beta^\prime_{MY}$ ($M_2$) que podría modificar cualquier creencia a favor del mismo modelo sin dicho parámetro ($M_3$). Una vez obtenidos estos valores, procedemos a computar la probabilidad posterior de $M_0$, $M_1$, $M_2$ y $M_3$ asignando nuestras creencias previas, en forma de probabilidad, en dichas hipótesis. Por ejemplo, podemos mostrarnos escépticos y pensar que $p(M_1) = p(M_2) = 0.25$ y $p(M_0) = p(M_3) = 0.75$, en cuyo caso $$\frac{p(Modelo_{\,1})}{p(Modelo_{\,0})} = \frac{p(Modelo_{\,3})}{p(Modelo_{\,2})} = \frac{1}{3}.$$
+$\indent$ Siguiendo estos pasos, se estima que los datos obtenidos en el experimento son 523 veces más probables de observar en el modelo betabinomial con el parámetro $\beta_{XM}$ ($M_1$) que en el mismo modelo sin dicho parámetro ($M_0$), es decir, $\text{BF}_{10} \simeq 523$. Por contraparte, $\text{BF}_{23}$ arroja una cifra de 12 dígitos ($1.4 \cdot 10^{11}$), es decir, una evidencia tan grande a favor del modelo ordinal con el parámetro $\beta^\prime_{MY}$ ($M_2$) que podría modificar cualquier creencia a favor del mismo modelo sin dicho parámetro ($M_3$). Una vez obtenidos estos valores, procedemos a computar la probabilidad posterior de $M_0$, $M_1$, $M_2$ y $M_3$ asignando nuestras creencias previas, en forma de probabilidad, en dichas hipótesis. Por ejemplo, podemos mostrarnos escépticos y pensar que $p(M_1) = p(M_2) = 0.25$ y $p(M_0) = p(M_3) = 0.75$, en cuyo caso $$\frac{p(Modelo_{\,1})}{p(Modelo_{\,0})} = \frac{p(Modelo_{\,3})}{p(Modelo_{\,2})} = \frac{1}{3}.$$
 Esto quiere decir que, antes de observar los datos, creemos que los modelos sin el parámetro extra son 3 veces más probables. Así, tenemos que
 
-$$ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \simeq 518\cdot \frac{0.25}{0.75} \simeq 172.6 $$
+$$ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \simeq 523 \cdot \frac{0.25}{0.75} \simeq 174.4 $$
 ```{r BF_6, eval = T, echo = T}
 BF10 * (1/3)
 ```
 
-$$ p(M_1\, | \,y) \simeq \frac{172.6}{1 + 172.6} \simeq 0.994 $$
+$$ p(M_1\, | \,y) \simeq \frac{174.4}{1 + 174.4} \simeq 0.994 $$
 
 ```{r BF_7, eval = T, echo = T}
 post_prob_M1_M0 <- post_prob(ML_M1, ML_M0, prior_prob = c(.25, .75))
 post_prob_M1_M0[1]
 ```
 
-$$ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_2)}{p(M_3)} \simeq 5.4 \cdot 10^{12} \cdot \frac{0.25}{0.75} \simeq 1.8 \cdot 10^{12} $$
+$$ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_2)}{p(M_3)} \simeq 1.4 \cdot 10^{11} \cdot \frac{0.25}{0.75} \simeq 4.7 \cdot 10^{10} $$
 
 ```{r BF_8, eval = T, echo = T}
 BF23 * (1/3)
@@ -1219,7 +1219,7 @@ $$\text{probabilidad de mediación} = p(M_1\, | \,y) \cdot p(M_2\, | \,y) \simeq
 
 $\indent$ lo que quiere decir que
 
-$$\text{BF}_{mediación} \simeq \frac{0.994}{1 - 0.994} \simeq 172.6$$
+$$\text{BF}_{mediación} \simeq \frac{0.994}{1 - 0.994} \simeq 174.4$$
 
 ```{r BF_11, eval = T, echo = T}
 # Factor de Bayes de la mediación:
@@ -1241,7 +1241,7 @@ $$ \mu \sim \text{Cauchy}(0, 1) $$
 $$ \delta \sim \text{HalfCauchy}(0, .7071) $$
 $$ \sigma \sim \frac{1}{\sigma} $$
 
-$\indent$ Los likelihoods son:
+$\indent$ Los *likelihoods* son:
 
 $$ Y_1 \sim Normal(\mu + \alpha_0, \sigma)$$
 $$ Y_0 \sim Normal(\mu + \alpha_1, \sigma)$$
@@ -1256,7 +1256,7 @@ $$ \delta = \frac{\mu_{diferencia}}{\sigma} $$
 ttestBF(formula = Causal_Judgment ~ Group, data = data, nullInterval = c(0, Inf), rscale = 1/sqrt(2))
 ```
 
-$\indent$ El factor de Bayes es de 47 a favor de la hipótesis alternativa.
+$\indent$ El factor de Bayes es de 47.69 a favor de la hipótesis alternativa.
 
 $\indent$ Vamos a parametrizar este modelo en Stan:
 
@@ -1366,7 +1366,7 @@ $\indent$ A diferencia del método anterior, el análisis bayesiano tradicional 
 
 $\indent$ En este caso simplemente queremos obtener la distribución de probabilidad posterior de los parámetros condicionando en los datos observados $p(\theta \, | \, y)$. Por tanto, tan solo debemos volver a ajustar los anteriores modelos. También utilizaremos las mismas distribuciones a priori para mantener el análisis simple.
 
-Modelo betabinomial:
+**Modelo betabinomial**:
 
 ```{r Bayesian_analysis_1, eval = F, echo = T, warning = FALSE, results = "hide"}
 # Esta vez utilizaremos el bloque denominado *generated quantities* para simular los datos necesarios para comprobar la adecuación del modelo a los datos observados.
@@ -1437,7 +1437,7 @@ print(fit_modelo_betabinomial, probs = c(0.025, 0.5, 0.975), pars = c("Intercept
 print(fit_modelo_betabinomial, probs = c(0.025, 0.5, 0.975), pars = c("Intercept", "beta_Grupo"))
 ```
 
-Modelo logístico cumulativo parcial:
+**Modelo logístico cumulativo parcial**:
 
 ```{r Bayesian_analysis_3, eval = F, echo = T, warning = FALSE, results = "hide"}
 ordinal <- "
@@ -1522,7 +1522,7 @@ print(fit_modelo_ordinal, probs = c(0.025, 0.5, 0.975), pars = c("Intercepts", "
 
 $\indent$ A continuación podemos realizar algunos diagnósticos del comportamiento de las cadenas de Markov y extraer los parámetros y otros objetos para explorar las implicaciones de los modelos:
 
-Modelo Betabinomial:
+**Modelo Betabinomial**:
 
 ```{r Bayesian_analysis_5, eval = F, echo = T, warning = T, fig.align = "center"}
 betabinomial_chains <- mcmc_trace(as.array(fit_modelo_betabinomial), pars = c("Intercept", "beta_Grupo"))
@@ -1560,7 +1560,7 @@ check_all_diagnostics(fit_modelo_ordinal)
 betabinomial_chains
 ```
 
-$\indent$ Visualizamos LOO, WAIC, las distribuciones de probabilidad predichas por el modelo y un par de *posterior predictive checks*:
+$\indent$ Visualizamos LOO, WAIC, las distribuciones de probabilidad predichas por el modelo y realizamos un par de *posterior predictive checks*:
 
 ```{r Bayesian_analysis_7, eval = T, echo = T, warning = T, fig.align = "center", fig.width = 6, fig.height = 4}
 # Visualizamos LOO y WAIC:
@@ -1568,8 +1568,17 @@ print(betabinomial_loo, digits = 3)
 print(betabinomial_waic, digits = 3)
 # Si ajustamos otros modelos, podemos compararlos usando estas magnitudes.
 
+# Comprobamos si nuestro modelo acomoda bien los datos observados (posterior predictive checks):
+intervencion_prob # Proporción estimada por nuestro modelo en el grupo de intervención.
+mean((mydata$Si / 40)[mydata$Grupo == 1]) # Proporción observada en el grupo de intervención.
+
+control_prob # Proporción estimada por nuestro modelo en el grupo de no intervención.
+mean((mydata$Si / 40)[mydata$Grupo == 0]) # Proporción observada en el grupo de no intervención.
+
+# Nuestro modelo describe bien el proceso que ha generado los datos.
+
 # Visualizamos la distribución de la probabilidad de administrar el fármaco en la condición de intervención y de no intervención en su valor promediado y otras 100 distribuciones simuladas aleatoriamente de la distribución posterior de alpha y beta:
-curve(dbeta(x, shape1 = unique(betabinomial_alpha)[1], shape2 = unique(betabinomial_beta)[1]), ylim = c(0, 2), col = "black", ylab = "Density", xlab = "Probability", lwd = 0)
+curve(dbeta(x, shape1 = unique(betabinomial_alpha)[1], shape2 = unique(betabinomial_beta)[1]), ylim = c(0, 2), col = "black", ylab = "Densidad", xlab = "Probabilidad", lwd = 0)
 
 for(i in 1:100) {
 curve(dbeta(x, shape1 = sample(alphas_control, 1), shape2 = sample(betas_control, 1)), add = T,  col = "blue")
@@ -1584,18 +1593,9 @@ curve(dbeta(x, shape1 = unique(betabinomial_alpha)[1], shape2 = unique(betabinom
 curve(dbeta(x, shape1 = unique(betabinomial_alpha)[2], shape2 = unique(betabinomial_beta)[2]), add = T,  col = "black", lwd = 2)
 
 # Podemos comprobar que el grupo que no recibe la intervención (rojo) presenta mayor probabilidad de administrar el fármaco.
-
-# Comprobamos si nuestro modelo acomoda bien los datos observados (posterior predictive checks):
-intervencion_prob # Proporción estimada por nuestro modelo en el grupo de intervención.
-mean((mydata$Si / 40)[mydata$Grupo == 1]) # Proporción observada en el grupo de intervención.
-
-control_prob # Proporción estimada por nuestro modelo en el grupo de no intervención.
-mean((mydata$Si / 40)[mydata$Grupo == 0]) # Proporción observada en el grupo de no intervención.
-
-# Nuestro modelo describe bien el proceso que ha generado los datos.
 ```
 
-Modelo logístico cumulativo parcial:
+**Modelo logístico cumulativo parcial**:
 
 ```{r Bayesian_analysis_8, eval = F, echo = T, warning = T, fig.align = "center"}
 # Comprobamos las cadenas de montecarlo para diagnosticar alguna anomalía en las estimaciones:
@@ -1622,7 +1622,7 @@ scores_by_category_intervencion <- table(as.numeric(t(post_modelo_ordinal$poster
 scores_by_category_control <- table(as.numeric(t(post_modelo_ordinal$posterior_predictions))[indice == 0]) / 32000
 ```
 
-$\indent$ Comprobamos si las cadenas de Markov:
+$\indent$ Comprobamos el comportamiento de las cadenas de Markov:
 
 ```{r Bayesian_analysis_9, eval = T, echo = T, warning = T, fig.align = "center", fig.width = 10, fig.height = 5}
 check_all_diagnostics(fit_modelo_ordinal)
@@ -1631,19 +1631,20 @@ ordinal_chains
 # shinystan::launch_shinystan(fit_modelo_ordinal)
 ```
 
-$\indent$ Visualizamos LOO, WAIC, la distribución posterior de los parámetros y *posterior predictive checks*:
+$\indent$ Visualizamos LOO, WAIC, la distribución posterior de los parámetros y realizamos algunos *posterior predictive checks*:
 
 ```{r Bayesian_analysis_10, eval = T, echo = T, warning = T, fig.align = "center", fig.width = 10, fig.height = 5}
 ordinal_parameters
 print(ordinal_loo, digits = 3)
 print(ordinal_waic, digits = 3)
 
-plot(density(post_modelo_ordinal$beta))
+# Podemos visualizar la distribución posterior de los parámetros extrayéndolos del modelo:
+# plot(density(post_modelo_ordinal$beta))
 
 scores_by_category
 table(mydata$Indicador)
+
 # Parece que el número de veces que se escoje cada categoría en el dataset y en nuestras simulaciones son bastante similares.
-# Puede que no sea deseable que sean estrictamente similares dado que correríamos el riesgo de hacer overfitting.
 
 scores_by_category_intervencion
 table(mydata$Indicador[mydata$Grupo == 1])
