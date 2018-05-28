@@ -938,17 +938,17 @@ K <- 1 / integrate(halfcauchy, 0, Inf)$value
 dhalfcauchy <- function(x) K * halfcauchy(x)
 integrate(dhalfcauchy, -Inf, Inf) # Nos aseguramos de que la función integra a 1.
 
-curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha), ylab = "Densidad", xlab = NULL)
+curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha), ylab = "Densidad", xlab = "")
 # Centrando los predictores, al situar el intercepto en torno a 0 estamos concediendo la misma probabilidad a priori de 0.5 de administrar y no administrar el fármaco para todos los participantes antes de pasar por la intervención.
 
-curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta[XM]), ylab = "Densidad", xlab = NULL)
+curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta[XM]), ylab = "Densidad", xlab = "")
 curve(dunif(x, 0, 1), xlim = c(0, 1), main = "rho", xlab = NULL)
 
-curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha[j]), ylab = "Densidad", xlab = NULL)
+curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha[j]), ylab = "Densidad", xlab = "")
 # Centrando los predictores, al situar el intercepto en torno a 0 estamos concediendo la misma probabilidad a priori de 0.5 de seleccionar una categoría igual o menor para todos los participantes antes de pasar por la intervención.
 
-curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta*minute[MY]), ylab = "Densidad", xlab = NULL)
-curve(dnorm(x, 0, 5), xlim = c(-15, 15), main = expression(beta*minute[XY[j]]), ylab = "Densidad", xlab = NULL)
+curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta*minute[MY]), ylab = "Densidad", xlab = "")
+curve(dnorm(x, 0, 5), xlim = c(-15, 15), main = expression(beta*minute[XY[j]]), ylab = "Densidad", xlab = "")
 ```
 
 $\indent$ A continuación, podemos testar la presencia de un efecto mediacional basándonos en el método clásico del producto de coeficientes descrito en @Nuijten2015. En primer lugar, obtenemos el factor de Bayes que corresponde al efecto de la intervención sobre la probabilidad de administrar el fármaco comparando las predicciones del modelo betabinomial descrito anteriormente, al que denominaremos $M_1$, con otro modelo similar pero sin el parámetro $\beta_{XM}$ y que llamaremos $M_0$.
@@ -1227,7 +1227,7 @@ BF_mediacion <- (post_prob_M1_M0[1] * post_prob_M2_M3[1]) / ( 1 - post_prob_M1_M
 BF_mediacion
 ```
 
-$\indent$ Estos resultados nos indican que los datos observados son 172 veces más probables bajo la hipótesis mediacional compuesta por $M_1$ y $M_2$ que la no mediacional, compuesta por $M_0$ y $M_3$.
+$\indent$ Estos resultados nos indican que los datos observados son 174 veces más probables bajo la hipótesis mediacional compuesta por $M_1$ y $M_2$ que la no mediacional, compuesta por $M_0$ y $M_3$.
 
 <br>
 

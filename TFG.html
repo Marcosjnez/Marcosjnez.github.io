@@ -1445,17 +1445,17 @@ dhalfcauchy &lt;- function(x) K * halfcauchy(x)
 integrate(dhalfcauchy, -Inf, Inf) # Nos aseguramos de que la función integra a 1.
 ## 1 with absolute error &lt; 1.6e-10
 
-curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha), ylab = &quot;Densidad&quot;, xlab = NULL)
+curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
 # Centrando los predictores, al situar el intercepto en torno a 0 estamos concediendo la misma probabilidad a priori de 0.5 de administrar y no administrar el fármaco para todos los participantes antes de pasar por la intervención.
 
-curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta[XM]), ylab = &quot;Densidad&quot;, xlab = NULL)
+curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta[XM]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
 curve(dunif(x, 0, 1), xlim = c(0, 1), main = &quot;rho&quot;, xlab = NULL)
 
-curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha[j]), ylab = &quot;Densidad&quot;, xlab = NULL)
+curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha[j]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
 # Centrando los predictores, al situar el intercepto en torno a 0 estamos concediendo la misma probabilidad a priori de 0.5 de seleccionar una categoría igual o menor para todos los participantes antes de pasar por la intervención.
 
-curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta*minute[MY]), ylab = &quot;Densidad&quot;, xlab = NULL)
-curve(dnorm(x, 0, 5), xlim = c(-15, 15), main = expression(beta*minute[XY[j]]), ylab = &quot;Densidad&quot;, xlab = NULL)</code></pre>
+curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta*minute[MY]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
+curve(dnorm(x, 0, 5), xlim = c(-15, 15), main = expression(beta*minute[XY[j]]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)</code></pre>
 <p><img src="TFG_files/figure-html/BF_1-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> A continuación, podemos testar la presencia de un efecto mediacional basándonos en el método clásico del producto de coeficientes descrito en <span class="citation">Nuijten et al. (2015)</span>. En primer lugar, obtenemos el factor de Bayes que corresponde al efecto de la intervención sobre la probabilidad de administrar el fármaco comparando las predicciones del modelo betabinomial descrito anteriormente, al que denominaremos <span class="math inline">\(M_1\)</span>, con otro modelo similar pero sin el parámetro <span class="math inline">\(\beta_{XM}\)</span> y que llamaremos <span class="math inline">\(M_0\)</span>.</p>
 <pre class="r"><code># Modelo betabinomial con el parámetro \beta_{XM}:
@@ -1701,7 +1701,7 @@ BF_mediacion &lt;- (post_prob_M1_M0[1] * post_prob_M2_M3[1]) / ( 1 - post_prob_M
 BF_mediacion
 ##    ML_M1 
 ## 174.4001</code></pre>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Estos resultados nos indican que los datos observados son 172 veces más probables bajo la hipótesis mediacional compuesta por <span class="math inline">\(M_1\)</span> y <span class="math inline">\(M_2\)</span> que la no mediacional, compuesta por <span class="math inline">\(M_0\)</span> y <span class="math inline">\(M_3\)</span>.</p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Estos resultados nos indican que los datos observados son 174 veces más probables bajo la hipótesis mediacional compuesta por <span class="math inline">\(M_1\)</span> y <span class="math inline">\(M_2\)</span> que la no mediacional, compuesta por <span class="math inline">\(M_0\)</span> y <span class="math inline">\(M_3\)</span>.</p>
 <p><br></p>
 </div>
 <div id="factor-de-bayes-reportado-en-barberia2018" class="section level1">
