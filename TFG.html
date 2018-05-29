@@ -265,8 +265,8 @@ Prácticas estadísticas para investigadores en psicología
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> El <em>dataset</em> está disponible en el siguiente repositorio: <a href="https://osf.io/tzchd/">Open Science Framework</a></p>
 <p><br></p>
 </div>
-<div id="set-up" class="section level1">
-<h1><em>Set up</em></h1>
+<div id="setup" class="section level1">
+<h1><em>Setup</em></h1>
 <p><br></p>
 <p>Cargamos los siguientes paquetes:</p>
 <pre class="r"><code>lapply(c(&quot;tidyverse&quot;, &quot;rstan&quot;, &quot;bridgesampling&quot;, &quot;loo&quot;, &quot;shinystan&quot;, &quot;VGAM&quot;, &quot;ggplot2&quot;, &quot;bayesplot&quot;, &quot;grid&quot;, &quot;gridExtra&quot;, &quot;latex2exp&quot;, &quot;dagitty&quot;, &quot;ggdag&quot;, &quot;patchwork&quot;, &quot;knitr&quot;, &quot;kableExtra&quot;, &quot;BayesFactor&quot;), library, character.only = TRUE)</code></pre>
@@ -369,7 +369,7 @@ table(mydata$Indicador[mydata$Grupo == 0])
 <li>La regresión ordinal cumulativa no impone una distribución concreta para los datos, permitiendo modelar fácilmente el considerable número de ceros observados y es compatible con la asunción de que la percepción sobre la eficacia del fármaco es una variable latente continua.</li>
 </ol>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> De esta manera, aunque el análisis original utilizó el método de mínimos cuadrados, aquí se ha decidido aplicar una regresión logística cumulativa parcial<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> <span class="citation">(Peterson and Harrell 1990)</span> en el que se estima un parámetro <span class="math inline">\(\beta^\prime_{XY_j}\)</span> diferente para cada punto de corte <span class="math inline">\(j\)</span>:</p>
-<p><span class="math display">\[ \log\left(\frac{\text{Pr}(Y \le j)} {\text{Pr}(Y &gt; j)}\right) = \alpha_j - X \beta^\prime_{XY_j} - M \beta^\prime_{MY} \]</span> donde <span class="math inline">\(Y\)</span> representa las observaciones transformadas y <span class="math inline">\(j\)</span> indica los puntos de corte de la escala.</p>
+<p><span class="math display">\[ \log\left(\frac{\text{Pr}(Y \le j)} {\text{Pr}(Y &gt; j)}\right) = \alpha_j - X \beta^\prime_{XY_j} - M \beta^\prime_{MY} \]</span> donde <span class="math inline">\(Y\)</span> representa las observaciones transformadas.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Reemplazando la variable latente por su indicador, la siguiente Figura muestra el modelo empírico con los parámetros que finalmente se estiman.</p>
 <pre class="r"><code>Causal_Graph_Empirical &lt;- dagify(Y ~ X + M,
               M ~ X,
@@ -404,7 +404,7 @@ dag2 &lt;- ggdag(Causal_Graph_Empirical, node_size = 20, text = F) + # use_label
   geom_dag_edges_link(arrow = grid::arrow(length = grid::unit(2, &quot;mm&quot;), type = &quot;closed&quot;))
 dag2</code></pre>
 <p><img src="TFG_files/figure-html/DAG_2-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Para la regresión de <span class="math inline">\(M\)</span> en <span class="math inline">\(X\)</span> (trayectoria con el coeficiente <span class="math inline">\(\beta_{XM}\)</span>) se adopta un modelo betabinomial que acomoda la sobredispersión observada en M. De esta manera, la probabilidad de la función binomial pasa a considerarse una variable aleatoria que sigue una distribución beta. Este modelo es adecuado porque cabe esperar que las decisiones de administrar el medicamento estén relacionadas en un mismo participante. Es decir, la probabilidad de que un participante decida administrar o no el fármaco depende de sus previas decisiones.</p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Para la regresión de <span class="math inline">\(M\)</span> en <span class="math inline">\(X\)</span> (trayectoria con el coeficiente <span class="math inline">\(\beta_{XM}\)</span>) se adopta un modelo betabinomial que acomoda la sobredispersión observada en <span class="math inline">\(M\)</span>. De esta manera, la probabilidad de la función binomial pasa a considerarse una variable aleatoria que sigue una distribución beta. Este modelo es adecuado porque cabe esperar que las decisiones de administrar el medicamento estén relacionadas en un mismo participante. Es decir, la probabilidad de que un participante decida administrar o no el fármaco depende de sus previas decisiones.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Finalmente, para el análisis mediacional se ha empleado la inferencia paramétrica descrita en <span class="citation">Imai, Keele, and Tingley (2010)</span> y <span class="citation">VanderWeele, Zhang, and Lim (2016)</span>, que descansa en la aproximación contrafactual de Judea Pearl <span class="citation">(Pearl 2014)</span>, quien descompone el efecto total de la intervención en efectos naturales directos (NDE) e indirectos (NIE).</p>
 <p><br></p>
 </div>
@@ -418,13 +418,14 @@ dag2</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Y el efecto total de la intervención educativa (TE) es</p>
 <p><span class="math display">\[ TE = \text{E}[Y_{X_1} - Y_{X_0}] = NDE + NIE \]</span></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Estos efectos serán estimados siguiendo el método paramétrico descrito en <span class="citation">Imai, Keele, and Tingley (2010)</span>. Básicamente, consiste en ajustar un modelo que regresa la intervención <span class="math inline">\(X\)</span> en la variable mediacional <span class="math inline">\(M\)</span> y otro regresando el indicador <span class="math inline">\(Y\)</span> en ambas. Luego, con los coeficientes estimados se simulan datos de las condiciones contrafactuales especificadas anteriormente para aproximar las esperanzas matemáticas.</p>
+<p><br></p>
 </div>
 <div id="asunciones-para-identificar-los-efectos-naturales" class="section level1">
 <h1>Asunciones para identificar los efectos naturales</h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Los efectos naturales directo (NDE) e indirecto (NIE) son identificados si (1) <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son independientes dado un set <span class="math inline">\(C\)</span> de covariables que incluye todas las variables confusoras, (2) <span class="math inline">\(M\)</span> e <span class="math inline">\(Y\)</span> son independientes dado X y C, (3) <span class="math inline">\(X\)</span> y <span class="math inline">\(M\)</span> son independientes dado C y (4) <span class="math inline">\(M\)</span> e <span class="math inline">\(Y\)</span> son independientes dado <span class="math inline">\(C\)</span> <span class="citation">(VanderWeele, Zhang, and Lim 2016)</span>.</p>
 <p><span class="math display">\[ Y \perp X \, | \, C \]</span> <span class="math display">\[ Y \perp M \, | \, X, C \]</span> <span class="math display">\[ M \perp X \, | \, C \]</span> <span class="math display">\[ Y \perp M \, | \, C \]</span></p>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Las asunciones (1) y (3) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (2) y (4) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variable confusoras. En este experimento <span class="math inline">\(M\)</span> no fue aleatorizado y en el <em>dataset</em> no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.</p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Las asunciones (1) y (3) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (2) y (4) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento <span class="math inline">\(M\)</span> no fue aleatorizado y en el <em>dataset</em> no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.</p>
 <p><br></p>
 </div>
 <div id="visualizacion-de-los-datos-y-asunciones-de-los-modelos" class="section level1">
@@ -491,11 +492,11 @@ for(i in 1:4) {
 }
 
 binomial_coefs_Grupo &lt;- t(rbind(upper.limit_grupo, odds_grupo, lower.limit_grupo))
-colnames(binomial_coefs_Grupo) &lt;- c(&quot;2.5%&quot;, &quot;Estimate&quot;, &quot;97.5%&quot;)
+colnames(binomial_coefs_Grupo) &lt;- c(&quot;2.5%&quot;, &quot;Estimación&quot;, &quot;97.5%&quot;)
 rownames(binomial_coefs_Grupo) &lt;- paste(&quot;Pr(Y) &lt;=&quot;, 1:4, sep = &quot; &quot;)
 
 binomial_coefs_Si &lt;- t(rbind(upper.limit_Si, odds_Si, lower.limit_Si))
-colnames(binomial_coefs_Si) &lt;- c(&quot;2.5%&quot;, &quot;Estimate&quot;, &quot;97.5%&quot;)
+colnames(binomial_coefs_Si) &lt;- c(&quot;2.5%&quot;, &quot;Estimación&quot;, &quot;97.5%&quot;)
 rownames(binomial_coefs_Si) &lt;- paste(&quot;Pr(Y) &lt;=&quot;, 1:4, sep = &quot; &quot;)
 
 kable(binomial_coefs_Grupo, digits = 3, caption = &quot;Coeficientes para la intervención&quot;, align = &quot;c&quot;) %&gt;%
@@ -515,7 +516,7 @@ Coeficientes para la intervención
 2.5%
 </th>
 <th style="text-align:center;">
-Estimate
+Estimación
 </th>
 <th style="text-align:center;">
 97.5%
@@ -593,7 +594,7 @@ Coeficientes para el número de administraciones del fármaco
 2.5%
 </th>
 <th style="text-align:center;">
-Estimate
+Estimación
 </th>
 <th style="text-align:center;">
 97.5%
@@ -1783,25 +1784,23 @@ Null_model &lt;- stan_model(model_code = Null, model_name = &quot;stanmodel&quot
 Alternative_model &lt;- stan_model(model_code = Alternative, model_name = &quot;stanmodel&quot;)
 
 # Tomamos muestras de las distribuciones posteriores:
-Null_fit &lt;- sampling(Null_model, data = data.list,
-                        iter = 20000, warmup = 1000, chains = 4, cores = 4,
-                        control = list(adapt_delta = .99))
-Alternative_fit &lt;- sampling(Alternative_model, data = data.list,
-                        iter = 20000, warmup = 1000, chains = 4, cores = 4,
-                        control = list(adapt_delta = .99))
+Null_fit &lt;- sampling(Null_model, data = data.list, iter = 20000, warmup = 1000, chains = 4, cores = 4,
+                        control = list(adapt_delta = .99), seed = 1)
+Alternative_fit &lt;- sampling(Alternative_model, data = data.list, iter = 20000, warmup = 1000, chains = 4, cores = 4,
+                        control = list(adapt_delta = .99), seed = 1)
 # Obtenemos los marginal likelihoods a través del método bridge sampling:
-ML_NULL &lt;- bridge_sampler(Null_fit, silent = TRUE)
+ML_Null &lt;- bridge_sampler(Null_fit, silent = TRUE)
 ML_Alternative &lt;- bridge_sampler(Alternative_fit, silent = TRUE)
 
 # Errores de medida en la computación de los marginal likelihoods
-print(error_measures(ML_NULL)$percentage)
-print(error_measures(ML_Alternative)$percentage)</code></pre>
-<pre><code>## [1] &quot;0.0301%&quot;
-## [1] &quot;0.0288%&quot;</code></pre>
+error_measures(ML_Null)$percentage
+error_measures(ML_Alternative)$percentage</code></pre>
+<pre><code>## [1] &quot;0.0288%&quot;
+## [1] &quot;0.0297%&quot;</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Computamos el factor de Bayes a favor de la hipótesis con el parámetro <span class="math inline">\(\delta\)</span>:</p>
-<pre class="r"><code>BF_Alternative_Null &lt;- bf(ML_Alternative, ML_NULL) # Factor de Bayes.
+<pre class="r"><code>BF_Alternative_Null &lt;- bf(ML_Alternative, ML_Null) # Factor de Bayes.
 BF_Alternative_Null</code></pre>
-<pre><code>## The estimated Bayes factor in favor of x1 over x2 is equal to: 47.70083</code></pre>
+<pre><code>## The estimated Bayes factor in favor of x1 over x2 is equal to: 47.68639</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Es muy difícil que las hipótesis que un investigador quiere contrastar estén disponibles por defecto en los paquetes estadísticos actuales y probablemente nunca sean lo suficientemente flexibles para adaptarlas. Sin embargo, con Stan <span class="citation">(Stan Development Team 2018)</span> y el paquete <em>brigdesampling</em> <span class="citation">(Gronau and Singmann 2017)</span> siempre podremos especificar nuestra hipótesis y obtener el factor de Bayes.</p>
 <pre class="r"><code># Para liberar memoria:
 rm(fit_M0, fit_M1, fit_M2, fit_M3)</code></pre>

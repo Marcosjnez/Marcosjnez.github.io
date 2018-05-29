@@ -1346,7 +1346,7 @@ BF_Alternative_Null
 ```
 
 ```{r Original_5, eval = T, echo = F}
-BF_Alternative_Null <- bf(ML_Alternative, ML_NULL)
+BF_Alternative_Null <- bf(ML_Alternative, ML_Null)
 BF_Alternative_Null
 ```
 
