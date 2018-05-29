@@ -51,8 +51,13 @@ load(file = "~/Documentos/Projects/website/TFG_Workspace.RData")
 <center> 
 <h1>Prácticas estadísticas para investigadores en psicología (Versión extendida)</h1>
 </center>
+load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 
 <br>
+-->
+
+<!--
+load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 -->
 
 # Abstract
@@ -1675,7 +1680,7 @@ table(mydata$Indicador[mydata$Grupo == 0])
 # Si estas predicciones no son buenas, entonces nuestro modelo no es una adecuada representación del proceso que ha generado las observaciones y debemos expandirlo con más parámetroso ajustar otro modelo y compararlo mediante WAIC o LOO. Si WAIC o LOO son menores para un determinado modelo, las predicciones son mejores.
 ```
 
-# Estimación los efectos naturales
+# Estimación de los efectos naturales
 
 $\indent$ En la siguiente figura se pueden observar las distribuciones posteriores de los efectos.
 

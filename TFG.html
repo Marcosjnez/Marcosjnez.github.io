@@ -244,7 +244,7 @@ Trabajo de Fin de Grado <br> Prácticas estadísticas para investigadores en psi
 <li><a href="#factor-de-bayes">Factor de Bayes</a></li>
 <li><a href="#factor-de-bayes-reportado-en-barberia2018">Factor de Bayes reportado en <span class="citation">Barberia (2018)</span></a></li>
 <li><a href="#analisis-bayesiano">Análisis bayesiano</a></li>
-<li><a href="#estimacion-los-efectos-naturales">Estimación los efectos naturales</a></li>
+<li><a href="#estimacion-de-los-efectos-naturales">Estimación de los efectos naturales</a></li>
 <li><a href="#discusion">Discusión</a></li>
 <li><a href="#paquetes-r-empleados">Paquetes R empleados</a></li>
 <li><a href="#informacion-de-la-sesion">Información de la sesión</a></li>
@@ -258,8 +258,12 @@ Trabajo de Fin de Grado <br> Prácticas estadísticas para investigadores en psi
 <center> 
 <h1>Prácticas estadísticas para investigadores en psicología (Versión extendida)</h1>
 </center>
+load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 
 <br>
+-->
+<!--
+load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 -->
 <div id="abstract" class="section level1">
 <h1>Abstract</h1>
@@ -2218,8 +2222,8 @@ table(mydata$Indicador[mydata$Grupo == 0])
 
 # Si estas predicciones no son buenas, entonces nuestro modelo no es una adecuada representación del proceso que ha generado las observaciones y debemos expandirlo con más parámetroso ajustar otro modelo y compararlo mediante WAIC o LOO. Si WAIC o LOO son menores para un determinado modelo, las predicciones son mejores.</code></pre>
 </div>
-<div id="estimacion-los-efectos-naturales" class="section level1">
-<h1>Estimación los efectos naturales</h1>
+<div id="estimacion-de-los-efectos-naturales" class="section level1">
+<h1>Estimación de los efectos naturales</h1>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En la siguiente figura se pueden observar las distribuciones posteriores de los efectos.</p>
 <pre class="r"><code>Intercepto_1 &lt;- post_modelo_ordinal$Intercepts[, 1]
 Intercepto_2 &lt;- post_modelo_ordinal$Intercepts[, 2]
