@@ -60,6 +60,8 @@ load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 -->
 
+<br>
+
 # Abstract
 
 <br>
@@ -1804,7 +1806,8 @@ prob_2 <- mean(posterior_NIE$value[posterior_NIE$Categoría == "Categoría 2"] >
 prob_3 <- mean(posterior_NIE$value[posterior_NIE$Categoría == "Categoría 3"] > 0)
 prob_4 <- mean(posterior_NIE$value[posterior_NIE$Categoría == "Categoría 4"] > 0)
 prob_5 <- mean(posterior_NIE$value[posterior_NIE$Categoría == "Categoría 5"] > 0)
-prob_NIE_above_0 <- data.frame("Categoría 1" = prob_1, "Categoría 2" = prob_2, "Categoría 3" = prob_3, "Categoría 4" = prob_4, "Categoría 5" = prob_5)
+prob_NIE_above_0 <- data.frame(prob_1, prob_2, prob_3, prob_4, prob_5)
+colnames(prob_NIE_above_0) <- paste("Categoría", seq(1:5), sep = " ")
 rownames(prob_NIE_above_0) <- "Probabilidad"
 
 kable(t(prob_NIE_above_0), digits = 5, align = "c") %>%

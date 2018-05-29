@@ -265,6 +265,7 @@ load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 <!--
 load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 -->
+<p><br></p>
 <div id="abstract" class="section level1">
 <h1>Abstract</h1>
 <p><br></p>
@@ -2336,7 +2337,8 @@ prob_2 &lt;- mean(posterior_NIE$value[posterior_NIE$Categoría == &quot;Categor�
 prob_3 &lt;- mean(posterior_NIE$value[posterior_NIE$Categoría == &quot;Categoría 3&quot;] &gt; 0)
 prob_4 &lt;- mean(posterior_NIE$value[posterior_NIE$Categoría == &quot;Categoría 4&quot;] &gt; 0)
 prob_5 &lt;- mean(posterior_NIE$value[posterior_NIE$Categoría == &quot;Categoría 5&quot;] &gt; 0)
-prob_NIE_above_0 &lt;- data.frame(&quot;Categoría 1&quot; = prob_1, &quot;Categoría 2&quot; = prob_2, &quot;Categoría 3&quot; = prob_3, &quot;Categoría 4&quot; = prob_4, &quot;Categoría 5&quot; = prob_5)
+prob_NIE_above_0 &lt;- data.frame(prob_1, prob_2, prob_3, prob_4, prob_5)
+colnames(prob_NIE_above_0) &lt;- paste(&quot;Categoría&quot;, seq(1:5), sep = &quot; &quot;)
 rownames(prob_NIE_above_0) &lt;- &quot;Probabilidad&quot;
 
 kable(t(prob_NIE_above_0), digits = 5, align = &quot;c&quot;) %&gt;%
@@ -2354,7 +2356,7 @@ Probabilidad
 <tbody>
 <tr>
 <td style="text-align:left;">
-Categoría.1
+Categoría 1
 </td>
 <td style="text-align:center;">
 0.99881
@@ -2362,7 +2364,7 @@ Categoría.1
 </tr>
 <tr>
 <td style="text-align:left;">
-Categoría.2
+Categoría 2
 </td>
 <td style="text-align:center;">
 0.99172
@@ -2370,7 +2372,7 @@ Categoría.2
 </tr>
 <tr>
 <td style="text-align:left;">
-Categoría.3
+Categoría 3
 </td>
 <td style="text-align:center;">
 0.57953
@@ -2378,7 +2380,7 @@ Categoría.3
 </tr>
 <tr>
 <td style="text-align:left;">
-Categoría.4
+Categoría 4
 </td>
 <td style="text-align:center;">
 0.00188
@@ -2386,7 +2388,7 @@ Categoría.4
 </tr>
 <tr>
 <td style="text-align:left;">
-Categoría.5
+Categoría 5
 </td>
 <td style="text-align:center;">
 0.00144
