@@ -13,11 +13,11 @@
 
 <meta name="date" content="2018-05-18" />
 
-<title>Trabajo de Fin de Grado</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -104,34 +104,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 60px;
+  padding-top: 51px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 
 .section h2 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h3 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h4 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h5 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h6 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 </style>
 
@@ -219,20 +219,48 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Trabajo de Fin de Grado</h1>
+<h1 class="title toc-ignore"><center>
+Trabajo de Fin de Grado <br> Prácticas estadísticas para investigadores en psicología (Versión extendida)
+</center></h1>
 <h4 class="author"><em>Marcos José Jiménez Henríquez</em></h4>
 <h4 class="date"><em>2018-05-18</em></h4>
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#introduccion">Introducción</a></li>
+<li><a href="#metodo-participantes-y-materiales">Método, participantes y materiales</a></li>
+<li><a href="#setup"><em>Setup</em></a></li>
+<li><a href="#hipotesis">Hipótesis</a></li>
+<li><a href="#descripcion-de-los-efectos-naturales">Descripción de los efectos naturales</a></li>
+<li><a href="#asunciones-para-identificar-los-efectos-naturales">Asunciones para identificar los efectos naturales</a></li>
+<li><a href="#visualizacion-de-los-datos-y-asuncion-del-modelo-logistico-cumulativo">Visualización de los datos y asunción del modelo logístico cumulativo</a></li>
+<li><a href="#modelos">Modelos</a></li>
+<li><a href="#tests-de-equivalencia-superioridad-e-inferioridad">Tests de equivalencia, superioridad e inferioridad</a></li>
+<li><a href="#estimacion-de-los-efectos-naturales-directos-indirectos-y-totales">Estimación de los efectos naturales directos, indirectos y totales</a></li>
+<li><a href="#test-de-rigor">Test de rigor</a></li>
+<li><a href="#factor-de-bayes">Factor de Bayes</a></li>
+<li><a href="#factor-de-bayes-reportado-en-barberia2018">Factor de Bayes reportado en <span class="citation">Barberia (2018)</span></a></li>
+<li><a href="#analisis-bayesiano">Análisis bayesiano</a></li>
+<li><a href="#estimacion-los-efectos-naturales">Estimación los efectos naturales</a></li>
+<li><a href="#discusion">Discusión</a></li>
+<li><a href="#paquetes-r-empleados">Paquetes R empleados</a></li>
+<li><a href="#informacion-de-la-sesion">Información de la sesión</a></li>
+<li><a href="#referencias">Referencias</a></li>
+</ul>
+</div>
 
-<p><br></p>
-<center>
-<h1>
-Prácticas estadísticas para investigadores en psicología
-</h1>
+<!--
+<br>
+
+<center> 
+<h1>Prácticas estadísticas para investigadores en psicología (Versión extendida)</h1>
 </center>
-<p><br></p>
+
+<br>
+-->
 <div id="abstract" class="section level1">
 <h1>Abstract</h1>
 <p><br></p>
@@ -428,8 +456,8 @@ dag2</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Las asunciones (1) y (3) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (2) y (4) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento <span class="math inline">\(M\)</span> no fue aleatorizado y en el <em>dataset</em> no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.</p>
 <p><br></p>
 </div>
-<div id="visualizacion-de-los-datos-y-asunciones-de-los-modelos" class="section level1">
-<h1>Visualización de los datos y asunciones de los modelos</h1>
+<div id="visualizacion-de-los-datos-y-asuncion-del-modelo-logistico-cumulativo" class="section level1">
+<h1>Visualización de los datos y asunción del modelo logístico cumulativo</h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Visualización preliminar de la relación entre el indicador y las covariables:</p>
 <pre class="r"><code>data_Grupo_1 &lt;- mydata %&gt;% filter(Grupo == 1) # Datos del grupo que recibe la intervención.
@@ -747,11 +775,31 @@ odds.ratios_XM</code></pre>
 <pre class="r"><code>modelo_XMY &lt;- vglm(Indicador ~ Grupo + Si, family = cumulative(parallel = F ~ Grupo), data = mydata)
 odds.ratios_XMY &lt;- exp(-cbind(coef(modelo_XMY), confint(modelo_XMY)))
 summary_modelo_XMY &lt;- summary(modelo_XMY)@coef3
-
-# También ajustaremos otro modelo parcial logístico cumulativo regresando el indicador solamente en la intervención, aunque no es necesario para obtener los efectos naturales:
-modelo_XY &lt;- vglm(Indicador ~ Grupo, family = cumulative(parallel = F ~ Grupo, reverse = T), data = mydata)
+odds.ratios_XMY</code></pre>
+<pre><code>##                                  2.5 %       97.5 %
+## (Intercept):1 0.1015826325 0.412609003 0.0250092246
+## (Intercept):2 0.0444277624 0.179293542 0.0110089078
+## (Intercept):3 0.0078981658 0.036210022 0.0017227557
+## (Intercept):4 0.0007460076 0.005143112 0.0001082083
+## Grupo:1       0.6034088452 1.828980557 0.1990738682
+## Grupo:2       0.7914697709 2.137970906 0.2929994961
+## Grupo:3       0.7857085018 2.124413631 0.2905921148
+## Grupo:4       0.2887330438 2.613733816 0.0318956621
+## Si            1.2151276684 1.286966998 1.1472984563</code></pre>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> También ajustaremos otro modelo parcial logístico cumulativo regresando el indicador solamente en la intervención, aunque no es necesario para obtener los efectos naturales:</p>
+<pre class="r"><code>modelo_XY &lt;- vglm(Indicador ~ Grupo, family = cumulative(parallel = F ~ Grupo, reverse = T), data = mydata)
 odds.ratios_XY &lt;- exp(cbind(coef(modelo_XY), confint(modelo_XY)))
-summary_modelo_XY &lt;- summary(modelo_XY)@coef3</code></pre>
+summary_modelo_XY &lt;- summary(modelo_XY)@coef3
+odds.ratios_XY</code></pre>
+<pre><code>##                              2.5 %     97.5 %
+## (Intercept):1 5.5555556 2.73220728 11.2964334
+## (Intercept):2 2.9333333 1.63253389  5.2706069
+## (Intercept):3 0.9032258 0.54184524  1.5056271
+## (Intercept):4 0.2040816 0.10338035  0.4028745
+## Grupo:1       0.2652632 0.10590612  0.6644049
+## Grupo:2       0.3557312 0.15685858  0.8067439
+## Grupo:3       0.3795918 0.16531259  0.8716212
+## Grupo:4       0.1065217 0.01311733  0.8650296</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> A continuación se exponen brevemente las principales ideas subyacentes a cada método estadístico y se discuten los resultados obtenidos en acordancia.</p>
 <p><br></p>
 </div>
@@ -831,7 +879,7 @@ grid.arrange(plot5, plot6, nrow = 1, bottom = textGrob(&quot;Razón de momios&qu
 <p><br></p>
 </div>
 <div id="estimacion-de-los-efectos-naturales-directos-indirectos-y-totales" class="section level1">
-<h1>Estimación de los efectos naturales directos, indirectos y totales:</h1>
+<h1>Estimación de los efectos naturales directos, indirectos y totales</h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En general, los resultados sugerieren que existe un efecto total sobre la percepción de eficacia del fármaco atribuible a la intervención educativa <span class="math inline">\(X\)</span> y que es transmitido a <span class="math inline">\(Y\)</span> por medio de <span class="math inline">\(M\)</span>, tal y como hipotetizaron <span class="citation">Barberia (2018)</span>. Sin embargo, interpretar razones de momios puede resultar una tarea compleja. Las siguientes tablas muestran los efectos naturales directos, indirectos y totales, así como sus intervalos de confianza del 95%.</p>
 <pre class="r"><code># Función para obtener las probabilidades predichas por nuestro modelo logístico cumulativo:
@@ -1201,12 +1249,12 @@ Categoría 5
 </tr>
 </tbody>
 </table>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> El <span class="math inline">\(NDE\)</span> en la categoría 1 es interpretado de la siguiente manera: se estima que, si los participantes del experimento hubieran sido expuestos a la intervención pero se eliminara su efecto sobre la decisión de administrar el fármaco, existiría un 5.6% más de probabilidades de puntuar en esa categoría respecto a no pasar por la intervención. El intervalo de confianza <span class="math inline">\((-5.3\%, 20.9\%)\)</span> contiene el verdadero valor con un 95% de probabilidad. Por otro lado, para la misma categoría, el <span class="math inline">\(NIE\)</span> es interpretado de la siguiente manera: si ningún participante fuera expuesto a la intervención pero decidieran administrar el fármaco como si hubieran pasado por ella, habría un incremento del 18.4% en las probabilidades de puntuar en esa categoría respecto a la situación en la que administrasen el fármaco como si no hubieran pasado por la intervención.</p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> El <span class="math inline">\(NDE\)</span> en la categoría 1 es interpretado de la siguiente manera: se estima que, si los participantes del experimento hubieran sido expuestos a la intervención pero se eliminara su efecto sobre la decisión de administrar el fármaco, existiría un 5.6% más de probabilidades de puntuar en esa categoría respecto a no pasar por la intervención. El intervalo de confianza <span class="math inline">\((-5.1\%, \, 21.1\%)\)</span> contiene el verdadero valor con un 95% de probabilidad. Por otro lado, para la misma categoría, el <span class="math inline">\(NIE\)</span> es interpretado de la siguiente manera: si ningún participante fuera expuesto a la intervención pero decidieran administrar el fármaco como si hubieran pasado por ella, habría un incremento del 18.4% en las probabilidades de puntuar en esa categoría respecto a la situación en la que administrasen el fármaco como si no hubieran pasado por la intervención.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Aquí podríamos haber establecido el mínimo efecto de interés, en lugar de en los parámetros, ya que estos resultados son más intuitivos que las razones de momios.</p>
 <p><br></p>
 </div>
 <div id="test-de-rigor" class="section level1">
-<h1>Test de rigor:</h1>
+<h1>Test de rigor</h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Esta perspectiva engloba una filosofía madura que reúne los mejores aspectos de las concepciones de Fisher y Neyman<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> <span class="citation">(Mayo and Spanos 2006, <span class="citation">Mayo and Spanos (2011)</span>)</span>. A diferencia de la visión conductual anterior, se considera que calibrar el porcentage de veces que uno realiza inferencias incorrectas no es suficiente. También es necesario poner de relieve el rigor (<em>severity</em>) con el que se sostienen hipotéticas inferencias sobre el valor del parámetro. Esta idea se ilustra en un principio fundamental:</p>
 <p><strong>Principio de rigor</strong>: Si una hipótesis pasa un test que posee una alta probabilidad de detectar una incompatibilidad con ella, entonces existe evidencia a favor de dicha hipótesis. Por el contrario, si los datos obtenidos concuerdan con la hipótesis pero, aún siendo verdadera, el test es incapaz de detectar una incompatibilidad con alta probabilidad, entonces no existe suficiente evidencia a favor de la misma.</p>
@@ -1323,7 +1371,7 @@ plot9 &lt;- p + theme_gray() +
 plot7 + plot8 + plot9 + plot_layout(nrow = 2, widths = c(2, 2, 1))
 </code></pre>
 <p><img src="TFG_files/figure-html/Severity_2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> El parámetro <span class="math inline">\(\beta^\prime_{MY}\)</span> es interpretado como sigue: si su valor real fuera, aproximadamente, 1.15, entonces se habría obtenido con un 97.5% de probabilidad un efecto menor al estimado (<span class="math inline">\(\simeq{1.21}\)</span>). Por tanto, la inferencia <span class="math inline">\(\beta^\prime_{MY} &gt; 1.15\)</span> pasa el test con alto rigor. Igualmente, si el valor real del parámetro <span class="math inline">\(\beta^\prime_{XY_1}\)</span> fuera 0.2, entonces se habría observado, con un 97.5% de probabilidad, un efecto mayor al obtenido (<span class="math inline">\(\simeq{0.6}\)</span>). Por tanto, podemos inferir con gran rigor que <span class="math inline">\(\beta^\prime_{XY_1} &gt; 0.2\)</span>.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> Siguiendo el mismo principio, podemos estimar los NDE, NIE y TE de cada categoría que estamos en disposición de inferir con rigor. Para ello computamos tales efectos usando un valor de los parámetros para los que se cuente con suficiente evidencia. En el caso de <span class="math inline">\(\beta^\prime_{MY}\)</span> hemos constatado buena evidencia de que es superior a 1.15. En cuanto a <span class="math inline">\(\beta_{XM}\)</span>, podemos garantizar con otro 97.5% de rigor que la razón de momios es inferior a 0.662. Respecto a las <span class="math inline">\(\beta^\prime_{MY}\)</span>, no podemos inferir con rigor que desempeñen algún efecto por lo que las ponemos a 0. De esta manera, el NDE es 0 y el NIE es similar al efecto total TE. Los resultados indican que el máximo efecto que podemos inferir con más que razonable evidencia es un aumento de, al menos, el 9.9% en la probabilidad de puntuar en la primera categoría en detrimento de las categorías 3, 4 y 5.</p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> El parámetro <span class="math inline">\(\beta^\prime_{MY}\)</span> es interpretado como sigue: si su valor real fuera, aproximadamente, 1.15, entonces se habría obtenido con un 97.5% de probabilidad un efecto menor al estimado (<span class="math inline">\(\simeq{1.21}\)</span>). Por tanto, la inferencia <span class="math inline">\(\beta^\prime_{MY} &gt; 1.15\)</span> pasa el test con alto rigor. Igualmente, si el valor real del parámetro <span class="math inline">\(\beta^\prime_{XY_1}\)</span> fuera 0.2, entonces se habría observado, con un 97.5% de probabilidad, un efecto mayor al obtenido (<span class="math inline">\(\simeq{0.6}\)</span>). Por tanto, podemos inferir con gran rigor que <span class="math inline">\(\beta^\prime_{XY_1} &gt; 0.2\)</span>.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> Siguiendo el mismo principio, podemos estimar los NDE, NIE y TE de cada categoría que estamos en disposición de inferir con rigor. Para ello computamos tales efectos usando un valor de los parámetros para los que se cuente con suficiente evidencia. En el caso de <span class="math inline">\(\beta^\prime_{MY}\)</span> hemos constatado buena evidencia que es superior a 1.15. En cuanto a <span class="math inline">\(\beta_{XM}\)</span>, podemos garantizar con otro 97.5% de rigor que la razón de momios es inferior a 0.662. Respecto a las <span class="math inline">\(\beta^\prime_{MY}\)</span>, no podemos inferir con rigor que desempeñen algún efecto por lo que las ponemos a 0. De esta manera, el NDE es 0 y el NIE es similar al efecto total (TE). Tras realizar las simulaciones para estimar las condiciones contrafactuales, los resultados indican que el máximo efecto que podemos inferir con más que razonable evidencia es un aumento de, al menos, un 9.9% de probabilidades de puntuar en la primera categoría en detrimento de las categorías 3, 4 y 5.</p>
 <pre class="r"><code>  Intercept &lt;- summary_modelo_XM[1, &quot;Estimate&quot;]
   Coefficient &lt;- summary_modelo_XM[&quot;Grupo&quot;, &quot;Estimate&quot;] + summary_modelo_XM[&quot;Grupo&quot;, &quot;Std. Error&quot;] * qnorm(0.975)
   prob1 &lt;- exp(Intercept + 1 * Coefficient) / (1 + exp(Intercept + 1 * Coefficient))
@@ -1419,7 +1467,7 @@ Categoría 5
 <p><br></p>
 </div>
 <div id="factor-de-bayes" class="section level1">
-<h1>Factor de Bayes:</h1>
+<h1>Factor de Bayes</h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Con el desarrollo de procesadores más potentes y sofisticado <em>software</em> los métodos bayesianos han ido adquiriendo creciente popularidad. Sin embargo, las diferencias que los separan de los tradicionales no son nimios sino que trascienden hasta el mismo concepto de probabilidad. Este término ya no es interpretado como la frecuencia de un evento en un proceso aleatorio sino que atañe una noción personal y subjetiva. Esta nueva noción está presente en el Teorema de Bayes como una distribución a priori <span class="math inline">\(p(\theta)\)</span> que representa la verosimilitud subjetiva de cada posible valor del parámetro antes de observar los datos.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Teorema de Bayes:</p>
@@ -1664,8 +1712,10 @@ ML_M3 &lt;- bridge_sampler(fit_M3, method = &quot;normal&quot;, silent = TRUE)
 # Errores de medida al computar los marginal likelihoods:
 # error_measures(ML_M2)$percentage
 # error_measures(ML_M3)$percentage</code></pre>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> De esta manera, si <span class="math inline">\(\text{BF}_{10} &gt; 1\)</span> y <span class="math inline">\(\text{BF}_{23} &gt; 1\)</span> entonces existe evidencia a favor del modelo <span class="math inline">\(M_1\)</span> y <span class="math inline">\(M_2\)</span>, respectivamente, indicando, a su vez, que existe evidencia a favor de la mediación. Sin embargo, la evidencia o factor de Bayes de este efecto mediacional es obtenido a través de la multiplicación de las probabilidades posteriores, para las cuales debemos especificar la credibilidad que concedemos a cada hipótesis (<span class="math inline">\(M_0\)</span>, <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span>, <span class="math inline">\(M_3\)</span>$):</p>
-<p><span class="math display">\[ \text{BF}_{mediación} = \frac{p(M_1\, | \,y) \cdot p(M_2\, | \,y)}{1 - p(M_1\, | \,y) \cdot p(M_2\, | \,y)} \]</span> <span class="math display">\[ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \]</span></p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> De esta manera, si <span class="math inline">\(\text{BF}_{10} &gt; 1\)</span> y <span class="math inline">\(\text{BF}_{23} &gt; 1\)</span> entonces existe evidencia a favor del modelo <span class="math inline">\(M_1\)</span> y <span class="math inline">\(M_2\)</span>, respectivamente, indicando, a su vez, que existe evidencia a favor de la mediación. Sin embargo, la evidencia o factor de Bayes de este efecto mediacional es obtenido a través de la multiplicación de las probabilidades posteriores, para las cuales debemos especificar la credibilidad que concedemos a cada hipótesis (<span class="math inline">\(M_0\)</span>, <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span>, <span class="math inline">\(M_3\)</span>):</p>
+<p><span class="math display">\[ \text{BF}_{mediación} = \frac{p(M_1\, | \,y) \cdot p(M_2\, | \,y)}{1 - p(M_1\, | \,y) \cdot p(M_2\, | \,y)} \]</span></p>
+<p><br></p>
+<p><span class="math display">\[ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \]</span></p>
 <pre class="r"><code>BF10 &lt;- bf(ML_M1, ML_M0)$bf # Factor de Bayes
 BF10
 ## [1] 523.2004</code></pre>
@@ -1706,7 +1756,7 @@ BF_mediacion
 <p><br></p>
 </div>
 <div id="factor-de-bayes-reportado-en-barberia2018" class="section level1">
-<h1>Factor de Bayes reportado en <span class="citation">Barberia (2018)</span>:</h1>
+<h1>Factor de Bayes reportado en <span class="citation">Barberia (2018)</span></h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Los autores del paper original <span class="citation">Barberia (2018)</span> realizaron un t-test bayesiano ordinario con varianzas equivalentes entre grupos y reportaron un factor de Bayes. Aunque este método es computacionalmente menos eficiente, también podemos aproximarlo especificando el t-test en Stan y usando bridge sampling. La parametrización de este modelo está especificado en <span class="citation">Wetzels et al. (2009)</span> con la diferencia de presentar las siguientes distribuciones a priori:</p>
 <p><span class="math display">\[ \mu \sim \text{Cauchy}(0, 1) \]</span> <span class="math display">\[ \delta \sim \text{HalfCauchy}(0, .7071) \]</span> <span class="math display">\[ \sigma \sim \frac{1}{\sigma} \]</span></p>
@@ -1807,7 +1857,7 @@ rm(fit_M0, fit_M1, fit_M2, fit_M3)</code></pre>
 <p><br></p>
 </div>
 <div id="analisis-bayesiano" class="section level1">
-<h1>Análisis bayesiano:</h1>
+<h1>Análisis bayesiano</h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> A diferencia del método anterior, el análisis bayesiano tradicional no pretende comparar modelos asignándoles probabilidades ni representar una hipótesis a través de distribuciones a priori en los parámetros. En su lugar, pretende obtener la distribución posterior de cada uno de ellos a partir de distribuciones a priori que asignan una mayor probabilidad a los valores más razonables y sancionan los menos razonables. De esta forma, el análisis bayesiano se puede considerar un método que optimiza o regulariza los resultados incorporando en la inferencia el conocimiento previo que los investigadores poseen acerca de los parámetros.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En este caso simplemente queremos obtener la distribución de probabilidad posterior de los parámetros condicionando en los datos observados <span class="math inline">\(p(\theta \, | \, y)\)</span>. Por tanto, tan solo debemos volver a ajustar los anteriores modelos. También utilizaremos las mismas distribuciones a priori para mantener el análisis simple.</p>
@@ -2169,7 +2219,7 @@ table(mydata$Indicador[mydata$Grupo == 0])
 # Si estas predicciones no son buenas, entonces nuestro modelo no es una adecuada representación del proceso que ha generado las observaciones y debemos expandirlo con más parámetroso ajustar otro modelo y compararlo mediante WAIC o LOO. Si WAIC o LOO son menores para un determinado modelo, las predicciones son mejores.</code></pre>
 </div>
 <div id="estimacion-los-efectos-naturales" class="section level1">
-<h1>Estimación los efectos naturales:</h1>
+<h1>Estimación los efectos naturales</h1>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En la siguiente figura se pueden observar las distribuciones posteriores de los efectos.</p>
 <pre class="r"><code>Intercepto_1 &lt;- post_modelo_ordinal$Intercepts[, 1]
 Intercepto_2 &lt;- post_modelo_ordinal$Intercepts[, 2]
@@ -2281,7 +2331,7 @@ prob_3 &lt;- mean(posterior_NIE$value[posterior_NIE$Categoría == &quot;Categor�
 prob_4 &lt;- mean(posterior_NIE$value[posterior_NIE$Categoría == &quot;Categoría 4&quot;] &gt; 0)
 prob_5 &lt;- mean(posterior_NIE$value[posterior_NIE$Categoría == &quot;Categoría 5&quot;] &gt; 0)
 prob_NIE_above_0 &lt;- data.frame(&quot;Categoría 1&quot; = prob_1, &quot;Categoría 2&quot; = prob_2, &quot;Categoría 3&quot; = prob_3, &quot;Categoría 4&quot; = prob_4, &quot;Categoría 5&quot; = prob_5)
-rownames(prob_NIE_above_0) &lt;- &quot;Probability&quot;
+rownames(prob_NIE_above_0) &lt;- &quot;Probabilidad&quot;
 
 kable(t(prob_NIE_above_0), digits = 5, align = &quot;c&quot;) %&gt;%
   kable_styling(bootstrap_options = &quot;striped&quot;, full_width = F)</code></pre>
@@ -2291,7 +2341,7 @@ kable(t(prob_NIE_above_0), digits = 5, align = &quot;c&quot;) %&gt;%
 <th style="text-align:left;">
 </th>
 <th style="text-align:center;">
-Probability
+Probabilidad
 </th>
 </tr>
 </thead>
@@ -2342,7 +2392,7 @@ Categoría.5
 <p><br></p>
 </div>
 <div id="discusion" class="section level1">
-<h1>Discusión:</h1>
+<h1>Discusión</h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En este manuscrito se han tratado brevemente cuatro métodos populares con los que analizar datos experimentales en psicología. Sin embargo, existe una gran diferencia entre ellos que suele pasar desapercibida. Entre los análisis frecuentistas, mientras que los tests de equivalencia, superioridad e inferioridad son meramente instrumentos para guiar el comportamiento del investigador a largo plazo de manera que no consuma sus recursos sin obtener resultados que considera de relevancia, la aproximación de <span class="citation">Mayo and Cox (2006)</span> entraña toda una filosofía de la ciencia aplicada a nivel estadístico. Esta filosofía declara que se puede obtener un nivel de evidencia para cada posible valor del parámetro tomando en consideración la capacidad del test, en términos de potencia estadística, para descubrir discrepancias entre las predicciones del modelo nulo y los datos.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Por otra parte, la inferencia bayesiana reconceptualidad el término probabilidad para dotarle de una subjetividad que es introducida en forma de distribuciones probabilísticas a priori. Quienes advocan por considerar que una medida de evidencia es manifestada en forma de factor de Bayes, consideran que dicha subjetividad se corresponde con la creencia que el investigador otorga a cada hipótesis que quiere contrastar y el nivel de evidencia viene determinada por el impacto que los datos ejercen sobre dicha creencia. Una implicación inmediata de esta perspectiva requiere que dicha evidencia siempre sea de naturaleza comparativa pues se corresponde con la razón entre las predicciones que distintos modelo realizan sobre los datos. Por el contrario, otros bayesianos prefieren concebir la subjetividad como un conocimiento previo sobre la distribución del parámetro o una manifestación de su incertidumbre que regulariza los resultados. Para estos, las distribuciones posteriores aportan la evidencia misma, no es necesario establecer creencias sobre hipótesis y compararlas. Además, dado que el objetivo es regularizar los resultados sancionando valores improbables o imposibles del parámetro, una recomendación frecuente es analizar los datos varias veces modificando las distribuciones a priori y observar cómo afectan a las posteriores (<em>sensitivity analysis</em>).</p>
@@ -2351,13 +2401,13 @@ Categoría.5
 <p><br></p>
 </div>
 <div id="paquetes-r-empleados" class="section level1">
-<h1>Paquetes R empleados:</h1>
+<h1>Paquetes R empleados</h1>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> A continuación se citan los principales paquetes R empleados: <span class="citation">Auguie (2017)</span>, <span class="citation">Barrett (2018)</span>, <span class="citation">Gabry and Mahr (2017)</span>, <span class="citation">Gronau and Singmann (2017)</span>, <span class="citation">Meschiari (2015)</span>, <span class="citation">Pedersen (2017)</span>, <span class="citation">R Core Team (2018)</span>, <span class="citation">Stan Development Team (2017)</span>, <span class="citation">Stan Development Team (2018)</span>, <span class="citation">Textor and van der Zander (2016)</span>, <span class="citation">Vehtari et al. (2018)</span>, <span class="citation">Wickham (2016)</span>, <span class="citation">Wickham (2017)</span>, <span class="citation">Yee (2018)</span>.</p>
 <p><br></p>
 </div>
 <div id="informacion-de-la-sesion" class="section level1">
-<h1>Información de la sesión:</h1>
+<h1>Información de la sesión</h1>
 <p><br></p>
 <pre class="r"><code>sessionInfo()
 ## R version 3.4.4 (2018-03-15)
@@ -2428,7 +2478,7 @@ Categoría.5
 <p><br></p>
 </div>
 <div id="referencias" class="section level1">
-<h1>Referencias:</h1>
+<h1>Referencias</h1>
 <p><br></p>
 <div id="refs" class="references">
 <div id="ref-Andrew">

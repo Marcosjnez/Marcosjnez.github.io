@@ -1,10 +1,12 @@
 ---
-title: "Trabajo de Fin de Grado"
+title: "<center> Trabajo de Fin de Grado <br> Prácticas estadísticas para investigadores en psicología (Versión extendida) </center>"
 shorttitle: "TFG"
 author: "Marcos José Jiménez Henríquez"
 date: '2018-05-18'
 output:
   html_document:
+    toc: true
+    theme: united
     code_folding: hide
     css: style.css
 categories:
@@ -43,13 +45,15 @@ knitr::opts_chunk$set(collapse = TRUE)
 load(file = "~/Documentos/Projects/website/TFG_Workspace.RData")
 ```
 
+<!--
 <br>
 
 <center> 
-<h1>Prácticas estadísticas para investigadores en psicología</h1>
+<h1>Prácticas estadísticas para investigadores en psicología (Versión extendida)</h1>
 </center>
 
 <br>
+-->
 
 # Abstract
 
@@ -303,7 +307,7 @@ $\indent$ Las asunciones (1) y (3) son automáticamente satisfechas por la aleat
 
 <br>
 
-# Visualización de los datos y asunciones de los modelos
+# Visualización de los datos y asunción del modelo logístico cumulativo
 
 <br>
 
@@ -471,11 +475,24 @@ $\indent$ Los grados de libertad son aproximadamente 1, por lo que utilizaremos 
 modelo_XMY <- vglm(Indicador ~ Grupo + Si, family = cumulative(parallel = F ~ Grupo), data = mydata)
 odds.ratios_XMY <- exp(-cbind(coef(modelo_XMY), confint(modelo_XMY)))
 summary_modelo_XMY <- summary(modelo_XMY)@coef3
+odds.ratios_XMY
+```
 
-# También ajustaremos otro modelo parcial logístico cumulativo regresando el indicador solamente en la intervención, aunque no es necesario para obtener los efectos naturales:
+```{r Modelos_5, eval = T, echo = F}
+odds.ratios_XMY
+```
+
+$\indent$ También ajustaremos otro modelo parcial logístico cumulativo regresando el indicador solamente en la intervención, aunque no es necesario para obtener los efectos naturales:
+
+```{r Modelos_6, eval = F, echo = T}
 modelo_XY <- vglm(Indicador ~ Grupo, family = cumulative(parallel = F ~ Grupo, reverse = T), data = mydata)
 odds.ratios_XY <- exp(cbind(coef(modelo_XY), confint(modelo_XY)))
 summary_modelo_XY <- summary(modelo_XY)@coef3
+odds.ratios_XY
+```
+
+```{r Modelos_7, eval = T, echo = F}
+odds.ratios_XY
 ```
 
 $\indent$ A continuación se exponen brevemente las principales ideas subyacentes a cada método estadístico y se discuten los resultados obtenidos en acordancia.
@@ -572,7 +589,7 @@ grid.arrange(plot5, plot6, nrow = 1, bottom = textGrob("Razón de momios", vjust
 
 <br>
 
-# Estimación de los efectos naturales directos, indirectos y totales:
+# Estimación de los efectos naturales directos, indirectos y totales
 
 <br>
 
@@ -681,13 +698,13 @@ kable(TEs, digits = 3, caption = "Efecto Total", align = "c") %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
-$\indent$ El $NDE$ en la categoría 1 es interpretado de la siguiente manera: se estima que, si los participantes del experimento hubieran sido expuestos a la intervención pero se eliminara su efecto sobre la decisión de administrar el fármaco, existiría un 5.6% más de probabilidades de puntuar en esa categoría respecto a no pasar por la intervención. El intervalo de confianza $(-5.3\%, 20.9\%)$ contiene el verdadero valor con un 95% de probabilidad. Por otro lado, para la misma categoría, el $NIE$ es interpretado de la siguiente manera: si ningún participante fuera expuesto a la intervención pero decidieran administrar el fármaco como si hubieran pasado por ella, habría un incremento del 18.4% en las probabilidades de puntuar en esa categoría respecto a la situación en la que administrasen el fármaco como si no hubieran pasado por la intervención.
+$\indent$ El $NDE$ en la categoría 1 es interpretado de la siguiente manera: se estima que, si los participantes del experimento hubieran sido expuestos a la intervención pero se eliminara su efecto sobre la decisión de administrar el fármaco, existiría un 5.6% más de probabilidades de puntuar en esa categoría respecto a no pasar por la intervención. El intervalo de confianza $(-5.1\%, \, 21.1\%)$ contiene el verdadero valor con un 95% de probabilidad. Por otro lado, para la misma categoría, el $NIE$ es interpretado de la siguiente manera: si ningún participante fuera expuesto a la intervención pero decidieran administrar el fármaco como si hubieran pasado por ella, habría un incremento del 18.4% en las probabilidades de puntuar en esa categoría respecto a la situación en la que administrasen el fármaco como si no hubieran pasado por la intervención.
 
 $\indent$ Aquí podríamos haber establecido el mínimo efecto de interés, en lugar de en los parámetros, ya que estos resultados son más intuitivos que las razones de momios.
 
 <br>
 
-# Test de rigor:
+# Test de rigor
 
 <br>
 
@@ -828,7 +845,7 @@ plot7 + plot8 + plot9 + plot_layout(nrow = 2, widths = c(2, 2, 1))
 plot7 + plot8 + plot9 + plot_layout(nrow = 2, widths = c(2, 2, 1))
 ```
 
-$\indent$ El parámetro $\beta^\prime_{MY}$ es interpretado como sigue: si su valor real fuera, aproximadamente, 1.15, entonces se habría obtenido con un 97.5% de probabilidad un efecto menor al estimado ($\simeq{1.21}$). Por tanto, la inferencia $\beta^\prime_{MY} > 1.15$ pasa el test con alto rigor. Igualmente, si el valor real del parámetro $\beta^\prime_{XY_1}$ fuera 0.2, entonces se habría observado, con un 97.5% de probabilidad, un efecto mayor al obtenido ($\simeq{0.6}$). Por tanto, podemos inferir con gran rigor que $\beta^\prime_{XY_1} > 0.2$ [^9]. Siguiendo el mismo principio, podemos estimar los NDE, NIE y TE de cada categoría que estamos en disposición de inferir con rigor. Para ello computamos tales efectos usando un valor de los parámetros para los que se cuente con suficiente evidencia. En el caso de $\beta^\prime_{MY}$ hemos constatado buena evidencia de que es superior a 1.15. En cuanto a $\beta_{XM}$, podemos garantizar con otro 97.5% de rigor que la razón de momios es inferior a 0.662. Respecto a las $\beta^\prime_{MY}$, no podemos inferir con rigor que desempeñen algún efecto por lo que las ponemos a 0. De esta manera, el NDE es 0 y el NIE es similar al efecto total TE. Los resultados indican que el máximo efecto que podemos inferir con más que razonable evidencia es un aumento de, al menos, el 9.9% en la probabilidad de puntuar en la primera categoría en detrimento de las categorías 3, 4 y 5.
+$\indent$ El parámetro $\beta^\prime_{MY}$ es interpretado como sigue: si su valor real fuera, aproximadamente, 1.15, entonces se habría obtenido con un 97.5% de probabilidad un efecto menor al estimado ($\simeq{1.21}$). Por tanto, la inferencia $\beta^\prime_{MY} > 1.15$ pasa el test con alto rigor. Igualmente, si el valor real del parámetro $\beta^\prime_{XY_1}$ fuera 0.2, entonces se habría observado, con un 97.5% de probabilidad, un efecto mayor al obtenido ($\simeq{0.6}$). Por tanto, podemos inferir con gran rigor que $\beta^\prime_{XY_1} > 0.2$ [^9]. Siguiendo el mismo principio, podemos estimar los NDE, NIE y TE de cada categoría que estamos en disposición de inferir con rigor. Para ello computamos tales efectos usando un valor de los parámetros para los que se cuente con suficiente evidencia. En el caso de $\beta^\prime_{MY}$ hemos constatado buena evidencia que es superior a 1.15. En cuanto a $\beta_{XM}$, podemos garantizar con otro 97.5% de rigor que la razón de momios es inferior a 0.662. Respecto a las $\beta^\prime_{MY}$, no podemos inferir con rigor que desempeñen algún efecto por lo que las ponemos a 0. De esta manera, el NDE es 0 y el NIE es similar al efecto total (TE). Tras realizar las simulaciones para estimar las condiciones contrafactuales, los resultados indican que el máximo efecto que podemos inferir con más que razonable evidencia es un aumento de, al menos, un 9.9% de probabilidades de puntuar en la primera categoría en detrimento de las categorías 3, 4 y 5.
 
 [^9]: Nótese que los valores de rigor al 97.5% coinciden con los límites de confianza del intervalo de los respectivos parámetros al 95%. Sin embargo, esta nueva interpretación y visualización nos aporta información sobre el grado de evidencia (rigor) con el que se puede inferir cualquier posible valor que pueden tomar los parámetros.
 
@@ -882,7 +899,7 @@ Con la finalidad de familiarizar al lector con esta manera de interpretar la evi
 
 <br>
 
-# Factor de Bayes:
+# Factor de Bayes
 
 <br>
 
@@ -1167,9 +1184,12 @@ ML_M3 <- bridge_sampler(fit_M3, method = "normal", silent = TRUE)
 # error_measures(ML_M3)$percentage
 ```
 
-$\indent$ De esta manera, si $\text{BF}_{10} > 1$ y $\text{BF}_{23} > 1$ entonces existe evidencia a favor del modelo $M_1$ y $M_2$, respectivamente, indicando, a su vez, que existe evidencia a favor de la mediación. Sin embargo, la evidencia o factor de Bayes de este efecto mediacional es obtenido a través de la multiplicación de las probabilidades posteriores, para las cuales debemos especificar la credibilidad que concedemos a cada hipótesis ($M_0$, $M_1$, $M_2$, $M_3$$):
+$\indent$ De esta manera, si $\text{BF}_{10} > 1$ y $\text{BF}_{23} > 1$ entonces existe evidencia a favor del modelo $M_1$ y $M_2$, respectivamente, indicando, a su vez, que existe evidencia a favor de la mediación. Sin embargo, la evidencia o factor de Bayes de este efecto mediacional es obtenido a través de la multiplicación de las probabilidades posteriores, para las cuales debemos especificar la credibilidad que concedemos a cada hipótesis ($M_0$, $M_1$, $M_2$, $M_3$):
 
 $$ \text{BF}_{mediación} = \frac{p(M_1\, | \,y) \cdot p(M_2\, | \,y)}{1 - p(M_1\, | \,y) \cdot p(M_2\, | \,y)} $$
+
+<br>
+
 $$ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} $$
 
 ```{r BF_4, eval = T, echo = T}
@@ -1233,7 +1253,7 @@ $\indent$ Estos resultados nos indican que los datos observados son 174 veces m�
 
 <br>
 
-# Factor de Bayes reportado en @Barberia2018:
+# Factor de Bayes reportado en @Barberia2018
 
 <br>
 
@@ -1358,7 +1378,7 @@ rm(fit_M0, fit_M1, fit_M2, fit_M3)
 ```
 <br>
 
-# Análisis bayesiano:
+# Análisis bayesiano
 
 <br>
 
@@ -1655,7 +1675,7 @@ table(mydata$Indicador[mydata$Grupo == 0])
 # Si estas predicciones no son buenas, entonces nuestro modelo no es una adecuada representación del proceso que ha generado las observaciones y debemos expandirlo con más parámetroso ajustar otro modelo y compararlo mediante WAIC o LOO. Si WAIC o LOO son menores para un determinado modelo, las predicciones son mejores.
 ```
 
-# Estimación los efectos naturales:
+# Estimación los efectos naturales
 
 $\indent$ En la siguiente figura se pueden observar las distribuciones posteriores de los efectos.
 
@@ -1777,7 +1797,7 @@ prob_3 <- mean(posterior_NIE$value[posterior_NIE$Categoría == "Categoría 3"] >
 prob_4 <- mean(posterior_NIE$value[posterior_NIE$Categoría == "Categoría 4"] > 0)
 prob_5 <- mean(posterior_NIE$value[posterior_NIE$Categoría == "Categoría 5"] > 0)
 prob_NIE_above_0 <- data.frame("Categoría 1" = prob_1, "Categoría 2" = prob_2, "Categoría 3" = prob_3, "Categoría 4" = prob_4, "Categoría 5" = prob_5)
-rownames(prob_NIE_above_0) <- "Probability"
+rownames(prob_NIE_above_0) <- "Probabilidad"
 
 kable(t(prob_NIE_above_0), digits = 5, align = "c") %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
@@ -1792,7 +1812,7 @@ $\indent$ Según estos resultados, que coinciden con el de los análisis anterio
 
 <br>
 
-# Discusión:
+# Discusión
 
 <br>
 
@@ -1806,7 +1826,7 @@ $\indent$ Sea de una u otra forma, los investigadores en psicología deben tener
 
 <br>
 
-# Paquetes R empleados:
+# Paquetes R empleados
 
 <br>
 
@@ -1814,7 +1834,7 @@ $\indent$ A continuación se citan los principales paquetes R empleados: @Auguie
 
 <br>
 
-# Información de la sesión:
+# Información de la sesión
 <br>
 
 ```{r session, eval = T, echo = T}
@@ -1823,7 +1843,7 @@ sessionInfo()
 
 <br>
 
-# Referencias:
+# Referencias
 
 <br>
 
