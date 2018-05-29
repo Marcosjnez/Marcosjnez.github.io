@@ -1202,14 +1202,17 @@ BF10 <- bf(ML_M1, ML_M0)$bf # Factor de Bayes
 BF10
 ```
 
-$$ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_3)}{p(M_2)} $$
+$$ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_2)}{p(M_3)} $$
 
 ```{r BF_5, eval = T, echo = T}
 BF23 <- bf(ML_M2, ML_M3)$bf # Factor de Bayes.
 BF23
 ```
 
-$\indent$ Siguiendo estos pasos, se estima que los datos obtenidos en el experimento son 523 veces más probables de observar en el modelo betabinomial con el parámetro $\beta_{XM}$ ($M_1$) que en el mismo modelo sin dicho parámetro ($M_0$), es decir, $\text{BF}_{10} \simeq 523$. Por contraparte, $\text{BF}_{23}$ arroja una cifra de 12 dígitos ($1.4 \cdot 10^{11}$), es decir, una evidencia tan grande a favor del modelo ordinal con el parámetro $\beta^\prime_{MY}$ ($M_2$) que podría modificar cualquier creencia a favor del mismo modelo sin dicho parámetro ($M_3$). Una vez obtenidos estos valores, procedemos a computar la probabilidad posterior de $M_0$, $M_1$, $M_2$ y $M_3$ asignando nuestras creencias previas, en forma de probabilidad, en dichas hipótesis. Por ejemplo, podemos mostrarnos escépticos y pensar que $p(M_1) = p(M_2) = 0.25$ y $p(M_0) = p(M_3) = 0.75$, en cuyo caso $$\frac{p(Modelo_{\,1})}{p(Modelo_{\,0})} = \frac{p(Modelo_{\,3})}{p(Modelo_{\,2})} = \frac{1}{3}.$$
+$\indent$ Siguiendo estos pasos, se estima que los datos obtenidos en el experimento son 523 veces más probables de observar en el modelo betabinomial con el parámetro $\beta_{XM}$ ($M_1$) que en el mismo modelo sin dicho parámetro ($M_0$), es decir, $\text{BF}_{10} \simeq 523$. Por contraparte, $\text{BF}_{23}$ arroja una cifra de 12 dígitos ($1.4 \cdot 10^{11}$), es decir, una evidencia tan grande a favor del modelo ordinal con el parámetro $\beta^\prime_{MY}$ ($M_2$) que podría modificar cualquier creencia a favor del mismo modelo sin dicho parámetro ($M_3$). Una vez obtenidos estos valores, procedemos a computar la probabilidad posterior de $M_0$, $M_1$, $M_2$ y $M_3$ asignando nuestras creencias previas, en forma de probabilidad, en dichas hipótesis. Por ejemplo, podemos mostrarnos escépticos y pensar que $p(M_1) = p(M_2) = 0.25$ y $p(M_0) = p(M_3) = 0.75$, en cuyo caso 
+
+$$\frac{p(Modelo_{\,1})}{p(Modelo_{\,0})} = \frac{p(Modelo_{\,2})}{p(Modelo_{\,3})} = \frac{1}{3}.$$
+
 Esto quiere decir que, antes de observar los datos, creemos que los modelos sin el parámetro extra son 3 veces más probables. Así, tenemos que
 
 $$ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \simeq 523 \cdot \frac{0.25}{0.75} \simeq 174.4 $$
