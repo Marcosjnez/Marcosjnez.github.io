@@ -1245,9 +1245,9 @@ $$ \sigma \sim \frac{1}{\sigma} $$
 
 $\indent$ Los *likelihoods* son:
 
-$$ Y_1 \sim \text{Normal}(\mu + \alpha\,{_0}, \sigma)$$
-$$ Y_0 \sim \text{Normal}(\mu + \alpha{\,_1}, \sigma)$$
-donde $Y_1$ representa a los participantes que reciben la intervención, $Y_2$ representa a los que no reciben la intervención, $\alpha{\,_0}$ es la proporción de participantes en el grupo control y $\alpha{\,_1}$ es la del grupo de intervención.
+$$ Y_1 \sim \text{Normal}(\mu - \mu_{diferencia} \, \cdot \, \alpha\,{_0}, \sigma)$$
+$$ Y_0 \sim \text{Normal}(\mu + \mu_{diferencia} \, \cdot \, \alpha{\,_1}, \sigma)$$
+donde, $Y_1$ representa a los participantes que reciben la intervención, $Y_2$ representa a los que no reciben la intervención, $\mu$ es el *grand mean*, $\mu_{diferencia}$ es la diferencia media entre grupos, $\alpha{\,_0}$ es la proporción de participantes en el grupo control y $\alpha{\,_1}$ es la del grupo de intervención.
 
 $\indent$ La hipótesis nula descarta el parámetro $\delta$, que es el tamaño del efecto estandarizado:
 
