@@ -97,7 +97,7 @@ $\indent$ El *dataset* está disponible en el siguiente repositorio:
 
 <br>
 
-# *Set up*
+# *Setup*
 
 <br>
 
@@ -220,7 +220,7 @@ $\indent$ De esta manera, aunque el análisis original utilizó el método de m�
 [^2]: La razón de usar un parámetro grupal distinto para cada categoría se debe a que la asunción de que dichos coeficientes son equivalentes no está suficientemente garantizada.
 
 $$ \log\left(\frac{\text{Pr}(Y \le j)} {\text{Pr}(Y > j)}\right) = \alpha_j - X \beta^\prime_{XY_j} - M \beta^\prime_{MY} $$
-donde $Y$ representa las observaciones transformadas y $j$ indica los puntos de corte de la escala.
+donde $Y$ representa las observaciones transformadas.
 
 $\indent$ Reemplazando la variable latente por su indicador, la siguiente Figura muestra el modelo empírico con los parámetros que finalmente se estiman.
 ```{r DAG2, eval = F, echo = T}
@@ -262,7 +262,7 @@ dag2
 dag2
 ```
 
-$\indent$ Para la regresión de $M$ en $X$ (trayectoria con el coeficiente $\beta_{XM}$) se adopta un modelo betabinomial que acomoda la sobredispersión observada en M. De esta manera, la probabilidad de la función binomial pasa a considerarse una variable aleatoria que sigue una distribución beta. Este modelo es adecuado porque cabe esperar que las decisiones de administrar el medicamento estén relacionadas en un mismo participante. Es decir, la probabilidad de que un participante decida administrar o no el fármaco depende de sus previas decisiones.
+$\indent$ Para la regresión de $M$ en $X$ (trayectoria con el coeficiente $\beta_{XM}$) se adopta un modelo betabinomial que acomoda la sobredispersión observada en $M$. De esta manera, la probabilidad de la función binomial pasa a considerarse una variable aleatoria que sigue una distribución beta. Este modelo es adecuado porque cabe esperar que las decisiones de administrar el medicamento estén relacionadas en un mismo participante. Es decir, la probabilidad de que un participante decida administrar o no el fármaco depende de sus previas decisiones.
 
 $\indent$ Finalmente, para el análisis mediacional se ha empleado la inferencia paramétrica descrita en @Imai2010 y @VanderWeele2016, que descansa en la aproximación contrafactual de Judea Pearl [@Pearl2014], quien descompone el efecto total de la intervención en efectos naturales directos (NDE) e indirectos (NIE).
 
@@ -286,6 +286,8 @@ $$ TE = \text{E}[Y_{X_1} - Y_{X_0}] = NDE + NIE $$
 
 $\indent$ Estos efectos serán estimados siguiendo el método paramétrico descrito en @Imai2010. Básicamente, consiste en ajustar un modelo que regresa la intervención $X$ en la variable mediacional $M$ y otro regresando el indicador $Y$ en ambas. Luego, con los coeficientes estimados se simulan datos de las condiciones contrafactuales especificadas anteriormente para aproximar las esperanzas matemáticas.
 
+<br>
+
 # Asunciones para identificar los efectos naturales
 
 <br>
@@ -297,7 +299,7 @@ $$ Y \perp M \, | \, X, C $$
 $$ M \perp X \, | \, C $$
 $$ Y \perp M \, | \, C $$
 
-$\indent$ Las asunciones (1) y (3) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (2) y (4) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variable confusoras. En este experimento $M$ no fue aleatorizado y en el *dataset* no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.
+$\indent$ Las asunciones (1) y (3) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (2) y (4) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento $M$ no fue aleatorizado y en el *dataset* no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.
 
 <br>
 
@@ -376,11 +378,11 @@ for(i in 1:4) {
 }
 
 binomial_coefs_Grupo <- t(rbind(upper.limit_grupo, odds_grupo, lower.limit_grupo))
-colnames(binomial_coefs_Grupo) <- c("2.5%", "Estimate", "97.5%")
+colnames(binomial_coefs_Grupo) <- c("2.5%", "Estimación", "97.5%")
 rownames(binomial_coefs_Grupo) <- paste("Pr(Y) <=", 1:4, sep = " ")
 
 binomial_coefs_Si <- t(rbind(upper.limit_Si, odds_Si, lower.limit_Si))
-colnames(binomial_coefs_Si) <- c("2.5%", "Estimate", "97.5%")
+colnames(binomial_coefs_Si) <- c("2.5%", "Estimación", "97.5%")
 rownames(binomial_coefs_Si) <- paste("Pr(Y) <=", 1:4, sep = " ")
 
 kable(binomial_coefs_Grupo, digits = 3, caption = "Coeficientes para la intervención", align = "c") %>%
@@ -1318,30 +1320,28 @@ Null_model <- stan_model(model_code = Null, model_name = "stanmodel")
 Alternative_model <- stan_model(model_code = Alternative, model_name = "stanmodel")
 
 # Tomamos muestras de las distribuciones posteriores:
-Null_fit <- sampling(Null_model, data = data.list,
-                        iter = 20000, warmup = 1000, chains = 4, cores = 4,
-                        control = list(adapt_delta = .99))
-Alternative_fit <- sampling(Alternative_model, data = data.list,
-                        iter = 20000, warmup = 1000, chains = 4, cores = 4,
-                        control = list(adapt_delta = .99))
+Null_fit <- sampling(Null_model, data = data.list, iter = 20000, warmup = 1000, chains = 4, cores = 4,
+                        control = list(adapt_delta = .99), seed = 1)
+Alternative_fit <- sampling(Alternative_model, data = data.list, iter = 20000, warmup = 1000, chains = 4, cores = 4,
+                        control = list(adapt_delta = .99), seed = 1)
 # Obtenemos los marginal likelihoods a través del método bridge sampling:
-ML_NULL <- bridge_sampler(Null_fit, silent = TRUE)
+ML_Null <- bridge_sampler(Null_fit, silent = TRUE)
 ML_Alternative <- bridge_sampler(Alternative_fit, silent = TRUE)
 
 # Errores de medida en la computación de los marginal likelihoods
-print(error_measures(ML_NULL)$percentage)
-print(error_measures(ML_Alternative)$percentage)
+error_measures(ML_Null)$percentage
+error_measures(ML_Alternative)$percentage
 ```
 
 ```{r Original_3, eval = T, echo = F}
-print(error_measures(ML_NULL)$percentage)
-print(error_measures(ML_Alternative)$percentage)
+error_measures(ML_Null)$percentage
+error_measures(ML_Alternative)$percentage
 ```
 
 $\indent$ Computamos el factor de Bayes a favor de la hipótesis con el parámetro $\delta$:
 
 ```{r Original_4, eval = F, echo = T}
-BF_Alternative_Null <- bf(ML_Alternative, ML_NULL) # Factor de Bayes.
+BF_Alternative_Null <- bf(ML_Alternative, ML_Null) # Factor de Bayes.
 BF_Alternative_Null
 ```
 
