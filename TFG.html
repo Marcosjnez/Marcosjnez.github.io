@@ -1723,7 +1723,7 @@ ML_M3 &lt;- bridge_sampler(fit_M3, method = &quot;normal&quot;, silent = TRUE)
 <pre class="r"><code>BF10 &lt;- bf(ML_M1, ML_M0)$bf # Factor de Bayes
 BF10
 ## [1] 523.2004</code></pre>
-<p><span class="math display">\[ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_2)}{p(M_3)} \]</span></p>
+<p><span class="math display">\[ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_3)}{p(M_2)} \]</span></p>
 <pre class="r"><code>BF23 &lt;- bf(ML_M2, ML_M3)$bf # Factor de Bayes.
 BF23
 ## [1] 141188650983</code></pre>

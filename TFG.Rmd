@@ -1202,7 +1202,7 @@ BF10 <- bf(ML_M1, ML_M0)$bf # Factor de Bayes
 BF10
 ```
 
-$$ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_2)}{p(M_3)} $$
+$$ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_3)}{p(M_2)} $$
 
 ```{r BF_5, eval = T, echo = T}
 BF23 <- bf(ML_M2, ML_M3)$bf # Factor de Bayes.
