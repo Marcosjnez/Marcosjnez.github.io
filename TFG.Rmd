@@ -81,15 +81,15 @@ En este trabajo se ofrece una breve descripción e interpretación de algunos de
 
 $\indent$ El reciente proyecto de replicación @OSC2015 ha intensificado el desarrollo de un gran número de trabajos que busca revertir la pérdida de credibilidad en la psicología y, aunque el criterio utilizado para considerar la replicación de un experimento resulta discutible [^1] [@Senn2002], son ineludibles las carencias de una disciplina que adolece de los mismos problemas de los que Yates y Sterling advertían hace más de medio siglo:
 
-[^1]: En el @OSC2015 se volvieron a contrastar experimentalmente 97 hipótesis reportadas con resultados estadísticamente significativos (4 de las cuales tenían p-valores ligeramente por encima de 0.05), considerando como replicación la repetición de un p-valor (*p-value*) menor a 0.05. Sin embargo, tras esta regla subyace una dicotomización arbitraria de la evidencia. 
+[^1]: En el @OSC2015 se volvieron a contrastar experimentalmente 97 hipótesis reportadas con resultados estadísticamente significativos (4 de las cuales tenían p-valores ligeramente por encima de 0.05), considerando como replicación la repetición de un p-valor menor a 0.05. Sin embargo, tras esta regla subyace una dicotomización arbitraria de la evidencia. 
 
 > The emphasis on tests of significance and the consideration of the results of each experiment in isolation, have had the unfortunate consequence that scientific workers have often regarded the execution of a test of significance on an experiment as the ultimate objective. - @Yates1951
 
 > There is some evidence that in fields where statistical tests of significance are commonly used, research which yields nonsignificant results is not published. (...) The possibility such arises that the literature of such a field consists in substantial part of false conclusions. - @Sterling1959
 
-$\indent$ Así, hoy más que nunca la responsabilidad ha recaído sobre los métodos estadísticos tradicionales y la cultura editorial que incentiva el sesgo de publicación. Las consecuencias más remarcables de este descontento se han materializado en un incremento de la adopción y promoción de prácticas de transparencia como el preregistro y el libre acceso a los artículos, datos y código [@Lindsay2015, @Munafo2017], en la denuncia de prácticas cuestionables @Banks2016 y en políticas editoriales que abogan por la censura de reportes estadísticos clásicos, como los p-valores @Trafimow2015. Por otra parte, muchos autores han aprovechado este momento de insatisfacción más que nunca para divulgar su manera de construir e interpretar la evidencia científica.
+$\indent$ Así, hoy más que nunca la responsabilidad ha recaído sobre los métodos estadísticos tradicionales y la cultura editorial que incentiva el sesgo de publicación. Las consecuencias más remarcables de este descontento se han materializado en un incremento de la adopción y promoción de prácticas de transparencia como el preregistro y el libre acceso a los artículos, datos y código [@Lindsay2015, @Munafo2017], en la denuncia de prácticas cuestionables [@Banks2016] y en políticas editoriales que abogan por la censura de reportes estadísticos clásicos, como los p-valores [@Trafimow2015]. Por otra parte, muchos autores han aprovechado este momento de insatisfacción más que nunca para divulgar su manera de construir e interpretar la evidencia científica.
 
-$\indent$ En este trabajo se ofrece una breve descripción e interpretación de algunos de los procedimientos estadísticos más comunes que aspiran a reemplazar el tan criticado *Null hypothesis significant testing* (NHST). Para facilitar su comparación, se contextualizan en el análisis de una intervención educativa que persigue reducir el desarrollo de ilusiones causales @Barberia2018.
+$\indent$ En este trabajo se ofrece una breve descripción e interpretación de algunos de los procedimientos estadísticos más comunes que aspiran a reemplazar el tan criticado *Null hypothesis significant testing* (NHST). Para facilitar su comparación, se contextualizan en el análisis de una intervención educativa que persigue reducir el desarrollo de ilusiones causales [@Barberia2018].
 
 <br>
 
@@ -97,11 +97,11 @@ $\indent$ En este trabajo se ofrece una breve descripción e interpretación de 
 
 <br>
 
-$\indent$ El experimento descrito en @Barberia2018 comprende a 106 estudiantes de psicología aleatorizados a pasar por dos fases en distinto orden. La fase de intervención consistió en la inducción encubierta del efecto Forer y la aplicación de la tarea 2-4-6 [@Wason1960] con el objetivo de estimular sesgos de confirmación en las respuestas. Posteriormente, se describió la verdadera naturaleza de ambas tareas y se mencionaron algunas situaciones cotidianas en las que este tipo de sesgos confirmatorios desempeñan un relevante papel, como la lectura de horóscopos y los análisis grafológicos. Adicionalmente, se discutieron técnicas que lo contrarrestran, como intentar falsar o desconfirmar las hipótesis planteadas.
+$\indent$ El experimento descrito en @Barberia2018 comprende a 106 estudiantes de psicología aleatorizados a pasar por dos fases en distinto orden. La fase de intervención consistió en la inducción encubierta del efecto Forer y la aplicación de la tarea 2-4-6 de Wason [@Wason1960] con el objetivo de estimular sesgos de confirmación en las respuestas. Posteriormente, se describió la verdadera naturaleza de ambas tareas y se mencionaron algunas situaciones cotidianas en las que este tipo de sesgos confirmatorios desempeñan un relevante papel, como la lectura de horóscopos y los análisis grafológicos. Adicionalmente, se discutieron técnicas que lo contrarrestran, como intentar falsar o desconfirmar las hipótesis planteadas.
 
-$\indent$ En la fase de evaluación se incitó a los participantes a actuar como doctores mientras valoraban si cada uno de 40 pacientes ficticios debía recibir un tratamiento farmacológico o no a través de un programa informático. Tras tomar esta decisión, recibían *feedback* indicando si el paciente había sanado. El programa informático fue programado para que, independientemente de suministrar el fármaco o no, la probabilidad de curación del paciente fuera del 75%. Este *set-up* se debe, según los autores, a que una mayor frecuencia de sanaciones facilita el desarrollo de un mayor número de ilusiones causales sobre la eficacia de la droga. Por último, los participantes puntuaron en una escala de 0 a 100 su convicción en la efectividad del fármaco.
+$\indent$ En la fase de evaluación se incitó a los participantes a actuar como doctores mientras valoraban si cada uno de 40 pacientes ficticios debía recibir un tratamiento farmacológico o no a través de un programa informático. Tras tomar esta decisión, recibían *feedback* indicando si el paciente había sanado. El programa informático fue programado para que, independientemente de suministrar el fármaco o no, la probabilidad de curación del paciente fuera del 75%. Este *setup* se debe, según los autores, a que una mayor frecuencia de sanaciones facilita el desarrollo de un mayor número de ilusiones causales sobre la eficacia del fármaco. Por último, los participantes puntuaron en una escala de 0 a 100 su convicción en la efectividad del fármaco.
 
-$\indent$ Los investigadores hipotetizaron que los participantes que en primer lugar reciben la intervención son menos propensos a asignar un papel causal al medicamento ya que, siendo conscientes de las circuntancias que inducen el sesgo de confirmación, aplicarían una estrategia de naturaleza más desconfirmatoria durante la tarea. Es decir, según esta hipótesis, el número de veces que los participantes deciden suministrar la droga es menor tras pasar por la condición de intervención y opera como mediador entre la intervención educativa y la percepción sobre la eficacia del fármaco.
+$\indent$ Los investigadores hipotetizaron que los participantes que en primer lugar reciben la intervención son menos propensos a asignar un papel causal al medicamento ya que, siendo conscientes de las circuntancias que inducen el sesgo de confirmación, aplicarían una estrategia de naturaleza más desconfirmatoria durante la tarea. Es decir, según esta hipótesis, el número de veces que los participantes deciden suministrar el fármaco es menor tras pasar por la condición de intervención y opera como mediador entre la intervención educativa y la percepción sobre la eficacia del fármaco.
 
 $\indent$ El *dataset* está disponible en el siguiente repositorio:
 [Open Science Framework](https://osf.io/tzchd/)
@@ -123,7 +123,7 @@ Para los análisis bayesianos utilizaremos diferentes funciones con los que real
 ```{r loading_stuff_1, eval = F, echo = T}
 source('https://raw.githubusercontent.com/betanalpha/knitr_case_studies/master/qr_regression/stan_utility.R')
 
-# Para guardar los modelos que compilamos:
+# Para guardar los modelos que compilamos en C++:
 rstan_options(auto_write = TRUE)
 # Establecemos usar todos los núcleos del ordenador para tomar muestras de la distribución posterior:
 options(mc.cores = parallel::detectCores())
@@ -187,7 +187,7 @@ dag1
 
 $\indent$ La figura (*directed acyclic graph*) muestra los efectos causales que se pretenden estimar. $X$ representa la exposición a la intervención educativa, $M$ es el efecto mediador que supone la decisión de administrar o no el fármaco, $\xi$ es la percepción de eficacia que los participantes atribuyen a dicho fármaco (variable latente) e $Y$ es su indicador, la puntuación observada. Los errores $\varepsilon_M$ y $\varepsilon^\prime_{\xi}$ se muestan correlacionados ante la posibilidad de que una variable no identificada afecte a $M$ y $\xi$ y $\beta^\prime_{M\xi}$ se corresponde con el efecto de $M$ en $\xi$. El efecto de $\xi$ sobre $M$ (nótese que el trazo que les une es bidireccional) se debe a que es razonable pensar que la probabilidad de administrar el fármaco está influida por la propia percepción de eficacia que va progresando durante el desarrollo de la prueba.
 
-$\indent$ Por otro lado, es importante resaltar la distinción entre $\xi$ e $Y$ ya que no existe ninguna teoría ni investigación que permita establecer un isomorfismo entre ambas variables. Tomar dicha asunción equivale a presuponer que la variable latente es cuantitativa y correctamente representada en la escala de intervalo $(0, 100)$ establecida por los investigadores. Por varios motivos, la escala original se ha transformado en otra compuesta de cinco categorías ordinales que pueden ser interpretadas de la siguiente manera: considerable convicción en la ineficacia del fármaco $[0, 20)$; convicción parcial en la ineficacia del fármaco $[20, 40)$; duda $[40, 60)$, convicción parcial en la eficacia del fármaco $[60, 80)$ y considerable convicción en la eficacia del fármaco $[80, 100]$.
+$\indent$ Por otro lado, es importante resaltar la distinción entre $\xi$ e $Y$ ya que no existe ninguna teoría ni investigación que permita establecer un isomorfismo entre ambas variables. Tomar dicha asunción equivale a presuponer que la variable latente es cuantitativa y correctamente representada en la escala de intervalo $[0, 100]$ establecida por los investigadores. Por varios motivos, la escala original se ha transformado en otra compuesta de cinco categorías ordinales que pueden ser interpretadas de la siguiente manera: considerable convicción en la ineficacia del fármaco $[0, 20)$; convicción parcial en la ineficacia del fármaco $[20, 40)$; duda $[40, 60)$, convicción parcial en la eficacia del fármaco $[60, 80)$ y considerable convicción en la eficacia del fármaco $[80, 100]$.
 
 $\indent$ Cargamos y transformamos los datos:
 ```{r loading_data, eval = T, echo = T}
@@ -303,14 +303,14 @@ $\indent$ Estos efectos serán estimados siguiendo el método paramétrico descr
 
 <br>
 
-$\indent$ Los efectos naturales directo (NDE) e indirecto (NIE) son identificados si (1) $X$ e $Y$ son independientes dado un set $C$ de covariables que incluye todas las variables confusoras, (2) $M$ e $Y$ son independientes dado X y C, (3) $X$ y $M$ son independientes dado C y (4) $M$ e $Y$ son independientes dado $C$ [@VanderWeele2016].
+$\indent$ Los efectos naturales directo (NDE) e indirecto (NIE) son identificados si (a) $X$ e $Y$ son independientes dado un set $C$ de covariables que incluye todas las variables confusoras, (b) $M$ e $Y$ son independientes dado X y C, (c) $X$ y $M$ son independientes dado C y (d) $M$ e $Y$ son independientes dado $C$ [@VanderWeele2016].
 
-$$ Y \perp X \, | \, C $$
-$$ Y \perp M \, | \, X, C $$
-$$ M \perp X \, | \, C $$
-$$ Y \perp M \, | \, C $$
+$$ \text{(a)} \,\,\, Y \perp X \, | \, C $$
+$$ \text{(b)} \,\,\, Y \perp M \, | \, X, C $$
+$$ \text{(c)} \,\,\, M \perp X \, | \, C $$
+$$ \text{(d)} \,\,\,  Y \perp M \, | \, C $$
 
-$\indent$ Las asunciones (1) y (3) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (2) y (4) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento $M$ no fue aleatorizado y en el *dataset* no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.
+$\indent$ Las asunciones (a) y (c) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (b) y (d) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento $M$ no fue aleatorizado y en el *dataset* no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.
 
 <br>
 
@@ -362,6 +362,9 @@ plot2 <- ggplot(data_Grupo_0) + theme_gray() +
   theme(plot.margin = unit(c(0.25, 0 , 0.5, 0.5), "cm")) +
   theme(panel.border = element_rect(fill = NA), axis.ticks.length = unit(0.2, "cm")) +
   annotate("text", x = 4.5, y = 4, label = "No intervención", parse = F, colour = "black", size = 5)
+
+grid.arrange(plot1, plot2, bottom = textGrob("Número de administraciones del fármaco", vjust = 0, gp = gpar(fontsize = 14)), 
+        left = textGrob("Indicador de la percepción de eficacia", gp = gpar(fontsize = 14), rot = 90, vjust = 0.1, hjust = 0.4))
 ```
 
 ```{r Visualization2, eval = T, echo = F, warning = FALSE, fig.align = "center", fig.width = 8, fig.height = 5}
@@ -512,7 +515,7 @@ $\indent$ A continuación se exponen brevemente las principales ideas subyacente
 
 > Without hoping to know whether each separate hypothesis is true or false, we may search for rules to govern our behaviour with regard to them, in following which we insure that, in the long run of experience, we shall not be too often wrong. - @NP1933
 
-$\indent$ Este paradigma, que considera el investigador está interesado en seleccionar líneas de investigación que maximizan la calidad pragmática de su producción científica, ha sido recientemente reificado en forma de tests de equivalencia, superioridad e inferioridad @Lakens2017. Su característica principal consiste en la justificación del mínimo valor del parámetro por el que el investigador está interesado o dispuesto a invertir sus recursos y posteriormente verificar si un efecto, al menos tan importante como este, es experimentalmente detectado [^3]. En caso de optar por un test de equivalencia debemos establecer para $\beta_{XY_j}$, por ejemplo, los mínimos efectos de interés $\beta_{XY_j}\,_{min-}$ y $\beta_{XY_j}\,_{min+}$ [^4] y luego diseñar un experimento que goce de la potencia estadística suficiente para detectar con alta probabilidad una desviación de ambos límites. Una vez desarrollado el experimento y computado el intervalo de confianza del parámetro, si observamos que ambos límites descansan en el intervalo de equivalencia definido por $\beta_{XY_j}\,_{min-}$ y $\beta_{XY_j}\,_{min+}$, declaramos que $\beta_{XY_j}$ es equivalente a la hipótesis nula, o lo que es lo mismo, que su valor es demasiado pequeño para merecer el interés del investigador. Así, el científico adopta un enfoque conductual en el que su actividad investigadora se centra en detectar fenómenos que considera de práctica importancia, según sus recursos, mientras no erra más allá de un porcentaje de veces determinado por el error tipo I ($\alpha$).
+$\indent$ Este paradigma, que considera el investigador está interesado en seleccionar líneas de investigación que maximizan la calidad pragmática de su producción científica, ha sido recientemente reificado en forma de tests de equivalencia, superioridad e inferioridad [@Lakens2017]. Su característica principal consiste en la justificación del mínimo valor del parámetro por el que el investigador está interesado o dispuesto a invertir sus recursos y posteriormente verificar si un efecto, al menos tan importante como este, es experimentalmente detectado [^3]. En caso de optar por un test de equivalencia debemos establecer para $\beta_{XY_j}$, por ejemplo, los mínimos efectos de interés $\beta_{XY_j}\,_{min-}$ y $\beta_{XY_j}\,_{min+}$ [^4] y luego diseñar un experimento que goce de la potencia estadística suficiente para detectar con alta probabilidad una desviación de ambos límites. Una vez desarrollado el experimento y computado el intervalo de confianza del parámetro, si observamos que ambos límites descansan en el intervalo de equivalencia definido por $\beta_{XY_j}\,_{min-}$ y $\beta_{XY_j}\,_{min+}$, declaramos que $\beta_{XY_j}$ es equivalente a la hipótesis nula, o lo que es lo mismo, que su valor es demasiado pequeño para merecer el interés del investigador. Así, el científico adopta un enfoque conductual en el que su actividad investigadora se centra en detectar fenómenos que considera de práctica importancia, según sus recursos, mientras no erra más allá de un porcentaje de veces determinado por el error tipo I ($\alpha$).
 
 [^3]: Esta disposición a invertir los recursos puede depender de factores tan diferentes como el poder adquisitivo o la importancia subjetiva que el investigador asigna al tamaño del efecto. Se sugiere que, cuando el investigador carezca de razones teóricas para establecer el menor efecto de interés, se tome el efecto más pequeño que cuente con una razonable potencia estadística. Sin embargo, esta práctica es discutible ya que ante estimaciones con mucha incertidumbre (pequeño tamaño muestral) corremos el riesgo de incluir en la región de equivalencia valores que consideramos de práctica importancia.
 
@@ -725,7 +728,7 @@ $\indent$ En un contexto estadístico podríamos traducirlo de la siguiente mane
 
 $\indent$ Sin embargo, la información procedente de un p-valor o un intervalo de confianza es limitada porque no aporta el grado de rigor con el que todos los posibles valores del parámetro han pasado o no el test. El p-valor solo comunica la discrepancia del estadístico respecto a la hipótesis nula mientras que los valores contenidos en los intervalo de confianza meramente son aquellos ante los que no se habría rechazado la hipótesis nula si esta se correspondiera con el valor del parámetro observado [^7]. Sin embargo, una medida más informativa del rigor aplicable a cada posible valor que puede tomar el parámetro puede computarse a posteriori (tras obtener los datos). Se trata de la probabilidad de haber observado una diferencia mayor o menor que la obtenida considerando cada uno de los posibles valores que puede tomar el parámetro. Esto es equivalente a realizar un análisis de potencia estadística tomando el estadístico observado, y no el valor de la hipótesis nula, como punto de referencia.
 
-[^7]: Para una lectura sobre los frecuentes malentendidos que surgen al interpretar los intervalos de confianza se recomienda [@Greenland2016].
+[^7]: Para una lectura sobre los frecuentes malentendidos que surgen al interpretar los intervalos de confianza se recomienda @Greenland2016.
 
 $\indent$ En la sección anterior habíamos visto que las $\beta_{XY_j}$, $\beta_{XM}$ y $\beta^\prime_{MY}$ son significativas ya que los límites de los intervalos de confianza excluyen el 1 aportando evidencia de una discrepancia de la hipótesis nula. En esta situación, en lugar de limitarse a establecer o no la superioridad, inferioridad o inconclusibilidad de las estimaciones respecto a un mínimo efecto de interés, conviene establecer la máxima o mínima discrepancia que estamos en situación de inferir con rigor. Para ello, dado que los parámetros de la regresión betabinomial y ordinal logística siguen una distribución gausiana, debemos computar la probabilidad cumulativa
 
@@ -902,7 +905,7 @@ kable(Severe_NIE, digits = 3, align = "c") %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
-Con la finalidad de familiarizar al lector con esta manera de interpretar la evidencia estadística se ha desarrollado una app, disponible en la plataforma Shiny \cite{Chang2017}, que permite obtener curvas de rigor para análisis simples: [Severity](https://marcosjnez.shinyapps.io/Severity/). La notación empleada en esta app emula la utilizada en @Mayo2011.
+Con la finalidad de familiarizar al lector con esta manera de interpretar la evidencia estadística se ha desarrollado una app, disponible en la plataforma Shiny \cite{Chang2017}, que permite obtener curvas de rigor para análisis simples: [Severity](https://marcosjnez.shinyapps.io/Severity/). La notación empleada en esta app emula la utilizada por @Mayo2011.
 
 <br>
 
@@ -916,7 +919,7 @@ $\indent$ Teorema de Bayes:
 
 $$ p(\theta\, | \,y) = \frac{p(y\, | \,\theta)}{p(y)} \,p(\theta) $$
 
-$\indent$ Consecuentemente, el término evidencia también es reconceptualizado pues ya no se pretende evaluar el grado de rigor con el que distintas afirmaciones sobre el valor del parámetro pasan el test sino conocer su distribución probabilística. Particularmente, el enfoque adoptado en esta sección considera que algo se corresponde con evidencia cuando provoca un cambio en la creencia que una persona mantiene respecto a una hipótesis @Morey2016. Reordenando el Teorema de Bayes, podemos comprobar que dicho cambio viene dado por la razón entre la distribución posterior y la distribución a priori, que es equivalente a la razón entre la probabilidad de las observaciones bajo cada posible valor del parámetro, $p(y \, | \, \theta)$ o *likelihood*, y la probabilidad de las mismas observaciones promediadas por todos los posibles valores del parámetro, $p(y)$ o *marginal likelihood*:
+$\indent$ Consecuentemente, el término evidencia también es reconceptualizado pues ya no se pretende evaluar el grado de rigor con el que distintas afirmaciones sobre el valor del parámetro pasan el test sino conocer su distribución probabilística. Particularmente, el enfoque adoptado en esta sección considera que algo se corresponde con evidencia cuando provoca un cambio en la creencia que una persona mantiene respecto a una hipótesis [@Morey2016]. Reordenando el Teorema de Bayes, podemos comprobar que dicho cambio viene dado por la razón entre la distribución posterior y la distribución a priori, que es equivalente a la razón entre la probabilidad de las observaciones bajo cada posible valor del parámetro, $p(y \, | \, \theta)$ o *likelihood*, y la probabilidad de las mismas observaciones promediadas por todos los posibles valores del parámetro, $p(y)$ o *marginal likelihood*:
 
 $$ \frac{p(\theta\, | \,y)}{p(\theta)} = \frac{p(y\, | \,\theta)}{p(y)} $$
 
@@ -1193,6 +1196,8 @@ ML_M3 <- bridge_sampler(fit_M3, method = "normal", silent = TRUE)
 
 $\indent$ De esta manera, si $\text{BF}_{10} > 1$ y $\text{BF}_{23} > 1$ entonces existe evidencia a favor del modelo $M_1$ y $M_2$, respectivamente, indicando, a su vez, que existe evidencia a favor de la mediación. Sin embargo, la evidencia o factor de Bayes de este efecto mediacional es obtenido a través de la multiplicación de las probabilidades posteriores, para las cuales debemos especificar la credibilidad que concedemos a cada hipótesis ($M_0$, $M_1$, $M_2$, $M_3$):
 
+<br>
+
 $$ \text{BF}_{mediación} = \frac{p(M_1\, | \,y) \cdot p(M_2\, | \,y)}{1 - p(M_1\, | \,y) \cdot p(M_2\, | \,y)} $$
 
 <br>
@@ -1216,6 +1221,8 @@ $\indent$ Siguiendo estos pasos, se estima que los datos obtenidos en el experim
 $$\frac{p(Modelo_{\,1})}{p(Modelo_{\,0})} = \frac{p(Modelo_{\,2})}{p(Modelo_{\,3})} = \frac{1}{3}.$$
 
 Esto quiere decir que, antes de observar los datos, creemos que los modelos sin el parámetro extra son 3 veces más probables. Así, tenemos que
+
+<br>
 
 $$ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \simeq 523 \cdot \frac{0.25}{0.75} \simeq 174.4 $$
 ```{r BF_6, eval = T, echo = T}
@@ -1253,6 +1260,8 @@ $\indent$ lo que quiere decir que
 
 $$\text{BF}_{mediación} \simeq \frac{0.994}{1 - 0.994} \simeq 174.4$$
 
+<br>
+
 ```{r BF_11, eval = T, echo = T}
 # Factor de Bayes de la mediación:
 BF_mediacion <- (post_prob_M1_M0[1] * post_prob_M2_M3[1]) / ( 1 - post_prob_M1_M0[1] * post_prob_M2_M3[1])
@@ -1267,7 +1276,7 @@ $\indent$ Estos resultados nos indican que los datos observados son 174 veces m�
 
 <br>
 
-$\indent$ Los autores del paper original @Barberia2018 realizaron un t-test bayesiano ordinario con varianzas equivalentes entre grupos y reportaron un factor de Bayes. Aunque este método es computacionalmente menos eficiente, también podemos aproximarlo especificando el t-test en Stan y usando bridge sampling. La parametrización de este modelo está especificado en @Wetzels2009 con la diferencia de presentar las siguientes distribuciones a priori:
+$\indent$ Los autores del paper original [@Barberia2018], los autores reportaron un t-test bayesiano ordinario con varianzas equivalentes entre grupos y reportaron un factor de Bayes. Aunque este método es computacionalmente menos eficiente, también podemos aproximarlo especificando el t-test en Stan y usando *bridge sampling*. La parametrización de este modelo está especificado en @Wetzels2009 con la diferencia de presentar las siguientes distribuciones a priori:
 
 $$ \mu \sim \text{Cauchy}(0, 1) $$
 $$ \delta \sim \text{HalfCauchy}(0, .7071) $$
@@ -1827,7 +1836,7 @@ $\indent$ Según estos resultados, que coinciden con el de los análisis anterio
 
 <br>
 
-$\indent$ En este manuscrito se han tratado brevemente cuatro métodos populares con los que analizar datos experimentales en psicología. Sin embargo, existe una gran diferencia entre ellos que suele pasar desapercibida. Entre los análisis frecuentistas, mientras que los tests de equivalencia, superioridad e inferioridad son meramente instrumentos para guiar el comportamiento del investigador a largo plazo de manera que no consuma sus recursos sin obtener resultados que considera de relevancia, la aproximación de @Mayo2006a entraña toda una filosofía de la ciencia aplicada a nivel estadístico. Esta filosofía declara que se puede obtener un nivel de evidencia para cada posible valor del parámetro tomando en consideración la capacidad del test, en términos de potencia estadística, para descubrir discrepancias entre las predicciones del modelo nulo y los datos.
+$\indent$ En este manuscrito se han tratado brevemente cuatro métodos populares con los que analizar datos experimentales en psicología. Sin embargo, existe una gran diferencia entre ellos que suele pasar desapercibida. Entre los análisis frecuentistas, mientras que los tests de equivalencia, superioridad e inferioridad son meramente instrumentos para guiar el comportamiento del investigador a largo plazo de manera que no consuma sus recursos sin obtener resultados que considera de relevancia, la aproximación descrita en @Mayo2006a entraña toda una filosofía de la ciencia aplicada a nivel estadístico. Esta filosofía declara que se puede obtener un nivel de evidencia para cada posible valor del parámetro tomando en consideración la capacidad del test, en términos de potencia estadística, para descubrir discrepancias entre las predicciones del modelo nulo y los datos.
 
 $\indent$ Por otra parte, la inferencia bayesiana reconceptualidad el término probabilidad para dotarle de una subjetividad que es introducida en forma de distribuciones probabilísticas a priori. Quienes advocan por considerar que una medida de evidencia es manifestada en forma de factor de Bayes, consideran que dicha subjetividad se corresponde con la creencia que el investigador otorga a cada hipótesis que quiere contrastar y el nivel de evidencia viene determinada por el impacto que los datos ejercen sobre dicha creencia. Una implicación inmediata de esta perspectiva requiere que dicha evidencia siempre sea de naturaleza comparativa pues se corresponde con la razón entre las predicciones que distintos modelo realizan sobre los datos. Por el contrario, otros bayesianos prefieren concebir la subjetividad como un conocimiento previo sobre la distribución del parámetro o una manifestación de su incertidumbre que regulariza los resultados. Para estos, las distribuciones posteriores aportan la evidencia misma, no es necesario establecer creencias sobre hipótesis y compararlas. Además, dado que el objetivo es regularizar los resultados sancionando valores improbables o imposibles del parámetro, una recomendación frecuente es analizar los datos varias veces modificando las distribuciones a priori y observar cómo afectan a las posteriores (*sensitivity analysis*).
 
