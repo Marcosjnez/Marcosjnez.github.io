@@ -51,9 +51,12 @@ load(file = "~/Documentos/Projects/website/TFG_Workspace.RData")
 <center> 
 <h1>Prácticas estadísticas para investigadores en psicología (Versión extendida)</h1>
 </center>
-load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 
 <br>
+-->
+
+<!--
+<font size="4"> This is my text number 4</font> 
 -->
 
 <!--
@@ -303,12 +306,14 @@ $\indent$ Estos efectos serán estimados siguiendo el método paramétrico descr
 
 <br>
 
-$\indent$ Los efectos naturales directo (NDE) e indirecto (NIE) son identificados si (a) $X$ e $Y$ son independientes dado un set $C$ de covariables que incluye todas las variables confusoras, (b) $M$ e $Y$ son independientes dado X y C, (c) $X$ y $M$ son independientes dado C y (d) $M$ e $Y$ son independientes dado $C$ [@VanderWeele2016].
+$\indent$ Los efectos naturales directo (NDE) e indirecto (NIE) son identificados si (a) $X$ e $Y^{xm}$ son independientes dado un set $C$ de covariables que incluye todas las variables confusoras, (b) $M^x$ e $Y^{x^\prime m}$ son independientes dado X y C, (c) $X$ y $M^x$ son independientes dado C y (d) $M^x$ e $Y^{x^\prime m}$ son independientes dado $C$ [@VanderWeele2016].
 
-$$ \text{(a)} \,\,\, Y \perp X \, | \, C $$
-$$ \text{(b)} \,\,\, Y \perp M \, | \, X, C $$
-$$ \text{(c)} \,\,\, M \perp X \, | \, C $$
-$$ \text{(d)} \,\,\,  Y \perp M \, | \, C $$
+$$ \text{(a)} \,\,\, Y^{x m} \amalg X \, | \, C $$
+$$ \text{(b)} \,\,\, Y^{x^\prime m} \amalg M^x \, | \, X, C $$
+$$ \text{(c)} \,\,\, M^x \amalg X \, | \, C $$
+$$ \text{(d)} \,\,\,  Y^{x^\prime m} \amalg M^x \, | \, C $$
+
+Es importante destacar que los superíndices indican situaciones contrafactuales. $M \amalg X$ no equivale a $M^x \amalg X$. El primero representa la independencia entre la observación $M$ y la observación $X$ mientras que el segundo señala que, el valor $M$ bajo todo posible tratamiento $x$ hubiera sido independiente a la observación $X$. 
 
 $\indent$ Las asunciones (a) y (c) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (b) y (d) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento $M$ no fue aleatorizado y en el *dataset* no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.
 

@@ -258,9 +258,11 @@ Trabajo de Fin de Grado <br> Prácticas estadísticas para investigadores en psi
 <center> 
 <h1>Prácticas estadísticas para investigadores en psicología (Versión extendida)</h1>
 </center>
-load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 
 <br>
+-->
+<!--
+<font size="4"> This is my text number 4</font> 
 -->
 <!--
 load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
@@ -456,8 +458,9 @@ dag2</code></pre>
 <div id="asunciones-para-identificar-los-efectos-naturales" class="section level1">
 <h1>Asunciones para identificar los efectos naturales</h1>
 <p><br></p>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Los efectos naturales directo (NDE) e indirecto (NIE) son identificados si (a) <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son independientes dado un set <span class="math inline">\(C\)</span> de covariables que incluye todas las variables confusoras, (b) <span class="math inline">\(M\)</span> e <span class="math inline">\(Y\)</span> son independientes dado X y C, (c) <span class="math inline">\(X\)</span> y <span class="math inline">\(M\)</span> son independientes dado C y (d) <span class="math inline">\(M\)</span> e <span class="math inline">\(Y\)</span> son independientes dado <span class="math inline">\(C\)</span> <span class="citation">(VanderWeele, Zhang, and Lim 2016)</span>.</p>
-<p><span class="math display">\[ \text{(a)} \,\,\, Y \perp X \, | \, C \]</span> <span class="math display">\[ \text{(b)} \,\,\, Y \perp M \, | \, X, C \]</span> <span class="math display">\[ \text{(c)} \,\,\, M \perp X \, | \, C \]</span> <span class="math display">\[ \text{(d)} \,\,\,  Y \perp M \, | \, C \]</span></p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Los efectos naturales directo (NDE) e indirecto (NIE) son identificados si (a) <span class="math inline">\(X\)</span> e <span class="math inline">\(Y^{xm}\)</span> son independientes dado un set <span class="math inline">\(C\)</span> de covariables que incluye todas las variables confusoras, (b) <span class="math inline">\(M^x\)</span> e <span class="math inline">\(Y^{x^\prime m}\)</span> son independientes dado X y C, (c) <span class="math inline">\(X\)</span> y <span class="math inline">\(M^x\)</span> son independientes dado C y (d) <span class="math inline">\(M^x\)</span> e <span class="math inline">\(Y^{x^\prime m}\)</span> son independientes dado <span class="math inline">\(C\)</span> <span class="citation">(VanderWeele, Zhang, and Lim 2016)</span>.</p>
+<p><span class="math display">\[ \text{(a)} \,\,\, Y^{x m} \amalg X \, | \, C \]</span> <span class="math display">\[ \text{(b)} \,\,\, Y^{x^\prime m} \amalg M^x \, | \, X, C \]</span> <span class="math display">\[ \text{(c)} \,\,\, M^x \amalg X \, | \, C \]</span> <span class="math display">\[ \text{(d)} \,\,\,  Y^{x^\prime m} \amalg M^x \, | \, C \]</span></p>
+<p>Es importante destacar que los superíndices indican situaciones contrafactuales. <span class="math inline">\(M \amalg X\)</span> no equivale a <span class="math inline">\(M^x \amalg X\)</span>. El primero representa la independencia entre la observación <span class="math inline">\(M\)</span> y la observación <span class="math inline">\(X\)</span> mientras que el segundo señala que, el valor <span class="math inline">\(M\)</span> bajo todo posible tratamiento <span class="math inline">\(x\)</span> hubiera sido independiente a la observación <span class="math inline">\(X\)</span>.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Las asunciones (a) y (c) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (b) y (d) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento <span class="math inline">\(M\)</span> no fue aleatorizado y en el <em>dataset</em> no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.</p>
 <p><br></p>
 </div>
