@@ -313,7 +313,7 @@ $$ \text{(b)} \,\,\, Y^{x^\prime m} \amalg M^x \, | \, X, C $$
 $$ \text{(c)} \,\,\, M^x \amalg X \, | \, C $$
 $$ \text{(d)} \,\,\,  Y^{x^\prime m} \amalg M^x \, | \, C $$
 
-Es importante destacar que los superíndices indican situaciones contrafactuales. $M \amalg X$ no equivale a $M^x \amalg X$. El primero representa la independencia entre la observación $M$ y la observación $X$ mientras que el segundo señala que, el valor $M$ bajo todo posible tratamiento $x$ hubiera sido independiente a la observación $X$. 
+$\indent$ Es importante destacar que los superíndices indican situaciones contrafactuales. $M \amalg X$ no equivale a $M^x \amalg X$. El primero representa la independencia entre la observación $M$ y la observación $X$ mientras que el segundo señala que el valor $M$ bajo todo posible tratamiento $x$ hubiera sido independiente a la observación $X$. 
 
 $\indent$ Las asunciones (a) y (c) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (b) y (d) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento $M$ no fue aleatorizado y en el *dataset* no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.
 
@@ -1281,7 +1281,7 @@ $\indent$ Estos resultados nos indican que los datos observados son 174 veces m�
 
 <br>
 
-$\indent$ Los autores del paper original [@Barberia2018], los autores reportaron un t-test bayesiano ordinario con varianzas equivalentes entre grupos y reportaron un factor de Bayes. Aunque este método es computacionalmente menos eficiente, también podemos aproximarlo especificando el t-test en Stan y usando *bridge sampling*. La parametrización de este modelo está especificado en @Wetzels2009 con la diferencia de presentar las siguientes distribuciones a priori:
+$\indent$ Los autores del paper original [@Barberia2018] reportaron un t-test bayesiano ordinario con varianzas equivalentes entre grupos. Aunque este método es computacionalmente menos eficiente, también podemos aproximar el factor de Bayes especificando el t-test en Stan y usando *bridge sampling*. La parametrización de este modelo está especificado en @Wetzels2009 con la diferencia de presentar las siguientes distribuciones a priori:
 
 $$ \mu \sim \text{Cauchy}(0, 1) $$
 $$ \delta \sim \text{HalfCauchy}(0, .7071) $$
