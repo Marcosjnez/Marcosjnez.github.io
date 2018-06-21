@@ -737,7 +737,7 @@ $\indent$ Sin embargo, la información procedente de un p-valor o un intervalo d
 
 $\indent$ En la sección anterior habíamos visto que las $\beta_{XY_j}$, $\beta_{XM}$ y $\beta^\prime_{MY}$ son significativas ya que los límites de los intervalos de confianza excluyen el 1 aportando evidencia de una discrepancia de la hipótesis nula. En esta situación, en lugar de limitarse a establecer o no la superioridad, inferioridad o inconclusibilidad de las estimaciones respecto a un mínimo efecto de interés, conviene establecer la máxima o mínima discrepancia que estamos en situación de inferir con rigor. Para ello, dado que los parámetros de la regresión betabinomial y ordinal logística siguen una distribución gausiana, debemos computar la probabilidad cumulativa
 
-$$\frac{1}{\hat{\sigma}_{\beta}^2 \sqrt {2\pi } } ~~ \int_{\infty}^{\beta} \text{exp}{~ - \frac{ ( {\hat{\beta} - \beta } )^2 }{2\hat{\sigma}_{\beta}^2} } \, d\beta$$
+$$\frac{1}{\hat{\sigma}_{\beta} \sqrt {2\pi } } ~~ \int_{\infty}^{\beta} \text{exp}{~ - \frac{ ( {\hat{\beta} - \beta } )^2 }{2\hat{\sigma}_{\beta}^2} } \, d\beta$$
 
 para cada posible valor que pueda tomar $\beta$ [^8].
 
@@ -745,7 +745,7 @@ para cada posible valor que pueda tomar $\beta$ [^8].
 
 $\indent$ Por el contrario, una vez incluimos el mediador en la regresión, las $\beta^\prime_{XY_j}$ dejan de ser significativamente distintas de 1. En este otro caso, empleamos la función cumulativa complementaria ya que conviene establecer la máxima discrepancia que podemos descartar con rigor:
 
-$$\frac{1}{\hat{\sigma}_{\beta^\prime_{XY_j}}^2 \sqrt {2\pi } } ~~ \int_{\beta^\prime_{XY_j}}^{\infty} \text{exp}{~ - \frac{ \left( {\hat{\beta^\prime}_{XY_j} - \beta^\prime_{XY_j} } \right)^2 }{2\hat{\sigma}_{\beta^\prime_{XY_j}}^2} } \, d\beta^\prime_{XY_j}$$
+$$\frac{1}{\hat{\sigma}_{\beta^\prime_{XY_j}} \sqrt {2\pi } } ~~ \int_{\beta^\prime_{XY_j}}^{\infty} \text{exp}{~ - \frac{ \left( {\hat{\beta^\prime}_{XY_j} - \beta^\prime_{XY_j} } \right)^2 }{2\hat{\sigma}_{\beta^\prime_{XY_j}}^2} } \, d\beta^\prime_{XY_j}$$
 
 $\indent$ Volviendo al experimento que nos concierne y siguiendo el método mencionado, la siguiente figura muestra el rigor con el que distintas inferencias sobre los parámetros, estimados en razón de momios, pasan o no el test.
 
@@ -1326,7 +1326,7 @@ real mu;
 real<lower=0> sigma; // Desviación típica.
 }
 model {
-target += cauchy_lpdf(mu | 0, 1 / sqrt(2)); // Cauchy prior en la media.
+target += cauchy_lpdf(mu | 0, 1); // Cauchy prior en la media.
 target += log(1/sigma); // Jeffreys prior en la desviación típica.
 // En este modelo nulo asumimos que no hay diferencias entre grupos por lo que ajustamos el mismo likelihood a ambos:
 target += normal_lpdf(Y1 | mu, sigma); // likelihood
@@ -1341,18 +1341,18 @@ int<lower=1> n1; // Número de participantes en la condición de intervención.
 int<lower=1> n0; // Número de participantes en la condición de no intervención.
 vector[n1] Y1; // Observaciones en la condición de intervención.
 vector[n0] Y0; // Observaciones en la condición de no intervención.
-real<lower=0, upper=1> ratio_1;
-real<lower=0, upper=1> ratio_0;
+real<lower=0, upper=1> ratio_1; // Proporción de participantes en el grupo de intervención.
+real<lower=0, upper=1> ratio_0; // Proporción de participantes en el grupo control.
 }
 parameters {
-real mu;
+real mu; // El grand mean.
 real delta; // Efecto estandarizado.
 real<lower=0> sigma; // Desviación típica.
 }
 
 model {
-target += cauchy_lpdf(delta | 0, 1 / sqrt(2)) - cauchy_lccdf(0 | 0, 1 / sqrt(2)); // Constrained Cauchy prior on delta
-target += cauchy_lpdf(mu | 0, 1 / sqrt(2)); // Cauchy prior en delta
+target += cauchy_lpdf(mu | 0, 1); // Cauchy prior en el grand mean.
+target += cauchy_lpdf(delta | 0, 1 / sqrt(2)) - cauchy_lccdf(0 | 0, 1 / sqrt(2)); // Half Cauchy prior en delta
 target += log(1/sigma); // Jeffreys prior en la desviación típica.
 target += normal_lpdf(Y1 | mu - delta * sigma * ratio_0, sigma); // likelihood para el grupo de intervención.
 target += normal_lpdf(Y0 | mu + delta * sigma * ratio_1, sigma); // likelihood para el grupo de no intervención.
@@ -1573,7 +1573,7 @@ betabinomial_chains <- mcmc_trace(as.array(fit_modelo_betabinomial), pars = c("I
 
 # Extraemos el logaritmo del likelihood:
 betabinomial_log_lik <- extract_log_lik(fit_modelo_betabinomial)
-# Computamos LOO, que es mejor que WAIC (según los expertos) y es una medida que podemos usar para comparar modelos.
+# Computamos LOO, que es mejor que WAIC y es una medida que podemos usar para comparar modelos.
 betabinomial_n_eff <- relative_eff(exp(betabinomial_log_lik), chain_id = rep(1:4, each = nrow(betabinomial_log_lik) / 4), cores = 4)
 betabinomial_loo <- loo(betabinomial_log_lik, r_eff = betabinomial_n_eff, cores = 4)
 betabinomial_waic <- waic(betabinomial_log_lik, cores = 4) # También computamos WAIC.

@@ -1272,10 +1272,10 @@ Categoría 5
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En un contexto estadístico podríamos traducirlo de la siguiente manera: la estimación de un parámetro representa buena evidencia a favor de una hipótesis si, en primer lugar, es compatible con ella y, en segundo lugar, de ser falsa el test habría revelado con alta probabilidad un valor menos compatible. Los p-valores e intervalos de confianza pueden aportar información del rigor de una inferencia particular. Si un test es diseñado para poseer una considerable potencia estadística para detectar <span class="math inline">\(\theta_0\)</span>, se observa un resultado positivo y el límite inferior del intervalo de confianza lo excluye, esta incompatibilidad puede considerarse como buena evidencia de que el valor del parámetro es superior a <span class="math inline">\(\theta_0\)</span> porque, de lo contrario, se habría observado una menor estimación con alta probabilidad. Es decir, <span class="math inline">\(\theta &gt; \theta_0\)</span> es una inferencia que pasa el test con suficiente rigor.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Sin embargo, la información procedente de un p-valor o un intervalo de confianza es limitada porque no aporta el grado de rigor con el que todos los posibles valores del parámetro han pasado o no el test. El p-valor solo comunica la discrepancia del estadístico respecto a la hipótesis nula mientras que los valores contenidos en los intervalo de confianza meramente son aquellos ante los que no se habría rechazado la hipótesis nula si esta se correspondiera con el valor del parámetro observado.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> Sin embargo, una medida más informativa del rigor aplicable a cada posible valor que puede tomar el parámetro puede computarse a posteriori (tras obtener los datos). Se trata de la probabilidad de haber observado una diferencia mayor o menor que la obtenida considerando cada uno de los posibles valores que puede tomar el parámetro. Esto es equivalente a realizar un análisis de potencia estadística tomando el estadístico observado, y no el valor de la hipótesis nula, como punto de referencia.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En la sección anterior habíamos visto que las <span class="math inline">\(\beta_{XY_j}\)</span>, <span class="math inline">\(\beta_{XM}\)</span> y <span class="math inline">\(\beta^\prime_{MY}\)</span> son significativas ya que los límites de los intervalos de confianza excluyen el 1 aportando evidencia de una discrepancia de la hipótesis nula. En esta situación, en lugar de limitarse a establecer o no la superioridad, inferioridad o inconclusibilidad de las estimaciones respecto a un mínimo efecto de interés, conviene establecer la máxima o mínima discrepancia que estamos en situación de inferir con rigor. Para ello, dado que los parámetros de la regresión betabinomial y ordinal logística siguen una distribución gausiana, debemos computar la probabilidad cumulativa</p>
-<p><span class="math display">\[\frac{1}{\hat{\sigma}_{\beta}^2 \sqrt {2\pi } } ~~ \int_{\infty}^{\beta} \text{exp}{~ - \frac{ ( {\hat{\beta} - \beta } )^2 }{2\hat{\sigma}_{\beta}^2} } \, d\beta\]</span></p>
+<p><span class="math display">\[\frac{1}{\hat{\sigma}_{\beta} \sqrt {2\pi } } ~~ \int_{\infty}^{\beta} \text{exp}{~ - \frac{ ( {\hat{\beta} - \beta } )^2 }{2\hat{\sigma}_{\beta}^2} } \, d\beta\]</span></p>
 <p>para cada posible valor que pueda tomar <span class="math inline">\(\beta\)</span>.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Por el contrario, una vez incluimos el mediador en la regresión, las <span class="math inline">\(\beta^\prime_{XY_j}\)</span> dejan de ser significativamente distintas de 1. En este otro caso, empleamos la función cumulativa complementaria ya que conviene establecer la máxima discrepancia que podemos descartar con rigor:</p>
-<p><span class="math display">\[\frac{1}{\hat{\sigma}_{\beta^\prime_{XY_j}}^2 \sqrt {2\pi } } ~~ \int_{\beta^\prime_{XY_j}}^{\infty} \text{exp}{~ - \frac{ \left( {\hat{\beta^\prime}_{XY_j} - \beta^\prime_{XY_j} } \right)^2 }{2\hat{\sigma}_{\beta^\prime_{XY_j}}^2} } \, d\beta^\prime_{XY_j}\]</span></p>
+<p><span class="math display">\[\frac{1}{\hat{\sigma}_{\beta^\prime_{XY_j}} \sqrt {2\pi } } ~~ \int_{\beta^\prime_{XY_j}}^{\infty} \text{exp}{~ - \frac{ \left( {\hat{\beta^\prime}_{XY_j} - \beta^\prime_{XY_j} } \right)^2 }{2\hat{\sigma}_{\beta^\prime_{XY_j}}^2} } \, d\beta^\prime_{XY_j}\]</span></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Volviendo al experimento que nos concierne y siguiendo el método mencionado, la siguiente figura muestra el rigor con el que distintas inferencias sobre los parámetros, estimados en razón de momios, pasan o no el test.</p>
 <pre class="r"><code>my.df &lt;- data.frame(x = c(0,1))
 p &lt;- ggplot(my.df, aes(x=x))
@@ -1812,7 +1812,7 @@ real mu;
 real&lt;lower=0&gt; sigma; // Desviación típica.
 }
 model {
-target += cauchy_lpdf(mu | 0, 1 / sqrt(2)); // Cauchy prior en la media.
+target += cauchy_lpdf(mu | 0, 1); // Cauchy prior en la media.
 target += log(1/sigma); // Jeffreys prior en la desviación típica.
 // En este modelo nulo asumimos que no hay diferencias entre grupos por lo que ajustamos el mismo likelihood a ambos:
 target += normal_lpdf(Y1 | mu, sigma); // likelihood
@@ -1827,18 +1827,18 @@ int&lt;lower=1&gt; n1; // Número de participantes en la condición de intervenc
 int&lt;lower=1&gt; n0; // Número de participantes en la condición de no intervención.
 vector[n1] Y1; // Observaciones en la condición de intervención.
 vector[n0] Y0; // Observaciones en la condición de no intervención.
-real&lt;lower=0, upper=1&gt; ratio_1;
-real&lt;lower=0, upper=1&gt; ratio_0;
+real&lt;lower=0, upper=1&gt; ratio_1; // Proporción de participantes en el grupo de intervención.
+real&lt;lower=0, upper=1&gt; ratio_0; // Proporción de participantes en el grupo control.
 }
 parameters {
-real mu;
+real mu; // El grand mean.
 real delta; // Efecto estandarizado.
 real&lt;lower=0&gt; sigma; // Desviación típica.
 }
 
 model {
-target += cauchy_lpdf(delta | 0, 1 / sqrt(2)) - cauchy_lccdf(0 | 0, 1 / sqrt(2)); // Constrained Cauchy prior on delta
-target += cauchy_lpdf(mu | 0, 1 / sqrt(2)); // Cauchy prior en delta
+target += cauchy_lpdf(mu | 0, 1); // Cauchy prior en el grand mean.
+target += cauchy_lpdf(delta | 0, 1 / sqrt(2)) - cauchy_lccdf(0 | 0, 1 / sqrt(2)); // Half Cauchy prior en delta
 target += log(1/sigma); // Jeffreys prior en la desviación típica.
 target += normal_lpdf(Y1 | mu - delta * sigma * ratio_0, sigma); // likelihood para el grupo de intervención.
 target += normal_lpdf(Y0 | mu + delta * sigma * ratio_1, sigma); // likelihood para el grupo de no intervención.
@@ -2051,7 +2051,7 @@ print(fit_modelo_ordinal, probs = c(0.025, 0.5, 0.975), pars = c(&quot;Intercept
 
 # Extraemos el logaritmo del likelihood:
 betabinomial_log_lik &lt;- extract_log_lik(fit_modelo_betabinomial)
-# Computamos LOO, que es mejor que WAIC (según los expertos) y es una medida que podemos usar para comparar modelos.
+# Computamos LOO, que es mejor que WAIC y es una medida que podemos usar para comparar modelos.
 betabinomial_n_eff &lt;- relative_eff(exp(betabinomial_log_lik), chain_id = rep(1:4, each = nrow(betabinomial_log_lik) / 4), cores = 4)
 betabinomial_loo &lt;- loo(betabinomial_log_lik, r_eff = betabinomial_n_eff, cores = 4)
 betabinomial_waic &lt;- waic(betabinomial_log_lik, cores = 4) # También computamos WAIC.
