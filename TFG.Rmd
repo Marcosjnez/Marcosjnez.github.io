@@ -111,7 +111,7 @@ $\indent$ El *dataset* está disponible en el siguiente repositorio:
 
 <br>
 
-# *Setup*
+## *Setup*
 
 <br>
 
@@ -139,7 +139,7 @@ options(mc.cores = parallel::detectCores())
 
 <br> 
 
-# Hipótesis
+## Hipótesis
 
 <br>
 
@@ -166,7 +166,7 @@ dag1 <- ggdag(Causal_Graph, node_size = 20, text = F) + # use_labels = "label"
   geom_curve(mapping = aes(x = 2.55, xend = 3.35, y = 2.2, yend = 1.45), curvature = -0.5, angle = 90, linetype = "dashed",
              size = 0.15) +
   annotate("text", x = 2.45, y = 2.15, label = TeX('$\\epsilon_M$'), parse=T, colour = "black", size = 4.5) +
-  annotate("text", x = 3.35, y = 1.35, label = TeX('$\\epsilon_{\\xi}$'), parse=T, colour = "black", size = 4.5) +
+  annotate("text", x = 3.35, y = 1.35, label = TeX('$\\epsilon\\prime_{\\xi}$'), parse=T, colour = "black", size = 4.5) +
   annotate("text", x = 1.35, y = 1.55, label = TeX('$\\beta_{\\,XM}$'), parse=T, colour = "black", size = 4.5) +
   annotate("text", x = 2.65, y = 1.55, label =  TeX('$\\beta\\prime_{M\\xi}$'), parse=T, colour = "black", size = 4.5) +
   annotate("text", x = 2, y = 0.85, label = TeX('$\\beta\\prime_{X\\xi}$'), parse=T, colour = "black", size = 4.5) +
@@ -188,7 +188,7 @@ dag1
 dag1
 ```
 
-$\indent$ La figura (*directed acyclic graph*) muestra los efectos causales que se pretenden estimar. $X$ representa la exposición a la intervención educativa, $M$ es el efecto mediador que supone la decisión de administrar o no el fármaco, $\xi$ es la percepción de eficacia que los participantes atribuyen a dicho fármaco (variable latente) e $Y$ es su indicador, la puntuación observada. Los errores $\varepsilon_M$ y $\varepsilon^\prime_{\xi}$ se muestan correlacionados ante la posibilidad de que una variable no identificada afecte a $M$ y $\xi$ y $\beta^\prime_{M\xi}$ se corresponde con el efecto de $M$ en $\xi$. El efecto de $\xi$ sobre $M$ (nótese que el trazo que les une es bidireccional) se debe a que es razonable pensar que la probabilidad de administrar el fármaco está influida por la propia percepción de eficacia que va progresando durante el desarrollo de la prueba.
+$\indent$ La figura muestra los efectos causales que se pretenden estimar. $X$ representa la exposición a la intervención educativa, $M$ es el efecto mediador que supone la decisión de administrar o no el fármaco, $\xi$ es la percepción de eficacia que los participantes atribuyen a dicho fármaco (variable latente) e $Y$ es su indicador, la puntuación observada. Los errores $\varepsilon_M$ y $\varepsilon^\prime_{\xi}$ se muestan correlacionados ante la posibilidad de que una variable no identificada afecte a $M$ y $\xi$ y $\beta^\prime_{M\xi}$ se corresponde con el efecto de $M$ en $\xi$. El efecto de $\xi$ sobre $M$ (nótese que el trazo que les une es bidireccional) se debe a que es razonable pensar que la probabilidad de administrar el fármaco está influida por la propia percepción de eficacia que va progresando durante el desarrollo de la prueba.
 
 $\indent$ Por otro lado, es importante resaltar la distinción entre $\xi$ e $Y$ ya que no existe ninguna teoría ni investigación que permita establecer un isomorfismo entre ambas variables. Tomar dicha asunción equivale a presuponer que la variable latente es cuantitativa y correctamente representada en la escala de intervalo $[0, 100]$ establecida por los investigadores. Por varios motivos, la escala original se ha transformado en otra compuesta de cinco categorías ordinales que pueden ser interpretadas de la siguiente manera: considerable convicción en la ineficacia del fármaco $[0, 20)$; convicción parcial en la ineficacia del fármaco $[20, 40)$; duda $[40, 60)$, convicción parcial en la eficacia del fármaco $[60, 80)$ y considerable convicción en la eficacia del fármaco $[80, 100]$.
 
@@ -236,7 +236,7 @@ $\indent$ De esta manera, aunque el análisis original utilizó el método de m�
 $$ \log\left(\frac{\text{Pr}(Y \le j)} {\text{Pr}(Y > j)}\right) = \alpha_j - X \beta^\prime_{XY_j} - M \beta^\prime_{MY} $$
 donde $Y$ representa las observaciones transformadas.
 
-$\indent$ Reemplazando la variable latente por su indicador, la siguiente Figura muestra el modelo empírico con los parámetros que finalmente se estiman.
+$\indent$ Reemplazando la variable latente por su indicador, la siguiente Figura (*directed acyclic graph*) representa el modelo con los parámetros que se estiman.
 ```{r DAG2, eval = F, echo = T}
 Causal_Graph_Empirical <- dagify(Y ~ X + M,
               M ~ X,
@@ -282,7 +282,7 @@ $\indent$ Finalmente, para el análisis mediacional se ha empleado la inferencia
 
 <br>
 
-# Descripción de los efectos naturales
+## Descripción de los efectos naturales
 
 <br>
 
@@ -302,7 +302,7 @@ $\indent$ Estos efectos serán estimados siguiendo el método paramétrico descr
 
 <br>
 
-# Asunciones para identificar los efectos naturales
+## Asunciones para identificar los efectos naturales
 
 <br>
 
@@ -319,7 +319,7 @@ $\indent$ Las asunciones (a) y (c) son automáticamente satisfechas por la aleat
 
 <br>
 
-# Visualización de los datos y asunción del modelo logístico cumulativo
+## Visualización de los datos y asunción del modelo logístico cumulativo
 
 <br>
 
@@ -423,7 +423,7 @@ $\indent$ Como podemos observar, las estimaciones de las razones de momios para 
 
 <br>
 
-# Modelos
+## Modelos
 
 <br>
 
@@ -446,13 +446,13 @@ sum(residuals^2) / binomial_model$df.residual
 ```{r Overdispersion_3, eval = F, echo = T}
 # Una opción es reajustar el modelo con un parámetro añadido que acomode esta sobredispersión (modelo quasibinomial):
 modelo_quasibinomial <- glm(cbind(Si, No) ~ Grupo, family = quasibinomial, data = mydata)
-summary(modelo_quasibinomial)$dispersion
+summary(modelo_quasibinomial)
 # Este modelo da lugar a las mismas estimaciones pero con intervalos de confianza más amplios.
 # Sin embargo, el modelo betabinomial es teóricamente más adecuado porque permite que la probabilidad de los participantes de decidir administrar el fármaco sea una distribución en lugar de un valor fijo.
 ```
 
 ```{r Overdispersion_4, eval = T, echo = F}
-summary(modelo_quasibinomial)$dispersion
+summary(modelo_quasibinomial)
 ```
 
 Utilizaremos un modelo betabinomial:
@@ -604,7 +604,7 @@ grid.arrange(plot5, plot6, nrow = 1, bottom = textGrob("Razón de momios", vjust
 
 <br>
 
-# Estimación de los efectos naturales directos, indirectos y totales
+## Estimación de los efectos naturales directos, indirectos y totales
 
 <br>
 
@@ -942,7 +942,7 @@ $\indent$ De esta manera, el factor de Bayes se corresponde con la razón de los
 
 [^10]: Se utiliza la distribución posterior de los parámetros, $p(\theta \, | \, y)$, para computar el *marginal likelihood*, $p(y) = \int p(y \, | \, \theta) \, p(\theta) \, d{\theta}$, a través de un algoritmo iterativo conocido como *bridge sampling*:
 $$ \hat{p}(y) = \frac{\int p(y \, | \, \theta) \, p(\theta) \, h(\theta) \, g(\theta) \, d\theta}{\int h(\theta) \, g(\theta) \, p(\theta \, | \, y) \, d\theta} = \frac{E_{g(\theta)}[p(y \, | \, \theta) \, h(\theta)]}{E_{p(\theta \, | \, y)}[h(\theta) \, g(\theta)]} $$
-donde $\theta$ es un vector de parámetros, $h(\theta)$ es la función que minimiza el error de predicción en el proceso iterativo y $g(\theta)$ es una distribución arbitraria pero que debe ser algo similar a la posterior. De esta manera, tomando muestras de $g(\theta)$ y de $p(\theta \, | \, y)$, podemos aproximar el *marginal likelihood*. Una explicación más concisa puede encontrarse en @Gronau2017. <br>
+donde $\theta$ es un vector de parámetros, $h(\theta)$ es la función que minimiza el error de predicción en el proceso iterativo y $g(\theta)$ es la denominada *proposal distribution*. De esta manera, tomando muestras de $g(\theta)$ y de $p(\theta \, | \, y)$, podemos aproximar el *marginal likelihood*. Una explicación más concisa puede encontrarse en @Gronau2017. <br>
 $\indent$ La importancia de esta técnica es vital porque hasta hace poco solo era posible calcular los factores de Bayes usando paquetes estadísticos con distribuciones a priori que ya venían dadas, es decir, hipótesis por defecto. Sin embargo, el reciente paquete R *bridgesampling* permite obtener el *marginal likelihood* de cualquier modelo que un analista pueda imaginar.
 
 $\indent$ Volviendo al experimento sobre la intervención educativa, debemos comenzar especificando los modelos betabinomial y logístico cumulativo con distribuciones a priori sobre sus parámetros que representen nuestras hipótesis:
@@ -950,7 +950,7 @@ $\indent$ Volviendo al experimento sobre la intervención educativa, debemos com
 $$ k \, | \, n \sim \text{Binomial}(\theta, \text{n})$$
 $$ \theta \sim \text{Beta}(\alpha, \beta) $$
 $$ \alpha = \text{inverse logit}(\text{Intercept} + X\beta_{XM}) \, \left(\frac{1 - \text{rho}}{\text{rho}}\right) $$
-$$ \beta = \text{inverse logit}(\text{- Intercept} - X\beta_{XM}) \, \left(\frac{1 - \text{rho}}{\text{rho}}\right) $$
+$$ \beta = \text{inverse logit}(- \text{Intercept} - X\beta_{XM}) \, \left(\frac{1 - \text{rho}}{\text{rho}}\right) $$
 $$ \alpha \sim \text{Normal}(0, 1) $$
 $$ \beta_{XM} \sim \text{HalfCauchy}(0, 1) $$
 $$ \text{rho} \sim \text{Uniform}(0, 1) $$
@@ -981,7 +981,7 @@ curve(dunif(x, 0, 1), xlim = c(0, 1), main = "rho", xlab = NULL)
 curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha[j]), ylab = "Densidad", xlab = "")
 # Centrando los predictores, al situar el intercepto en torno a 0 estamos concediendo la misma probabilidad a priori de 0.5 de seleccionar una categoría igual o menor para todos los participantes antes de pasar por la intervención.
 
-curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta*minute[MY]), ylab = "Densidad", xlab = "")
+curve(dhalfcauchy(x), xlim = c(1, 5), main = expression(beta*minute[MY]), ylab = "Densidad", xlab = "")
 curve(dnorm(x, 0, 5), xlim = c(-15, 15), main = expression(beta*minute[XY[j]]), ylab = "Densidad", xlab = "")
 ```
 
@@ -1004,7 +1004,7 @@ Centered_Grupo = Grupo - mean(Grupo);
 // Declaramos los parámetros:
 parameters {
 real intercept;
-real beta_Grupo; // We could put <upper=0> here but it lowers the effective sample size.
+real<upper=0> beta_Grupo;
 real<lower=0, upper=1> rho; // Correlación[0, 1]
 }
 transformed parameters {
@@ -1018,7 +1018,7 @@ transformed parameters {
 }
 model {
     target += normal_lpdf(intercept | 0, 1);
-    target += cauchy_lpdf(beta_Grupo | 0, 1) - cauchy_lccdf(0 | 0, 1);
+    target += cauchy_lpdf(beta_Grupo | 0, 1) - cauchy_lcdf(0 | 0, 1);
     target += uniform_lpdf(rho | 0, 1);
     for (n in 1:N) {
         target += beta_binomial_lpmf(Y[n] | 40, alpha[n], beta[n]); // Likelihood
@@ -1107,7 +1107,7 @@ Centered_Predictors[, i] = Predictors[, i] - Predictors_means[i];
 }
 parameters {
 vector[4] betas; // Declaramos los coeficientes de la intervención para cada punto de corte.
-real beta; // Coeficiente para el número de administraciones del fármaco.
+real<lower=0> beta; // Coeficiente para el número de administraciones del fármaco.
 ordered[4] c; // Interceptos cuando los predictores están centrados.
 }
 transformed parameters {
@@ -1229,12 +1229,12 @@ Esto quiere decir que, antes de observar los datos, creemos que los modelos sin 
 
 <br>
 
-$$ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \simeq 523 \cdot \frac{0.25}{0.75} \simeq 174.4 $$
+$$ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \simeq 523 \cdot \frac{0.25}{0.75} \simeq 174.3 $$
 ```{r BF_6, eval = T, echo = T}
 BF10 * (1/3)
 ```
 
-$$ p(M_1\, | \,y) \simeq \frac{174.4}{1 + 174.4} \simeq 0.994 $$
+$$ p(M_1\, | \,y) \simeq \frac{174.3}{1 + 174.3} \simeq 0.994 $$
 
 ```{r BF_7, eval = T, echo = T}
 post_prob_M1_M0 <- post_prob(ML_M1, ML_M0, prior_prob = c(.25, .75))
@@ -1263,7 +1263,7 @@ $$\text{probabilidad de mediación} = p(M_1\, | \,y) \cdot p(M_2\, | \,y) \simeq
 
 $\indent$ lo que quiere decir que
 
-$$\text{BF}_{mediación} \simeq \frac{0.994}{1 - 0.994} \simeq 174.4$$
+$$\text{BF}_{mediación} \simeq \frac{0.994}{1 - 0.994} \simeq 174.3$$
 
 <br>
 
@@ -1277,7 +1277,7 @@ $\indent$ Estos resultados nos indican que los datos observados son 174 veces m�
 
 <br>
 
-# Factor de Bayes reportado en @Barberia2018
+## Factor de Bayes reportado en @Barberia2018
 
 <br>
 
@@ -1289,9 +1289,9 @@ $$ \sigma \sim \frac{1}{\sigma} $$
 
 $\indent$ Los *likelihoods* son:
 
-$$ Y_1 \sim \text{Normal}(\mu - \mu_{diferencia} \, \cdot \, \alpha\,{_0}, \sigma)$$
-$$ Y_0 \sim \text{Normal}(\mu + \mu_{diferencia} \, \cdot \, \alpha{\,_1}, \sigma)$$
-donde, $Y_1$ representa a los participantes que reciben la intervención, $Y_2$ representa a los que no reciben la intervención, $\mu$ es el *grand mean*, $\mu_{diferencia}$ es la diferencia media entre grupos, $\alpha{\,_0}$ es la proporción de participantes en el grupo control y $\alpha{\,_1}$ es la del grupo de intervención.
+$$ Y_1 \sim \text{Normal}(\mu + \mu_{diferencia} \, \cdot \, \alpha\,{_0}, \sigma)$$
+$$ Y_0 \sim \text{Normal}(\mu - \mu_{diferencia} \, \cdot \, \alpha{\,_1}, \sigma)$$
+donde $Y_1$ representa a los participantes que reciben la intervención, $Y_2$ representa a los que no reciben la intervención, $\mu$ es el *grand mean*, $\mu_{diferencia}$ es la diferencia media entre grupos, $\alpha{\,_0}$ es la proporción de participantes en el grupo control y $\alpha{\,_1}$ es la del grupo de intervención.
 
 $\indent$ La hipótesis nula descarta el parámetro $\delta$, que es el tamaño del efecto estandarizado:
 
@@ -1299,7 +1299,7 @@ $$ \delta = \frac{\mu_{diferencia}}{\sigma} $$
 
 ```{r Original_1, eval = T, echo = T}
 # Este es el resultado reportado en el paper:
-ttestBF(formula = Causal_Judgment ~ Group, data = data, nullInterval = c(0, Inf), rscale = 1/sqrt(2))
+ttestBF(formula = Causal_Judgment ~ Group, data = data, nullInterval = c(0, -Inf), rscale = 1/sqrt(2))
 ```
 
 $\indent$ El factor de Bayes es de 47.69 a favor de la hipótesis alternativa.
@@ -1346,16 +1346,16 @@ real<lower=0, upper=1> ratio_0; // Proporción de participantes en el grupo cont
 }
 parameters {
 real mu; // El grand mean.
-real delta; // Efecto estandarizado.
+real<upper=0> delta; // Efecto estandarizado.
 real<lower=0> sigma; // Desviación típica.
 }
 
 model {
 target += cauchy_lpdf(mu | 0, 1); // Cauchy prior en el grand mean.
-target += cauchy_lpdf(delta | 0, 1 / sqrt(2)) - cauchy_lccdf(0 | 0, 1 / sqrt(2)); // Half Cauchy prior en delta
+target += cauchy_lpdf(delta | 0, 1 / sqrt(2)) - cauchy_lcdf(0 | 0, 1 / sqrt(2)); // Half Cauchy prior en delta
 target += log(1/sigma); // Jeffreys prior en la desviación típica.
-target += normal_lpdf(Y1 | mu - delta * sigma * ratio_0, sigma); // likelihood para el grupo de intervención.
-target += normal_lpdf(Y0 | mu + delta * sigma * ratio_1, sigma); // likelihood para el grupo de no intervención.
+target += normal_lpdf(Y1 | mu + delta * sigma * ratio_0, sigma); // likelihood para el grupo de intervención.
+target += normal_lpdf(Y0 | mu - delta * sigma * ratio_1, sigma); // likelihood para el grupo de no intervención.
 }
 "
 
@@ -1428,7 +1428,7 @@ Centered_Grupo = Grupo - mean(Grupo);
 }
 parameters {
 real intercept;
-real beta_Grupo; // We could put <upper=0> but it lowers the effective sample size.
+real<upper=0> beta_Grupo;
 real<lower=0, upper=1> rho;
 }
 transformed parameters {
@@ -1441,7 +1441,7 @@ beta[n] = (1 - inv_logit(intercept + Centered_Grupo[n] * beta_Grupo)) * (1 - rho
 }
 model {
 target += normal_lpdf(intercept | 0, 1);
-target += cauchy_lpdf(beta_Grupo | 0, 1) - cauchy_lccdf(0 | 0, 1);
+target += cauchy_lpdf(beta_Grupo | 0, 1) - cauchy_lcdf(0 | 0, 1);
 target += uniform_lpdf(rho | 0, 1);
 for (n in 1:N) {
 target += beta_binomial_lpmf(Y[n] | 40, alpha[n], beta[n]);
@@ -1511,7 +1511,7 @@ Centered_Predictors[, i] = Predictors[, i] - Predictors_means[i];
 }
 parameters {
 vector[4] betas;
-real beta;
+real<lower=0> beta;
 ordered[4] c; // Intercepts.
 }
 transformed parameters {
@@ -1699,7 +1699,7 @@ table(mydata$Indicador[mydata$Grupo == 0])
 # Si estas predicciones no son buenas, entonces nuestro modelo no es una adecuada representación del proceso que ha generado las observaciones y debemos expandirlo con más parámetroso ajustar otro modelo y compararlo mediante WAIC o LOO. Si WAIC o LOO son menores para un determinado modelo, las predicciones son mejores.
 ```
 
-# Estimación de los efectos naturales
+## Estimación de los efectos naturales
 
 $\indent$ En la siguiente figura se pueden observar las distribuciones posteriores de los efectos.
 

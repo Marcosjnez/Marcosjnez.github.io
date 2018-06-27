@@ -231,20 +231,24 @@ Trabajo de Fin de Grado <br> Prácticas estadísticas para investigadores en psi
 <ul>
 <li><a href="#abstract">Abstract</a></li>
 <li><a href="#introduccion">Introducción</a></li>
-<li><a href="#metodo-participantes-y-materiales">Método, participantes y materiales</a></li>
+<li><a href="#metodo-participantes-y-materiales">Método, participantes y materiales</a><ul>
 <li><a href="#setup"><em>Setup</em></a></li>
 <li><a href="#hipotesis">Hipótesis</a></li>
 <li><a href="#descripcion-de-los-efectos-naturales">Descripción de los efectos naturales</a></li>
 <li><a href="#asunciones-para-identificar-los-efectos-naturales">Asunciones para identificar los efectos naturales</a></li>
 <li><a href="#visualizacion-de-los-datos-y-asuncion-del-modelo-logistico-cumulativo">Visualización de los datos y asunción del modelo logístico cumulativo</a></li>
 <li><a href="#modelos">Modelos</a></li>
-<li><a href="#tests-de-equivalencia-superioridad-e-inferioridad">Tests de equivalencia, superioridad e inferioridad</a></li>
+</ul></li>
+<li><a href="#tests-de-equivalencia-superioridad-e-inferioridad">Tests de equivalencia, superioridad e inferioridad</a><ul>
 <li><a href="#estimacion-de-los-efectos-naturales-directos-indirectos-y-totales">Estimación de los efectos naturales directos, indirectos y totales</a></li>
+</ul></li>
 <li><a href="#test-de-rigor">Test de rigor</a></li>
-<li><a href="#factor-de-bayes">Factor de Bayes</a></li>
+<li><a href="#factor-de-bayes">Factor de Bayes</a><ul>
 <li><a href="#factor-de-bayes-reportado-en-barberia2018">Factor de Bayes reportado en <span class="citation">Barberia (2018)</span></a></li>
-<li><a href="#analisis-bayesiano">Análisis bayesiano</a></li>
+</ul></li>
+<li><a href="#analisis-bayesiano">Análisis bayesiano</a><ul>
 <li><a href="#estimacion-de-los-efectos-naturales">Estimación de los efectos naturales</a></li>
+</ul></li>
 <li><a href="#discusion">Discusión</a></li>
 <li><a href="#paquetes-r-empleados">Paquetes R empleados</a></li>
 <li><a href="#informacion-de-la-sesion">Información de la sesión</a></li>
@@ -299,9 +303,8 @@ load(file = "/home/marcos/Documentos/Projects/website/TFG_Workspace.RData")
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Los investigadores hipotetizaron que los participantes que en primer lugar reciben la intervención son menos propensos a asignar un papel causal al medicamento ya que, siendo conscientes de las circuntancias que inducen el sesgo de confirmación, aplicarían una estrategia de naturaleza más desconfirmatoria durante la tarea. Es decir, según esta hipótesis, el número de veces que los participantes deciden suministrar el fármaco es menor tras pasar por la condición de intervención y opera como mediador entre la intervención educativa y la percepción sobre la eficacia del fármaco.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> El <em>dataset</em> está disponible en el siguiente repositorio: <a href="https://osf.io/tzchd/">Open Science Framework</a></p>
 <p><br></p>
-</div>
-<div id="setup" class="section level1">
-<h1><em>Setup</em></h1>
+<div id="setup" class="section level2">
+<h2><em>Setup</em></h2>
 <p><br></p>
 <p>Cargamos los siguientes paquetes:</p>
 <pre class="r"><code>lapply(c(&quot;tidyverse&quot;, &quot;rstan&quot;, &quot;bridgesampling&quot;, &quot;loo&quot;, &quot;shinystan&quot;, &quot;VGAM&quot;, &quot;ggplot2&quot;, &quot;bayesplot&quot;, &quot;grid&quot;, &quot;gridExtra&quot;, &quot;latex2exp&quot;, &quot;dagitty&quot;, &quot;ggdag&quot;, &quot;patchwork&quot;, &quot;knitr&quot;, &quot;kableExtra&quot;, &quot;BayesFactor&quot;), library, character.only = TRUE)</code></pre>
@@ -314,8 +317,8 @@ rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())</code></pre>
 <p><br></p>
 </div>
-<div id="hipotesis" class="section level1">
-<h1>Hipótesis</h1>
+<div id="hipotesis" class="section level2">
+<h2>Hipótesis</h2>
 <p><br></p>
 <pre class="r"><code>Causal_Graph &lt;- dagify(xi ~ X + M,
                        M ~ xi,
@@ -339,7 +342,7 @@ dag1 &lt;- ggdag(Causal_Graph, node_size = 20, text = F) + # use_labels = &quot;
   geom_curve(mapping = aes(x = 2.55, xend = 3.35, y = 2.2, yend = 1.45), curvature = -0.5, angle = 90, linetype = &quot;dashed&quot;,
              size = 0.15) +
   annotate(&quot;text&quot;, x = 2.45, y = 2.15, label = TeX(&#39;$\\epsilon_M$&#39;), parse=T, colour = &quot;black&quot;, size = 4.5) +
-  annotate(&quot;text&quot;, x = 3.35, y = 1.35, label = TeX(&#39;$\\epsilon_{\\xi}$&#39;), parse=T, colour = &quot;black&quot;, size = 4.5) +
+  annotate(&quot;text&quot;, x = 3.35, y = 1.35, label = TeX(&#39;$\\epsilon\\prime_{\\xi}$&#39;), parse=T, colour = &quot;black&quot;, size = 4.5) +
   annotate(&quot;text&quot;, x = 1.35, y = 1.55, label = TeX(&#39;$\\beta_{\\,XM}$&#39;), parse=T, colour = &quot;black&quot;, size = 4.5) +
   annotate(&quot;text&quot;, x = 2.65, y = 1.55, label =  TeX(&#39;$\\beta\\prime_{M\\xi}$&#39;), parse=T, colour = &quot;black&quot;, size = 4.5) +
   annotate(&quot;text&quot;, x = 2, y = 0.85, label = TeX(&#39;$\\beta\\prime_{X\\xi}$&#39;), parse=T, colour = &quot;black&quot;, size = 4.5) +
@@ -356,7 +359,7 @@ dag1 &lt;- ggdag(Causal_Graph, node_size = 20, text = F) + # use_labels = &quot;
         panel.grid.minor=element_blank(),plot.background=element_blank())
 dag1</code></pre>
 <p><img src="TFG_files/figure-html/DAG_1-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> La figura (<em>directed acyclic graph</em>) muestra los efectos causales que se pretenden estimar. <span class="math inline">\(X\)</span> representa la exposición a la intervención educativa, <span class="math inline">\(M\)</span> es el efecto mediador que supone la decisión de administrar o no el fármaco, <span class="math inline">\(\xi\)</span> es la percepción de eficacia que los participantes atribuyen a dicho fármaco (variable latente) e <span class="math inline">\(Y\)</span> es su indicador, la puntuación observada. Los errores <span class="math inline">\(\varepsilon_M\)</span> y <span class="math inline">\(\varepsilon^\prime_{\xi}\)</span> se muestan correlacionados ante la posibilidad de que una variable no identificada afecte a <span class="math inline">\(M\)</span> y <span class="math inline">\(\xi\)</span> y <span class="math inline">\(\beta^\prime_{M\xi}\)</span> se corresponde con el efecto de <span class="math inline">\(M\)</span> en <span class="math inline">\(\xi\)</span>. El efecto de <span class="math inline">\(\xi\)</span> sobre <span class="math inline">\(M\)</span> (nótese que el trazo que les une es bidireccional) se debe a que es razonable pensar que la probabilidad de administrar el fármaco está influida por la propia percepción de eficacia que va progresando durante el desarrollo de la prueba.</p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> La figura muestra los efectos causales que se pretenden estimar. <span class="math inline">\(X\)</span> representa la exposición a la intervención educativa, <span class="math inline">\(M\)</span> es el efecto mediador que supone la decisión de administrar o no el fármaco, <span class="math inline">\(\xi\)</span> es la percepción de eficacia que los participantes atribuyen a dicho fármaco (variable latente) e <span class="math inline">\(Y\)</span> es su indicador, la puntuación observada. Los errores <span class="math inline">\(\varepsilon_M\)</span> y <span class="math inline">\(\varepsilon^\prime_{\xi}\)</span> se muestan correlacionados ante la posibilidad de que una variable no identificada afecte a <span class="math inline">\(M\)</span> y <span class="math inline">\(\xi\)</span> y <span class="math inline">\(\beta^\prime_{M\xi}\)</span> se corresponde con el efecto de <span class="math inline">\(M\)</span> en <span class="math inline">\(\xi\)</span>. El efecto de <span class="math inline">\(\xi\)</span> sobre <span class="math inline">\(M\)</span> (nótese que el trazo que les une es bidireccional) se debe a que es razonable pensar que la probabilidad de administrar el fármaco está influida por la propia percepción de eficacia que va progresando durante el desarrollo de la prueba.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Por otro lado, es importante resaltar la distinción entre <span class="math inline">\(\xi\)</span> e <span class="math inline">\(Y\)</span> ya que no existe ninguna teoría ni investigación que permita establecer un isomorfismo entre ambas variables. Tomar dicha asunción equivale a presuponer que la variable latente es cuantitativa y correctamente representada en la escala de intervalo <span class="math inline">\([0, 100]\)</span> establecida por los investigadores. Por varios motivos, la escala original se ha transformado en otra compuesta de cinco categorías ordinales que pueden ser interpretadas de la siguiente manera: considerable convicción en la ineficacia del fármaco <span class="math inline">\([0, 20)\)</span>; convicción parcial en la ineficacia del fármaco <span class="math inline">\([20, 40)\)</span>; duda <span class="math inline">\([40, 60)\)</span>, convicción parcial en la eficacia del fármaco <span class="math inline">\([60, 80)\)</span> y considerable convicción en la eficacia del fármaco <span class="math inline">\([80, 100]\)</span>.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Cargamos y transformamos los datos:</p>
 <pre class="r"><code>data &lt;- read.csv(&quot;https://osf.io/tzchd/download&quot;, sep = &quot;;&quot;)
@@ -405,7 +408,7 @@ table(mydata$Indicador[mydata$Grupo == 0])
 </ol>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> De esta manera, aunque el análisis original utilizó el método de mínimos cuadrados, aquí se ha decidido aplicar una regresión logística cumulativa parcial<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> <span class="citation">(Peterson and Harrell 1990)</span> en el que se estima un parámetro <span class="math inline">\(\beta^\prime_{XY_j}\)</span> diferente para cada punto de corte <span class="math inline">\(j\)</span>:</p>
 <p><span class="math display">\[ \log\left(\frac{\text{Pr}(Y \le j)} {\text{Pr}(Y &gt; j)}\right) = \alpha_j - X \beta^\prime_{XY_j} - M \beta^\prime_{MY} \]</span> donde <span class="math inline">\(Y\)</span> representa las observaciones transformadas.</p>
-<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Reemplazando la variable latente por su indicador, la siguiente Figura muestra el modelo empírico con los parámetros que finalmente se estiman.</p>
+<p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Reemplazando la variable latente por su indicador, la siguiente Figura (<em>directed acyclic graph</em>) representa el modelo con los parámetros que se estiman.</p>
 <pre class="r"><code>Causal_Graph_Empirical &lt;- dagify(Y ~ X + M,
               M ~ X,
               labels = c(&quot;X&quot; = &quot;Intervención&quot;,
@@ -443,8 +446,8 @@ dag2</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Finalmente, para el análisis mediacional se ha empleado la inferencia paramétrica descrita en <span class="citation">Imai, Keele, and Tingley (2010)</span> y <span class="citation">VanderWeele, Zhang, and Lim (2016)</span>, que descansa en la aproximación contrafactual de Judea Pearl <span class="citation">(Pearl 2014)</span>, quien descompone el efecto total de la intervención en efectos naturales directos (NDE) e indirectos (NIE).</p>
 <p><br></p>
 </div>
-<div id="descripcion-de-los-efectos-naturales" class="section level1">
-<h1>Descripción de los efectos naturales</h1>
+<div id="descripcion-de-los-efectos-naturales" class="section level2">
+<h2>Descripción de los efectos naturales</h2>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Efecto natural directo (NDE): impacto de la intervención educativa en el indicador de la percepción de eficacia si los participantes decidieran admistrar el fármaco como si no hubieran pasado por ella.</p>
 <p><span class="math display">\[ NDE = \text{E}[Y_{X_1, M_0} - Y_{X_0, M_0}]  \]</span></p>
@@ -455,8 +458,8 @@ dag2</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Estos efectos serán estimados siguiendo el método paramétrico descrito en <span class="citation">Imai, Keele, and Tingley (2010)</span>. Básicamente, consiste en ajustar un modelo que regresa la intervención <span class="math inline">\(X\)</span> en la variable mediacional <span class="math inline">\(M\)</span> y otro regresando el indicador <span class="math inline">\(Y\)</span> en ambas. Luego, con los coeficientes estimados se simulan datos de las condiciones contrafactuales especificadas anteriormente para aproximar las esperanzas matemáticas.</p>
 <p><br></p>
 </div>
-<div id="asunciones-para-identificar-los-efectos-naturales" class="section level1">
-<h1>Asunciones para identificar los efectos naturales</h1>
+<div id="asunciones-para-identificar-los-efectos-naturales" class="section level2">
+<h2>Asunciones para identificar los efectos naturales</h2>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Los efectos naturales directo (NDE) e indirecto (NIE) son identificados si (a) <span class="math inline">\(X\)</span> e <span class="math inline">\(Y^{xm}\)</span> son independientes dado un set <span class="math inline">\(C\)</span> de covariables que incluye todas las variables confusoras, (b) <span class="math inline">\(M^x\)</span> e <span class="math inline">\(Y^{x^\prime m}\)</span> son independientes dado X y C, (c) <span class="math inline">\(X\)</span> y <span class="math inline">\(M^x\)</span> son independientes dado C y (d) <span class="math inline">\(M^x\)</span> e <span class="math inline">\(Y^{x^\prime m}\)</span> son independientes dado <span class="math inline">\(C\)</span> <span class="citation">(VanderWeele, Zhang, and Lim 2016)</span>.</p>
 <p><span class="math display">\[ \text{(a)} \,\,\, Y^{x m} \amalg X \, | \, C \]</span> <span class="math display">\[ \text{(b)} \,\,\, Y^{x^\prime m} \amalg M^x \, | \, X, C \]</span> <span class="math display">\[ \text{(c)} \,\,\, M^x \amalg X \, | \, C \]</span> <span class="math display">\[ \text{(d)} \,\,\,  Y^{x^\prime m} \amalg M^x \, | \, C \]</span></p>
@@ -464,8 +467,8 @@ dag2</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Las asunciones (a) y (c) son automáticamente satisfechas por la aleatorización a la intervención. Sin embargo, las asunciones (b) y (d) no son falsables a menos que la variable mediacional sea aleatorizada o se incluya en la regresión todas las variables confusoras. En este experimento <span class="math inline">\(M\)</span> no fue aleatorizado y en el <em>dataset</em> no hay covariables con las que ajustar el modelo, por lo que estas últimas asunciones permanecerán infalsables.</p>
 <p><br></p>
 </div>
-<div id="visualizacion-de-los-datos-y-asuncion-del-modelo-logistico-cumulativo" class="section level1">
-<h1>Visualización de los datos y asunción del modelo logístico cumulativo</h1>
+<div id="visualizacion-de-los-datos-y-asuncion-del-modelo-logistico-cumulativo" class="section level2">
+<h2>Visualización de los datos y asunción del modelo logístico cumulativo</h2>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Visualización preliminar de la relación entre el indicador y las covariables:</p>
 <pre class="r"><code>data_Grupo_1 &lt;- mydata %&gt;% filter(Grupo == 1) # Datos del grupo que recibe la intervención.
@@ -702,8 +705,8 @@ Pr(Y) &lt;= 4
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Como podemos observar, las estimaciones de las razones de momios para la intervención son muy diferentes o presentan un error de medida demasiado amplio como para asumir su igualdad. Sin embargo, las razones de momios para el número de administraciones del fármaco son bastante similares y los intervalos de confianza no son excesivamente amplios. Por tanto, un modelo cumulativo parcial en el que emplear un parámetro distinto para la variable intervencional por cada punto de corte es apropiado.</p>
 <p><br></p>
 </div>
-<div id="modelos" class="section level1">
-<h1>Modelos</h1>
+<div id="modelos" class="section level2">
+<h2>Modelos</h2>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En primer lugar, debemos estimar el efecto de la intervención educativa en el número de administraciones del fármaco. Sin embargo, no podemos emplear un simple modelo binomial debido a la presencia de sobredispersión, seguramente debida a que los ensayos <em>bernoulli</em> de cada participante se encuentran correlacionados y dependen, en parte, de la percepción de eficacia del fármaco que el participante va desarrollando durante la ejecución del experimento (como se muestra en el <em>directed acyclic graph</em>):</p>
 <pre class="r"><code>
@@ -716,10 +719,32 @@ sum(residuals^2) / binomial_model$df.residual
 <pre><code>## [1] 8.354068</code></pre>
 <pre class="r"><code># Una opción es reajustar el modelo con un parámetro añadido que acomode esta sobredispersión (modelo quasibinomial):
 modelo_quasibinomial &lt;- glm(cbind(Si, No) ~ Grupo, family = quasibinomial, data = mydata)
-summary(modelo_quasibinomial)$dispersion
+summary(modelo_quasibinomial)
 # Este modelo da lugar a las mismas estimaciones pero con intervalos de confianza más amplios.
 # Sin embargo, el modelo betabinomial es teóricamente más adecuado porque permite que la probabilidad de los participantes de decidir administrar el fármaco sea una distribución en lugar de un valor fijo.</code></pre>
-<pre><code>## [1] 8.354068</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(Si, No) ~ Grupo, family = quasibinomial, 
+##     data = mydata)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -8.0952  -1.6768  -0.1592   2.0199   6.2645  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   0.4569     0.1221   3.742 0.000299 ***
+## Grupo        -0.7137     0.1816  -3.930 0.000153 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for quasibinomial family taken to be 8.354068)
+## 
+##     Null deviance: 1155.4  on 105  degrees of freedom
+## Residual deviance: 1024.5  on 104  degrees of freedom
+## AIC: NA
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
 <p>Utilizaremos un modelo betabinomial:</p>
 <p><span class="math display">\[ k \, | \, n \sim \text{Binomial}(\theta, \text{n})\]</span> <span class="math display">\[ \theta \sim \text{Beta}(\alpha, \beta) \]</span> donde <span class="math inline">\(k\)</span> se corresponde con el número de administraciones del fármaco.</p>
 <pre class="r"><code># Ajustamos el modelo betabinomial:
@@ -814,6 +839,7 @@ odds.ratios_XY</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> A continuación se exponen brevemente las principales ideas subyacentes a cada método estadístico y se discuten los resultados obtenidos en acordancia.</p>
 <p><br></p>
 </div>
+</div>
 <div id="tests-de-equivalencia-superioridad-e-inferioridad" class="section level1">
 <h1>Tests de equivalencia, superioridad e inferioridad</h1>
 <p><br></p>
@@ -888,9 +914,8 @@ plot6 &lt;- p + theme_gray() +
 grid.arrange(plot5, plot6, nrow = 1, bottom = textGrob(&quot;Razón de momios&quot;, vjust = -0.6, gp = gpar(fontsize = 14)))</code></pre>
 <p><img src="TFG_files/figure-html/SESOI_2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><br></p>
-</div>
-<div id="estimacion-de-los-efectos-naturales-directos-indirectos-y-totales" class="section level1">
-<h1>Estimación de los efectos naturales directos, indirectos y totales</h1>
+<div id="estimacion-de-los-efectos-naturales-directos-indirectos-y-totales" class="section level2">
+<h2>Estimación de los efectos naturales directos, indirectos y totales</h2>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En general, los resultados sugerieren que existe un efecto total sobre la percepción de eficacia del fármaco atribuible a la intervención educativa <span class="math inline">\(X\)</span> y que es transmitido a <span class="math inline">\(Y\)</span> por medio de <span class="math inline">\(M\)</span>, tal y como hipotetizaron <span class="citation">Barberia (2018)</span>. Sin embargo, interpretar razones de momios puede resultar una tarea compleja. Las siguientes tablas muestran los efectos naturales directos, indirectos y totales, así como sus intervalos de confianza del 95%.</p>
 <pre class="r"><code># Función para obtener las probabilidades predichas por nuestro modelo logístico cumulativo:
@@ -1264,6 +1289,7 @@ Categoría 5
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Aquí podríamos haber establecido el mínimo efecto de interés, en lugar de en los parámetros, ya que estos resultados son más intuitivos que las razones de momios.</p>
 <p><br></p>
 </div>
+</div>
 <div id="test-de-rigor" class="section level1">
 <h1>Test de rigor</h1>
 <p><br></p>
@@ -1492,7 +1518,7 @@ Categoría 5
 <p><span class="math display">\[ \text{BF} = \frac{p(y\, | \,Modelo_{\,1})}{p(y\, | \,Modelo_{\,0})} \]</span></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> De esta manera, el factor de Bayes se corresponde con la razón de los <em>marginal likelihoods</em><a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> de cada modelo y cuantifican la magnitud en que los datos modifican las probabilidades que un investigador pone en cada hipótesis, interpretadas estas como creencias.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Volviendo al experimento sobre la intervención educativa, debemos comenzar especificando los modelos betabinomial y logístico cumulativo con distribuciones a priori sobre sus parámetros que representen nuestras hipótesis:</p>
-<p><span class="math display">\[ k \, | \, n \sim \text{Binomial}(\theta, \text{n})\]</span> <span class="math display">\[ \theta \sim \text{Beta}(\alpha, \beta) \]</span> <span class="math display">\[ \alpha = \text{inverse logit}(\text{Intercept} + X\beta_{XM}) \, \left(\frac{1 - \text{rho}}{\text{rho}}\right) \]</span> <span class="math display">\[ \beta = \text{inverse logit}(\text{- Intercept} - X\beta_{XM}) \, \left(\frac{1 - \text{rho}}{\text{rho}}\right) \]</span> <span class="math display">\[ \alpha \sim \text{Normal}(0, 1) \]</span> <span class="math display">\[ \beta_{XM} \sim \text{HalfCauchy}(0, 1) \]</span> <span class="math display">\[ \text{rho} \sim \text{Uniform}(0, 1) \]</span></p>
+<p><span class="math display">\[ k \, | \, n \sim \text{Binomial}(\theta, \text{n})\]</span> <span class="math display">\[ \theta \sim \text{Beta}(\alpha, \beta) \]</span> <span class="math display">\[ \alpha = \text{inverse logit}(\text{Intercept} + X\beta_{XM}) \, \left(\frac{1 - \text{rho}}{\text{rho}}\right) \]</span> <span class="math display">\[ \beta = \text{inverse logit}(- \text{Intercept} - X\beta_{XM}) \, \left(\frac{1 - \text{rho}}{\text{rho}}\right) \]</span> <span class="math display">\[ \alpha \sim \text{Normal}(0, 1) \]</span> <span class="math display">\[ \beta_{XM} \sim \text{HalfCauchy}(0, 1) \]</span> <span class="math display">\[ \text{rho} \sim \text{Uniform}(0, 1) \]</span></p>
 <p><br></p>
 <p><span class="math display">\[\text{logit}(Y \le j) = \alpha_j - X\beta^\prime_{XY_j} - M\beta^\prime_{MY}\]</span> <span class="math display">\[ \alpha_j \sim \text{Normal}(0, 1) \]</span> <span class="math display">\[ \beta^\prime_{XY_j} \sim \text{Normal}(0, 5) \]</span> <span class="math display">\[ \beta^\prime_{MY} \sim \text{HalfCauchy}(0, 1) \]</span></p>
 <pre class="r"><code># Vamos a plotear las distribuciones a priori que representan las hipótesis de los investigadores:
@@ -1514,7 +1540,7 @@ curve(dunif(x, 0, 1), xlim = c(0, 1), main = &quot;rho&quot;, xlab = NULL)
 curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha[j]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
 # Centrando los predictores, al situar el intercepto en torno a 0 estamos concediendo la misma probabilidad a priori de 0.5 de seleccionar una categoría igual o menor para todos los participantes antes de pasar por la intervención.
 
-curve(dhalfcauchy(-x), xlim = c(-5, 1), main = expression(beta*minute[MY]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
+curve(dhalfcauchy(x), xlim = c(1, 5), main = expression(beta*minute[MY]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
 curve(dnorm(x, 0, 5), xlim = c(-15, 15), main = expression(beta*minute[XY[j]]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)</code></pre>
 <p><img src="TFG_files/figure-html/BF_1-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> A continuación, podemos testar la presencia de un efecto mediacional basándonos en el método clásico del producto de coeficientes descrito en <span class="citation">Nuijten et al. (2015)</span>. En primer lugar, obtenemos el factor de Bayes que corresponde al efecto de la intervención sobre la probabilidad de administrar el fármaco comparando las predicciones del modelo betabinomial descrito anteriormente, al que denominaremos <span class="math inline">\(M_1\)</span>, con otro modelo similar pero sin el parámetro <span class="math inline">\(\beta_{XM}\)</span> y que llamaremos <span class="math inline">\(M_0\)</span>.</p>
@@ -1534,7 +1560,7 @@ Centered_Grupo = Grupo - mean(Grupo);
 // Declaramos los parámetros:
 parameters {
 real intercept;
-real beta_Grupo; // We could put &lt;upper=0&gt; here but it lowers the effective sample size.
+real&lt;upper=0&gt; beta_Grupo;
 real&lt;lower=0, upper=1&gt; rho; // Correlación[0, 1]
 }
 transformed parameters {
@@ -1548,7 +1574,7 @@ transformed parameters {
 }
 model {
     target += normal_lpdf(intercept | 0, 1);
-    target += cauchy_lpdf(beta_Grupo | 0, 1) - cauchy_lccdf(0 | 0, 1);
+    target += cauchy_lpdf(beta_Grupo | 0, 1) - cauchy_lcdf(0 | 0, 1);
     target += uniform_lpdf(rho | 0, 1);
     for (n in 1:N) {
         target += beta_binomial_lpmf(Y[n] | 40, alpha[n], beta[n]); // Likelihood
@@ -1633,7 +1659,7 @@ Centered_Predictors[, i] = Predictors[, i] - Predictors_means[i];
 }
 parameters {
 vector[4] betas; // Declaramos los coeficientes de la intervención para cada punto de corte.
-real beta; // Coeficiente para el número de administraciones del fármaco.
+real&lt;lower=0&gt; beta; // Coeficiente para el número de administraciones del fármaco.
 ordered[4] c; // Interceptos cuando los predictores están centrados.
 }
 transformed parameters {
@@ -1730,26 +1756,26 @@ ML_M3 &lt;- bridge_sampler(fit_M3, method = &quot;normal&quot;, silent = TRUE)
 <p><span class="math display">\[ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \]</span></p>
 <pre class="r"><code>BF10 &lt;- bf(ML_M1, ML_M0)$bf # Factor de Bayes
 BF10
-## [1] 523.2004</code></pre>
+## [1] 522.5443</code></pre>
 <p><span class="math display">\[ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_2)}{p(M_3)} \]</span></p>
 <pre class="r"><code>BF23 &lt;- bf(ML_M2, ML_M3)$bf # Factor de Bayes.
 BF23
-## [1] 141188650983</code></pre>
+## [1] 140942199096</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Siguiendo estos pasos, se estima que los datos obtenidos en el experimento son 523 veces más probables de observar en el modelo betabinomial con el parámetro <span class="math inline">\(\beta_{XM}\)</span> (<span class="math inline">\(M_1\)</span>) que en el mismo modelo sin dicho parámetro (<span class="math inline">\(M_0\)</span>), es decir, <span class="math inline">\(\text{BF}_{10} \simeq 523\)</span>. Por contraparte, <span class="math inline">\(\text{BF}_{23}\)</span> arroja una cifra de 12 dígitos (<span class="math inline">\(1.4 \cdot 10^{11}\)</span>), es decir, una evidencia tan grande a favor del modelo ordinal con el parámetro <span class="math inline">\(\beta^\prime_{MY}\)</span> (<span class="math inline">\(M_2\)</span>) que podría modificar cualquier creencia a favor del mismo modelo sin dicho parámetro (<span class="math inline">\(M_3\)</span>). Una vez obtenidos estos valores, procedemos a computar la probabilidad posterior de <span class="math inline">\(M_0\)</span>, <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span> y <span class="math inline">\(M_3\)</span> asignando nuestras creencias previas, en forma de probabilidad, en dichas hipótesis. Por ejemplo, podemos mostrarnos escépticos y pensar que <span class="math inline">\(p(M_1) = p(M_2) = 0.25\)</span> y <span class="math inline">\(p(M_0) = p(M_3) = 0.75\)</span>, en cuyo caso</p>
 <p><span class="math display">\[\frac{p(Modelo_{\,1})}{p(Modelo_{\,0})} = \frac{p(Modelo_{\,2})}{p(Modelo_{\,3})} = \frac{1}{3}.\]</span></p>
 <p>Esto quiere decir que, antes de observar los datos, creemos que los modelos sin el parámetro extra son 3 veces más probables. Así, tenemos que</p>
 <p><br></p>
-<p><span class="math display">\[ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \simeq 523 \cdot \frac{0.25}{0.75} \simeq 174.4 \]</span></p>
+<p><span class="math display">\[ \frac{p(M_1\, | \,y)}{p(M_0\, | \,y)} = \text{BF}_{10} \, \frac{p(M_1)}{p(M_0)} \simeq 523 \cdot \frac{0.25}{0.75} \simeq 174.3 \]</span></p>
 <pre class="r"><code>BF10 * (1/3)
-## [1] 174.4001</code></pre>
-<p><span class="math display">\[ p(M_1\, | \,y) \simeq \frac{174.4}{1 + 174.4} \simeq 0.994 \]</span></p>
+## [1] 174.1814</code></pre>
+<p><span class="math display">\[ p(M_1\, | \,y) \simeq \frac{174.3}{1 + 174.3} \simeq 0.994 \]</span></p>
 <pre class="r"><code>post_prob_M1_M0 &lt;- post_prob(ML_M1, ML_M0, prior_prob = c(.25, .75))
 post_prob_M1_M0[1]
 ##     ML_M1 
-## 0.9942987</code></pre>
+## 0.9942916</code></pre>
 <p><span class="math display">\[ \frac{p(M_2\, | \,y)}{p(M_3\, | \,y)} = \text{BF}_{23} \, \frac{p(M_2)}{p(M_3)} \simeq 1.4 \cdot 10^{11} \cdot \frac{0.25}{0.75} \simeq 4.7 \cdot 10^{10} \]</span></p>
 <pre class="r"><code>BF23 * (1/3)
-## [1] 47062883661</code></pre>
+## [1] 46980733032</code></pre>
 <p><span class="math display">\[ p(M_2\, | \,y) \simeq 1 \]</span></p>
 <pre class="r"><code>post_prob_M2_M3 &lt;- post_prob(ML_M2, ML_M3, prior_prob = c(.25, .75))
 post_prob_M2_M3[1]
@@ -1759,33 +1785,32 @@ post_prob_M2_M3[1]
 <pre class="r"><code># Probabilidad de mediación:
 (post_prob_M1_M0[1] * post_prob_M2_M3[1])
 ##     ML_M1 
-## 0.9942987</code></pre>
+## 0.9942916</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> lo que quiere decir que</p>
-<p><span class="math display">\[\text{BF}_{mediación} \simeq \frac{0.994}{1 - 0.994} \simeq 174.4\]</span></p>
+<p><span class="math display">\[\text{BF}_{mediación} \simeq \frac{0.994}{1 - 0.994} \simeq 174.3\]</span></p>
 <p><br></p>
 <pre class="r"><code># Factor de Bayes de la mediación:
 BF_mediacion &lt;- (post_prob_M1_M0[1] * post_prob_M2_M3[1]) / ( 1 - post_prob_M1_M0[1] * post_prob_M2_M3[1])
 BF_mediacion
 ##    ML_M1 
-## 174.4001</code></pre>
+## 174.1814</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Estos resultados nos indican que los datos observados son 174 veces más probables bajo la hipótesis mediacional compuesta por <span class="math inline">\(M_1\)</span> y <span class="math inline">\(M_2\)</span> que la no mediacional, compuesta por <span class="math inline">\(M_0\)</span> y <span class="math inline">\(M_3\)</span>.</p>
 <p><br></p>
-</div>
-<div id="factor-de-bayes-reportado-en-barberia2018" class="section level1">
-<h1>Factor de Bayes reportado en <span class="citation">Barberia (2018)</span></h1>
+<div id="factor-de-bayes-reportado-en-barberia2018" class="section level2">
+<h2>Factor de Bayes reportado en <span class="citation">Barberia (2018)</span></h2>
 <p><br></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Los autores del paper original <span class="citation">(Barberia 2018)</span> reportaron un t-test bayesiano ordinario con varianzas equivalentes entre grupos. Aunque este método es computacionalmente menos eficiente, también podemos aproximar el factor de Bayes especificando el t-test en Stan y usando <em>bridge sampling</em>. La parametrización de este modelo está especificado en <span class="citation">Wetzels et al. (2009)</span> con la diferencia de presentar las siguientes distribuciones a priori:</p>
 <p><span class="math display">\[ \mu \sim \text{Cauchy}(0, 1) \]</span> <span class="math display">\[ \delta \sim \text{HalfCauchy}(0, .7071) \]</span> <span class="math display">\[ \sigma \sim \frac{1}{\sigma} \]</span></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Los <em>likelihoods</em> son:</p>
-<p><span class="math display">\[ Y_1 \sim \text{Normal}(\mu - \mu_{diferencia} \, \cdot \, \alpha\,{_0}, \sigma)\]</span> <span class="math display">\[ Y_0 \sim \text{Normal}(\mu + \mu_{diferencia} \, \cdot \, \alpha{\,_1}, \sigma)\]</span> donde, <span class="math inline">\(Y_1\)</span> representa a los participantes que reciben la intervención, <span class="math inline">\(Y_2\)</span> representa a los que no reciben la intervención, <span class="math inline">\(\mu\)</span> es el <em>grand mean</em>, <span class="math inline">\(\mu_{diferencia}\)</span> es la diferencia media entre grupos, <span class="math inline">\(\alpha{\,_0}\)</span> es la proporción de participantes en el grupo control y <span class="math inline">\(\alpha{\,_1}\)</span> es la del grupo de intervención.</p>
+<p><span class="math display">\[ Y_1 \sim \text{Normal}(\mu + \mu_{diferencia} \, \cdot \, \alpha\,{_0}, \sigma)\]</span> <span class="math display">\[ Y_0 \sim \text{Normal}(\mu - \mu_{diferencia} \, \cdot \, \alpha{\,_1}, \sigma)\]</span> donde <span class="math inline">\(Y_1\)</span> representa a los participantes que reciben la intervención, <span class="math inline">\(Y_2\)</span> representa a los que no reciben la intervención, <span class="math inline">\(\mu\)</span> es el <em>grand mean</em>, <span class="math inline">\(\mu_{diferencia}\)</span> es la diferencia media entre grupos, <span class="math inline">\(\alpha{\,_0}\)</span> es la proporción de participantes en el grupo control y <span class="math inline">\(\alpha{\,_1}\)</span> es la del grupo de intervención.</p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> La hipótesis nula descarta el parámetro <span class="math inline">\(\delta\)</span>, que es el tamaño del efecto estandarizado:</p>
 <p><span class="math display">\[ \delta = \frac{\mu_{diferencia}}{\sigma} \]</span></p>
 <pre class="r"><code># Este es el resultado reportado en el paper:
-ttestBF(formula = Causal_Judgment ~ Group, data = data, nullInterval = c(0, Inf), rscale = 1/sqrt(2))
+ttestBF(formula = Causal_Judgment ~ Group, data = data, nullInterval = c(0, -Inf), rscale = 1/sqrt(2))
 ## Bayes factor analysis
 ## --------------
-## [1] Alt., r=0.707 0&lt;d&lt;Inf    : 0.05095193 ±0.12%
-## [2] Alt., r=0.707 !(0&lt;d&lt;Inf) : 47.68974   ±0%
+## [1] Alt., r=0.707 -Inf&lt;d&lt;0    : 47.68974   ±0%
+## [2] Alt., r=0.707 !(-Inf&lt;d&lt;0) : 0.05095193 ±0.12%
 ## 
 ## Against denominator:
 ##   Null, mu1-mu2 = 0 
@@ -1832,16 +1857,16 @@ real&lt;lower=0, upper=1&gt; ratio_0; // Proporción de participantes en el grup
 }
 parameters {
 real mu; // El grand mean.
-real delta; // Efecto estandarizado.
+real&lt;upper=0&gt; delta; // Efecto estandarizado.
 real&lt;lower=0&gt; sigma; // Desviación típica.
 }
 
 model {
 target += cauchy_lpdf(mu | 0, 1); // Cauchy prior en el grand mean.
-target += cauchy_lpdf(delta | 0, 1 / sqrt(2)) - cauchy_lccdf(0 | 0, 1 / sqrt(2)); // Half Cauchy prior en delta
+target += cauchy_lpdf(delta | 0, 1 / sqrt(2)) - cauchy_lcdf(0 | 0, 1 / sqrt(2)); // Half Cauchy prior en delta
 target += log(1/sigma); // Jeffreys prior en la desviación típica.
-target += normal_lpdf(Y1 | mu - delta * sigma * ratio_0, sigma); // likelihood para el grupo de intervención.
-target += normal_lpdf(Y0 | mu + delta * sigma * ratio_1, sigma); // likelihood para el grupo de no intervención.
+target += normal_lpdf(Y1 | mu + delta * sigma * ratio_0, sigma); // likelihood para el grupo de intervención.
+target += normal_lpdf(Y0 | mu - delta * sigma * ratio_1, sigma); // likelihood para el grupo de no intervención.
 }
 &quot;
 
@@ -1861,16 +1886,17 @@ ML_Alternative &lt;- bridge_sampler(Alternative_fit, silent = TRUE)
 # Errores de medida en la computación de los marginal likelihoods
 error_measures(ML_Null)$percentage
 error_measures(ML_Alternative)$percentage</code></pre>
-<pre><code>## [1] &quot;0.0288%&quot;
-## [1] &quot;0.0297%&quot;</code></pre>
+<pre><code>## [1] &quot;0.0308%&quot;
+## [1] &quot;0.123%&quot;</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Computamos el factor de Bayes a favor de la hipótesis con el parámetro <span class="math inline">\(\delta\)</span>:</p>
 <pre class="r"><code>BF_Alternative_Null &lt;- bf(ML_Alternative, ML_Null) # Factor de Bayes.
 BF_Alternative_Null</code></pre>
-<pre><code>## The estimated Bayes factor in favor of x1 over x2 is equal to: 47.68639</code></pre>
+<pre><code>## The estimated Bayes factor in favor of x1 over x2 is equal to: 47.62021</code></pre>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Es muy difícil que las hipótesis que un investigador quiere contrastar estén disponibles por defecto en los paquetes estadísticos actuales y probablemente nunca sean lo suficientemente flexibles para adaptarlas. Sin embargo, con Stan <span class="citation">(Stan Development Team 2018)</span> y el paquete <em>brigdesampling</em> <span class="citation">(Gronau and Singmann 2017)</span> siempre podremos especificar nuestra hipótesis y obtener el factor de Bayes.</p>
 <pre class="r"><code># Para liberar memoria:
 rm(fit_M0, fit_M1, fit_M2, fit_M3)</code></pre>
 <p><br></p>
+</div>
 </div>
 <div id="analisis-bayesiano" class="section level1">
 <h1>Análisis bayesiano</h1>
@@ -1893,7 +1919,7 @@ Centered_Grupo = Grupo - mean(Grupo);
 }
 parameters {
 real intercept;
-real beta_Grupo; // We could put &lt;upper=0&gt; but it lowers the effective sample size.
+real&lt;upper=0&gt; beta_Grupo;
 real&lt;lower=0, upper=1&gt; rho;
 }
 transformed parameters {
@@ -1906,7 +1932,7 @@ beta[n] = (1 - inv_logit(intercept + Centered_Grupo[n] * beta_Grupo)) * (1 - rho
 }
 model {
 target += normal_lpdf(intercept | 0, 1);
-target += cauchy_lpdf(beta_Grupo | 0, 1) - cauchy_lccdf(0 | 0, 1);
+target += cauchy_lpdf(beta_Grupo | 0, 1) - cauchy_lcdf(0 | 0, 1);
 target += uniform_lpdf(rho | 0, 1);
 for (n in 1:N) {
 target += beta_binomial_lpmf(Y[n] | 40, alpha[n], beta[n]);
@@ -1944,10 +1970,10 @@ print(fit_modelo_betabinomial, probs = c(0.025, 0.5, 0.975), pars = c(&quot;Inte
 ## post-warmup draws per chain=8000, total post-warmup draws=32000.
 ## 
 ##             mean se_mean   sd  2.5%   50% 97.5% n_eff Rhat
-## Intercept   0.47       0 0.13  0.22  0.47  0.72 32000    1
-## beta_Grupo -0.75       0 0.19 -1.14 -0.75 -0.38 32000    1
+## Intercept   0.47       0 0.13  0.22  0.47  0.73 24834    1
+## beta_Grupo -0.75       0 0.20 -1.14 -0.75 -0.37 20631    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon May 28 23:02:35 2018.
+## Samples were drawn using NUTS(diag_e) at Wed Jun 27 14:38:49 2018.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -1979,7 +2005,7 @@ Centered_Predictors[, i] = Predictors[, i] - Predictors_means[i];
 }
 parameters {
 vector[4] betas;
-real beta;
+real&lt;lower=0&gt; beta;
 ordered[4] c; // Intercepts.
 }
 transformed parameters {
@@ -2031,17 +2057,17 @@ print(fit_modelo_ordinal, probs = c(0.025, 0.5, 0.975), pars = c(&quot;Intercept
 ## post-warmup draws per chain=8000, total post-warmup draws=32000.
 ## 
 ##                mean se_mean   sd  2.5%   50% 97.5% n_eff Rhat
-## Intercepts[1]  2.10    0.00 0.67  0.81  2.09  3.45 21797    1
-## Intercepts[2]  2.95    0.00 0.66  1.71  2.92  4.29 22441    1
-## Intercepts[3]  4.54    0.00 0.71  3.19  4.52  5.98 21140    1
-## Intercepts[4]  6.66    0.01 0.88  5.03  6.63  8.47 21205    1
-## betas[1]      -0.51    0.00 0.53 -1.56 -0.50  0.53 18655    1
-## betas[2]      -0.26    0.00 0.48 -1.20 -0.26  0.68 18606    1
-## betas[3]      -0.25    0.00 0.48 -1.18 -0.26  0.68 22116    1
-## betas[4]      -0.73    0.01 0.82 -2.44 -0.69  0.78 20903    1
-## beta           0.18    0.00 0.03  0.13  0.18  0.24 21778    1
+## Intercepts[1]  2.10    0.00 0.68  0.79  2.08  3.47 23004    1
+## Intercepts[2]  2.94    0.00 0.67  1.68  2.92  4.30 23095    1
+## Intercepts[3]  4.53    0.00 0.72  3.17  4.51  5.98 21923    1
+## Intercepts[4]  6.65    0.01 0.88  4.99  6.62  8.47 21241    1
+## betas[1]      -0.50    0.00 0.53 -1.55 -0.50  0.54 19836    1
+## betas[2]      -0.27    0.00 0.48 -1.20 -0.27  0.68 19818    1
+## betas[3]      -0.26    0.00 0.48 -1.20 -0.26  0.68 23857    1
+## betas[4]      -0.73    0.01 0.81 -2.43 -0.70  0.75 21765    1
+## beta           0.18    0.00 0.03  0.13  0.18  0.24 21939    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon May 28 23:05:04 2018.
+## Samples were drawn using NUTS(diag_e) at Wed Jun 27 14:42:56 2018.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
@@ -2077,7 +2103,7 @@ control_prob &lt;- mean(individual_probs[mydata$Grupo == 0])</code></pre>
 <pre class="r"><code>check_all_diagnostics(fit_modelo_ordinal)
 ## [1] &quot;n_eff / iter looks reasonable for all parameters&quot;
 ## [1] &quot;Rhat looks reasonable for all parameters&quot;
-## [1] &quot;4 of 32000 iterations ended with a divergence (0.0125%)&quot;
+## [1] &quot;9 of 32000 iterations ended with a divergence (0.028125%)&quot;
 ## [1] &quot;  Try running with larger adapt_delta to remove the divergences&quot;
 ## [1] &quot;0 of 32000 iterations saturated the maximum tree depth of 10 (0%)&quot;
 ## [1] &quot;E-BFMI indicated no pathological behavior&quot;
@@ -2090,11 +2116,11 @@ print(betabinomial_loo, digits = 3)
 ## Computed from 32000 by 106 log-likelihood matrix
 ## 
 ##          Estimate    SE
-## elpd_loo -384.351 4.332
-## p_loo       3.763 0.743
-## looic     768.701 8.664
+## elpd_loo -384.342 4.323
+## p_loo       3.748 0.736
+## looic     768.684 8.647
 ## ------
-## Monte Carlo SE of elpd_loo is 0.013.
+## Monte Carlo SE of elpd_loo is 0.014.
 ## 
 ## All Pareto k estimates are good (k &lt; 0.5).
 ## See help(&#39;pareto-k-diagnostic&#39;) for details.
@@ -2103,19 +2129,19 @@ print(betabinomial_waic, digits = 3)
 ## Computed from 32000 by 106 log-likelihood matrix
 ## 
 ##           Estimate    SE
-## elpd_waic -384.342 4.330
-## p_waic       3.754 0.740
-## waic       768.684 8.660
+## elpd_waic -384.339 4.323
+## p_waic       3.745 0.736
+## waic       768.678 8.645
 # Si ajustamos otros modelos, podemos compararlos usando estas magnitudes.
 
 # Comprobamos si nuestro modelo acomoda bien los datos observados (posterior predictive checks):
 intervencion_prob # Proporción estimada por nuestro modelo en el grupo de intervención.
-## [1] 0.4297853
+## [1] 0.4296547
 mean((mydata$Si / 40)[mydata$Grupo == 1]) # Proporción observada en el grupo de intervención.
 ## [1] 0.4361702
 
 control_prob # Proporción estimada por nuestro modelo en el grupo de no intervención.
-## [1] 0.6140977
+## [1] 0.614492
 mean((mydata$Si / 40)[mydata$Grupo == 0]) # Proporción observada en el grupo de no intervención.
 ## [1] 0.6122881
 
@@ -2165,7 +2191,7 @@ scores_by_category_control &lt;- table(as.numeric(t(post_modelo_ordinal$posterio
 <pre class="r"><code>check_all_diagnostics(fit_modelo_ordinal)
 ## [1] &quot;n_eff / iter looks reasonable for all parameters&quot;
 ## [1] &quot;Rhat looks reasonable for all parameters&quot;
-## [1] &quot;4 of 32000 iterations ended with a divergence (0.0125%)&quot;
+## [1] &quot;9 of 32000 iterations ended with a divergence (0.028125%)&quot;
 ## [1] &quot;  Try running with larger adapt_delta to remove the divergences&quot;
 ## [1] &quot;0 of 32000 iterations saturated the maximum tree depth of 10 (0%)&quot;
 ## [1] &quot;E-BFMI indicated no pathological behavior&quot;
@@ -2181,11 +2207,11 @@ ordinal_chains</code></pre>
 ## Computed from 32000 by 106 log-likelihood matrix
 ## 
 ##          Estimate     SE
-## elpd_loo -131.290  6.576
-## p_loo       7.834  0.644
-## looic     262.580 13.152
+## elpd_loo -131.313  6.565
+## p_loo       7.831  0.638
+## looic     262.625 13.130
 ## ------
-## Monte Carlo SE of elpd_loo is 0.020.
+## Monte Carlo SE of elpd_loo is 0.019.
 ## 
 ## All Pareto k estimates are good (k &lt; 0.5).
 ## See help(&#39;pareto-k-diagnostic&#39;) for details.
@@ -2194,9 +2220,9 @@ print(ordinal_waic, digits = 3)
 ## Computed from 32000 by 106 log-likelihood matrix
 ## 
 ##           Estimate     SE
-## elpd_waic -131.259  6.572
-## p_waic       7.803  0.637
-## waic       262.517 13.143
+## elpd_waic -131.281  6.561
+## p_waic       7.799  0.632
+## waic       262.562 13.122
 ## Warning: 1 (0.943%) p_waic estimates greater than 0.4. We recommend trying
 ## loo instead.
 
@@ -2206,7 +2232,7 @@ print(ordinal_waic, digits = 3)
 scores_by_category
 ## 
 ##        1        2        3        4        5 
-## 27.85853 10.38147 26.83944 27.67394 13.24662
+## 27.94341 10.34566 26.79019 27.65334 13.26741
 table(mydata$Indicador)
 ## 
 ##  1  2  3  4  5 
@@ -2217,7 +2243,7 @@ table(mydata$Indicador)
 scores_by_category_intervencion
 ## 
 ##         1         2         3         4         5 
-## 18.549781  4.659594 11.835406  9.751594  2.203625
+## 18.587500  4.658594 11.798906  9.750813  2.204188
 table(mydata$Indicador[mydata$Grupo == 1])
 ## 
 ##  1  2  3  4  5 
@@ -2226,16 +2252,15 @@ table(mydata$Indicador[mydata$Grupo == 1])
 scores_by_category_control
 ## 
 ##         1         2         3         4         5 
-##  9.308750  5.721875 15.004031 17.922344 11.043000
+##  9.355906  5.687062 14.991281 17.902531 11.063219
 table(mydata$Indicador[mydata$Grupo == 0])
 ## 
 ##  1  2  3  4  5 
 ##  9  6 16 18 10
 
 # Si estas predicciones no son buenas, entonces nuestro modelo no es una adecuada representación del proceso que ha generado las observaciones y debemos expandirlo con más parámetroso ajustar otro modelo y compararlo mediante WAIC o LOO. Si WAIC o LOO son menores para un determinado modelo, las predicciones son mejores.</code></pre>
-</div>
-<div id="estimacion-de-los-efectos-naturales" class="section level1">
-<h1>Estimación de los efectos naturales</h1>
+<div id="estimacion-de-los-efectos-naturales" class="section level2">
+<h2>Estimación de los efectos naturales</h2>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> En la siguiente figura se pueden observar las distribuciones posteriores de los efectos.</p>
 <pre class="r"><code>Intercepto_1 &lt;- post_modelo_ordinal$Intercepts[, 1]
 Intercepto_2 &lt;- post_modelo_ordinal$Intercepts[, 2]
@@ -2368,7 +2393,7 @@ Probabilidad
 Categoría 1
 </td>
 <td style="text-align:center;">
-0.99881
+0.99862
 </td>
 </tr>
 <tr>
@@ -2376,7 +2401,7 @@ Categoría 1
 Categoría 2
 </td>
 <td style="text-align:center;">
-0.99172
+0.99150
 </td>
 </tr>
 <tr>
@@ -2384,7 +2409,7 @@ Categoría 2
 Categoría 3
 </td>
 <td style="text-align:center;">
-0.57953
+0.58388
 </td>
 </tr>
 <tr>
@@ -2392,7 +2417,7 @@ Categoría 3
 Categoría 4
 </td>
 <td style="text-align:center;">
-0.00188
+0.00194
 </td>
 </tr>
 <tr>
@@ -2407,6 +2432,7 @@ Categoría 5
 </table>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> Según estos resultados, que coinciden con el de los análisis anteriores, parece razonable concluir que esta variable mediacional aumenta la probabilidad de puntuar en las categorías 1 y 2 en detrimento de las categorías 4 y 5.</p>
 <p><br></p>
+</div>
 </div>
 <div id="discusion" class="section level1">
 <h1>Discusión</h1>
@@ -2485,7 +2511,7 @@ Categoría 5
 ## [67] evaluate_0.10.1      lattice_0.20-35      bindr_0.1.1         
 ## [70] labeling_0.3         htmlwidgets_1.0      tidyselect_0.2.4    
 ## [73] plyr_1.8.4           magrittr_1.5         R6_2.2.2            
-## [76] mgcv_1.8-23          pillar_1.1.0         haven_1.1.1         
+## [76] mgcv_1.8-24          pillar_1.1.0         haven_1.1.1         
 ## [79] foreign_0.8-70       withr_2.1.2          units_0.5-1         
 ## [82] xts_0.10-1           modelr_0.1.2         crayon_1.3.4        
 ## [85] rmarkdown_1.9        viridis_0.5.1        readxl_1.0.0        
@@ -2632,7 +2658,7 @@ Categoría 5
 <li id="fn7"><p>Para una lectura sobre los frecuentes malentendidos que surgen al interpretar los intervalos de confianza se recomienda <span class="citation">Greenland et al. (2016)</span>.<a href="#fnref7">↩</a></p></li>
 <li id="fn8"><p>Para <span class="math inline">\(\beta^\prime_{MY}\)</span> debe computarse el complementario ya que la dirección del efecto es opuesta.<a href="#fnref8">↩</a></p></li>
 <li id="fn9"><p>Nótese que los valores de rigor al 97.5% coinciden con los límites de confianza del intervalo de los respectivos parámetros al 95%. Sin embargo, esta nueva interpretación y visualización nos aporta información sobre el grado de evidencia (rigor) con el que se puede inferir cualquier posible valor que pueden tomar los parámetros.<a href="#fnref9">↩</a></p></li>
-<li id="fn10"><p>Se utiliza la distribución posterior de los parámetros, <span class="math inline">\(p(\theta \, | \, y)\)</span>, para computar el <em>marginal likelihood</em>, <span class="math inline">\(p(y) = \int p(y \, | \, \theta) \, p(\theta) \, d{\theta}\)</span>, a través de un algoritmo iterativo conocido como <em>bridge sampling</em>: <span class="math display">\[ \hat{p}(y) = \frac{\int p(y \, | \, \theta) \, p(\theta) \, h(\theta) \, g(\theta) \, d\theta}{\int h(\theta) \, g(\theta) \, p(\theta \, | \, y) \, d\theta} = \frac{E_{g(\theta)}[p(y \, | \, \theta) \, h(\theta)]}{E_{p(\theta \, | \, y)}[h(\theta) \, g(\theta)]} \]</span> donde <span class="math inline">\(\theta\)</span> es un vector de parámetros, <span class="math inline">\(h(\theta)\)</span> es la función que minimiza el error de predicción en el proceso iterativo y <span class="math inline">\(g(\theta)\)</span> es una distribución arbitraria pero que debe ser algo similar a la posterior. De esta manera, tomando muestras de <span class="math inline">\(g(\theta)\)</span> y de <span class="math inline">\(p(\theta \, | \, y)\)</span>, podemos aproximar el <em>marginal likelihood</em>. Una explicación más concisa puede encontrarse en <span class="citation">Gronau and Singmann (2017)</span>. <br> <span class="math inline">\({\;\;\;\;\;\;}\)</span> La importancia de esta técnica es vital porque hasta hace poco solo era posible calcular los factores de Bayes usando paquetes estadísticos con distribuciones a priori que ya venían dadas, es decir, hipótesis por defecto. Sin embargo, el reciente paquete R <em>bridgesampling</em> permite obtener el <em>marginal likelihood</em> de cualquier modelo que un analista pueda imaginar.<a href="#fnref10">↩</a></p></li>
+<li id="fn10"><p>Se utiliza la distribución posterior de los parámetros, <span class="math inline">\(p(\theta \, | \, y)\)</span>, para computar el <em>marginal likelihood</em>, <span class="math inline">\(p(y) = \int p(y \, | \, \theta) \, p(\theta) \, d{\theta}\)</span>, a través de un algoritmo iterativo conocido como <em>bridge sampling</em>: <span class="math display">\[ \hat{p}(y) = \frac{\int p(y \, | \, \theta) \, p(\theta) \, h(\theta) \, g(\theta) \, d\theta}{\int h(\theta) \, g(\theta) \, p(\theta \, | \, y) \, d\theta} = \frac{E_{g(\theta)}[p(y \, | \, \theta) \, h(\theta)]}{E_{p(\theta \, | \, y)}[h(\theta) \, g(\theta)]} \]</span> donde <span class="math inline">\(\theta\)</span> es un vector de parámetros, <span class="math inline">\(h(\theta)\)</span> es la función que minimiza el error de predicción en el proceso iterativo y <span class="math inline">\(g(\theta)\)</span> es la denominada <em>proposal distribution</em>. De esta manera, tomando muestras de <span class="math inline">\(g(\theta)\)</span> y de <span class="math inline">\(p(\theta \, | \, y)\)</span>, podemos aproximar el <em>marginal likelihood</em>. Una explicación más concisa puede encontrarse en <span class="citation">Gronau and Singmann (2017)</span>. <br> <span class="math inline">\({\;\;\;\;\;\;}\)</span> La importancia de esta técnica es vital porque hasta hace poco solo era posible calcular los factores de Bayes usando paquetes estadísticos con distribuciones a priori que ya venían dadas, es decir, hipótesis por defecto. Sin embargo, el reciente paquete R <em>bridgesampling</em> permite obtener el <em>marginal likelihood</em> de cualquier modelo que un analista pueda imaginar.<a href="#fnref10">↩</a></p></li>
 </ol>
 </div>
 
