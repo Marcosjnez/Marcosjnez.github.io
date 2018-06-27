@@ -981,7 +981,7 @@ curve(dunif(x, 0, 1), xlim = c(0, 1), main = "rho", xlab = NULL)
 curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha[j]), ylab = "Densidad", xlab = "")
 # Centrando los predictores, al situar el intercepto en torno a 0 estamos concediendo la misma probabilidad a priori de 0.5 de seleccionar una categoría igual o menor para todos los participantes antes de pasar por la intervención.
 
-curve(dhalfcauchy(x), xlim = c(1, 5), main = expression(beta*minute[MY]), ylab = "Densidad", xlab = "")
+curve(dhalfcauchy(x), xlim = c(-1, 5), main = expression(beta*minute[MY]), ylab = "Densidad", xlab = "")
 curve(dnorm(x, 0, 5), xlim = c(-15, 15), main = expression(beta*minute[XY[j]]), ylab = "Densidad", xlab = "")
 ```
 

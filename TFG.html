@@ -1540,7 +1540,7 @@ curve(dunif(x, 0, 1), xlim = c(0, 1), main = &quot;rho&quot;, xlab = NULL)
 curve(dnorm(x, 0, 1), xlim = c(-3, 3), main = expression(alpha[j]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
 # Centrando los predictores, al situar el intercepto en torno a 0 estamos concediendo la misma probabilidad a priori de 0.5 de seleccionar una categoría igual o menor para todos los participantes antes de pasar por la intervención.
 
-curve(dhalfcauchy(x), xlim = c(1, 5), main = expression(beta*minute[MY]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
+curve(dhalfcauchy(x), xlim = c(-1, 5), main = expression(beta*minute[MY]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)
 curve(dnorm(x, 0, 5), xlim = c(-15, 15), main = expression(beta*minute[XY[j]]), ylab = &quot;Densidad&quot;, xlab = &quot;&quot;)</code></pre>
 <p><img src="TFG_files/figure-html/BF_1-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><span class="math inline">\({\;\;\;\;\;\;}\)</span> A continuación, podemos testar la presencia de un efecto mediacional basándonos en el método clásico del producto de coeficientes descrito en <span class="citation">Nuijten et al. (2015)</span>. En primer lugar, obtenemos el factor de Bayes que corresponde al efecto de la intervención sobre la probabilidad de administrar el fármaco comparando las predicciones del modelo betabinomial descrito anteriormente, al que denominaremos <span class="math inline">\(M_1\)</span>, con otro modelo similar pero sin el parámetro <span class="math inline">\(\beta_{XM}\)</span> y que llamaremos <span class="math inline">\(M_0\)</span>.</p>
