@@ -5,10 +5,8 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: Sobre mí
+  - text: About me  
     href: about.html
-  - text: TFG
-    href: TFG.html
 output:
   html_document:
     theme: flatly
