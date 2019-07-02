@@ -1,5 +1,9 @@
 ---
 title: "About Me"
+output:
+  html_document:
+    theme: united
+    css: style.css
 ---
 
 Just a student interested in psychometrics and statistics.
