@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Estimación</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Marcos Jiménez</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About me</a>
+</li>
+<li>
+  <a href="deriv2.html">Estadística</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Estimación</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#distribucion-normal">Distribución normal</a></li>
+<li><a href="#estimacion-de-mu">Estimación de <span class="math inline">\(\mu\)</span></a></li>
+<li><a href="#valor-esperado-de-barx">Valor esperado de <span class="math inline">\(\bar{x}\)</span></a></li>
+<li><a href="#varianza-de-widehatmu">Varianza de <span class="math inline">\(\widehat\mu\)</span></a></li>
+<li><a href="#estimacion-de-sigma2">Estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li><a href="#valor-esperado-de-fracsum_i1n-x_i---widehatmu2n">Valor esperado de <span class="math inline">\(\frac{\sum_{i=1}^n (x_i - \widehat\mu)^2}{n}\)</span></a></li>
+<li><a href="#varianza-de-sigma2-y-widehatsigma2">Varianza de <span class="math inline">\(\sigma^2\)</span> y <span class="math inline">\(\widehat\sigma^2\)</span></a></li>
+<li><a href="#funcion-afin">Función afín</a></li>
+<li><a href="#residuos">Residuos</a></li>
+<li><a href="#estimacion-de-beta_1">Estimación de <span class="math inline">\(\beta_1\)</span></a></li>
+<li><a href="#estimacion-de-beta_0">Estimación de <span class="math inline">\(\beta_0\)</span></a></li>
+<li><a href="#varianza-de-widehatbeta_1">Varianza de <span class="math inline">\(\widehat{\beta}_1\)</span></a></li>
+<li><a href="#varianza-de-widehatbeta_0">Varianza de <span class="math inline">\(\widehat{\beta}_0\)</span></a></li>
+<li><a href="#predicciones">Predicciones</a></li>
+<li><a href="#varianza-del-promedio-de-las-predicciones">Varianza del promedio de las predicciones</a></li>
+<li><a href="#varianza-del-error-de-prediccion">Varianza del error de predicción</a></li>
+<li><a href="#varianza-del-error-de-estimacion">Varianza del error de estimación</a></li>
+<li><a href="#varianza-del-error-cuadratico-sigma2">Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></a></li>
+<li><a href="#el-metodo-delta">El método Delta</a></li>
+<li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
+<li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
+</ul>
+</div>
+
+<p><br></p>
+<div id="distribucion-normal" class="section level2">
+<h2>Distribución normal</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{x} &amp;= x_i, \dots, x_n \\\\
+P(\mathbf{x}; \mu, \sigma) &amp;= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}} \, \text{exp}\left(-\frac{(x_i - \mu)^2}{2 \sigma^2}\right) \\\\
+L(\mu; \mathbf{x}, \sigma) &amp;= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}} \, \text{exp}\left(-\frac{(x_i - \mu)^2}{2 \sigma^2}\right) \\\\
+\text{log}(L) &amp;= \sum_{i=1}^n -\frac{(x_i - \mu)^2}{2 \sigma^2} - \text{log}(\sigma \sqrt{2 \pi}) \\\\
+\text{log}(L) &amp;= -\frac{\sum_{i=1}^n (x_i - \mu)^2}{2\sigma^2} - n\text{log}(\sigma) - \frac{n}{2} \text{log}(2\pi)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><em>Location-scale property</em></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+Z &amp;\sim N(\mu, \sigma^2) \\\\
+a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><em>Stability property</em></p>
+<p><br></p>
+<p>Si <span class="math inline">\(Z_{IID} \sim N(\mu, \sigma^2)\)</span>, entonces</p>
+<p><span class="math display">\[
+\sum_{i=1}^n Z_i \sim N\left(\sum_{i}^n \mu, \sum_{i=1}^n \sigma^2\right)
+\]</span></p>
+<p><br></p>
+</div>
+<div id="estimacion-de-mu" class="section level2">
+<h2>Estimación de <span class="math inline">\(\mu\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial \text{log}(L)}{\partial \mu}&amp;= \frac{1}{\sigma^2}\sum_{i=1}^n (x_i - \mu) \\\\
+&amp;= \frac{n}{\sigma^2} \, (\bar{x} - \mu)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial \text{log}(L)}{\partial \mu} &amp;= 0 \\\\
+\widehat\mu &amp;= \bar{x} \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="valor-esperado-de-barx" class="section level2">
+<h2>Valor esperado de <span class="math inline">\(\bar{x}\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n x_i \right] = \mu
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-de-widehatmu" class="section level2">
+<h2>Varianza de <span class="math inline">\(\widehat\mu\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial^2 \text{log}(L)}{\partial \mu^2} &amp;= - \frac{n}{\sigma^2} \\\\
+\text{VAR}\left[\widehat\mu\right] &amp;= \mathbb{E}\left[(\widehat\mu - \mu)^2\right] \\\\
+&amp;= \frac{\sigma^2}{n}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="estimacion-de-sigma2" class="section level2">
+<h2>Estimación de <span class="math inline">\(\sigma^2\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{log}(L) &amp;= -\frac{\sum_{i=1}^n (x_i - \mu)^2}{2\sigma^2} - n\text{log}(\sigma) - \frac{n}{2} \text{log}(2\pi) \\\\
+\end{align}
+\]</span></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial \text{log}(L)}{\partial \sigma^2} &amp;= \frac{\sum_{i=1}^n (x_i - \mu)^2}{2 \sigma^4} - \frac{n}{2\sigma^2} \\\\
+\frac{\partial \text{log}(L)}{\partial \sigma^2} &amp;= 0 \\\\
+\sigma^2 &amp;= \frac{\sum_{i=1}^n (x_i - \mu)^2}{n}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="valor-esperado-de-fracsum_i1n-x_i---widehatmu2n" class="section level2">
+<h2>Valor esperado de <span class="math inline">\(\frac{\sum_{i=1}^n (x_i - \widehat\mu)^2}{n}\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right] &amp;= \frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n ((x_i - \mu) - (\widehat\mu - \mu))^2\right] \\\\
+&amp;= \mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2 + (\widehat\mu - \mu)^2 - 2(x_i - \mu)(\widehat\mu - \mu))\right] \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &amp;= n\sigma^2 \\\\
+\mathbb{E}\left[\sum_{i=1}^n (\widehat\mu - \mu)^2\right] &amp;= \sigma^2 \\\\
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &amp;= \mathbb{E}\left[n(\mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu)\right] \\\\
+&amp;= \mathbb{E}\left[n(\mu^2 + \widehat\mu^2 - 2\widehat\mu\mu)\right] \\\\
+&amp;= n \, \mathbb{E}\left[(\widehat\mu - \mu)^2 \right] \\\\
+&amp;= \sigma^2
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right] &amp;= \sigma^2 + \frac{\sigma^2}{n} - \frac{2\sigma^2}{n} \\\\
+&amp;= \sigma^2 \left(\frac{n - 1}{n}\right) \\\\
+\end{align}
+\]</span> <span class="math display">\[
+\begin{align}
+\sigma^2 &amp;= \frac{\mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right]}{n - 1}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\widehat\sigma^2 = \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n - 1}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-de-sigma2-y-widehatsigma2" class="section level2">
+<h2>Varianza de <span class="math inline">\(\sigma^2\)</span> y <span class="math inline">\(\widehat\sigma^2\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial \text{log}(L)}{\partial \sigma^2} &amp;= \frac{\sum_{i=1}^n (x_i - \mu)^2}{2 \sigma^4} - \frac{n}{2\sigma^2} \\\\
+\frac{\partial^2 \text{log}(L)}{\partial \sigma^4} &amp;= - \frac{\sum_{i=1}^n (x_i - \mu)^2}{\sigma^6} + \frac{n}{2\sigma^4} \\\\
+&amp;= \frac{- 2\sum_{i=1}^n (x_i - \mu)^2 + n\sigma^2}{2\sigma^6} \\\\
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &amp;= n\sigma^2 \\\\
+\mathbb{E}\left[\frac{\partial^2 \text{log}(L)}{\partial \sigma^4}\right] &amp;= \frac{- 2n\sigma^2 + n\sigma^2}{2\sigma^6} \\\\
+&amp;= - \frac{n}{2\sigma^4} \\\\
+\text{VAR}\left[\sigma^2\right] &amp;= \frac{2\sigma^4}{n}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[\frac{2\widehat\sigma^4}{n}\right] &amp;= \frac{2}{n} \left(\frac{\mathbb{E}\left[\sum_{i=1}^n (x_i - \bar{x})^2\right]}{n - 1}\right)^2 \\\\
+&amp;= \frac{2}{n} \frac{n^2 \sigma^4}{(n - 1)^2} \\\\
+\text{VAR}\left[\widehat\sigma^2\right] &amp;= \frac{2\widehat\sigma^4}{n-1}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="funcion-afin" class="section level2">
+<h2>Función afín</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
+y_i &amp;= \widehat{\beta}_0 + \widehat{\beta}_1x_i + e_i
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+P(\mathbf{y}; \beta_0, \beta_1, \sigma, \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}} \, \text{exp}\left(-\frac{(y_i - (\beta_0 + \beta_1 x_i))^2}{2 \sigma^2}\right) \\\\
+L(\beta_0, \beta_1, \sigma; \mathbf{y}, \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}} \, \text{exp}\left(-\frac{(y_i - (\beta_0 + \beta_1 x_i))^2}{2 \sigma^2}\right) \\\\
+\text{log}(L) &amp;= \sum_{i=1}^n -\frac{(y_i - (\beta_0 + \beta_1 x_i))^2}{2 \sigma^2} - \text{log}(\sigma \sqrt{2 \pi})
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="residuos" class="section level2">
+<h2>Residuos</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})e_i &amp;= 0, \quad \text{COV}[X, e] = 0 \\\\
+\frac{1}{n} \sum_{i=1}^n e_i &amp;= 0
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="estimacion-de-beta_1" class="section level2">
+<h2>Estimación de <span class="math inline">\(\beta_1\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial L}{\partial \beta_1} &amp;= - \frac{\sum_{i=1}^n \beta_0x_i + \beta_1x_i^2 - y_ix_i}{\sigma^2} \\\\
+\frac{\partial L}{\partial \beta_1} &amp;= 0 \\\\
+&amp;= \overline{yx} - \beta_0\bar{x} - \beta_1\overline{x^2} \\\\
+\end{align}
+\]</span> <span class="math display">\[
+\begin{align}
+\mathbb{E}[YX] - \beta_1\mathbb{E}[X^2] - \beta_0\mathbb{E}[X] &amp;= 0 \\\\
+\mathbb{E}[YX] - \beta_1\mathbb{E}[X^2] - (\mathbb{E}[Y] - \beta_1\mathbb{E}[X]) \, \mathbb{E}[X] &amp;= 0 \\\\
+\text{COV}[YX] - \beta_1\mathbb{E}[X^2] - \beta_1\mathbb{E}[X]^2 &amp;= 0 \\\\
+\text{COV}[YX] - \beta_1\text{VAR}[X] &amp;= 0 \\\\
+\end{align}
+\]</span> <span class="math display">\[
+\begin{align}
+\beta_1 &amp;= \frac{\text{COV}[YX]}{\text{VAR}[X]} \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} &amp;= \frac{\sum_{i=1}^n x_i  y_i - \bar{x} \bar{y}}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \frac{\sum_{i=1}^n x_i (\beta_0 + \beta_1x_i + \epsilon_i) - \bar{x} (\beta_0 + \beta_1\bar{x} + \bar{\epsilon})}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \frac{n\beta_1(\overline{x^2} - \bar{x}^2)}{\sum_{i=1}^n (x_i - \bar{x})^2} + \frac{\sum_{i=1}^n x_i\epsilon_i - \bar{x}\bar{\epsilon}}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \beta_1 + \frac{\sum_{i=1}^n x_i\epsilon_i - \bar{x}\bar{\epsilon}}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>By the law of total expectation,</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[\widehat{\beta}_1\right] &amp;= \mathbb{E}\left[\mathbb{E}\left[\widehat{\beta}_1 \, | \, x_i, \dots, x_n\right]\right] \\\\
+&amp;= \mathbb{E}\left[\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \mathbb{E}[\epsilon_i]}{\sum_{i=1}^n (x_i - \bar{x})^2}\right] \, , \quad \mathbb{E}[\epsilon \, | \, x_i] = 0 \\\\
+&amp;= \beta_1 \\\\
+\widehat{\beta}_1 &amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="estimacion-de-beta_0" class="section level2">
+<h2>Estimación de <span class="math inline">\(\beta_0\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial L}{\partial \beta_0} &amp;=- \frac{\sum_{i=1}^n \beta_0 + \beta_1x_i - y_i}{\sigma^2} \\\\
+\frac{\partial L}{\partial \beta_0} &amp;= 0 \\\\
+\widehat{\beta}_0 &amp;= \bar{y} - \widehat{\beta}_1\bar{x} \\\\
+\mathbb{E}\left[\widehat{\beta}_0\right] &amp;= \beta_0 + \beta_1\mathbb{E}[X] - \beta_1\mathbb{E}[X] \\\\
+&amp;= \beta_0
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-de-widehatbeta_1" class="section level2">
+<h2>Varianza de <span class="math inline">\(\widehat{\beta}_1\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right] &amp;= \text{VAR}\left[\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2}\right] \\\\
+&amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{\left(\sum_{i=1}^n (x_i - \bar{x})^2\right)^2} \text{VAR}\left[\epsilon_i\right] \\\\
+&amp;= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \frac{\sigma^2}{n s_x^2}
+\end{align}
+\]</span></p>
+<p>Aplicando la ley de la varianza total,</p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\widehat{\beta}_1\right] &amp;= \text{VAR}\left[\mathbb{E}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right]\right] + \mathbb{E}\left[\text{VAR}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right]\right] \\\\
+&amp;= \frac{\sigma^2}{n s_x^2} \\\\
+\widehat{\text{VAR}}\left[\widehat{\beta}_1\right] &amp;= \frac{\widehat\sigma^2}{n s_x^2}
+\end{align}
+\]</span></p>
+<p>Dado que <span class="math inline">\(\epsilon_i\)</span> sigue una distribución normal, la propiedad de estabilidad asegura que</p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{\beta}_1 &amp;\sim N\left(\beta_1, \frac{\sigma^2}{ns_x^2} \right) \\\\\
+\frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt{n}} &amp;\sim N\left(0, 1 \right) \\\\\
+\end{align}
+\]</span></p>
+<p>Si conociéramos <span class="math inline">\(\sigma^2\)</span>, entonces</p>
+<p><span class="math display">\[
+P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt{n}} \leq \Phi^{-1}(.975) \right) = .95
+\]</span></p>
+<p>Pero si estimamos <span class="math inline">\(\sigma^2\)</span> a través de <span class="math inline">\(\widehat\sigma^2\)</span>, entonces</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\widehat{\beta}_1 - \beta_1}{\widehat\sigma / s_x\sqrt{n}} &amp;= \frac{\frac{\widehat{\beta}_1 - \beta_1}{\sigma}}{\frac{\widehat\sigma}{\sigma s_x\sqrt{n}}} \\\\
+&amp;\sim \frac{N(0, 1/ns_x^2)}{\frac{\widehat\sigma}{\sigma s_x\sqrt{n}}} \\\\
+&amp;\sim \frac{N(0, 1)}{\frac{\widehat\sigma}{\sigma}} \\\\
+&amp;\sim \frac{N(0, 1)}{\sqrt{\frac{\sum_{i=1}^n e_i^2}{\sigma^2 (n-2)}}} \\\\
+&amp;\sim \frac{N(0, 1)}{\sqrt{\frac{\chi^2_{n-2}}{n-2}}} \\\\
+&amp;\sim t_{n-2}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-de-widehatbeta_0" class="section level2">
+<h2>Varianza de <span class="math inline">\(\widehat{\beta}_0\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[ \widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &amp;= \text{VAR}\left[\bar{y} - \widehat{\beta}_1\bar{x}\right] \\\\
+&amp;= \text{VAR}\left[\beta_0 + \beta_1\bar{x} + \bar{\epsilon} - \widehat{\beta}_1\bar{x}\right] \\\\
+&amp;= \text{VAR}\left[\bar{\epsilon} - \bar{x}(\widehat{\beta}_1 - \beta_1)\right] \\\\
+&amp;= \text{VAR}\left[\bar{\epsilon}\right] + \bar{x}^2 \, \text{VAR}\left[\widehat{\beta}_1\right] - 2\bar{x}^2\text{COV}\left[\bar{\epsilon}, \widehat{\beta}_1\right]
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\text{COV}\left[\bar{\epsilon}, \widehat{\beta}_1\right] = 0
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \bar{x}^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2} - \sigma^2 \frac{1}{n}\sum_{i = 1}^n (x_i - \bar{x})^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2}}{\sum_{i=1}^n (x_i - \bar{x})^2} - \frac{\sigma^2}{n} \\\\
+&amp;= \frac{\sigma^2 \overline{x^2}}{n s_x^2}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>By the law of total variance,</p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\widehat{\beta}_0\right] &amp;= \text{VAR}\left[\mathbb{E}\left[\widehat{\beta}_0 \, | \, x_1, \dots, x_n\right]\right] + \mathbb{E}\left[\text{VAR}\left[\widehat{\beta}_0 \, | \, x_1, \dots, x_n\right]\right] \\\\
+&amp;= \frac{\sigma^2 \overline{x^2}}{n s_x^2} \\\\
+\widehat{\text{VAR}}\left[\widehat{\beta}_0\right] &amp;= \frac{\widehat\sigma^2 \overline{x^2}}{n s_x^2}
+\end{align}
+\]</span></p>
+<p>Dado que <span class="math inline">\(\epsilon_i\)</span> sigue una distribución normal, la propiedad de estabilidad asegura que</p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{\beta}_0 &amp;\sim N\left(\beta_1, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
+\frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} &amp;\sim N\left(0, 1 \right) \\\\\
+\end{align}
+\]</span></p>
+<p>Si conociéramos <span class="math inline">\(\sigma^2\)</span>, entonces</p>
+<p><span class="math display">\[
+P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} \leq \Phi^{-1}(.975) \right) = .95
+\]</span></p>
+<p>Pero si estimamos <span class="math inline">\(\sigma^2\)</span> a través de <span class="math inline">\(\widehat\sigma^2\)</span>, entonces</p>
+<p><span class="math display">\[
+\frac{\widehat{\beta}_0 - \beta_0}{\widehat\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} \sim t_{n-2}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="predicciones" class="section level2">
+<h2>Predicciones</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{m}(x_0) &amp;= \widehat{\beta}_0 + \widehat{\beta}_1x_0 \\\\
+&amp;= \bar{y} - \widehat{\beta}_1\bar{x} + \widehat{\beta}_1x_0 \\\\
+&amp;= \bar{y} + (x_0 - \bar{x})\widehat{\beta}_1 \\\\
+&amp;= \beta_0 + \beta_1\bar{x} + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x_0 - \bar{x})\left(\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \right) \\\\
+&amp;= \beta_0 + \beta_1\bar{x} + (x_0 - \bar{x})\beta_1 + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x_0 - \bar{x}) \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \epsilon_i \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[\widehat{m}(x_0)\right] &amp;= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \mathbb{E}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right) \\\\
+&amp;= \beta_0 + \beta_1x_0
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-del-promedio-de-las-predicciones" class="section level2">
+<h2>Varianza del promedio de las predicciones</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n \right] &amp;= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right)^2 \\\\
+&amp;= \frac{\sigma^2}{n^2} \sum_{i=1}^n \left(1 + (x_0 - \bar{x})^2 \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
+&amp;= \frac{\sigma^2}{n^2} \left(n + (x_0 - \bar{x})^2 \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
+&amp;= \frac{\sigma^2}{n^2} \left(n + (x_0 - \bar{x})^2 \frac{n}{s_x^2}\right) \\\\
+&amp;= \frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)
+\end{align}
+\]</span></p>
+<p>By the law of total variance,</p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\widehat{m}(x_0)\right] &amp;= \text{VAR}\left[\mathbb{E}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n\right]\right] + \mathbb{E}\left[\text{VAR}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n\right]\right] \\\\
+&amp;= \frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>La propiedad de estabilidad asegura que</p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{m}(x_0) &amp;\sim N\left(\beta_0 + \beta_1x_0, \frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)\right) \\\\
+\frac{\widehat{m}(x_0) - m(x_0)}{\sqrt{\frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)}} &amp;\sim N(0, 1) \\\\
+\frac{\widehat{m}(x_0) - m(x_0)}{\sqrt{\frac{\widehat\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)}} &amp;\sim t_{n-2} \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-del-error-de-prediccion" class="section level2">
+<h2>Varianza del error de predicción</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+y_0 &amp;= \beta_0 + \beta_1x_0 + \epsilon_0 \\\\
+\widehat{m}(x_0) &amp;= \widehat\beta_0 + \widehat\beta_1x_0 \\\\
+y_0 - \widehat{m}(x_0) &amp;= \beta_0 + \beta_1x_0 - \widehat\beta_0 - \widehat\beta_1x_0 + \epsilon_0 \\\\
+\text{COV}[\widehat{m}(x_0), \epsilon_0] &amp;= 0 \\\\
+\text{VAR}[y_0 - \widehat{m}(x_0)] &amp;= \frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right) + \sigma^2 \\\\
+\text{VAR}[y_0 - \widehat{m}(x_0)] &amp;= \sigma^2 \left(1 + \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{n s_x^2}\right)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>La propiedad de estabilidad asegura que</p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{m}(x_0) &amp;\sim N\left(y_0, \sigma^2 \left(1 + \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{n s_x^2}\right)\right) \\\\
+\frac{y_0 - \widehat{m}(x_0)}{\sqrt{\sigma^2 \left(1 + \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{n s_x^2}\right)}} &amp;\sim N(0, 1) \\\\
+\frac{y_0 - \widehat{m}(x_0)}{\sqrt{\widehat\sigma^2 \left(1 + \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{n s_x^2}\right)}} &amp;\sim t_{n-2}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-del-error-de-estimacion" class="section level2">
+<h2>Varianza del error de estimación</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{\beta}_0 &amp;= \beta_0 + \frac{1}{n} \sum_{i=1}^n \left(1 - \bar{x} \, \frac{x_i - \bar{x}}{s_x^2}\right) \epsilon_i \\\\
+\widehat{\beta}_1 &amp;= \beta_1 + \frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
+\widehat{m}(x_i) &amp;= \widehat\beta_0 + \widehat\beta_1x_i \\\\
+y_i - \widehat{m}(x_i) &amp;= (\beta_0 - \widehat\beta_0) + (\beta_1 - \widehat\beta_1)x_i +  \epsilon_i \\\\
+(y_i - \widehat{m}(x_i))^2 &amp;= (\beta_0 - \widehat\beta_0)^2 + (\beta_1 - \widehat\beta_1)^2x_i^2 + \epsilon_i^2 + \\\\ &amp; 2\left((\beta_0 - \widehat{\beta}_0)(\beta_1 - \widehat{\beta}_1)x_i + (\beta_0 - \widehat{\beta}_0)\epsilon_i - (\beta_1 - \widehat{\beta}_1)x_i\epsilon_i\right) \\\\
+\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] &amp;= \frac{\sigma^2 \overline{x^2}}{n s_x^2} + \frac{\sigma^2 x_i^2}{n s_x^2} + \sigma^2 - 2\left(\right) \\\\
+&amp;= \sigma^2\left(1 - \frac{1}{n} - \frac{(x_i - \bar{x})^2}{n s_x^2} \right) \\\\
+\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] &amp;= \sigma^2 + \frac{\sigma^2}{n} \left(1 + \frac{(x_i - \bar{x})^2}{s_x^2}\right) - 2 \, \text{COV}\left[\epsilon_i, \widehat\beta_0 + \widehat\beta_1x_i\right] \\\\
+&amp;= \sigma^2 \left(1 + \frac{1}{n} + \frac{(x_i - \bar{x})^2}{s_x^2}\right) - 2 \, \text{COV}\left[\epsilon_i, \widehat\beta_0 + \widehat\beta_1x_i\right]
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-del-error-cuadratico-sigma2" class="section level2">
+<h2>Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\mathbb{E}\left[(Y - (\beta_0 + \beta_1X))^2\right] = \sigma^2
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\bar{y} \, | \, x_i, \dots, x_n\right] &amp;= \text{VAR}\left[\beta_0 + \beta_1\bar{x} + \bar{\epsilon}\right] \\\\
+&amp;= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}\left[\epsilon_i\right] \\\\
+&amp;= \frac{\sigma^2}{n}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{\beta}_0 &amp;= \beta_0 + \frac{1}{n} \sum_{i=1}^n \left(1 - \bar{x} \, \frac{x_i - \bar{x}}{s_x^2}\right) \epsilon_i \\\\
+\widehat{\beta}_1 &amp;= \beta_1 + \frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+ \mathbb{E}\left[\sum_{i=1}^n e_i^2 \, | \, x_i, \dots, x_n\right] &amp;= \mathbb{E}\left[\sum_{i=1}^n (y_i - \widehat{m}(x_i))^2\right] \\\\
+&amp;= \mathbb{E}\left[\sum_{i=1}^n \left(\beta_0 + \beta_1x_i + \epsilon_i - \widehat{\beta}_0 - \widehat{\beta}_1x_i\right)^2\right] \\\\
+&amp;= \mathbb{E}\left[\sum_{i=1}^n \left((\beta_0 - \widehat{\beta}_0)^2 + (\beta_1 - \widehat{\beta}_1)^2x_i^2 + \epsilon_i^2\right)\right] + \\\\
+&amp; 2 \, \mathbb{E}\left[\sum_{i=1}^n (\beta_0 - \widehat{\beta}_0)(\beta_1 - \widehat{\beta}_1)x_i + (\beta_0 - \widehat{\beta}_0)\epsilon_i + (\beta_1 - \widehat{\beta}_1)x_i\epsilon_i \right] \\\\
+&amp;= n \sigma^2 \left(2 \, \mathbb{E}\left[\frac{\overline{x^2}}{n s_x^2}\right] + 1 \right) - 2\sigma^2 \, \mathbb{E}\left[\frac{\bar{x}^2}{s_x^2} \right] - 2 \sigma^2 - 2 \sigma^2 \\\\
+&amp;= \sigma^2 \left(2 \, \mathbb{E}\left[\frac{\overline{x^2} - \bar{x}^2}{s_x^2}\right] + n - 4 \right) \\\\
+&amp;= \sigma^2 \left(n - 2 \right) \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\widehat\sigma^2 = \frac{1}{n-2} \sum_{i=1}^n e_i^2 \\\\
+\]</span></p>
+<p><span class="math inline">\(\widehat{\sigma}^2\)</span> es estadísticamente independiente de <span class="math inline">\(\widehat\beta_1\)</span> y <span class="math inline">\(\widehat\beta_0\)</span> a pesar de que todos los estimadores son una función de <span class="math inline">\(\epsilon\)</span>.</p>
+<p><br></p>
+<p>Sabiendo que si <span class="math inline">\(Z \sim N(0, 1)\)</span>, entonces <span class="math inline">\(Z^2 \sim \chi^2\)</span> y que <span class="math inline">\(\frac{\epsilon_i}{\sigma} \sim N(0, 1)\)</span>, entonces</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 &amp;= \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 \sim \chi^2_n \\\\
+\frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &amp;\sim \chi^2_{n-2}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="el-metodo-delta" class="section level2">
+<h2>El método Delta</h2>
+<p><br></p>
+<p><span class="math inline">\(\theta\)</span> es un parámetro que pretendemos estimar a través de un estimador insesgado <span class="math inline">\(\hat\theta\)</span>. Supongamos que <span class="math inline">\(\theta\)</span> es una función de un vector de parámetros <span class="math inline">\(\boldsymbol{\psi}\)</span>,</p>
+<p><br></p>
+<p><span class="math display">\[
+\theta = f\left(\psi_1, \dots, \psi_n \right)
+\]</span></p>
+<p>Entonces,</p>
+<p><span class="math display">\[
+\widehat\theta = f\left(\widehat\psi_1, \dots, \widehat\psi_p \right)
+\]</span></p>
+<p><br></p>
+<p>Usando la expansión de Taylor,</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\theta &amp;\approx \widehat\theta + \sum_{i=1}^p \left(\psi_i - \widehat\psi_i \right) {\left. \frac{\partial f}{\partial \psi_i} \right|}_{\psi=\widehat\psi} \\\\
+\hat\theta &amp;\approx \theta + \sum_{i=1}^p \left(\widehat\psi_i - \psi_i \right) {\left. \frac{\partial f}{\partial \psi_i} \right|}_{\psi=\widehat\psi} \\\\
+\text{VAR}\left[\hat\theta\right] &amp;\approx \sum_{i=1}^{p} {\left. \frac{\partial^2 f}{\partial \psi_i^2} \right|}_{\psi=\widehat\psi} \, \text{VAR}\left[{\widehat{\psi_i}}\right] + 2 \sum_{i=1}^{p-1} \sum_{j=i+1}^{p} {\left. \frac{\partial f}{\partial \psi_i}\right|}_{\psi=\widehat\psi} \, {\left. \frac{\partial f}{\partial \psi_j}\right|}_{\psi=\widehat\psi} \, \text{COV}\left[{\widehat{\psi_i},\widehat{\psi_j}}\right]
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="distribucion-de-los-valores-p-bajo-la-hipotesis-nula" class="section level2">
+<h2>Distribución de los valores p bajo la hipótesis nula</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+P &amp;= F(T) \\\\
+\text{Pr}(P &lt; p) &amp;= \text{Pr}\left(F^{-1}(P) &lt; F^{-1}(p)\right) \\\\
+&amp;= \text{Pr}(T &lt; t) \\\\
+&amp;= F\left(F^{-1}(p)\right) \\\\
+&amp;= p
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="desigualdad-de-chebyshev" class="section level2">
+<h2>Desigualdad de Chebyshev</h2>
+<p><br></p>
+<p><span class="math display">\[
+\text{P}(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
+\]</span></p>
+<p>La probabilidad de que una variable aleatoria <span class="math inline">\(X\)</span> exceda su valor esperado <span class="math inline">\(\mu\)</span> por <span class="math inline">\(k\)</span> errores típicos es siempre inferior a <span class="math inline">\(\frac{1}{k^2}\)</span>.</p>
+<p><br></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
