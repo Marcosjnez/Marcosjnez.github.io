@@ -509,7 +509,7 @@ $$
 
 <br>
 
-## Varianza del error de estimación
+## Varianza del error de estimación (Varianza de un residuo)
 
 <br>
 
@@ -525,13 +525,36 @@ $$
 $$
 \begin{align}
 y_i &= \beta_0 + \beta_1x_i + \epsilon_i \\\\
+\text{VAR}\left[\bar{y}\right] &= \sigma^2 \\\\
 \widehat{m}(x_i) &= \widehat\beta_0 + \widehat\beta_1x_i \\\\
-y_i - \widehat{m}(x_i) &= (\beta_0 - \widehat\beta_0) + (\beta_1 - \widehat\beta_1)x_i +  \epsilon_i \\\\
-(y_i - \widehat{m}(x_i))^2 &= (\beta_0 - \widehat\beta_0)^2 + (\beta_1 - \widehat\beta_1)^2x_i^2 + \epsilon_i^2 + \\\\ & 2\left((\beta_0 - \widehat{\beta}_0)(\beta_1 - \widehat{\beta}_1)x_i + (\beta_0 - \widehat{\beta}_0)\epsilon_i - (\beta_1 - \widehat{\beta}_1)x_i\epsilon_i\right) \\\\
-\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] &= \frac{\sigma^2 \overline{x^2}}{n s_x^2} + \frac{\sigma^2 x_i^2}{n s_x^2} + \sigma^2 - 2\left(\right) \\\\
-&= \sigma^2\left(1 - \frac{1}{n} - \frac{(x_i - \bar{x})^2}{n s_x^2} \right) \\\\
-\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] &= \sigma^2 + \frac{\sigma^2}{n} \left(1 + \frac{(x_i - \bar{x})^2}{s_x^2}\right) - 2 \, \text{COV}\left[\epsilon_i, \widehat\beta_0 + \widehat\beta_1x_i\right] \\\\
-&= \sigma^2 \left(1 + \frac{1}{n} + \frac{(x_i - \bar{x})^2}{s_x^2}\right) - 2 \, \text{COV}\left[\epsilon_i, \widehat\beta_0 + \widehat\beta_1x_i\right]
+&= \bar{y} - \widehat\beta_1\bar{x} + \widehat\beta_1x_i \\\\
+&= \bar{y} + (x_i - \bar{x})\widehat\beta_1 \\\\
+&= \bar{y} + (x_i - \bar{x})\left(\beta_1 + \frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i\right) \\\\
+&= \beta_0 + \beta_1x_i + (x_i - \bar{x})\left(\frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i\right) \\\\
+\text{VAR}\left[\widehat{m}(x_i)\right] &=  \frac{\sigma^2}{n} + (x_i - \bar{x})^2 \frac{\sigma^2}{ns_x^2} \\\\
+&= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
+\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] &= \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\,\text{COV}\left[y_i, \widehat{m}(x_i)\right]
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
+\text{COV}\left[y_i, \widehat{m}(x_i)\right] &= \text{COV}\left[y_i + \widehat{m}(x_i) - \widehat{m}(x_i), \widehat{m}(x_i) \right] \\\\
+&= \text{COV}\left[\widehat{m}(x_i), \widehat{m}(x_i) \right] + \text{COV}\left[y_i - \widehat{m}(x_i), \widehat{m}(x_i) \right] \\\\
+&= \text{VAR}\left[\widehat{m}(x_i)\right] + 0 \\\\
+&= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right)
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
+\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] &= \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
+&= \sigma^2 - \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
+&= \sigma^2 \left(1 - \frac{1}{n} - \frac{(x_i - \bar{x})^2}{ns_x^2}\right)
 \end{align}
 $$
 
