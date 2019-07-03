@@ -187,6 +187,20 @@ $$
 
 $$
 \begin{align}
+\frac{\epsilon_i}{\sigma} &\sim N(0, 1) \\\\
+\frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 &\sim \chi^2_n \\\\
+\frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 = \frac{(n-1)\widehat\sigma^2}{\sigma^2} &\sim \chi^2_{n-1} \\\\
+\text{VAR}\left[\chi^2_{n-1}\right] &= 2(n-1) \\\\
+\text{VAR}\left[\frac{(n-1)\widehat\sigma^2}{\sigma^2}\right] &= 2(n-1) \\\\
+\text{VAR}\left[(n-1)\widehat\sigma^2\right] &= 2\sigma^4(n-1) \\\\
+\text{VAR}\left[\widehat\sigma^2\right] &= \frac{2\sigma^4}{n-1} \\\\
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
 \mathbb{E}\left[\frac{2\widehat\sigma^4}{n}\right] &= \frac{2}{n} \left(\frac{\mathbb{E}\left[\sum_{i=1}^n (x_i - \bar{x})^2\right]}{n - 1}\right)^2 \\\\
 &= \frac{2}{n} \frac{n^2 \sigma^4}{(n - 1)^2} \\\\
 \text{VAR}\left[\widehat\sigma^2\right] &= \frac{2\widehat\sigma^4}{n-1}
@@ -525,7 +539,7 @@ $$
 $$
 \begin{align}
 y_i &= \beta_0 + \beta_1x_i + \epsilon_i \\\\
-\text{VAR}\left[\bar{y}\right] &= \sigma^2 \\\\
+\text{VAR}\left[y_i\right] &= \sigma^2 \\\\
 \widehat{m}(x_i) &= \widehat\beta_0 + \widehat\beta_1x_i \\\\
 &= \bar{y} - \widehat\beta_1\bar{x} + \widehat\beta_1x_i \\\\
 &= \bar{y} + (x_i - \bar{x})\widehat\beta_1 \\\\
@@ -543,6 +557,7 @@ $$
 \begin{align}
 \text{COV}\left[y_i, \widehat{m}(x_i)\right] &= \text{COV}\left[y_i + \widehat{m}(x_i) - \widehat{m}(x_i), \widehat{m}(x_i) \right] \\\\
 &= \text{COV}\left[\widehat{m}(x_i), \widehat{m}(x_i) \right] + \text{COV}\left[y_i - \widehat{m}(x_i), \widehat{m}(x_i) \right] \\\\
+&= \text{COV}\left[\widehat{m}(x_i), \widehat{m}(x_i) \right] + \text{COV}\left[e_i, \widehat{m}(x_i) \right] \\\\
 &= \text{VAR}\left[\widehat{m}(x_i)\right] + 0 \\\\
 &= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right)
 \end{align}

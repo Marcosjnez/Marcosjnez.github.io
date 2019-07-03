@@ -492,6 +492,18 @@ a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
+\frac{\epsilon_i}{\sigma} &amp;\sim N(0, 1) \\\\
+\frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 &amp;\sim \chi^2_n \\\\
+\frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 = \frac{(n-1)\widehat\sigma^2}{\sigma^2} &amp;\sim \chi^2_{n-1} \\\\
+\text{VAR}\left[\chi^2_{n-1}\right] &amp;= 2(n-1) \\\\
+\text{VAR}\left[\frac{(n-1)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-1) \\\\
+\text{VAR}\left[(n-1)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-1) \\\\
+\text{VAR}\left[\widehat\sigma^2\right] &amp;= \frac{2\sigma^4}{n-1} \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
 \mathbb{E}\left[\frac{2\widehat\sigma^4}{n}\right] &amp;= \frac{2}{n} \left(\frac{\mathbb{E}\left[\sum_{i=1}^n (x_i - \bar{x})^2\right]}{n - 1}\right)^2 \\\\
 &amp;= \frac{2}{n} \frac{n^2 \sigma^4}{(n - 1)^2} \\\\
 \text{VAR}\left[\widehat\sigma^2\right] &amp;= \frac{2\widehat\sigma^4}{n-1}
@@ -768,7 +780,7 @@ y_0 - \widehat{m}(x_0) &amp;= \beta_0 + \beta_1x_0 - \widehat\beta_0 - \widehat\
 <p><span class="math display">\[
 \begin{align}
 y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
-\text{VAR}\left[\bar{y}\right] &amp;= \sigma^2 \\\\
+\text{VAR}\left[y_i\right] &amp;= \sigma^2 \\\\
 \widehat{m}(x_i) &amp;= \widehat\beta_0 + \widehat\beta_1x_i \\\\
 &amp;= \bar{y} - \widehat\beta_1\bar{x} + \widehat\beta_1x_i \\\\
 &amp;= \bar{y} + (x_i - \bar{x})\widehat\beta_1 \\\\
@@ -784,6 +796,7 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 \begin{align}
 \text{COV}\left[y_i, \widehat{m}(x_i)\right] &amp;= \text{COV}\left[y_i + \widehat{m}(x_i) - \widehat{m}(x_i), \widehat{m}(x_i) \right] \\\\
 &amp;= \text{COV}\left[\widehat{m}(x_i), \widehat{m}(x_i) \right] + \text{COV}\left[y_i - \widehat{m}(x_i), \widehat{m}(x_i) \right] \\\\
+&amp;= \text{COV}\left[\widehat{m}(x_i), \widehat{m}(x_i) \right] + \text{COV}\left[e_i, \widehat{m}(x_i) \right] \\\\
 &amp;= \text{VAR}\left[\widehat{m}(x_i)\right] + 0 \\\\
 &amp;= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right)
 \end{align}
