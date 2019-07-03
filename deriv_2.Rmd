@@ -621,7 +621,12 @@ Sabiendo que si $Z \sim N(0, 1)$, entonces $Z^2 \sim \chi^2$ y que $\frac{\epsil
 $$
 \begin{align}
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 &= \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 \sim \chi^2_n \\\\
-\frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &\sim \chi^2_{n-2}
+\frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &\sim \chi^2_{n-2} \\\\
+P\left(\sigma^2 \leq \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \alpha}}\right) &= 1 - \alpha \\\\
+\text{VAR}\left[\chi^2_{n-2}\right] &= 2(n-2)X \\\\
+\text{VAR}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &= 2(n-2) \\\\
+\text{VAR}\left[(n-2)\widehat\sigma^2\right] &= 2\sigma^4(n-2) \\\\
+\text{VAR}\left[\widehat\sigma^2\right] &= \frac{2\sigma^4}{n-2} \\\\
 \end{align}
 $$
 

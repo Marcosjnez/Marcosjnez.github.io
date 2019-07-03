@@ -846,7 +846,12 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 <p><span class="math display">\[
 \begin{align}
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 &amp;= \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 \sim \chi^2_n \\\\
-\frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &amp;\sim \chi^2_{n-2}
+\frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &amp;\sim \chi^2_{n-2} \\\\
+P\left(\sigma^2 \leq \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \alpha}}\right) &amp;= 1 - \alpha \\\\
+\text{VAR}\left[\chi^2_{n-2}\right] &amp;= 2(n-2)X \\\\
+\text{VAR}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-2) \\\\
+\text{VAR}\left[(n-2)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-2) \\\\
+\text{VAR}\left[\widehat\sigma^2\right] &amp;= \frac{2\sigma^4}{n-2} \\\\
 \end{align}
 \]</span></p>
 <p><br></p>
