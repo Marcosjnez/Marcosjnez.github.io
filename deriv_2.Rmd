@@ -199,16 +199,6 @@ $$
 
 <br>
 
-$$
-\begin{align}
-\mathbb{E}\left[\frac{2\widehat\sigma^4}{n}\right] &= \frac{2}{n} \left(\frac{\mathbb{E}\left[\sum_{i=1}^n (x_i - \bar{x})^2\right]}{n - 1}\right)^2 \\\\
-&= \frac{2}{n} \frac{n^2 \sigma^4}{(n - 1)^2} \\\\
-\text{VAR}\left[\widehat\sigma^2\right] &= \frac{2\widehat\sigma^4}{n-1}
-\end{align}
-$$
-
-<br>
-
 ## Función afín
 
 <br>
