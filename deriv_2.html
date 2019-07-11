@@ -346,6 +346,9 @@ $(document).ready(function () {
 <li><a href="#varianza-del-error-de-prediccion">Varianza del error de predicción</a></li>
 <li><a href="#varianza-del-error-de-estimacion-varianza-de-un-residuo">Varianza del error de estimación (Varianza de un residuo)</a></li>
 <li><a href="#varianza-del-error-cuadratico-sigma2">Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></a></li>
+<li><a href="#modelo-sin-predictores">Modelo sin predictores</a></li>
+<li><a href="#el-test-f">El test F</a></li>
+<li><a href="#el-test-de-razon-de-verosimilitudes">El test de razón de verosimilitudes</a></li>
 <li><a href="#el-metodo-delta">El método Delta</a></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
@@ -852,6 +855,84 @@ P\left(\sigma^2 \leq \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \alpha}}\right) 
 \text{VAR}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-2) \\\\
 \text{VAR}\left[(n-2)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-2) \\\\
 \text{VAR}\left[\widehat\sigma^2\right] &amp;= \frac{2\sigma^4}{n-2} \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="modelo-sin-predictores" class="section level2">
+<h2>Modelo sin predictores</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+Y &amp;= \beta_0 + \epsilon \\\\
+\widehat\beta_0 &amp;= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
+\widehat\sigma_0^2 &amp;= \frac{1}{n-1} \sum_{i=1}^n (y_i - \bar{y})^2 \\\\
+&amp;= s_y^2 \\\\
+\frac{(n-1) \widehat\sigma^2_0}{\sigma^2} &amp;\sim \chi^2_{n-1}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="el-test-f" class="section level2">
+<h2>El test F</h2>
+<p><br></p>
+<p>La distribución <span class="math inline">\(\chi^2\)</span> procede de la suma del cuadrado de variables con distribución normal y la distribución <span class="math inline">\(F\)</span> procede de la razón entre variables aleatorias con distribución <span class="math inline">\(\chi^2\)</span>.</p>
+<p>Según el modelo sin predictores,</p>
+<p><span class="math display">\[
+\frac{(n-1) \widehat\sigma^2_0}{\sigma^2} \sim \chi^2_{n-1}
+\]</span></p>
+<p>mientras que según el modelo con un predictor,</p>
+<p><span class="math display">\[
+\frac{(n-2) \widehat\sigma_1^2}{\sigma^2} \sim \chi^2_{n-2}
+\]</span></p>
+<p>Por tanto,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{\sigma^2} &amp;\sim \chi^2_1 \\\\
+\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{(n-2) \widehat\sigma_1^2} &amp;\sim \frac{\chi^2_1}{\chi^2_{n-2}} \\\\
+\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{(n-2) \widehat\sigma_1^2} \, \frac{n-2}{1} &amp;\sim F_{1, n-2} \\\\
+\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{\widehat\sigma_1^2} &amp;\sim F_{1, n-2}
+\end{align}
+\]</span></p>
+<p>El test <span class="math inline">\(F\)</span> asume que los errores (<span class="math inline">\(\epsilon\)</span>) siguen una distribución normal, son homocedásticos e independientes de la variable <span class="math inline">\(X\)</span> y entre sí. Se trata de un caso particular de la razón de verosimilitudes.</p>
+<p><br></p>
+<p>En el caso general, si estuviéramos contrastando la significación de <span class="math inline">\(p-q\)</span> estimaciones,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{\sigma^2} &amp;\sim \chi^2_{p-q} \\\\
+\frac{(n-p) \widehat\sigma_1^2}{\sigma^2} &amp;\sim \chi^2_{n-p} \\\\
+\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(n-p) \widehat\sigma_1^2} &amp;\sim \frac{\chi^2_{p-q}}{\chi^2_{n-p}} \\\\
+\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(n-p) \widehat\sigma_1^2} \, \frac{n-p}{p-q} &amp;\sim F_{p-q, n-p} \\\\
+\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(p-q) \widehat\sigma_1^2} &amp;\sim F_{p-q, n-p}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="el-test-de-razon-de-verosimilitudes" class="section level2">
+<h2>El test de razón de verosimilitudes</h2>
+<p><br></p>
+<p>El espacio paramétrico del modelo nulo es un subconjunto del espacio paramétrico del modelo general.</p>
+<p><span class="math display">\[
+\begin{align}
+\Lambda &amp;= L(\widehat\Theta) - L(\widehat\theta) \\\\
+\lim_{n \rightarrow \infty} \quad 2\Lambda &amp;\sim \chi^2_{p-q}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+L(\widehat\theta) &amp;= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2s_0^2 - \frac{1}{2s_0^2} \sum_{i=1}^n (y_i - \widehat\beta_0)^2 \\\\
+&amp;= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log s_0^2} \\\\
+L(\widehat\Theta) &amp;= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2s_1^2 - \frac{1}{2s_1^2} \sum_{i=1}^n (y_i - \widehat\beta_0 - \widehat\beta_1x_i)^2 \\\\
+&amp;= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log s_1^2}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+L(\widehat\beta_0, \widehat\beta_1, s^2_1) - L(\widehat\beta_0, s^2_0)
+&amp;= \frac{n}{2} \log\frac{s_0^2}{s_1^2} \\\\
+n \log\frac{s_0^2}{s_1^2} &amp;\sim \chi^2_1
 \end{align}
 \]</span></p>
 <p><br></p>

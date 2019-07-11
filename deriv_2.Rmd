@@ -632,6 +632,105 @@ $$
 
 <br>
 
+## Modelo sin predictores
+
+<br>
+
+$$
+\begin{align}
+Y &= \beta_0 + \epsilon \\\\
+\widehat\beta_0 &= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
+\widehat\sigma_0^2 &= \frac{1}{n-1} \sum_{i=1}^n (y_i - \bar{y})^2 \\\\
+&= s_y^2 \\\\
+\frac{(n-1) \widehat\sigma^2_0}{\sigma^2} &\sim \chi^2_{n-1}
+\end{align}
+$$
+
+<br>
+
+## El test F
+
+<br>
+
+La distribución $\chi^2$ procede de la suma del cuadrado de variables con distribución normal y la distribución $F$ procede de la razón entre variables aleatorias con distribución $\chi^2$.
+
+Según el modelo sin predictores, 
+
+$$
+\frac{(n-1) \widehat\sigma^2_0}{\sigma^2} \sim \chi^2_{n-1}
+$$
+
+mientras que según el modelo con un predictor,
+
+$$
+\frac{(n-2) \widehat\sigma_1^2}{\sigma^2} \sim \chi^2_{n-2}
+$$
+
+Por tanto,
+
+$$
+\begin{align}
+\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{\sigma^2} &\sim \chi^2_1 \\\\
+\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{(n-2) \widehat\sigma_1^2} &\sim \frac{\chi^2_1}{\chi^2_{n-2}} \\\\
+\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{(n-2) \widehat\sigma_1^2} \, \frac{n-2}{1} &\sim F_{1, n-2} \\\\
+\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{\widehat\sigma_1^2} &\sim F_{1, n-2}
+\end{align}
+$$
+
+El test $F$ asume que los errores ($\epsilon$) siguen una distribución normal, son homocedásticos e independientes de la variable $X$ y entre sí. Se trata de un caso particular de la razón de verosimilitudes.
+
+<br>
+
+En el caso general, si estuviéramos contrastando la significación de $p-q$ estimaciones,
+
+$$
+\begin{align}
+\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{\sigma^2} &\sim \chi^2_{p-q} \\\\
+\frac{(n-p) \widehat\sigma_1^2}{\sigma^2} &\sim \chi^2_{n-p} \\\\
+\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(n-p) \widehat\sigma_1^2} &\sim \frac{\chi^2_{p-q}}{\chi^2_{n-p}} \\\\
+\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(n-p) \widehat\sigma_1^2} \, \frac{n-p}{p-q} &\sim F_{p-q, n-p} \\\\
+\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(p-q) \widehat\sigma_1^2} &\sim F_{p-q, n-p}
+\end{align}
+$$
+
+<br>
+
+## El test de razón de verosimilitudes
+
+<br>
+
+El espacio paramétrico del modelo nulo es un subconjunto del espacio paramétrico del modelo general.
+
+$$
+\begin{align}
+\Lambda &= L(\widehat\Theta) - L(\widehat\theta) \\\\
+\lim_{n \rightarrow \infty} \quad 2\Lambda &\sim \chi^2_{p-q}
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
+L(\widehat\theta) &= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2s_0^2 - \frac{1}{2s_0^2} \sum_{i=1}^n (y_i - \widehat\beta_0)^2 \\\\
+&= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log s_0^2} \\\\
+L(\widehat\Theta) &= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2s_1^2 - \frac{1}{2s_1^2} \sum_{i=1}^n (y_i - \widehat\beta_0 - \widehat\beta_1x_i)^2 \\\\
+&= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log s_1^2}
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
+L(\widehat\beta_0, \widehat\beta_1, s^2_1) - L(\widehat\beta_0, s^2_0)
+&= \frac{n}{2} \log\frac{s_0^2}{s_1^2} \\\\
+n \log\frac{s_0^2}{s_1^2} &\sim \chi^2_1
+\end{align}
+$$
+
+<br>
+
 ## El método Delta
 
 <br>
