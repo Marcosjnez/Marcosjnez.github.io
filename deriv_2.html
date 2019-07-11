@@ -349,6 +349,8 @@ $(document).ready(function () {
 <li><a href="#modelo-sin-predictores">Modelo sin predictores</a></li>
 <li><a href="#el-test-f">El test F</a></li>
 <li><a href="#el-test-de-razon-de-verosimilitudes">El test de razón de verosimilitudes</a></li>
+<li><a href="#r2"><span class="math inline">\(R^2\)</span></a></li>
+<li><a href="#rho_xy"><span class="math inline">\(\rho_{xy}\)</span></a></li>
 <li><a href="#el-metodo-delta">El método Delta</a></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
@@ -599,8 +601,7 @@ L(\beta_0, \beta_1, \sigma; \mathbf{y}, \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1
 <p><span class="math display">\[
 \begin{align}
 \text{VAR}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right] &amp;= \text{VAR}\left[\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2}\right] \\\\
-&amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{\left(\sum_{i=1}^n (x_i - \bar{x})^2\right)^2} \text{VAR}\left[\epsilon_i\right] \\\\
-&amp;= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&amp;= \sum_{i=1}^n \frac{(x_i - \bar{x})^2 \, \text{VAR}\left[\epsilon_i\right]}{n^2 s_x^4} \\\\
 &amp;= \frac{\sigma^2}{n s_x^2}
 \end{align}
 \]</span></p>
@@ -643,7 +644,6 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt
 \begin{align}
 \text{VAR}\left[ \widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &amp;= \text{VAR}\left[\bar{y} - \widehat{\beta}_1\bar{x}\right] \\\\
 &amp;= \text{VAR}\left[\beta_0 + \beta_1\bar{x} + \bar{\epsilon} - \widehat{\beta}_1\bar{x}\right] \\\\
-&amp;= \text{VAR}\left[\bar{\epsilon} - \bar{x}(\widehat{\beta}_1 - \beta_1)\right] \\\\
 &amp;= \text{VAR}\left[\bar{\epsilon}\right] + \bar{x}^2 \, \text{VAR}\left[\widehat{\beta}_1\right] - 2\bar{x}^2\text{COV}\left[\bar{\epsilon}, \widehat{\beta}_1\right]
 \end{align}
 \]</span></p>
@@ -655,8 +655,8 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt
 <p><span class="math display">\[
 \begin{align}
 \text{VAR}\left[\widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \bar{x}^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
-&amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2} - \sigma^2 \frac{1}{n}\sum_{i = 1}^n (x_i - \bar{x})^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
-&amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2}}{\sum_{i=1}^n (x_i - \bar{x})^2} - \frac{\sigma^2}{n} \\\\
+&amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2} - \sigma^2 s_x^2}{n s_x^2} \\\\
+&amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2}}{n s_x^2} - \frac{\sigma^2}{n} \\\\
 &amp;= \frac{\sigma^2 \overline{x^2}}{n s_x^2}
 \end{align}
 \]</span></p>
@@ -672,7 +672,7 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt
 <p>Dado que <span class="math inline">\(\epsilon_i\)</span> sigue una distribución normal, la propiedad de estabilidad asegura que</p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\beta}_0 &amp;\sim N\left(\beta_1, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
+\widehat{\beta}_0 &amp;\sim N\left(\beta_0, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
 \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} &amp;\sim N\left(0, 1 \right) \\\\\
 \end{align}
 \]</span></p>
@@ -877,6 +877,9 @@ Y &amp;= \beta_0 + \epsilon \\\\
 <h2>El test F</h2>
 <p><br></p>
 <p>La distribución <span class="math inline">\(\chi^2\)</span> procede de la suma del cuadrado de variables con distribución normal y la distribución <span class="math inline">\(F\)</span> procede de la razón entre variables aleatorias con distribución <span class="math inline">\(\chi^2\)</span>.</p>
+<p><span class="math display">\[
+\frac{\chi^2_a}{\chi^2_b} \frac{b}{a} \sim F_{a, b}
+\]</span></p>
 <p>Según el modelo sin predictores,</p>
 <p><span class="math display">\[
 \frac{(n-1) \widehat\sigma^2_0}{\sigma^2} \sim \chi^2_{n-1}
@@ -933,6 +936,45 @@ L(\widehat\Theta) &amp;= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2s_1^2 - \frac
 L(\widehat\beta_0, \widehat\beta_1, s^2_1) - L(\widehat\beta_0, s^2_0)
 &amp;= \frac{n}{2} \log\frac{s_0^2}{s_1^2} \\\\
 n \log\frac{s_0^2}{s_1^2} &amp;\sim \chi^2_1
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="r2" class="section level2">
+<h2><span class="math inline">\(R^2\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+R^2 &amp;= \frac{\text{COV}\left[y, \widehat{m}\right]}{s_y^2} \\\\
+\text{COV}\left[y, \widehat{m}\right] &amp;= \text{COV}\left[\widehat{m} + e, \widehat{m}\right] \\\\
+&amp;= s_\widehat{m}^2 + \text{COV}\left[e, \widehat{m}\right] \\\\
+&amp;= s_\widehat{m}^2 \\\\
+R^2 &amp;= \frac{s_\widehat{m}^2}{s_y^2} \\\\
+s_\widehat{m}^2 &amp;= s_{\widehat{\beta}_0 + \widehat{\beta}_1X}^2 \\\\
+&amp;= \widehat{\beta}_1^2 s_x^2 \\\\
+R^2 &amp;= \widehat{\beta}_1^2 \frac{s_x^2}{s_y^2} \\\\
+&amp;= \left(\frac{\text{COV}\left[x, y\right]}{s_x s_y}\right)^2 \\\\
+&amp;= \frac{s_y^2 - \overline{e^2}}{s_y^2} \\\\
+R_{\text{ajustado}}^2 &amp;= \frac{\widehat{s}_y^2 - \widehat\sigma^2}{\widehat{s}_y^2}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+R^2 &amp;= \frac{\text{VAR}\left[m(X)\right]}{\text{VAR}\left[Y\right]} \\\\
+&amp;= \frac{\text{VAR}\left[\beta_0 + \beta_1X\right]}{\text{VAR}\left[\beta_0 + \beta_1X + \epsilon\right]} \\\\
+R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X\right] + \sigma}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="rho_xy" class="section level2">
+<h2><span class="math inline">\(\rho_{xy}\)</span></h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\rho_{XY} &amp;= \frac{\text{COV}\left[X, Y\right]}{\sqrt{\text{VAR}\left[X\right] \text{VAR}\left[Y\right]}} \\\\
+&amp;= \beta_1 \frac{\text{VAR}\left[X\right]}{\sqrt{\text{VAR}\left[Y\right]}}
 \end{align}
 \]</span></p>
 <p><br></p>

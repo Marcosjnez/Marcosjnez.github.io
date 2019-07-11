@@ -310,8 +310,7 @@ $$
 $$
 \begin{align}
 \text{VAR}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right] &= \text{VAR}\left[\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2}\right] \\\\
-&= \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{\left(\sum_{i=1}^n (x_i - \bar{x})^2\right)^2} \text{VAR}\left[\epsilon_i\right] \\\\
-&= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&= \sum_{i=1}^n \frac{(x_i - \bar{x})^2 \, \text{VAR}\left[\epsilon_i\right]}{n^2 s_x^4} \\\\
 &= \frac{\sigma^2}{n s_x^2}
 \end{align}
 $$
@@ -364,7 +363,6 @@ $$
 \begin{align}
 \text{VAR}\left[ \widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &= \text{VAR}\left[\bar{y} - \widehat{\beta}_1\bar{x}\right] \\\\
 &= \text{VAR}\left[\beta_0 + \beta_1\bar{x} + \bar{\epsilon} - \widehat{\beta}_1\bar{x}\right] \\\\
-&= \text{VAR}\left[\bar{\epsilon} - \bar{x}(\widehat{\beta}_1 - \beta_1)\right] \\\\
 &= \text{VAR}\left[\bar{\epsilon}\right] + \bar{x}^2 \, \text{VAR}\left[\widehat{\beta}_1\right] - 2\bar{x}^2\text{COV}\left[\bar{\epsilon}, \widehat{\beta}_1\right]
 \end{align}
 $$
@@ -380,8 +378,8 @@ $$
 $$
 \begin{align}
 \text{VAR}\left[\widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &= \frac{\sigma^2}{n} + \frac{\sigma^2 \bar{x}^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
-&= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2} - \sigma^2 \frac{1}{n}\sum_{i = 1}^n (x_i - \bar{x})^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
-&= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2}}{\sum_{i=1}^n (x_i - \bar{x})^2} - \frac{\sigma^2}{n} \\\\
+&= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2} - \sigma^2 s_x^2}{n s_x^2} \\\\
+&= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2}}{n s_x^2} - \frac{\sigma^2}{n} \\\\
 &= \frac{\sigma^2 \overline{x^2}}{n s_x^2}
 \end{align}
 $$
@@ -402,7 +400,7 @@ Dado que $\epsilon_i$ sigue una distribución normal, la propiedad de estabilida
 
 $$
 \begin{align}
-\widehat{\beta}_0 &\sim N\left(\beta_1, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
+\widehat{\beta}_0 &\sim N\left(\beta_0, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
 \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} &\sim N\left(0, 1 \right) \\\\\
 \end{align}
 $$
@@ -654,6 +652,10 @@ $$
 
 La distribución $\chi^2$ procede de la suma del cuadrado de variables con distribución normal y la distribución $F$ procede de la razón entre variables aleatorias con distribución $\chi^2$.
 
+$$
+\frac{\chi^2_a}{\chi^2_b} \frac{b}{a} \sim F_{a, b}
+$$
+
 Según el modelo sin predictores, 
 
 $$
@@ -726,6 +728,51 @@ $$
 L(\widehat\beta_0, \widehat\beta_1, s^2_1) - L(\widehat\beta_0, s^2_0)
 &= \frac{n}{2} \log\frac{s_0^2}{s_1^2} \\\\
 n \log\frac{s_0^2}{s_1^2} &\sim \chi^2_1
+\end{align}
+$$
+
+<br>
+
+## $R^2$
+
+<br>
+
+$$
+\begin{align}
+R^2 &= \frac{\text{COV}\left[y, \widehat{m}\right]}{s_y^2} \\\\
+\text{COV}\left[y, \widehat{m}\right] &= \text{COV}\left[\widehat{m} + e, \widehat{m}\right] \\\\
+&= s_\widehat{m}^2 + \text{COV}\left[e, \widehat{m}\right] \\\\
+&= s_\widehat{m}^2 \\\\
+R^2 &= \frac{s_\widehat{m}^2}{s_y^2} \\\\
+s_\widehat{m}^2 &= s_{\widehat{\beta}_0 + \widehat{\beta}_1X}^2 \\\\
+&= \widehat{\beta}_1^2 s_x^2 \\\\
+R^2 &= \widehat{\beta}_1^2 \frac{s_x^2}{s_y^2} \\\\
+&= \left(\frac{\text{COV}\left[x, y\right]}{s_x s_y}\right)^2 \\\\
+&= \frac{s_y^2 - \overline{e^2}}{s_y^2} \\\\
+R_{\text{ajustado}}^2 &= \frac{\widehat{s}_y^2 - \widehat\sigma^2}{\widehat{s}_y^2}
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
+R^2 &= \frac{\text{VAR}\left[m(X)\right]}{\text{VAR}\left[Y\right]} \\\\
+&= \frac{\text{VAR}\left[\beta_0 + \beta_1X\right]}{\text{VAR}\left[\beta_0 + \beta_1X + \epsilon\right]} \\\\
+R^2 &= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X\right] + \sigma}
+\end{align}
+$$
+
+<br>
+
+## $\rho_{xy}$
+
+<br>
+
+$$
+\begin{align}
+\rho_{XY} &= \frac{\text{COV}\left[X, Y\right]}{\sqrt{\text{VAR}\left[X\right] \text{VAR}\left[Y\right]}} \\\\
+&= \beta_1 \frac{\text{VAR}\left[X\right]}{\sqrt{\text{VAR}\left[Y\right]}}
 \end{align}
 $$
 
