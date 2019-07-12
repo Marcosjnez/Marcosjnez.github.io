@@ -351,6 +351,11 @@ $(document).ready(function () {
 <li><a href="#el-test-de-razon-de-verosimilitudes">El test de razón de verosimilitudes</a></li>
 <li><a href="#r2"><span class="math inline">\(R^2\)</span></a></li>
 <li><a href="#rho_xy"><span class="math inline">\(\rho_{xy}\)</span></a></li>
+<li><a href="#notacion-matricial">Notación matricial</a><ul>
+<li><a href="#estimacion-de-boldsymbolbeta">Estimación de <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
+<li><a href="#predicciones-1">Predicciones</a></li>
+<li><a href="#residuos-1">Residuos</a></li>
+</ul></li>
 <li><a href="#el-metodo-delta">El método Delta</a></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
@@ -365,7 +370,7 @@ $(document).ready(function () {
 \begin{align}
 \mathbf{x} &amp;= x_i, \dots, x_n \\\\
 P(\mathbf{x}; \mu, \sigma) &amp;= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}} \, \text{exp}\left(-\frac{(x_i - \mu)^2}{2 \sigma^2}\right) \\\\
-L(\mu; \mathbf{x}, \sigma) &amp;= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}} \, \text{exp}\left(-\frac{(x_i - \mu)^2}{2 \sigma^2}\right) \\\\
+L(\mu, \sigma; \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}} \, \text{exp}\left(-\frac{(x_i - \mu)^2}{2 \sigma^2}\right) \\\\
 \text{log}(L) &amp;= \sum_{i=1}^n -\frac{(x_i - \mu)^2}{2 \sigma^2} - \text{log}(\sigma \sqrt{2 \pi}) \\\\
 \text{log}(L) &amp;= -\frac{\sum_{i=1}^n (x_i - \mu)^2}{2\sigma^2} - n\text{log}(\sigma) - \frac{n}{2} \text{log}(2\pi)
 \end{align}
@@ -978,6 +983,93 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 \end{align}
 \]</span></p>
 <p><br></p>
+</div>
+<div id="notacion-matricial" class="section level2">
+<h2>Notación matricial</h2>
+<blockquote>
+
+</blockquote>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{y} &amp;= \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
+\mathbf{e} &amp;= \mathbf{y} - \mathbf{X}\boldsymbol{\widehat\beta} \\\\
+MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
+&amp;= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
+\boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} &amp;= (\mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta})^\prime \\\\
+MSE &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
+\end{align}
+\]</span></p>
+<p><br></p>
+<div id="estimacion-de-boldsymbolbeta" class="section level3">
+<h3>Estimación de <span class="math inline">\(\boldsymbol{\beta}\)</span></h3>
+<p><span class="math display">\[
+\begin{align}
+\nabla MSE &amp;= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \mathbf{\beta}) \\\\
+&amp;= \frac{2}{n} (\mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \mathbf{\beta})
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{X}^\prime \mathbf{X} \mathbf{\widehat\beta} + \mathbf{X}^\prime \mathbf{y} &amp;= 0 \\\\
+\mathbf{\widehat\beta} &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="predicciones-1" class="section level3">
+<h3>Predicciones</h3>
+<p><br></p>
+<p><em>Hat</em> o <em>influence matrix</em>:</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{H} &amp;= \mathbf{X} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \\\\
+\mathbf{\widehat{m}} &amp;= \mathbf{X} \boldsymbol{\widehat\beta} \\\\
+\mathbf{\widehat{m}} &amp;= \mathbf{H} \mathbf{y}
+\end{align}
+\]</span></p>
+<p>Propiedades de <span class="math inline">\(\mathbf{H}\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial \widehat{m}_i}{\partial y_j} &amp;= H_{ij} \\\\
+\mathbf{H} &amp;= \mathbf{H}^\prime \\\\
+\mathbf{H}^2 &amp;= \mathbf{H} \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="residuos-1" class="section level3">
+<h3>Residuos</h3>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{e} &amp;= \mathbf{y} - \mathbf{X}\boldsymbol{\widehat\beta} \\\\
+&amp;= \mathbf{y} - \mathbf{Hy} \\\\
+&amp;= (\mathbf{I} - \mathbf{H}) \mathbf{y}
+\end{align}
+\]</span></p>
+<p>Propiedades de <span class="math inline">\((\mathbf{I} - \mathbf{H}) \mathbf{y}\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial e_i}{\partial y_j} &amp;= (\mathbf{I} - H)_{ij} \\\\
+(\mathbf{I} - H) &amp;= (\mathbf{I} - H)^\prime \\\\
+(\mathbf{I} - H)^2 &amp;= (\mathbf{I} - H) \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
+&amp;= \frac{1}{n} \mathbf{y}^\prime (\mathbf{I} - \mathbf{H})^\prime \, (\mathbf{I} - \mathbf{H}) \mathbf{y} \\\\
+&amp;= \frac{1}{n} \mathbf{y}^\prime (\mathbf{I} - \mathbf{H}) \mathbf{y}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
 </div>
 <div id="el-metodo-delta" class="section level2">
 <h2>El método Delta</h2>
