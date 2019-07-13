@@ -808,7 +808,7 @@ $$
 \begin{align}
 \nabla MSE &= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \mathbf{\beta}) \\\\
-&= \frac{2}{n} (\mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \mathbf{\beta})
+&= \frac{2}{n} (- \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \mathbf{\beta})
 \end{align}
 $$
 
@@ -816,7 +816,7 @@ $$
 
 $$
 \begin{align}
-\mathbf{X}^\prime \mathbf{X} \mathbf{\widehat\beta} + \mathbf{X}^\prime \mathbf{y} &= 0 \\\\
+\mathbf{X}^\prime \mathbf{X} \mathbf{\widehat\beta} - \mathbf{X}^\prime \mathbf{y} &= 0 \\\\
 \mathbf{\widehat\beta} &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}
 \end{align}
 $$
@@ -937,7 +937,7 @@ $$
 
 <br>
 
-Si $\mathbf{a}$ y $\mathbf{x}$ son vectores de dimensión $p$ ($p \times 1$), entonces
+Si $\mathbf{a}$ y $\mathbf{x}$ son vectores ($p \times 1$), entonces
 
 $$
 \begin{align}
@@ -956,6 +956,25 @@ Si, además, $\mathbf{c} = \mathbf{c}^\prime$, entonces
 
 $$
 \nabla (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
+$$
+
+<br>
+
+## Esperanza y varianza de vectores y matrices
+
+<br>
+
+Si $\mathbf{x}$ es un vector aleatorio $n \times 1$, entonces
+
+$$
+\begin{align}
+\text{VAR}\left[\mathbf{x}\right] &= \mathbb{E}\left[\mathbf{x} \mathbf{x}^\prime\right] - \mathbb{E}\left[\mathbf{x}\right] \mathbb{E}\left[\mathbf{x}\right]^\prime \\\\
+\text{VAR}\left[b\mathbf{x}\right] &= b^2 \mathbf{x} \\\\
+\text{VAR}\left[\mathbf{cx}\right] &= \mathbf{c} \text{VAR}\left[\mathbf{x} \right] \mathbf{c}^\prime \\\\
+\mathbb{E}\left[\mathbf{x}^\prime \mathbf{cx} \right] &= \mathbb{E}\left[\mathbf{x}\right]^\prime \mathbf{c}\mathbb{E}\left[\mathbf{x}\right] + \text{tr} \, \mathbf{c} \text{VAR}\left[\mathbf{x}\right] \\\\
+\mathbf{x}^\prime \mathbf{cx} &= \text{tr} \, \mathbf{x}^\prime \mathbf{cx} \\\\
+&= \text{tr} \, \mathbf{cxx}^\prime
+\end{align}
 $$
 
 <br>

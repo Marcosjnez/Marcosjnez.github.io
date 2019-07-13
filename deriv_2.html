@@ -360,6 +360,7 @@ $(document).ready(function () {
 <li><a href="#varianza-de-los-coeficientes">Varianza de los coeficientes</a></li>
 </ul></li>
 <li><a href="#derivadas-respecto-a-vectores">Derivadas respecto a vectores</a></li>
+<li><a href="#esperanza-y-varianza-de-vectores-y-matrices">Esperanza y varianza de vectores y matrices</a></li>
 <li><a href="#el-metodo-delta">El método Delta</a></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
@@ -1014,13 +1015,13 @@ MSE &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\pri
 \begin{align}
 \nabla MSE &amp;= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
 &amp;= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \mathbf{\beta}) \\\\
-&amp;= \frac{2}{n} (\mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \mathbf{\beta})
+&amp;= \frac{2}{n} (- \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \mathbf{\beta})
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbf{X}^\prime \mathbf{X} \mathbf{\widehat\beta} + \mathbf{X}^\prime \mathbf{y} &amp;= 0 \\\\
+\mathbf{X}^\prime \mathbf{X} \mathbf{\widehat\beta} - \mathbf{X}^\prime \mathbf{y} &amp;= 0 \\\\
 \mathbf{\widehat\beta} &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}
 \end{align}
 \]</span></p>
@@ -1123,7 +1124,7 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 <div id="derivadas-respecto-a-vectores" class="section level2">
 <h2>Derivadas respecto a vectores</h2>
 <p><br></p>
-<p>Si <span class="math inline">\(\mathbf{a}\)</span> y <span class="math inline">\(\mathbf{x}\)</span> son vectores de dimensión <span class="math inline">\(p\)</span> (<span class="math inline">\(p \times 1\)</span>), entonces</p>
+<p>Si <span class="math inline">\(\mathbf{a}\)</span> y <span class="math inline">\(\mathbf{x}\)</span> son vectores (<span class="math inline">\(p \times 1\)</span>), entonces</p>
 <p><span class="math display">\[
 \begin{align}
 \nabla (\mathbf{x}^\prime \mathbf{a}) &amp;= a \\\\
@@ -1137,6 +1138,22 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 <p>Si, además, <span class="math inline">\(\mathbf{c} = \mathbf{c}^\prime\)</span>, entonces</p>
 <p><span class="math display">\[
 \nabla (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="esperanza-y-varianza-de-vectores-y-matrices" class="section level2">
+<h2>Esperanza y varianza de vectores y matrices</h2>
+<p><br></p>
+<p>Si <span class="math inline">\(\mathbf{x}\)</span> es un vector aleatorio <span class="math inline">\(n \times 1\)</span>, entonces</p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\mathbf{x}\right] &amp;= \mathbb{E}\left[\mathbf{x} \mathbf{x}^\prime\right] - \mathbb{E}\left[\mathbf{x}\right] \mathbb{E}\left[\mathbf{x}\right]^\prime \\\\
+\text{VAR}\left[b\mathbf{x}\right] &amp;= b^2 \mathbf{x} \\\\
+\text{VAR}\left[\mathbf{cx}\right] &amp;= \mathbf{c} \text{VAR}\left[\mathbf{x} \right] \mathbf{c}^\prime \\\\
+\mathbb{E}\left[\mathbf{x}^\prime \mathbf{cx} \right] &amp;= \mathbb{E}\left[\mathbf{x}\right]^\prime \mathbf{c}\mathbb{E}\left[\mathbf{x}\right] + \text{tr} \, \mathbf{c} \text{VAR}\left[\mathbf{x}\right] \\\\
+\mathbf{x}^\prime \mathbf{cx} &amp;= \text{tr} \, \mathbf{x}^\prime \mathbf{cx} \\\\
+&amp;= \text{tr} \, \mathbf{cxx}^\prime
+\end{align}
 \]</span></p>
 <p><br></p>
 </div>
