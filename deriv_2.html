@@ -1094,8 +1094,8 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\mathbf{e}\right] &amp;= \text{VAR}\left[(\mathbf{y} - \mathbf{H}) (\mathbf{x}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
-&amp;= \text{VAR}\left[(\mathbf{y} - \mathbf{H}) \mathbf{\epsilon}\right] \\\\
+\text{VAR}\left[\mathbf{e}\right] &amp;= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) (\mathbf{x}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
+&amp;= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \mathbf{\epsilon}\right] \\\\
 &amp;= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\mathbf{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
 &amp;= \sigma^2 (\mathbf{I} - \mathbf{H})
 \end{align}
@@ -1109,11 +1109,10 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 \begin{align}
 \mathbf{\widehat\beta} &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
 &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \mathbf{\epsilon}) \\\\
-&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \mathbf{\epsilon}) \\\\
+&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
 &amp;= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
 \text{VAR}\left[\boldsymbol{\widehat\beta}\right] &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\mathbf{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
 &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
-&amp;= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
 &amp;= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
 &amp;= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}
 \end{align}

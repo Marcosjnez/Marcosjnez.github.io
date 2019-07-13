@@ -904,8 +904,8 @@ $$
 
 $$
 \begin{align}
-\text{VAR}\left[\mathbf{e}\right] &= \text{VAR}\left[(\mathbf{y} - \mathbf{H}) (\mathbf{x}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
-&= \text{VAR}\left[(\mathbf{y} - \mathbf{H}) \mathbf{\epsilon}\right] \\\\
+\text{VAR}\left[\mathbf{e}\right] &= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) (\mathbf{x}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
+&= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \mathbf{\epsilon}\right] \\\\
 &= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\mathbf{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
 &= \sigma^2 (\mathbf{I} - \mathbf{H})
 \end{align}
@@ -921,11 +921,10 @@ $$
 \begin{align}
 \mathbf{\widehat\beta} &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
 &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \mathbf{\epsilon}) \\\\
-&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \mathbf{\epsilon}) \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
 &= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
 \text{VAR}\left[\boldsymbol{\widehat\beta}\right] &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\mathbf{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
 &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
-&= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
 &= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
 &= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}
 \end{align}
