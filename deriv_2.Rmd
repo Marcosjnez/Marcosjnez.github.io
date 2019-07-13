@@ -802,6 +802,8 @@ $$
 
 ### Estimación de $\boldsymbol{\beta}$
 
+<br>
+
 $$
 \begin{align}
 \nabla MSE &= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
@@ -847,6 +849,21 @@ $$
 
 <br>
 
+### Varianza de las predicciones
+
+<br>
+
+$$
+\begin{align}
+\text{VAR}\left[\mathbf{Hy}\right] &= \text{VAR}\left[\mathbf{H (\mathbf{x} \boldsymbol{\beta + \boldsymbol{\epsilon}})}\right] \\\\
+&= \text{VAR}\left[\mathbf{H} \boldsymbol{\epsilon}\right] \\\\
+&= \mathbf{H} \, \text{VAR}\left[\boldsymbol{\epsilon}\right] \, \mathbf{H}^\prime \\\\
+&= \sigma^2 \mathbf{H}
+\end{align}
+$$
+
+<br>
+
 ### Residuos
 
 <br>
@@ -877,6 +894,68 @@ MSE &= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 &= \frac{1}{n} \mathbf{y}^\prime (\mathbf{I} - \mathbf{H})^\prime \, (\mathbf{I} - \mathbf{H}) \mathbf{y} \\\\
 &= \frac{1}{n} \mathbf{y}^\prime (\mathbf{I} - \mathbf{H}) \mathbf{y}
 \end{align}
+$$
+
+<br>
+
+### Varianza de los residuos
+
+<br>
+
+$$
+\begin{align}
+\text{VAR}\left[\mathbf{e}\right] &= \text{VAR}\left[(\mathbf{y} - \mathbf{H}) (\mathbf{x}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
+&= \text{VAR}\left[(\mathbf{y} - \mathbf{H}) \mathbf{\epsilon}\right] \\\\
+&= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\mathbf{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
+&= \sigma^2 (\mathbf{I} - \mathbf{H})
+\end{align}
+$$
+
+<br>
+
+### Varianza de los coeficientes
+
+<br>
+
+$$
+\begin{align}
+\mathbf{\widehat\beta} &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \mathbf{\epsilon}) \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \mathbf{\epsilon}) \\\\
+&= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
+\text{VAR}\left[\boldsymbol{\widehat\beta}\right] &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\mathbf{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
+&= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
+&= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
+&= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}
+\end{align}
+$$
+
+<br>
+
+## Derivadas respecto a vectores
+
+<br>
+
+Si $\mathbf{a}$ y $\mathbf{x}$ son vectores de dimensión $p$ ($p \times 1$), entonces
+
+$$
+\begin{align}
+\nabla (\mathbf{x}^\prime \mathbf{a}) &= a \\\\
+\nabla (\mathbf{b} \mathbf{x}) &= \mathbf{b}^\prime \\\\
+\end{align}
+$$
+
+Si $\mathbf{c}$ es una matriz de dimensiones $p \times p$, entonces
+
+$$
+\nabla (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = (\mathbf{c} + \mathbf{c}^\prime) \mathbf{x}
+$$
+
+Si, además, $\mathbf{c} = \mathbf{c}^\prime$, entonces
+
+$$
+\nabla (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
 $$
 
 <br>
