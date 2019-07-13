@@ -274,7 +274,7 @@ $$
 
 <br>
 
-By the law of total expectation,
+Según la ley de la esperanza total,
 
 $$
 \begin{align}
@@ -386,7 +386,7 @@ $$
 
 <br>
 
-By the law of total variance,
+Según la ley de la esperanza total,
 
 $$
 \begin{align}
@@ -459,7 +459,7 @@ $$
 \end{align}
 $$
 
-By the law of total variance,
+Según la ley de la esperanza total,
 
 $$
 \begin{align}
@@ -793,7 +793,7 @@ MSE &= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 &= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (\mathbf{y}^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
-\boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} &= (\mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta})^\prime \\\\
+\mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} &= \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} \quad \text{porque} \; \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} \; \text{es una matriz} \; 1 \times 1 \\\\
 MSE &= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
 \end{align}
 $$
@@ -936,11 +936,11 @@ $$
 
 <br>
 
-Si $\mathbf{a}$ y $\mathbf{x}$ son vectores ($p \times 1$), entonces
+Si $\mathbf{a}$ y $\mathbf{x}$ son vectores $p \times 1$, entonces
 
 $$
 \begin{align}
-\nabla (\mathbf{x}^\prime \mathbf{a}) &= a \\\\
+\nabla (\mathbf{x}^\prime \mathbf{a}) &= \mathbf{a} \\\\
 \nabla (\mathbf{b} \mathbf{x}) &= \mathbf{b}^\prime \\\\
 \end{align}
 $$
