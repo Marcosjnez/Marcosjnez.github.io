@@ -943,9 +943,9 @@ MSE &= \frac{1}{n} (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\bet
 &= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta_1}^\prime \mathbf{X}^\prime) (\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}) \\\\
 \frac{\partial MSE}{\partial \beta_0} &= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}\right) \\\\
 \nabla_{\boldsymbol{\beta_1}} MSE &= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta_1}\right) \\\\
-\widehat\beta_0 &= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{x} \boldsymbol{\beta_1} \\\\
-&= \bar{y} - \mathbf{\bar{x}} \boldsymbol{\beta_1} \\\\
-\boldsymbol{\widehat\beta_1} &= \frac{\frac{1}{n} \mathbf{x}^\prime \mathbf{y} - \mathbf{\bar{x}}^\prime \bar{y}}{\frac{1}{n} \mathbf{x}^\prime \mathbf{x} - \mathbf{\bar{x}}^\prime \mathbf{\bar{x}}}
+\widehat\beta_0 &= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta_1} \\\\
+&= \bar{y} - \mathbf{\bar{X}} \boldsymbol{\beta_1} \\\\
+\boldsymbol{\widehat\beta_1} &= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{X}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{X}}^\prime \mathbf{\bar{X}}}
 \end{align}
 $$
 
