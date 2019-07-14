@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -246,27 +247,10 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 
 
@@ -359,6 +343,7 @@ $(document).ready(function () {
 <li><a href="#varianza-de-los-residuos">Varianza de los residuos</a></li>
 <li><a href="#varianza-de-los-coeficientes">Varianza de los coeficientes</a></li>
 </ul></li>
+<li><a href="#derivacion-alternativa">Derivación alternativa</a></li>
 <li><a href="#derivadas-respecto-a-vectores">Derivadas respecto a vectores</a></li>
 <li><a href="#esperanza-y-varianza-de-vectores-y-matrices">Esperanza y varianza de vectores y matrices</a></li>
 <li><a href="#el-metodo-delta">El método Delta</a></li>
@@ -999,8 +984,7 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 \begin{align}
 \mathbf{y} &amp;= \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
 \mathbf{e} &amp;= \mathbf{y} - \mathbf{X}\boldsymbol{\widehat\beta} \\\\
-MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
-&amp;= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
+MSE &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &amp;= \frac{1}{n} (\mathbf{y}^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
 \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} &amp;= \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} \quad \text{porque} \; \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} \; \text{es una matriz} \; 1 \times 1 \\\\
@@ -1120,6 +1104,24 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 <p><br></p>
 </div>
 </div>
+<div id="derivacion-alternativa" class="section level2">
+<h2>Derivación alternativa</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{y} &amp;= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta_1} + \boldsymbol{\epsilon} \\\\
+MSE &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta_1})^\prime (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta_1}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta_1}^\prime \mathbf{X}^\prime) (\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta_1}^\prime \mathbf{X}^\prime) (\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}) \\\\
+\frac{\partial MSE}{\partial \beta_0} &amp;= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}\right) \\\\
+\nabla_{\boldsymbol{\beta_1}} MSE &amp;= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta_1}\right) \\\\
+\widehat\beta_0 &amp;= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{x} \boldsymbol{\beta_1} \\\\
+&amp;= \bar{y} - \mathbf{\bar{x}} \boldsymbol{\beta_1} \\\\
+\boldsymbol{\widehat\beta_1} &amp;= \frac{\frac{1}{n} \mathbf{x}^\prime \mathbf{y} - \mathbf{\bar{x}}^\prime \bar{y}}{\frac{1}{n} \mathbf{x}^\prime \mathbf{x} - \mathbf{\bar{x}}^\prime \mathbf{\bar{x}}}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
 <div id="derivadas-respecto-a-vectores" class="section level2">
 <h2>Derivadas respecto a vectores</h2>
 <p><br></p>
@@ -1221,6 +1223,28 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
