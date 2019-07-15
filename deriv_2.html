@@ -344,6 +344,7 @@ $(document).ready(function () {
 <li><a href="#varianza-de-los-coeficientes">Varianza de los coeficientes</a></li>
 </ul></li>
 <li><a href="#derivacion-alternativa">Derivación alternativa</a></li>
+<li><a href="#sesgo-de-estimacion-por-omision-de-variables-relacionadas">Sesgo de estimación por omisión de variables relacionadas</a></li>
 <li><a href="#derivadas-respecto-a-vectores">Derivadas respecto a vectores</a></li>
 <li><a href="#esperanza-y-varianza-de-vectores-y-matrices">Esperanza y varianza de vectores y matrices</a></li>
 <li><a href="#el-metodo-delta">El método Delta</a></li>
@@ -1109,15 +1110,31 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbf{y} &amp;= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta_1} + \boldsymbol{\epsilon} \\\\
-MSE &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta_1})^\prime (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta_1}) \\\\
-&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta_1}^\prime \mathbf{X}^\prime) (\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}) \\\\
-&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta_1}^\prime \mathbf{X}^\prime) (\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}) \\\\
-\frac{\partial MSE}{\partial \beta_0} &amp;= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}\right) \\\\
-\nabla_{\boldsymbol{\beta_1}} MSE &amp;= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta_1}\right) \\\\
-\widehat\beta_0 &amp;= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta_1} \\\\
-&amp;= \bar{y} - \mathbf{\bar{X}} \boldsymbol{\beta_1} \\\\
-\boldsymbol{\widehat\beta_1} &amp;= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{X}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{X}}^\prime \mathbf{\bar{X}}}
+\mathbf{y} &amp;= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
+MSE &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+\frac{\partial MSE}{\partial \beta_0} &amp;= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
+\widehat\beta_0 &amp;= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+&amp;= \bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta} \\\\
+\nabla_{\boldsymbol{\beta}} \, MSE &amp;= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
+0 &amp;= \beta_0 \frac{1}{n} \mathbf{X}^\prime \mathbf{1} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+&amp;= \beta_0 \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+&amp;= (\bar{y} - \mathbf{\bar{x}} \boldsymbol{\beta}) \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+\boldsymbol{\widehat\beta} &amp;= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}}^\prime \mathbf{\bar{x}}}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="sesgo-de-estimacion-por-omision-de-variables-relacionadas" class="section level2">
+<h2>Sesgo de estimación por omisión de variables relacionadas</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\widehat\beta_1 &amp;= \frac{\text{COV}\left[X_1, Y\right]}{\text{VAR}\left[X_1\right]} \\\\
+&amp;= \frac{\text{COV}\left[X_1, \beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_pX_p\right]}{\text{VAR}\left[X_1\right]} \\\\
+&amp;= \frac{\beta_1 \text{VAR}\left[X_1\right] + \sum_{i=2}^p \beta_p \text{COV}\left[X_1, X_p\right]}{\text{VAR}\left[X_1\right]} \\\\
+&amp;= \beta_1 + \sum_{i=2}^p \beta_p \frac{\text{COV}\left[X_1, X_p\right]}{\text{VAR}\left[X_1\right]} \\\\
 \end{align}
 \]</span></p>
 <p><br></p>

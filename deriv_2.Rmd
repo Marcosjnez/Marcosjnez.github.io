@@ -937,15 +937,33 @@ $$
 
 $$
 \begin{align}
-\mathbf{y} &= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta_1} + \boldsymbol{\epsilon} \\\\
-MSE &= \frac{1}{n} (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta_1})^\prime (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta_1}) \\\\
-&= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta_1}^\prime \mathbf{X}^\prime) (\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}) \\\\
-&= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta_1}^\prime \mathbf{X}^\prime) (\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}) \\\\
-\frac{\partial MSE}{\partial \beta_0} &= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \boldsymbol{\beta_0}\mathbf{1} - \mathbf{X} \boldsymbol{\beta_1}\right) \\\\
-\nabla_{\boldsymbol{\beta_1}} MSE &= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta_1}\right) \\\\
-\widehat\beta_0 &= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta_1} \\\\
-&= \bar{y} - \mathbf{\bar{X}} \boldsymbol{\beta_1} \\\\
-\boldsymbol{\widehat\beta_1} &= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{X}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{X}}^\prime \mathbf{\bar{X}}}
+\mathbf{y} &= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
+MSE &= \frac{1}{n} (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta}) \\\\
+&= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+\frac{\partial MSE}{\partial \beta_0} &= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
+\widehat\beta_0 &= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+&= \bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta} \\\\
+\nabla_{\boldsymbol{\beta}} \, MSE &= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
+0 &= \beta_0 \frac{1}{n} \mathbf{X}^\prime \mathbf{1} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+&= \beta_0 \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+&= (\bar{y} - \mathbf{\bar{x}} \boldsymbol{\beta}) \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+\boldsymbol{\widehat\beta} &= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}}^\prime \mathbf{\bar{x}}}
+\end{align}
+$$
+
+<br>
+
+## Sesgo de estimación por omisión de variables relacionadas
+
+<br>
+
+$$
+\begin{align}
+\widehat\beta_1 &= \frac{\text{COV}\left[X_1, Y\right]}{\text{VAR}\left[X_1\right]} \\\\
+&= \frac{\text{COV}\left[X_1, \beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_pX_p\right]}{\text{VAR}\left[X_1\right]} \\\\
+&= \frac{\beta_1 \text{VAR}\left[X_1\right] + \sum_{i=2}^p \beta_p \text{COV}\left[X_1, X_p\right]}{\text{VAR}\left[X_1\right]} \\\\
+&= \beta_1 + \sum_{i=2}^p \beta_p \frac{\text{COV}\left[X_1, X_p\right]}{\text{VAR}\left[X_1\right]} \\\\
 \end{align}
 $$
 
