@@ -788,7 +788,6 @@ $$
 $$
 \begin{align}
 \mathbf{y} &= \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
-\mathbf{e} &= \mathbf{y} - \mathbf{X}\boldsymbol{\widehat\beta} \\\\
 MSE &= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (\mathbf{y}^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
@@ -806,8 +805,8 @@ $$
 $$
 \begin{align}
 \nabla MSE &= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
-&= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \mathbf{\beta}) \\\\
-&= \frac{2}{n} (- \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \mathbf{\beta})
+&= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
+&= \frac{2}{n} (- \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
 \end{align}
 $$
 
@@ -815,8 +814,8 @@ $$
 
 $$
 \begin{align}
-\mathbf{X}^\prime \mathbf{X} \mathbf{\widehat\beta} - \mathbf{X}^\prime \mathbf{y} &= 0 \\\\
-\mathbf{\widehat\beta} &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}
+\mathbf{X}^\prime \mathbf{X} \boldsymbol{\widehat\beta} - \mathbf{X}^\prime \mathbf{y} &= 0 \\\\
+\boldsymbol{\widehat\beta} &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}
 \end{align}
 $$
 
@@ -904,8 +903,8 @@ $$
 $$
 \begin{align}
 \text{VAR}\left[\mathbf{e}\right] &= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) (\mathbf{x}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
-&= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \mathbf{\epsilon}\right] \\\\
-&= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\mathbf{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
+&= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \boldsymbol{\epsilon}\right] \\\\
+&= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\boldsymbol{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
 &= \sigma^2 (\mathbf{I} - \mathbf{H})
 \end{align}
 $$
@@ -919,10 +918,10 @@ $$
 $$
 \begin{align}
 \mathbf{\widehat\beta} &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
-&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \mathbf{\epsilon}) \\\\
-&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
-&= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
-\text{VAR}\left[\boldsymbol{\widehat\beta}\right] &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\mathbf{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}) \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
+&= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
+\text{VAR}\left[\boldsymbol{\widehat\beta}\right] &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\boldsymbol{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
 &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
 &= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
 &= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}
@@ -938,13 +937,29 @@ $$
 $$
 \begin{align}
 \mathbf{y} &= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
-MSE &= \frac{1}{n} (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta}) \\\\
-&= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
-&= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
-\frac{\partial MSE}{\partial \beta_0} &= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
+MSE &= \frac{1}{n} (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0 - \boldsymbol{\beta} \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0 - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
+\frac{\partial MSE}{\partial \beta_0} &= \frac{1}{n}\left(- \nabla \mathbf{1}^\prime \beta_0 \mathbf{y} + \nabla \mathbf{1}^\prime \beta_0 \beta_0 \mathbf{1} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} \right) \\\\
+&= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
 \widehat\beta_0 &= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-&= \bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta} \\\\
-\nabla_{\boldsymbol{\beta}} \, MSE &= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
+&= \bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta}
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
+\nabla_{\boldsymbol{\beta}} \, MSE &= \frac{1}{n} \left(- \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} \right) \\\\
+&= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
 0 &= \beta_0 \frac{1}{n} \mathbf{X}^\prime \mathbf{1} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 &= \beta_0 \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 &= (\bar{y} - \mathbf{\bar{x}} \boldsymbol{\beta}) \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\

@@ -984,7 +984,6 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><span class="math display">\[
 \begin{align}
 \mathbf{y} &amp;= \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
-\mathbf{e} &amp;= \mathbf{y} - \mathbf{X}\boldsymbol{\widehat\beta} \\\\
 MSE &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &amp;= \frac{1}{n} (\mathbf{y}^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
@@ -999,15 +998,15 @@ MSE &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\pri
 <p><span class="math display">\[
 \begin{align}
 \nabla MSE &amp;= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \mathbf{\beta}) \\\\
-&amp;= \frac{2}{n} (- \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \mathbf{\beta})
+&amp;= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{2}{n} (- \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbf{X}^\prime \mathbf{X} \mathbf{\widehat\beta} - \mathbf{X}^\prime \mathbf{y} &amp;= 0 \\\\
-\mathbf{\widehat\beta} &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}
+\mathbf{X}^\prime \mathbf{X} \boldsymbol{\widehat\beta} - \mathbf{X}^\prime \mathbf{y} &amp;= 0 \\\\
+\boldsymbol{\widehat\beta} &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1080,8 +1079,8 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 <p><span class="math display">\[
 \begin{align}
 \text{VAR}\left[\mathbf{e}\right] &amp;= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) (\mathbf{x}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
-&amp;= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \mathbf{\epsilon}\right] \\\\
-&amp;= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\mathbf{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
+&amp;= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \boldsymbol{\epsilon}\right] \\\\
+&amp;= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\boldsymbol{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
 &amp;= \sigma^2 (\mathbf{I} - \mathbf{H})
 \end{align}
 \]</span></p>
@@ -1093,10 +1092,10 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 <p><span class="math display">\[
 \begin{align}
 \mathbf{\widehat\beta} &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
-&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \mathbf{\epsilon}) \\\\
-&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
-&amp;= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{\epsilon} \\\\
-\text{VAR}\left[\boldsymbol{\widehat\beta}\right] &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\mathbf{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
+&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}) \\\\
+&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
+&amp;= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
+\text{VAR}\left[\boldsymbol{\widehat\beta}\right] &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\boldsymbol{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
 &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
 &amp;= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
 &amp;= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}
@@ -1111,13 +1110,25 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 <p><span class="math display">\[
 \begin{align}
 \mathbf{y} &amp;= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
-MSE &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{1}\beta_0 - \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
-\frac{\partial MSE}{\partial \beta_0} &amp;= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
+MSE &amp;= \frac{1}{n} (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0 - \boldsymbol{\beta} \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0 - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{\partial MSE}{\partial \beta_0} &amp;= \frac{1}{n}\left(- \nabla \mathbf{1}^\prime \beta_0 \mathbf{y} + \nabla \mathbf{1}^\prime \beta_0 \beta_0 \mathbf{1} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} \right) \\\\
+&amp;= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
 \widehat\beta_0 &amp;= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-&amp;= \bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta} \\\\
-\nabla_{\boldsymbol{\beta}} \, MSE &amp;= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
+&amp;= \bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\nabla_{\boldsymbol{\beta}} \, MSE &amp;= \frac{1}{n} \left(- \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} \right) \\\\
+&amp;= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
 0 &amp;= \beta_0 \frac{1}{n} \mathbf{X}^\prime \mathbf{1} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 &amp;= \beta_0 \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 &amp;= (\bar{y} - \mathbf{\bar{x}} \boldsymbol{\beta}) \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
