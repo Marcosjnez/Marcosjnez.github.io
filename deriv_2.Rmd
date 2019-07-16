@@ -821,7 +821,26 @@ $$
 
 <br>
 
-### Predicciones
+### Varianza de $\boldsymbol{\beta}$
+
+<br>
+
+$$
+\begin{align}
+\mathbf{\widehat\beta} &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}) \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
+&= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
+\text{VAR}\left[\boldsymbol{\widehat\beta}\right] &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\boldsymbol{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
+&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
+&= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
+&= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}
+\end{align}
+$$
+
+<br>
+
+### Valores ajustados
 
 <br>
 
@@ -830,8 +849,8 @@ $$
 $$
 \begin{align}
 \mathbf{H} &= \mathbf{X} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \\\\
-\mathbf{\widehat{m}} &= \mathbf{X} \boldsymbol{\widehat\beta} \\\\
-\mathbf{\widehat{m}} &= \mathbf{H} \mathbf{y}
+\mathbf{\widehat{m}}(\mathbf{X}) &= \mathbf{X} \boldsymbol{\widehat\beta} \\\\
+\mathbf{\widehat{m}}(\mathbf{X}) &= \mathbf{H} \mathbf{y}
 \end{align}
 $$
 
@@ -847,16 +866,47 @@ $$
 
 <br>
 
+### Varianza de los valores ajustados
+
+<br>
+
+$$
+\begin{align}
+\text{VAR}\left[\mathbf{Hy}\right] &= \text{VAR}\left[\mathbf{H (\mathbf{X} \boldsymbol{\beta + \boldsymbol{\epsilon}})}\right] \\\\
+&= \text{VAR}\left[\mathbf{H} \boldsymbol{\epsilon}\right] \\\\
+&= \mathbf{H} \, \text{VAR}\left[\boldsymbol{\epsilon}\right] \, \mathbf{H}^\prime \\\\
+&= \sigma^2 \mathbf{H}
+\end{align}
+$$
+
+<br>
+
+
+### Predicciones
+
+<br>
+
+$$
+\begin{align}
+\widehat{m}(X^*) &= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
+&= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\widehat\beta} + \mathbf{e}) \\\\
+&= \mathbf{X^*} \boldsymbol{\widehat\beta}
+\end{align}
+$$
+
+<br>
+
 ### Varianza de las predicciones
 
 <br>
 
 $$
 \begin{align}
-\text{VAR}\left[\mathbf{Hy}\right] &= \text{VAR}\left[\mathbf{H (\mathbf{x} \boldsymbol{\beta + \boldsymbol{\epsilon}})}\right] \\\\
-&= \text{VAR}\left[\mathbf{H} \boldsymbol{\epsilon}\right] \\\\
-&= \mathbf{H} \, \text{VAR}\left[\boldsymbol{\epsilon}\right] \, \mathbf{H}^\prime \\\\
-&= \sigma^2 \mathbf{H}
+\text{VAR}\left[\widehat{m}(X^*)\right] &= \text{VAR}\left[\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}\right] \\\\
+&= \text{VAR}\left[\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
+&= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \text{VAR}\left[\boldsymbol{\epsilon}\right] \, (\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime)^\prime \\\\
+&= \sigma^2 \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X} (\mathbf{X}^\prime \mathbf{X})^{-1} \, (\mathbf{X^*})^\prime \\\\
+&= \sigma^2 \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, (\mathbf{X}^*)^\prime
 \end{align}
 $$
 
@@ -902,29 +952,11 @@ $$
 
 $$
 \begin{align}
-\text{VAR}\left[\mathbf{e}\right] &= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) (\mathbf{x}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
-&= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \boldsymbol{\epsilon}\right] \\\\
+\text{VAR}\left[\mathbf{e}\right] &= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) (\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
+\mathbf{HX} \boldsymbol{\beta} &= \mathbf{X} \boldsymbol{\beta} \\\\
+\text{VAR}\left[\mathbf{e}\right] &= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \boldsymbol{\epsilon}\right] \\\\
 &= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\boldsymbol{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
 &= \sigma^2 (\mathbf{I} - \mathbf{H})
-\end{align}
-$$
-
-<br>
-
-### Varianza de los coeficientes
-
-<br>
-
-$$
-\begin{align}
-\mathbf{\widehat\beta} &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
-&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}) \\\\
-&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
-&= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
-\text{VAR}\left[\boldsymbol{\widehat\beta}\right] &= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\boldsymbol{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
-&= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
-&= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
-&= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}
 \end{align}
 $$
 
@@ -949,6 +981,7 @@ $$
 \begin{align}
 \frac{\partial MSE}{\partial \beta_0} &= \frac{1}{n}\left(- \nabla \mathbf{1}^\prime \beta_0 \mathbf{y} + \nabla \mathbf{1}^\prime \beta_0 \beta_0 \mathbf{1} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} \right) \\\\
 &= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
+0 &= - \frac{1}{n} \mathbf{1}^\prime \mathbf{y} + \frac{1}{n} \mathbf{1}^\prime \beta_0 \mathbf{1} + \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 \widehat\beta_0 &= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 &= \bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta}
 \end{align}
@@ -962,7 +995,10 @@ $$
 &= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
 0 &= \beta_0 \frac{1}{n} \mathbf{X}^\prime \mathbf{1} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 &= \beta_0 \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-&= (\bar{y} - \mathbf{\bar{x}} \boldsymbol{\beta}) \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+&= \mathbf{\bar{x}} (\bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta}) - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+&= \mathbf{\bar{x}} \bar{y} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \boldsymbol{\beta} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+\frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \boldsymbol{\beta} &= \frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}} \bar{y} \\\\
+\left(\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \right) \boldsymbol{\beta} &= \frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}} \bar{y} \\\\
 \boldsymbol{\widehat\beta} &= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}}^\prime \mathbf{\bar{x}}}
 \end{align}
 $$
@@ -981,6 +1017,16 @@ $$
 &= \beta_1 + \sum_{i=2}^p \beta_p \frac{\text{COV}\left[X_1, X_p\right]}{\text{VAR}\left[X_1\right]} \\\\
 \end{align}
 $$
+
+<br>
+
+## Colinealidad
+
+<br>
+
+$\mathbf{X}^\prime \mathbf{X}$ no es invertible cuando $n < p + 1$, uno de los predictores es constante o alguno de los predictores es proporcional o está linealmente relacionado con otro.
+
+Dos vectores son linealmente independientes si ninguna combinación lineal de ellos equivale a 0.
 
 <br>
 
