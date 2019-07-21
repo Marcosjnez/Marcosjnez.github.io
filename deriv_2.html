@@ -338,12 +338,14 @@ $(document).ready(function () {
 <li><a href="#notacion-matricial">Notación matricial</a><ul>
 <li><a href="#estimacion-de-boldsymbolbeta">Estimación de <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
 <li><a href="#varianza-de-boldsymbolbeta">Varianza de <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
+<li><a href="#distribucion-de-boldsymbolbeta">Distribución de <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
 <li><a href="#valores-ajustados">Valores ajustados</a></li>
 <li><a href="#varianza-de-los-valores-ajustados">Varianza de los valores ajustados</a></li>
 <li><a href="#predicciones-1">Predicciones</a></li>
 <li><a href="#varianza-de-las-predicciones">Varianza de las predicciones</a></li>
 <li><a href="#residuos-1">Residuos</a></li>
 <li><a href="#varianza-de-los-residuos">Varianza de los residuos</a></li>
+<li><a href="#varianza-del-error-cuadratico-sigma2-1">Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></a></li>
 </ul></li>
 <li><a href="#derivacion-alternativa">Derivación alternativa</a></li>
 <li><a href="#sesgo-de-estimacion-por-omision-de-variables-relacionadas">Sesgo de estimación por omisión de variables relacionadas</a></li>
@@ -1031,6 +1033,19 @@ MSE &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\pri
 \]</span></p>
 <p><br></p>
 </div>
+<div id="distribucion-de-boldsymbolbeta" class="section level3">
+<h3>Distribución de <span class="math inline">\(\boldsymbol{\beta}\)</span></h3>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{\boldsymbol{\beta}} &amp;\sim MVN(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}) \\\\
+\widehat{\beta}_i &amp;\sim N(\beta_i, \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}) \\\\
+\frac{\widehat{\beta}_i - \beta_i}{\sigma \sqrt{(\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}}} &amp;\sim N(0, 1) \\\\
+\frac{\widehat{\beta}_i - \beta_i}{\widehat\sigma \sqrt{(\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}}} &amp;\sim t_{n-p-1}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
 <div id="valores-ajustados" class="section level3">
 <h3>Valores ajustados</h3>
 <p><br></p>
@@ -1063,6 +1078,8 @@ MSE &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\pri
 &amp;= \sigma^2 \mathbf{H}
 \end{align}
 \]</span></p>
+<p>$$</p>
+<p>$$</p>
 <p><br></p>
 </div>
 <div id="predicciones-1" class="section level3">
@@ -1130,6 +1147,29 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 &amp;= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\boldsymbol{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
 &amp;= \sigma^2 (\mathbf{I} - \mathbf{H})
 \end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-del-error-cuadratico-sigma2-1" class="section level3">
+<h3>Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></h3>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{1}{n} \mathbb{E}\left[\mathbf{e}&#39;\mathbf{e}\right] &amp;= \frac{1}{n} \mathbb{E}\left[((\mathbf{I} - \mathbf{H})\mathbf{e})^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&amp;= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^\prime(\mathbf{I} - \mathbf{H})^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&amp;= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&amp;= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \text{VAR}[\mathbf{e}]\right]\\\\
+&amp;= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \sigma^2 (\mathbf{I} - \mathbf{H}) \right] \\\\
+&amp;= \frac{\sigma^2}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \right] \\\\
+\text{tr}[\mathbf{I}] &amp;= n \\\\
+\text{tr}[\mathbf{H}] &amp;= p + 1 \\\\
+\frac{1}{n} \mathbb{E}\left[\mathbf{e}&#39;\mathbf{e}\right] &amp;= \frac{\sigma^2}{n} (n - p - 1) \\\\
+\sigma^2 &amp;= \frac{\mathbb{E}\left[\mathbf{e}&#39;\mathbf{e}\right]}{n - p - 1} \\\\
+\widehat\sigma^2 &amp;= \frac{\mathbf{e}&#39;\mathbf{e}}{n - p - 1}
+\end{align}
+\]</span></p>
+<p><span class="math display">\[
+\frac{(n-p-1) \widehat\sigma^2}{\sigma^2} \sim \chi^2_{n-p-1}
 \]</span></p>
 <p><br></p>
 </div>

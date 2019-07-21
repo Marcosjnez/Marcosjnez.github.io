@@ -840,6 +840,21 @@ $$
 
 <br>
 
+### Distribución de $\boldsymbol{\beta}$
+
+<br>
+
+$$
+\begin{align}
+\widehat{\boldsymbol{\beta}} &\sim MVN(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}) \\\\
+\widehat{\beta}_i &\sim N(\beta_i, \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}) \\\\
+\frac{\widehat{\beta}_i - \beta_i}{\sigma \sqrt{(\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}}} &\sim N(0, 1) \\\\
+\frac{\widehat{\beta}_i - \beta_i}{\widehat\sigma \sqrt{(\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}}} &\sim t_{n-p-1}
+\end{align}
+$$
+
+<br>
+
 ### Valores ajustados
 
 <br>
@@ -879,8 +894,11 @@ $$
 \end{align}
 $$
 
-<br>
+$$
 
+$$
+
+<br>
 
 ### Predicciones
 
@@ -958,6 +976,32 @@ $$
 &= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\boldsymbol{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
 &= \sigma^2 (\mathbf{I} - \mathbf{H})
 \end{align}
+$$
+
+<br>
+
+### Varianza del error cuadrático, $\sigma^2$
+
+<br>
+
+$$
+\begin{align}
+\frac{1}{n} \mathbb{E}\left[\mathbf{e}'\mathbf{e}\right] &= \frac{1}{n} \mathbb{E}\left[((\mathbf{I} - \mathbf{H})\mathbf{e})^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^\prime(\mathbf{I} - \mathbf{H})^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \text{VAR}[\mathbf{e}]\right]\\\\
+&= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \sigma^2 (\mathbf{I} - \mathbf{H}) \right] \\\\
+&= \frac{\sigma^2}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \right] \\\\
+\text{tr}[\mathbf{I}] &= n \\\\
+\text{tr}[\mathbf{H}] &= p + 1 \\\\
+\frac{1}{n} \mathbb{E}\left[\mathbf{e}'\mathbf{e}\right] &= \frac{\sigma^2}{n} (n - p - 1) \\\\
+\sigma^2 &= \frac{\mathbb{E}\left[\mathbf{e}'\mathbf{e}\right]}{n - p - 1} \\\\
+\widehat\sigma^2 &= \frac{\mathbf{e}'\mathbf{e}}{n - p - 1}
+\end{align}
+$$
+
+$$
+\frac{(n-p-1) \widehat\sigma^2}{\sigma^2} \sim \chi^2_{n-p-1}
 $$
 
 <br>
