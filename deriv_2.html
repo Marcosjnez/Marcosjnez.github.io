@@ -329,7 +329,7 @@ $(document).ready(function () {
 <li><a href="#varianza-del-promedio-de-las-predicciones">Varianza del promedio de las predicciones</a></li>
 <li><a href="#varianza-del-error-de-prediccion">Varianza del error de predicción</a></li>
 <li><a href="#varianza-del-error-de-estimacion-varianza-de-un-residuo">Varianza del error de estimación (Varianza de un residuo)</a></li>
-<li><a href="#varianza-del-error-cuadratico-sigma2">Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></a></li>
+<li><a href="#varianza-de-la-estimacion-del-error-cuadratico-widehatsigma2">Varianza de la estimación del error cuadrático, <span class="math inline">\(\widehat\sigma^2\)</span></a></li>
 <li><a href="#modelo-sin-predictores">Modelo sin predictores</a></li>
 <li><a href="#el-test-f">El test F</a></li>
 <li><a href="#el-test-de-razon-de-verosimilitudes">El test de razón de verosimilitudes</a></li>
@@ -345,11 +345,13 @@ $(document).ready(function () {
 <li><a href="#varianza-de-las-predicciones">Varianza de las predicciones</a></li>
 <li><a href="#residuos-1">Residuos</a></li>
 <li><a href="#varianza-de-los-residuos">Varianza de los residuos</a></li>
-<li><a href="#varianza-del-error-cuadratico-sigma2-1">Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></a></li>
+<li><a href="#varianza-de-la-estimacion-del-error-cuadratico-widehatsigma2-1">Varianza de la estimación del error cuadrático, <span class="math inline">\(\widehat\sigma^2\)</span></a></li>
 </ul></li>
 <li><a href="#derivacion-alternativa">Derivación alternativa</a></li>
 <li><a href="#sesgo-de-estimacion-por-omision-de-variables-relacionadas">Sesgo de estimación por omisión de variables relacionadas</a></li>
 <li><a href="#colinealidad">Colinealidad</a></li>
+<li><a href="#factor-de-inflacion-de-la-varianza">Factor de inflación de la varianza</a></li>
+<li><a href="#autovalores-y-autovectores">Autovalores y autovectores</a></li>
 <li><a href="#derivadas-respecto-a-vectores">Derivadas respecto a vectores</a></li>
 <li><a href="#esperanza-y-varianza-de-vectores-y-matrices">Esperanza y varianza de vectores y matrices</a></li>
 <li><a href="#el-metodo-delta">El método Delta</a></li>
@@ -697,13 +699,13 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^
 &amp;= \bar{y} + (x_0 - \bar{x})\widehat{\beta}_1 \\\\
 &amp;= \beta_0 + \beta_1\bar{x} + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x_0 - \bar{x})\left(\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \right) \\\\
 &amp;= \beta_0 + \beta_1\bar{x} + (x_0 - \bar{x})\beta_1 + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x_0 - \bar{x}) \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
-&amp;= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \epsilon_i \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right)
+&amp;= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \epsilon_i \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbb{E}\left[\widehat{m}(x_0)\right] &amp;= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \mathbb{E}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right) \\\\
+\mathbb{E}\left[\widehat{m}(x_0)\right] &amp;= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \mathbb{E}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right) \\\\
 &amp;= \beta_0 + \beta_1x_0
 \end{align}
 \]</span></p>
@@ -714,7 +716,7 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n \right] &amp;= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right)^2 \\\\
+\text{VAR}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n \right] &amp;= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)^2 \\\\
 &amp;= \frac{\sigma^2}{n^2} \sum_{i=1}^n \left(1 + (x_0 - \bar{x})^2 \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
 &amp;= \frac{\sigma^2}{n^2} \left(n + (x_0 - \bar{x})^2 \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
 &amp;= \frac{\sigma^2}{n^2} \left(n + (x_0 - \bar{x})^2 \frac{n}{s_x^2}\right) \\\\
@@ -807,8 +809,8 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 \]</span></p>
 <p><br></p>
 </div>
-<div id="varianza-del-error-cuadratico-sigma2" class="section level2">
-<h2>Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></h2>
+<div id="varianza-de-la-estimacion-del-error-cuadratico-widehatsigma2" class="section level2">
+<h2>Varianza de la estimación del error cuadrático, <span class="math inline">\(\widehat\sigma^2\)</span></h2>
 <p><br></p>
 <p><span class="math display">\[
 \mathbb{E}\left[(Y - (\beta_0 + \beta_1X))^2\right] = \sigma^2
@@ -852,7 +854,7 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 &amp;= \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 \sim \chi^2_n \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &amp;\sim \chi^2_{n-2} \\\\
 P\left(\sigma^2 \leq \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \alpha}}\right) &amp;= 1 - \alpha \\\\
-\text{VAR}\left[\chi^2_{n-2}\right] &amp;= 2(n-2)X \\\\
+\text{VAR}\left[\chi^2_{n-2}\right] &amp;= 2(n-2) \\\\
 \text{VAR}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-2) \\\\
 \text{VAR}\left[(n-2)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-2) \\\\
 \text{VAR}\left[\widehat\sigma^2\right] &amp;= \frac{2\sigma^4}{n-2} \\\\
@@ -1078,8 +1080,6 @@ MSE &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\pri
 &amp;= \sigma^2 \mathbf{H}
 \end{align}
 \]</span></p>
-<p>$$</p>
-<p>$$</p>
 <p><br></p>
 </div>
 <div id="predicciones-1" class="section level3">
@@ -1150,8 +1150,8 @@ MSE &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 \]</span></p>
 <p><br></p>
 </div>
-<div id="varianza-del-error-cuadratico-sigma2-1" class="section level3">
-<h3>Varianza del error cuadrático, <span class="math inline">\(\sigma^2\)</span></h3>
+<div id="varianza-de-la-estimacion-del-error-cuadratico-widehatsigma2-1" class="section level3">
+<h3>Varianza de la estimación del error cuadrático, <span class="math inline">\(\widehat\sigma^2\)</span></h3>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
@@ -1227,8 +1227,47 @@ MSE &amp;= \frac{1}{n} (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{
 <div id="colinealidad" class="section level2">
 <h2>Colinealidad</h2>
 <p><br></p>
+<p>Existen constantes <span class="math inline">\(a_0, a_1, \ldots, a_p\)</span> de manera que, para dos filas <span class="math inline">\(i\)</span>,</p>
+<p><span class="math display">\[
+a_0 + \sum_{j=1}^p a_j x_{ij} = 0
+\]</span></p>
 <p><span class="math inline">\(\mathbf{X}^\prime \mathbf{X}\)</span> no es invertible cuando <span class="math inline">\(n &lt; p + 1\)</span>, uno de los predictores es constante o alguno de los predictores es proporcional o está linealmente relacionado con otro.</p>
 <p>Dos vectores son linealmente independientes si ninguna combinación lineal de ellos equivale a 0.</p>
+<p>La multicolinealidad ocurre cuando</p>
+<p><span class="math display">\[
+\begin{align}
+\sum_{i=1}^p a_i \mathbf{x}_i &amp;= a_0 \\\\
+\mathbf{a}^\prime \mathbf{X} &amp;= a_0 \\\\
+\text{VAR}\left[\mathbf{a}^\prime \mathbf{X} \right] &amp;= \mathbf{a}^\prime \, \text{VAR}\left[\mathbf{X}\right] \mathbf{a} \\\\
+&amp;= 0
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="factor-de-inflacion-de-la-varianza" class="section level2">
+<h2>Factor de inflación de la varianza</h2>
+<p><br></p>
+<p><span class="math display">\[
+\text{VIF}_i = \frac{\frac{\sigma^2}{n s_{x_{i}}^2}}{\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}}
+\]</span></p>
+<p>El factor de inflación de la varianza equivale a regresar <span class="math inline">\(\mathbf{x}_i\)</span> en el resto de predictores y calcular <span class="math inline">\(\frac{1}{1 - R^2}\)</span>.</p>
+<p><br></p>
+</div>
+<div id="autovalores-y-autovectores" class="section level2">
+<h2>Autovalores y autovectores</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{VAR}\left[\mathbf{X}\right] \mathbf{v}_i &amp;= \lambda_i \mathbf{v}_i \\\\
+\mathbf{V}^\prime \mathbf{V} &amp;= \mathbf{I} \\\\
+\text{VAR}\left[\mathbf{X}\right] &amp;= \mathbf{V} \, \text{diag}(\boldsymbol{\lambda}) \, \mathbf{V}^\prime
+\end{align}
+\]</span></p>
+<p>Los autovectores de <span class="math inline">\(\text{VAR}\left[\mathbf{X}\right]\)</span> se conocen como los componentes principales de los predictores.</p>
+<p>Cualquier vector <span class="math inline">\(a\)</span> puede ser reescrito como una suma de autovectores:</p>
+<p><span class="math display">\[
+a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
+\]</span></p>
 <p><br></p>
 </div>
 <div id="derivadas-respecto-a-vectores" class="section level2">
@@ -1313,6 +1352,15 @@ P &amp;= F(T) \\\\
 \]</span></p>
 <p>La probabilidad de que una variable aleatoria <span class="math inline">\(X\)</span> exceda su valor esperado <span class="math inline">\(\mu\)</span> por <span class="math inline">\(k\)</span> errores típicos es siempre inferior a <span class="math inline">\(\frac{1}{k^2}\)</span>.</p>
 <p><br></p>
+<p><span class="math display">\[
+\begin{align}
+Y &amp;= \beta_0 + \epsilon \\\\
+\widehat\beta_0 &amp;= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
+\frac{\widehat\beta_0}{\sigma \sqrt{n}} &amp;\sim N\left(\beta_0, 1\right) \\\\
+\end{align}
+\]</span> <span class="math display">\[
+P\left(\Phi^{-1}(.025, \beta_0) \leq \frac{\widehat{\beta}_0}{\sigma / \sqrt{n}} \leq \Phi^{-1}(.975, \beta_0) \right) = .95
+\]</span></p>
 </div>
 
 

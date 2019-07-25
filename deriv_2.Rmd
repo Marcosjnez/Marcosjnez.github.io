@@ -430,7 +430,7 @@ $$
 &= \bar{y} + (x_0 - \bar{x})\widehat{\beta}_1 \\\\
 &= \beta_0 + \beta_1\bar{x} + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x_0 - \bar{x})\left(\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \right) \\\\
 &= \beta_0 + \beta_1\bar{x} + (x_0 - \bar{x})\beta_1 + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x_0 - \bar{x}) \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
-&= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \epsilon_i \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right)
+&= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \epsilon_i \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)
 \end{align}
 $$
 
@@ -438,7 +438,7 @@ $$
 
 $$
 \begin{align}
-\mathbb{E}\left[\widehat{m}(x_0)\right] &= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \mathbb{E}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right) \\\\
+\mathbb{E}\left[\widehat{m}(x_0)\right] &= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \mathbb{E}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right) \\\\
 &= \beta_0 + \beta_1x_0
 \end{align}
 $$
@@ -451,7 +451,7 @@ $$
 
 $$
 \begin{align}
-\text{VAR}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n \right] &= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}\right)^2 \\\\
+\text{VAR}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n \right] &= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)^2 \\\\
 &= \frac{\sigma^2}{n^2} \sum_{i=1}^n \left(1 + (x_0 - \bar{x})^2 \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
 &= \frac{\sigma^2}{n^2} \left(n + (x_0 - \bar{x})^2 \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
 &= \frac{\sigma^2}{n^2} \left(n + (x_0 - \bar{x})^2 \frac{n}{s_x^2}\right) \\\\
@@ -563,7 +563,7 @@ $$
 
 <br>
 
-## Varianza del error cuadrático, $\sigma^2$
+## Varianza de la estimación del error cuadrático, $\widehat\sigma^2$
 
 <br>
 
@@ -621,7 +621,7 @@ $$
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 &= \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 \sim \chi^2_n \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &\sim \chi^2_{n-2} \\\\
 P\left(\sigma^2 \leq \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \alpha}}\right) &= 1 - \alpha \\\\
-\text{VAR}\left[\chi^2_{n-2}\right] &= 2(n-2)X \\\\
+\text{VAR}\left[\chi^2_{n-2}\right] &= 2(n-2) \\\\
 \text{VAR}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &= 2(n-2) \\\\
 \text{VAR}\left[(n-2)\widehat\sigma^2\right] &= 2\sigma^4(n-2) \\\\
 \text{VAR}\left[\widehat\sigma^2\right] &= \frac{2\sigma^4}{n-2} \\\\
@@ -894,10 +894,6 @@ $$
 \end{align}
 $$
 
-$$
-
-$$
-
 <br>
 
 ### Predicciones
@@ -980,7 +976,7 @@ $$
 
 <br>
 
-### Varianza del error cuadrático, $\sigma^2$
+### Varianza de la estimación del error cuadrático, $\widehat\sigma^2$
 
 <br>
 
@@ -1068,9 +1064,60 @@ $$
 
 <br>
 
+Existen constantes $a_0, a_1, \ldots, a_p$ de manera que, para dos filas $i$,
+
+$$
+a_0 + \sum_{j=1}^p a_j x_{ij} = 0
+$$
+
 $\mathbf{X}^\prime \mathbf{X}$ no es invertible cuando $n < p + 1$, uno de los predictores es constante o alguno de los predictores es proporcional o está linealmente relacionado con otro.
 
 Dos vectores son linealmente independientes si ninguna combinación lineal de ellos equivale a 0.
+
+La multicolinealidad ocurre cuando
+
+$$
+\begin{align}
+\sum_{i=1}^p a_i \mathbf{x}_i &= a_0 \\\\
+\mathbf{a}^\prime \mathbf{X} &= a_0 \\\\
+\text{VAR}\left[\mathbf{a}^\prime \mathbf{X} \right] &= \mathbf{a}^\prime \, \text{VAR}\left[\mathbf{X}\right] \mathbf{a} \\\\
+&= 0
+\end{align}
+$$
+
+<br>
+
+## Factor de inflación de la varianza
+
+<br>
+
+$$
+\text{VIF}_i = \frac{\frac{\sigma^2}{n s_{x_{i}}^2}}{\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}}
+$$
+
+El factor de inflación de la varianza equivale a regresar $\mathbf{x}_i$ en el resto de predictores y calcular $\frac{1}{1 - R^2}$.
+
+<br>
+
+## Autovalores y autovectores
+
+<br>
+
+$$
+\begin{align}
+\text{VAR}\left[\mathbf{X}\right] \mathbf{v}_i &= \lambda_i \mathbf{v}_i \\\\
+\mathbf{V}^\prime \mathbf{V} &= \mathbf{I} \\\\
+\text{VAR}\left[\mathbf{X}\right] &= \mathbf{V} \, \text{diag}(\boldsymbol{\lambda}) \, \mathbf{V}^\prime
+\end{align}
+$$
+
+Los autovectores de $\text{VAR}\left[\mathbf{X}\right]$ se conocen como los componentes principales de los predictores.
+
+Cualquier vector $a$ puede ser reescrito como una suma de autovectores:
+
+$$
+a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
+$$
 
 <br>
 
@@ -1181,6 +1228,21 @@ $$
 La probabilidad de que una variable aleatoria $X$ exceda su valor esperado $\mu$ por $k$ errores típicos es siempre inferior a $\frac{1}{k^2}$.
 
 <br>
+
+
+
+
+
+$$
+\begin{align}
+Y &= \beta_0 + \epsilon \\\\
+\widehat\beta_0 &= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
+\frac{\widehat\beta_0}{\sigma \sqrt{n}} &\sim N\left(\beta_0, 1\right) \\\\
+\end{align}
+$$
+$$
+P\left(\Phi^{-1}(.025, \beta_0) \leq \frac{\widehat{\beta}_0}{\sigma / \sqrt{n}} \leq \Phi^{-1}(.975, \beta_0) \right) = .95
+$$
 
 
 
