@@ -1237,12 +1237,29 @@ $$
 \begin{align}
 Y &= \beta_0 + \epsilon \\\\
 \widehat\beta_0 &= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
-\frac{\widehat\beta_0}{\sigma \sqrt{n}} &\sim N\left(\beta_0, 1\right) \\\\
+\frac{\widehat\beta_0 - \beta_0}{\sigma \sqrt{n}} &\sim N\left(0, 1\right) \\\\
 \end{align}
 $$
 $$
-P\left(\Phi^{-1}(.025, \beta_0) \leq \frac{\widehat{\beta}_0}{\sigma / \sqrt{n}} \leq \Phi^{-1}(.975, \beta_0) \right) = .95
+\begin{align}
+P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 -  \beta_0}{\sigma / \sqrt{n}} \leq \Phi^{-1}(.975) \right) = .95 \\\\
+P\left(\beta_0 + \frac{\Phi^{-1}(.025) \sigma}{\sqrt{n}} \leq \widehat{\beta}_0 \leq \beta_0 + \frac{\Phi^{-1}(.975) \sigma}{\sqrt{n}} \right) = .95 \\\\
+P\left(\widehat\beta_0 + \frac{\Phi^{-1}(.975) \sigma}{\sqrt{n}} \geq \beta_0 \geq \widehat\beta_0 + \frac{\Phi^{-1}(.025) \sigma}{\sqrt{n}} \right) = .95
+\end{align}
 $$
 
+$$
+\Phi\left(\beta_0 \leq \widehat\beta_0; \frac{\sigma}{\sqrt{n}} \right)
+$$
+
+<br>
+
+<br>
+
+$$
+\int \phi\left(\widehat\beta_0; \, \beta_0, \text{se}\right) \left(\Phi\left(\widehat\beta_0 + 1.96 \cdot \text{se}; \, \beta_0, \text{se}\right) - \Phi\left(\widehat\beta_0 - 1.96 \cdot \text{se}; \, \beta_0, \text{se}\right)\right) d\widehat\beta_0
+$$
+
+<br>
 
 
