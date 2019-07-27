@@ -638,9 +638,9 @@ $$
 \begin{align}
 Y &= \beta_0 + \epsilon \\\\
 \widehat\beta_0 &= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
-\widehat\sigma_0^2 &= \frac{1}{n-1} \sum_{i=1}^n (y_i - \bar{y})^2 \\\\
+\widehat\sigma^2 &= \frac{1}{n-1} \sum_{i=1}^n (y_i - \bar{y})^2 \\\\
 &= s_y^2 \\\\
-\frac{(n-1) \widehat\sigma^2_0}{\sigma^2} &\sim \chi^2_{n-1}
+\frac{(n-1) \widehat\sigma^2}{\sigma^2} &\sim \chi^2_{n-1}
 \end{align}
 $$
 
@@ -659,23 +659,23 @@ $$
 Según el modelo sin predictores, 
 
 $$
-\frac{(n-1) \widehat\sigma^2_0}{\sigma^2} \sim \chi^2_{n-1}
+\frac{(n-1) \widehat\sigma^2_{null}}{\sigma^2} \sim \chi^2_{n-1}
 $$
 
 mientras que según el modelo con un predictor,
 
 $$
-\frac{(n-2) \widehat\sigma_1^2}{\sigma^2} \sim \chi^2_{n-2}
+\frac{(n-2) \widehat\sigma_2^2}{\sigma^2} \sim \chi^2_{n-2}
 $$
 
 Por tanto,
 
 $$
 \begin{align}
-\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{\sigma^2} &\sim \chi^2_1 \\\\
-\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{(n-2) \widehat\sigma_1^2} &\sim \frac{\chi^2_1}{\chi^2_{n-2}} \\\\
-\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{(n-2) \widehat\sigma_1^2} \, \frac{n-2}{1} &\sim F_{1, n-2} \\\\
-\frac{(n-1) \widehat\sigma^2_0 - (n-2) \widehat\sigma_1^2}{\widehat\sigma_1^2} &\sim F_{1, n-2}
+\frac{(n-1) \widehat\sigma^2_{null} - (n-2) \widehat\sigma_2^2}{\sigma^2} &\sim \chi^2_1 \\\\
+\frac{(n-1) \widehat\sigma^2_{null} - (n-2) \widehat\sigma_2^2}{(n-2) \widehat\sigma_2^2} &\sim \frac{\chi^2_1}{\chi^2_{n-2}} \\\\
+\frac{(n-1) \widehat\sigma^2_{null} - (n-2) \widehat\sigma_2^2}{(n-2) \widehat\sigma_2^2} \, \frac{n-2}{1} &\sim F_{1, n-2} \\\\
+\frac{(n-1) \widehat\sigma^2_{null} - (n-2) \widehat\sigma_2^2}{\widehat\sigma_2^2} &\sim F_{1, n-2}
 \end{align}
 $$
 
@@ -687,11 +687,11 @@ En el caso general, si estuviéramos contrastando la significación de $p-q$ est
 
 $$
 \begin{align}
-\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{\sigma^2} &\sim \chi^2_{p-q} \\\\
-\frac{(n-p) \widehat\sigma_1^2}{\sigma^2} &\sim \chi^2_{n-p} \\\\
-\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(n-p) \widehat\sigma_1^2} &\sim \frac{\chi^2_{p-q}}{\chi^2_{n-p}} \\\\
-\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(n-p) \widehat\sigma_1^2} \, \frac{n-p}{p-q} &\sim F_{p-q, n-p} \\\\
-\frac{(n-q) \widehat\sigma^2_0 - (n-p) \widehat\sigma_1^2}{(p-q) \widehat\sigma_1^2} &\sim F_{p-q, n-p}
+\frac{(n-q) \widehat\sigma^2_{q} - (n-p) \widehat\sigma^2_{p}}{\sigma^2} &\sim \chi^2_{p-q} \\\\
+\frac{(n-p) \widehat\sigma^2_{p}}{\sigma^2} &\sim \chi^2_{n-p} \\\\
+\frac{(n-q) \widehat\sigma^2_{q} - (n-p) \widehat\sigma^2_{p}}{(n-p) \widehat\sigma^2_{p}} &\sim \frac{\chi^2_{p-q}}{\chi^2_{n-p}} \\\\
+\frac{(n-q) \widehat\sigma^2_{q} - (n-p) \widehat\sigma^2_{p}}{(n-p) \widehat\sigma^2_{p}} \, \frac{n-p}{p-q} &\sim F_{p-q, n-p} \\\\
+\frac{(n-q) \widehat\sigma^2_{q} - (n-p) \widehat\sigma^2_{p}}{(p-q) \widehat\sigma^2_{p}} &\sim F_{p-q, n-p}
 \end{align}
 $$
 
@@ -701,7 +701,9 @@ $$
 
 <br>
 
-El espacio paramétrico del modelo nulo es un subconjunto del espacio paramétrico del modelo general.
+El espacio paramétrico del modelo nulo de $q$ coeficientes es un subconjunto del espacio paramétrico del modelo general de $p$ coeficientes.
+
+El test de razón de verosimilitudes asume que las estimaciones de los parámetros siguen una distribución normal y esto es solo aproximadamente cierto para $\widehat\sigma^2$. Por tanto, solo es exactamente correcto cuando $n \rightarrow \infty$.
 
 $$
 \begin{align}
@@ -714,10 +716,10 @@ $$
 
 $$
 \begin{align}
-L(\widehat\theta) &= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2s_0^2 - \frac{1}{2s_0^2} \sum_{i=1}^n (y_i - \widehat\beta_0)^2 \\\\
-&= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log s_0^2} \\\\
-L(\widehat\Theta) &= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2s_1^2 - \frac{1}{2s_1^2} \sum_{i=1}^n (y_i - \widehat\beta_0 - \widehat\beta_1x_i)^2 \\\\
-&= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log s_1^2}
+L(\widehat\theta) &= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2(n-q)\widehat\sigma^2_q - \frac{1}{2(n-q)\widehat\sigma^2_q} \sum_{i=1}^n (y_i - \widehat\beta_0)^2 \\\\
+&= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log (n-q)\widehat\sigma^2_q} \\\\
+L(\widehat\Theta) &= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2(n-p)\widehat\sigma^2_p - \frac{1}{2(n-p)\widehat\sigma^2_p} \sum_{i=1}^n (y_i - \widehat\beta_0 - \widehat\beta_1x_i)^2 \\\\
+&= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log (n-p)\widehat\sigma^2_p}
 \end{align}
 $$
 
@@ -725,11 +727,13 @@ $$
 
 $$
 \begin{align}
-L(\widehat\beta_0, \widehat\beta_1, s^2_1) - L(\widehat\beta_0, s^2_0)
-&= \frac{n}{2} \log\frac{s_0^2}{s_1^2} \\\\
-n \log\frac{s_0^2}{s_1^2} &\sim \chi^2_1
+L(\widehat\Theta) - L(\widehat\theta)
+&= \frac{n}{2} \log\frac{(n-q)\widehat\sigma^2_q}{(n-p)\widehat\sigma^2_p} \\\\
+\lim_{n \rightarrow \infty} \quad n \log\frac{(n-q)\widehat\sigma^2_q}{(n-p)\widehat\sigma^2_p} &\sim \chi^2_{p-q}
 \end{align}
 $$
+
+Incluso cuando ambos modelos son falsos, el test de razón de verosimilitudes nos puede indicar cuál de ellos se parece más al verdadero.
 
 <br>
 
@@ -1201,6 +1205,156 @@ $$
 
 <br>
 
+## Regresión de componentes principales
+
+<br>
+
+Los componentes principales son
+
+$$
+\mathbf{W} = \mathbf{X} \mathbf{V}
+$$
+
+Cada componente se define como la proyección de $\mathbf{X}$ en los autovectores.
+
+El modelo de regresión con $k$ componentes es
+
+$$
+Y = \gamma_0 + \gamma_1 W_1 + \ldots + \gamma_k W_k + \eta
+$$
+
+$\eta = \epsilon$ si $k = p$.
+
+<br>
+
+## Regresión *Ridge*
+
+<br>
+
+Se trata de penalizar la longitud del vector de coeficientes $(\| \boldsymbol{\beta} \|)$. En *OLS* optimizamos la ecuación
+
+$$
+\frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})
+$$
+
+Sin embargo, ahora optimizamos
+
+$$
+\frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \| \boldsymbol{\beta} \|^2 = \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \boldsymbol{\beta}^\prime \boldsymbol{\beta}
+$$
+
+donde $\lambda > 0$ regula el *trade-off* entre el *MSE* y $\| \boldsymbol{\beta} \|$.
+
+Esta regresión se emplea tras centrar predictores y variable dependiente, para que $\beta_0 = 0$ y así no se penalice el tamaño de la intersección.
+
+Si los predictores tienen diferente escala, entonces conviene estandarizarlos para que la penalización por $\| \boldsymbol{\beta} \|^2$ tenga sentido.
+
+$$
+\begin{align}
+\nabla_\boldsymbol{\beta} \, \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \boldsymbol{\beta}^\prime \boldsymbol{\beta} &= \frac{2}{n} \left(-\mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + \lambda \boldsymbol{\beta} \right) \\\\
+\frac{2}{n} \left(-\mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\widehat\beta} + \lambda \boldsymbol{\widehat\beta} \right) &= 0 \\\\
+\mathbf{X}^\prime \mathbf{y} &= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right) \boldsymbol{\widehat\beta} \\\\
+\boldsymbol{\widehat\beta} &= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{y}
+\end{align}
+$$
+
+La diferencia entre el estimador *OLS* y el anterior es que se le añade $\lambda$ a la diagonal de $\mathbf{X}^\prime \mathbf{X}$ (este es el *ridge*). Como consecuencia, se minimizan posibles problemas por colinealidad y la varianza de los coeficientes en $\boldsymbol{\widehat\beta}$ es menor.
+
+Esta menor varianza implica sesgo (*bias-variance trade-off*)
+
+$$
+\begin{align}
+\mathbb{E}\left[ \boldsymbol{\widehat\beta} \right] &= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbb{E}\left[ \mathbf{y} \right] \\\\
+&= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
+\text{VAR}\left[ \boldsymbol{\widehat\beta} \right] &= \text{VAR}\left[\left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{y} \right] \\\\
+&= \text{VAR}\left[\left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{\epsilon} \right] \\\\
+&= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X} \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \\\\
+&= \sigma^2 \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{X} \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1}
+\end{align}
+$$
+
+Si $\lambda$ no es fijado sino estimado, entonces tendríamos que preocuparnos de su distribución.
+
+Una de las principales ventajas de esta regresión es que permite comprobar con gran precisión la contribución de los predictores sin necesidad de preocuparse de qué variables prescindir.
+
+<br>
+
+## Regresión *Lasso*
+
+<br>
+
+Esta regresión sustituye la penalización de $\| \boldsymbol{\beta} \|^2$ por otra medida de la longitud del vector:
+
+$$
+\| \boldsymbol{\beta} \|_q = \left( \sum_{i=1}^p b_i^q \right)^{1/q}
+$$
+
+Si $q = 2$, entonces la penalización es la misma que en la regresión *ridge*. La regresión *lasso* (*least angle selection and shrinkage operator*) utiliza la penalización $q = 1$.
+
+<br>
+
+## Corrección de Bonferroni
+
+<br>
+
+Supongamos que estamos interesados en que el error tipo I de $k$ coeficientes sea, conjuntamente, $1 - \alpha$. Una forma común de lograrlo es establecer el error tipo I de cada coeficiente en $\alpha / k$ (o, equivalentemente, multiplicar el valor p por $k$). Sin embargo, esto solo es correcto si los coeficientes son independientes.
+
+En un contraste estándar, cada coeficiente $\beta_i$ posee un conjunto de confianza $C_i(\alpha)$ de manera que
+
+$$
+\begin{align}
+P(\beta_i \in C_i(\alpha)) &= 1 - \alpha \\\\
+P(\beta_i \notin C_i(\alpha)) &= \alpha \\\\
+P\left( \bigcup_i^k \beta_i \notin C_i(\alpha) \right) &= \sum_{i}^k P(\beta_i \notin C_i(\alpha)) - P(\text{Conjunto de intersecciones en } \beta) \\\\
+&= k \alpha - P(\text{Conjunto de intersecciones en } \beta) \\\\
+&\leq k \alpha \\\\
+\end{align}
+$$
+
+$$
+\begin{align}
+1 - P\left( \bigcup_i^k \beta_i \notin C_i(\alpha) \right) &\leq 1 - k \alpha \\\\
+1 - P\left( \bigcup_i^k \beta_i \notin C_i(\alpha / k) \right) &\leq 1 - \alpha
+\end{align}
+$$
+
+Por tanto, la probabilidad de que al menos un parámetro no se encuentre en su intervalo de confianza es inferior a $1 - k \alpha$. La correción de Bonferroni es conservadora.
+
+<br>
+
+## Elipsoides de confianza
+
+<br>
+
+Si nuestros coeficientes siguen una dsitribución normal y son independientes unos de otros,
+
+$$
+\begin{align}
+\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]} \sim N(0, 1) \\\\
+\sum_{i=1}^k \left(\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]}\right)^2 \sim \chi^2_k \\\\
+\end{align}
+$$
+
+El intervalo $1 - \alpha$ de confianza vendría dado por
+
+<br>
+
+$$
+P\left(\sum_{i=1}^k \left(\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]}\right)^2 \leq \;\;  \chi^2_{k, 1-\alpha} \right) = 1 - \alpha
+$$
+
+Esta región de confianza es un elipsoide.
+
+Sin embargo, si los coeficientes covarían y la matriz de varianzas-covarianzas es $\boldsymbol{\Sigma}$, entonces
+
+<br>
+
+$$
+P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  \chi^2_{k, 1-\alpha} \right) = 1 - \alpha
+$$
+
+<br>
+
 ## Distribución de los valores p bajo la hipótesis nula
 
 <br>
@@ -1232,27 +1386,11 @@ La probabilidad de que una variable aleatoria $X$ exceda su valor esperado $\mu$
 
 
 
-
-$$
-\begin{align}
-Y &= \beta_0 + \epsilon \\\\
-\widehat\beta_0 &= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
-\frac{\widehat\beta_0 - \beta_0}{\sigma \sqrt{n}} &\sim N\left(0, 1\right) \\\\
-\end{align}
-$$
-$$
-\begin{align}
-P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 -  \beta_0}{\sigma / \sqrt{n}} \leq \Phi^{-1}(.975) \right) = .95 \\\\
-P\left(\beta_0 + \frac{\Phi^{-1}(.025) \sigma}{\sqrt{n}} \leq \widehat{\beta}_0 \leq \beta_0 + \frac{\Phi^{-1}(.975) \sigma}{\sqrt{n}} \right) = .95 \\\\
-P\left(\widehat\beta_0 + \frac{\Phi^{-1}(.975) \sigma}{\sqrt{n}} \geq \beta_0 \geq \widehat\beta_0 + \frac{\Phi^{-1}(.025) \sigma}{\sqrt{n}} \right) = .95
-\end{align}
-$$
-
-$$
-\Phi\left(\beta_0 \leq \widehat\beta_0; \frac{\sigma}{\sqrt{n}} \right)
-$$
+## *Capture percentage*
 
 <br>
+
+La esperanza de cobertura del intervalo de confianza para la distribución de $\widehat\beta_0$ o lo que es lo mismo, el promedio de veces que un intervalo de confianza contiene otras estimaciones de $\beta_0$, es:
 
 <br>
 
