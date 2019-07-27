@@ -620,7 +620,8 @@ $$
 \begin{align}
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 &= \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 \sim \chi^2_n \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &\sim \chi^2_{n-2} \\\\
-P\left(\sigma^2 \leq \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \alpha}}\right) &= 1 - \alpha \\\\
+P\left(\chi^2_{n-2} \; \leq \; \chi^2_{n-2, \, 1-\alpha}\right) &= 1 - \alpha \\\\
+P\left(\sigma^2 \; \leq \; \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \, 1-\alpha}}\right) &= 1 - \alpha \\\\
 \text{VAR}\left[\chi^2_{n-2}\right] &= 2(n-2) \\\\
 \text{VAR}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &= 2(n-2) \\\\
 \text{VAR}\left[(n-2)\widehat\sigma^2\right] &= 2\sigma^4(n-2) \\\\
@@ -1096,7 +1097,7 @@ $$
 <br>
 
 $$
-\text{VIF}_i = \frac{\frac{\sigma^2}{n s_{x_{i}}^2}}{\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}}
+\text{VIF}_i = \frac{\frac{\widehat\sigma^2}{n s_{x_{i}}^2}}{\widehat\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}}
 $$
 
 El factor de inflación de la varianza equivale a regresar $\mathbf{x}_i$ en el resto de predictores y calcular $\frac{1}{1 - R^2}$.
@@ -1111,13 +1112,13 @@ $$
 \begin{align}
 \text{VAR}\left[\mathbf{X}\right] \mathbf{v}_i &= \lambda_i \mathbf{v}_i \\\\
 \mathbf{V}^\prime \mathbf{V} &= \mathbf{I} \\\\
-\text{VAR}\left[\mathbf{X}\right] &= \mathbf{V} \, \text{diag}(\boldsymbol{\lambda}) \, \mathbf{V}^\prime
+\text{VAR}\left[\mathbf{X}\right] &= \mathbf{V} \, \mathbf{U} \, \mathbf{V}^\prime
 \end{align}
 $$
 
 Los autovectores de $\text{VAR}\left[\mathbf{X}\right]$ se conocen como los componentes principales de los predictores.
 
-Cualquier vector $a$ puede ser reescrito como una suma de autovectores:
+Cualquier vector $\mathbf{a}$ puede ser reescrito como una suma de autovectores:
 
 $$
 a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
@@ -1133,21 +1134,21 @@ Si $\mathbf{a}$ y $\mathbf{x}$ son vectores $p \times 1$, entonces
 
 $$
 \begin{align}
-\nabla (\mathbf{x}^\prime \mathbf{a}) &= \mathbf{a} \\\\
-\nabla (\mathbf{b} \mathbf{x}) &= \mathbf{b}^\prime \\\\
+\nabla_{\mathbf{x}} (\mathbf{x}^\prime \mathbf{a}) &= \mathbf{a} \\\\
+\nabla_{\mathbf{x}} (\mathbf{b} \mathbf{x}) &= \mathbf{b}^\prime \\\\
 \end{align}
 $$
 
 Si $\mathbf{c}$ es una matriz de dimensiones $p \times p$, entonces
 
 $$
-\nabla (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = (\mathbf{c} + \mathbf{c}^\prime) \mathbf{x}
+\nabla_{\mathbf{x}} (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = (\mathbf{c} + \mathbf{c}^\prime) \mathbf{x}
 $$
 
 Si, además, $\mathbf{c} = \mathbf{c}^\prime$, entonces
 
 $$
-\nabla (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
+\nabla{\mathbf{x}} (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
 $$
 
 <br>
@@ -1318,7 +1319,15 @@ $$
 \end{align}
 $$
 
-Por tanto, la probabilidad de que al menos un parámetro no se encuentre en su intervalo de confianza es inferior a $1 - k \alpha$. La correción de Bonferroni es conservadora.
+Por tanto, tras dividir por el número de contrastes $k$, la probabilidad de que un solo parámetro no se encuentre en su intervalo de confianza es igual o inferior a $\alpha$. Por esta razón, la correción de Bonferroni es conservadora.
+
+Esta corrección tan solo exige que
+
+$$
+C(\alpha) = \sum_{i}^k C_i(\alpha / k)
+$$
+
+Por tanto, es legítimo asumir distintos niveles de error tipo I $(\alpha/k)$ en cada contraste siempre que la suma de ellos equivalga a $\alpha$.
 
 <br>
 

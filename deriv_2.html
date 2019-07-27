@@ -859,7 +859,8 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 \begin{align}
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 &amp;= \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 \sim \chi^2_n \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &amp;\sim \chi^2_{n-2} \\\\
-P\left(\sigma^2 \leq \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \alpha}}\right) &amp;= 1 - \alpha \\\\
+P\left(\chi^2_{n-2} \; \leq \; \chi^2_{n-2, \, 1-\alpha}\right) &amp;= 1 - \alpha \\\\
+P\left(\sigma^2 \; \leq \; \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \, 1-\alpha}}\right) &amp;= 1 - \alpha \\\\
 \text{VAR}\left[\chi^2_{n-2}\right] &amp;= 2(n-2) \\\\
 \text{VAR}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-2) \\\\
 \text{VAR}\left[(n-2)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-2) \\\\
@@ -1256,7 +1257,7 @@ a_0 + \sum_{j=1}^p a_j x_{ij} = 0
 <h2>Factor de inflación de la varianza</h2>
 <p><br></p>
 <p><span class="math display">\[
-\text{VIF}_i = \frac{\frac{\sigma^2}{n s_{x_{i}}^2}}{\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}}
+\text{VIF}_i = \frac{\frac{\widehat\sigma^2}{n s_{x_{i}}^2}}{\widehat\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}}
 \]</span></p>
 <p>El factor de inflación de la varianza equivale a regresar <span class="math inline">\(\mathbf{x}_i\)</span> en el resto de predictores y calcular <span class="math inline">\(\frac{1}{1 - R^2}\)</span>.</p>
 <p><br></p>
@@ -1268,11 +1269,11 @@ a_0 + \sum_{j=1}^p a_j x_{ij} = 0
 \begin{align}
 \text{VAR}\left[\mathbf{X}\right] \mathbf{v}_i &amp;= \lambda_i \mathbf{v}_i \\\\
 \mathbf{V}^\prime \mathbf{V} &amp;= \mathbf{I} \\\\
-\text{VAR}\left[\mathbf{X}\right] &amp;= \mathbf{V} \, \text{diag}(\boldsymbol{\lambda}) \, \mathbf{V}^\prime
+\text{VAR}\left[\mathbf{X}\right] &amp;= \mathbf{V} \, \mathbf{U} \, \mathbf{V}^\prime
 \end{align}
 \]</span></p>
 <p>Los autovectores de <span class="math inline">\(\text{VAR}\left[\mathbf{X}\right]\)</span> se conocen como los componentes principales de los predictores.</p>
-<p>Cualquier vector <span class="math inline">\(a\)</span> puede ser reescrito como una suma de autovectores:</p>
+<p>Cualquier vector <span class="math inline">\(\mathbf{a}\)</span> puede ser reescrito como una suma de autovectores:</p>
 <p><span class="math display">\[
 a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
 \]</span></p>
@@ -1284,17 +1285,17 @@ a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
 <p>Si <span class="math inline">\(\mathbf{a}\)</span> y <span class="math inline">\(\mathbf{x}\)</span> son vectores <span class="math inline">\(p \times 1\)</span>, entonces</p>
 <p><span class="math display">\[
 \begin{align}
-\nabla (\mathbf{x}^\prime \mathbf{a}) &amp;= \mathbf{a} \\\\
-\nabla (\mathbf{b} \mathbf{x}) &amp;= \mathbf{b}^\prime \\\\
+\nabla_{\mathbf{x}} (\mathbf{x}^\prime \mathbf{a}) &amp;= \mathbf{a} \\\\
+\nabla_{\mathbf{x}} (\mathbf{b} \mathbf{x}) &amp;= \mathbf{b}^\prime \\\\
 \end{align}
 \]</span></p>
 <p>Si <span class="math inline">\(\mathbf{c}\)</span> es una matriz de dimensiones <span class="math inline">\(p \times p\)</span>, entonces</p>
 <p><span class="math display">\[
-\nabla (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = (\mathbf{c} + \mathbf{c}^\prime) \mathbf{x}
+\nabla_{\mathbf{x}} (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = (\mathbf{c} + \mathbf{c}^\prime) \mathbf{x}
 \]</span></p>
 <p>Si, además, <span class="math inline">\(\mathbf{c} = \mathbf{c}^\prime\)</span>, entonces</p>
 <p><span class="math display">\[
-\nabla (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
+\nabla{\mathbf{x}} (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
 \]</span></p>
 <p><br></p>
 </div>
@@ -1421,7 +1422,12 @@ P\left( \bigcup_i^k \beta_i \notin C_i(\alpha) \right) &amp;= \sum_{i}^k P(\beta
 1 - P\left( \bigcup_i^k \beta_i \notin C_i(\alpha / k) \right) &amp;\leq 1 - \alpha
 \end{align}
 \]</span></p>
-<p>Por tanto, la probabilidad de que al menos un parámetro no se encuentre en su intervalo de confianza es inferior a <span class="math inline">\(1 - k \alpha\)</span>. La correción de Bonferroni es conservadora.</p>
+<p>Por tanto, tras dividir por el número de contrastes <span class="math inline">\(k\)</span>, la probabilidad de que un solo parámetro no se encuentre en su intervalo de confianza es igual o inferior a <span class="math inline">\(\alpha\)</span>. Por esta razón, la correción de Bonferroni es conservadora.</p>
+<p>Esta corrección tan solo exige que</p>
+<p><span class="math display">\[
+C(\alpha) = \sum_{i}^k C_i(\alpha / k)
+\]</span></p>
+<p>Por tanto, es legítimo asumir distintos niveles de error tipo I <span class="math inline">\((\alpha/k)\)</span> en cada contraste siempre que la suma de ellos equivalga a <span class="math inline">\(\alpha\)</span>.</p>
 <p><br></p>
 </div>
 <div id="elipsoides-de-confianza" class="section level2">
