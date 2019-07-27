@@ -1324,7 +1324,13 @@ Por tanto, tras dividir por el número de contrastes $k$, la probabilidad de que
 Esta corrección tan solo exige que
 
 $$
-C(\alpha) = \sum_{i}^k C_i(\alpha / k)
+C(\alpha) = \prod_{i}^k C_i(\alpha / k)
+$$
+
+o equivalentemente,
+
+$$
+\alpha = \sum_{i}^k \alpha_i/k
 $$
 
 Por tanto, es legítimo asumir distintos niveles de error tipo I $(\alpha/k)$ en cada contraste siempre que la suma de ellos equivalga a $\alpha$.

@@ -1425,7 +1425,11 @@ P\left( \bigcup_i^k \beta_i \notin C_i(\alpha) \right) &amp;= \sum_{i}^k P(\beta
 <p>Por tanto, tras dividir por el número de contrastes <span class="math inline">\(k\)</span>, la probabilidad de que un solo parámetro no se encuentre en su intervalo de confianza es igual o inferior a <span class="math inline">\(\alpha\)</span>. Por esta razón, la correción de Bonferroni es conservadora.</p>
 <p>Esta corrección tan solo exige que</p>
 <p><span class="math display">\[
-C(\alpha) = \sum_{i}^k C_i(\alpha / k)
+C(\alpha) = \prod_{i}^k C_i(\alpha / k)
+\]</span></p>
+<p>o equivalentemente,</p>
+<p><span class="math display">\[
+\alpha = \sum_{i}^k \alpha_i/k
 \]</span></p>
 <p>Por tanto, es legítimo asumir distintos niveles de error tipo I <span class="math inline">\((\alpha/k)\)</span> en cada contraste siempre que la suma de ellos equivalga a <span class="math inline">\(\alpha\)</span>.</p>
 <p><br></p>
