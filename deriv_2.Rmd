@@ -50,7 +50,7 @@ $$
 Si $Z_{IID} \sim N(\mu, \sigma^2)$, entonces
 
 $$
-\sum_{i=1}^n Z_i \sim N\left(\sum_{i}^n \mu, \sum_{i=1}^n \sigma^2\right)
+\sum_{i=1}^n Z_i \sim N\left(n \mu, n \sigma^2\right)
 $$
 
 <br>
@@ -1112,6 +1112,7 @@ $$
 \begin{align}
 \text{VAR}\left[\mathbf{X}\right] \mathbf{v}_i &= \lambda_i \mathbf{v}_i \\\\
 \mathbf{V}^\prime \mathbf{V} &= \mathbf{I} \\\\
+\mathbf{V}^{-1} &= \mathbf{V}^\prime \\\\
 \text{VAR}\left[\mathbf{X}\right] &= \mathbf{V} \, \mathbf{U} \, \mathbf{V}^\prime
 \end{align}
 $$
@@ -1298,7 +1299,7 @@ Si $q = 2$, entonces la penalización es la misma que en la regresión *ridge*. 
 
 <br>
 
-Supongamos que estamos interesados en que el error tipo I de $k$ coeficientes sea, conjuntamente, $1 - \alpha$. Una forma común de lograrlo es establecer el error tipo I de cada coeficiente en $\alpha / k$ (o, equivalentemente, multiplicar el valor p por $k$). Sin embargo, esto solo es correcto si los coeficientes son independientes.
+Supongamos que estamos interesados en que el error tipo I de $k$ coeficientes sea, conjuntamente, $1 - \alpha$. Una forma común de lograrlo es establecer el error tipo I de cada coeficiente en $\alpha / k$ (o, equivalentemente, multiplicar el valor p por $k$). Sin embargo, esto solo es exacto si los coeficientes son independientes.
 
 En un contraste estándar, cada coeficiente $\beta_i$ posee un conjunto de confianza $C_i(\alpha)$ de manera que
 
@@ -1319,12 +1320,12 @@ $$
 \end{align}
 $$
 
-Por tanto, tras dividir por el número de contrastes $k$, la probabilidad de que un solo parámetro no se encuentre en su intervalo de confianza es igual o inferior a $\alpha$. Por esta razón, la correción de Bonferroni es conservadora.
+Por tanto, tras dividir por el número de contrastes $k$, la probabilidad de que, al menos, un solo parámetro no se encuentre en su intervalo de confianza es igual o inferior a $\alpha$. Por esta razón, la correción de Bonferroni es conservadora.
 
 Esta corrección tan solo exige que
 
 $$
-C(\alpha) = \prod_{i}^k C_i(\alpha / k)
+C(\alpha) = \prod_{i}^k C(\alpha_i / k)
 $$
 
 o equivalentemente,
@@ -1360,13 +1361,68 @@ $$
 
 Esta región de confianza es un elipsoide.
 
-Sin embargo, si los coeficientes covarían y la matriz de varianzas-covarianzas es $\boldsymbol{\Sigma}$, entonces
+Sin embargo, si los coeficientes covarían y la matriz de varianzas-covarianzas de los coeficientes es $\boldsymbol{\Sigma}$, entonces
+
+<br>
+
+$$
+\begin{align}
+\boldsymbol{\Sigma} &= \mathbf{VUV}^\prime \\\\
+\boldsymbol{\Sigma}^{1/2} &= \mathbf{VU}^{1/2} \mathbf{V}^\prime \\\\
+\text{VAR}\left[ \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \right] &= 
+\boldsymbol{\Sigma}^{-1/2} \, \text{VAR}\left[ \boldsymbol{\widehat\beta - \boldsymbol{\beta}} \right] \, \left(\boldsymbol{\Sigma}^{-1/2}\right)^\prime \\\\
+&= \left(\mathbf{VU}^{1/2} \mathbf{V}^\prime\right)^{-1} \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\left(\mathbf{VU}^{1/2} \mathbf{V}^\prime\right)^{-1}\right)^\prime \\\\
+&= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\mathbf{VU}^{-1/2} \mathbf{V}^\prime\right)^\prime \\\\
+&= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\mathbf{VU}^{-1/2} \mathbf{V}^\prime\right)^\prime \\\\
+&= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \mathbf{VU}^{-1/2} \mathbf{V}^\prime \\\\
+&= \mathbf{VU}^{-1/2} \mathbf{UU}^{-1/2} \mathbf{V}^\prime \\\\
+&= \mathbf{VV}^\prime \\\\
+&= \mathbf{I}
+\end{align}
+$$
+
+$$
+\begin{align}
+\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim MVN(\mathbf{0}, \mathbf{I}) \\\\
+\left(\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})\right)^\prime \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim \chi^2_k \\\\
+(\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \; \left(\boldsymbol{\Sigma}^{-1/2} \right)^\prime \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim \chi^2_k \\\\
+(\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim \chi^2_k
+\end{align}
+$$
 
 <br>
 
 $$
 P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  \chi^2_{k, 1-\alpha} \right) = 1 - \alpha
 $$
+
+Si se utiliza $\widehat\sigma^2$ para estimar el error típico, entonces debemos emplear la distribución $F$:
+
+$$
+P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \, n-p-1, (1-\alpha)} \right) = 1 - \alpha
+$$
+
+<br>
+
+## Interacciones
+
+<br>
+
+Si la verdadera función de regresión es $\mathbb{E}\left[Y \, | \, X_1, X_2\right] = \mu(X_1, X_2)$, que incluye una interacción de forma desconocida entre las variables $X_1$ y $X_2$, ¿por qué representar la interacción entre $X_1$ y $X_2$ como $X_1X_2$?
+
+
+$$
+Y = \beta_0 + X_1 \beta_1 + X_2 \beta_2 + X_1X_2\beta_3 + \epsilon
+$$
+
+
+Si hiciéramos una expansión de Taylor,
+
+$$
+\mu(X_1, X_2) \approx \mu(X_1^*, X_2^*) + \sum_{i=1}^p (x_i - x_i^*) \, \left. \frac{\partial{\mu}}{\partial x_i} \right|_{x_i = x_i^*} + \sum_{j=1}^p (x_j - x_j^*) \, \left. \frac{\partial{\mu}}{\partial x_j} \right|_{x_j = x_j^*} + \frac{1}{2} \sum_{i=1}^p \sum_{j=1}^p (x_i - x_i^*) (x_j - x_j^*) \left. \frac{\partial^2 \mu}{\partial x_i x_j} \right|_{x_ix_j = x_i^*x_j^*}
+$$
+
+entonces podemos comprobar que una buena aproximación incluye el producto entre las variables $X_1$ y $X_2$ así como sus términos cuadráticos.
 
 <br>
 

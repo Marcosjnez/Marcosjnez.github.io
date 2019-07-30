@@ -360,6 +360,7 @@ $(document).ready(function () {
 <li><a href="#regresion-lasso">Regresión <em>Lasso</em></a></li>
 <li><a href="#correccion-de-bonferroni">Corrección de Bonferroni</a></li>
 <li><a href="#elipsoides-de-confianza">Elipsoides de confianza</a></li>
+<li><a href="#interacciones">Interacciones</a></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
 <li><a href="#capture-percentage"><em>Capture percentage</em></a></li>
@@ -393,7 +394,7 @@ a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
 <p><br></p>
 <p>Si <span class="math inline">\(Z_{IID} \sim N(\mu, \sigma^2)\)</span>, entonces</p>
 <p><span class="math display">\[
-\sum_{i=1}^n Z_i \sim N\left(\sum_{i}^n \mu, \sum_{i=1}^n \sigma^2\right)
+\sum_{i=1}^n Z_i \sim N\left(n \mu, n \sigma^2\right)
 \]</span></p>
 <p><br></p>
 </div>
@@ -1269,6 +1270,7 @@ a_0 + \sum_{j=1}^p a_j x_{ij} = 0
 \begin{align}
 \text{VAR}\left[\mathbf{X}\right] \mathbf{v}_i &amp;= \lambda_i \mathbf{v}_i \\\\
 \mathbf{V}^\prime \mathbf{V} &amp;= \mathbf{I} \\\\
+\mathbf{V}^{-1} &amp;= \mathbf{V}^\prime \\\\
 \text{VAR}\left[\mathbf{X}\right] &amp;= \mathbf{V} \, \mathbf{U} \, \mathbf{V}^\prime
 \end{align}
 \]</span></p>
@@ -1405,7 +1407,7 @@ Y = \gamma_0 + \gamma_1 W_1 + \ldots + \gamma_k W_k + \eta
 <div id="correccion-de-bonferroni" class="section level2">
 <h2>Corrección de Bonferroni</h2>
 <p><br></p>
-<p>Supongamos que estamos interesados en que el error tipo I de <span class="math inline">\(k\)</span> coeficientes sea, conjuntamente, <span class="math inline">\(1 - \alpha\)</span>. Una forma común de lograrlo es establecer el error tipo I de cada coeficiente en <span class="math inline">\(\alpha / k\)</span> (o, equivalentemente, multiplicar el valor p por <span class="math inline">\(k\)</span>). Sin embargo, esto solo es correcto si los coeficientes son independientes.</p>
+<p>Supongamos que estamos interesados en que el error tipo I de <span class="math inline">\(k\)</span> coeficientes sea, conjuntamente, <span class="math inline">\(1 - \alpha\)</span>. Una forma común de lograrlo es establecer el error tipo I de cada coeficiente en <span class="math inline">\(\alpha / k\)</span> (o, equivalentemente, multiplicar el valor p por <span class="math inline">\(k\)</span>). Sin embargo, esto solo es exacto si los coeficientes son independientes.</p>
 <p>En un contraste estándar, cada coeficiente <span class="math inline">\(\beta_i\)</span> posee un conjunto de confianza <span class="math inline">\(C_i(\alpha)\)</span> de manera que</p>
 <p><span class="math display">\[
 \begin{align}
@@ -1422,10 +1424,10 @@ P\left( \bigcup_i^k \beta_i \notin C_i(\alpha) \right) &amp;= \sum_{i}^k P(\beta
 1 - P\left( \bigcup_i^k \beta_i \notin C_i(\alpha / k) \right) &amp;\leq 1 - \alpha
 \end{align}
 \]</span></p>
-<p>Por tanto, tras dividir por el número de contrastes <span class="math inline">\(k\)</span>, la probabilidad de que un solo parámetro no se encuentre en su intervalo de confianza es igual o inferior a <span class="math inline">\(\alpha\)</span>. Por esta razón, la correción de Bonferroni es conservadora.</p>
+<p>Por tanto, tras dividir por el número de contrastes <span class="math inline">\(k\)</span>, la probabilidad de que, al menos, un solo parámetro no se encuentre en su intervalo de confianza es igual o inferior a <span class="math inline">\(\alpha\)</span>. Por esta razón, la correción de Bonferroni es conservadora.</p>
 <p>Esta corrección tan solo exige que</p>
 <p><span class="math display">\[
-C(\alpha) = \prod_{i}^k C_i(\alpha / k)
+C(\alpha) = \prod_{i}^k C(\alpha_i / k)
 \]</span></p>
 <p>o equivalentemente,</p>
 <p><span class="math display">\[
@@ -1450,11 +1452,53 @@ C(\alpha) = \prod_{i}^k C_i(\alpha / k)
 P\left(\sum_{i=1}^k \left(\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]}\right)^2 \leq \;\;  \chi^2_{k, 1-\alpha} \right) = 1 - \alpha
 \]</span></p>
 <p>Esta región de confianza es un elipsoide.</p>
-<p>Sin embargo, si los coeficientes covarían y la matriz de varianzas-covarianzas es <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, entonces</p>
+<p>Sin embargo, si los coeficientes covarían y la matriz de varianzas-covarianzas de los coeficientes es <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, entonces</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\boldsymbol{\Sigma} &amp;= \mathbf{VUV}^\prime \\\\
+\boldsymbol{\Sigma}^{1/2} &amp;= \mathbf{VU}^{1/2} \mathbf{V}^\prime \\\\
+\text{VAR}\left[ \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \right] &amp;= 
+\boldsymbol{\Sigma}^{-1/2} \, \text{VAR}\left[ \boldsymbol{\widehat\beta - \boldsymbol{\beta}} \right] \, \left(\boldsymbol{\Sigma}^{-1/2}\right)^\prime \\\\
+&amp;= \left(\mathbf{VU}^{1/2} \mathbf{V}^\prime\right)^{-1} \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\left(\mathbf{VU}^{1/2} \mathbf{V}^\prime\right)^{-1}\right)^\prime \\\\
+&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\mathbf{VU}^{-1/2} \mathbf{V}^\prime\right)^\prime \\\\
+&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\mathbf{VU}^{-1/2} \mathbf{V}^\prime\right)^\prime \\\\
+&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \mathbf{VU}^{-1/2} \mathbf{V}^\prime \\\\
+&amp;= \mathbf{VU}^{-1/2} \mathbf{UU}^{-1/2} \mathbf{V}^\prime \\\\
+&amp;= \mathbf{VV}^\prime \\\\
+&amp;= \mathbf{I}
+\end{align}
+\]</span></p>
+<p><span class="math display">\[
+\begin{align}
+\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim MVN(\mathbf{0}, \mathbf{I}) \\\\
+\left(\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})\right)^\prime \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k \\\\
+(\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \; \left(\boldsymbol{\Sigma}^{-1/2} \right)^\prime \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k \\\\
+(\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k
+\end{align}
+\]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  \chi^2_{k, 1-\alpha} \right) = 1 - \alpha
 \]</span></p>
+<p>Si se utiliza <span class="math inline">\(\widehat\sigma^2\)</span> para estimar el error típico, entonces debemos emplear la distribución <span class="math inline">\(F\)</span>:</p>
+<p><span class="math display">\[
+P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \, n-p-1, (1-\alpha)} \right) = 1 - \alpha
+\]</span></p>
+<p><br></p>
+</div>
+<div id="interacciones" class="section level2">
+<h2>Interacciones</h2>
+<p><br></p>
+<p>Si la verdadera función de regresión es <span class="math inline">\(\mathbb{E}\left[Y \, | \, X_1, X_2\right] = \mu(X_1, X_2)\)</span>, que incluye una interacción de forma desconocida entre las variables <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span>, ¿por qué representar la interacción entre <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span> como <span class="math inline">\(X_1X_2\)</span>?</p>
+<p><span class="math display">\[
+Y = \beta_0 + X_1 \beta_1 + X_2 \beta_2 + X_1X_2\beta_3 + \epsilon
+\]</span></p>
+<p>Si hiciéramos una expansión de Taylor,</p>
+<p><span class="math display">\[
+\mu(X_1, X_2) \approx \mu(X_1^*, X_2^*) + \sum_{i=1}^p (x_i - x_i^*) \, \left. \frac{\partial{\mu}}{\partial x_i} \right|_{x_i = x_i^*} + \sum_{j=1}^p (x_j - x_j^*) \, \left. \frac{\partial{\mu}}{\partial x_j} \right|_{x_j = x_j^*} + \frac{1}{2} \sum_{i=1}^p \sum_{j=1}^p (x_i - x_i^*) (x_j - x_j^*) \left. \frac{\partial^2 \mu}{\partial x_i x_j} \right|_{x_ix_j = x_i^*x_j^*}
+\]</span></p>
+<p>entonces podemos comprobar que una buena aproximación incluye el producto entre las variables <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span> así como sus términos cuadráticos.</p>
 <p><br></p>
 </div>
 <div id="distribucion-de-los-valores-p-bajo-la-hipotesis-nula" class="section level2">
