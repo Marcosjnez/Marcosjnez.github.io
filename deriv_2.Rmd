@@ -1,5 +1,5 @@
 ---
-title: "Estimación"
+title: "Estimación <br> <br>"
 output: 
   html_document:
     code_folding: hide
@@ -511,7 +511,7 @@ $$
 
 <br>
 
-## Varianza del error de estimación (Varianza de un residuo)
+## Varianza de los valores ajustados
 
 <br>
 
@@ -535,8 +535,17 @@ y_i &= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 &= \beta_0 + \beta_1x_i + (x_i - \bar{x})\left(\frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i\right) \\\\
 \text{VAR}\left[\widehat{m}(x_i)\right] &=  \frac{\sigma^2}{n} + (x_i - \bar{x})^2 \frac{\sigma^2}{ns_x^2} \\\\
 &= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
-\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] &= \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\,\text{COV}\left[y_i, \widehat{m}(x_i)\right]
 \end{align}
+$$
+
+<br>
+
+## Varianza del error de estimación (Varianza de un residuo)
+
+<br>
+
+$$
+\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] = \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\,\text{COV}\left[y_i, \widehat{m}(x_i)\right]
 $$
 
 <br>
@@ -615,6 +624,8 @@ $\widehat{\sigma}^2$ es estadísticamente independiente de $\widehat\beta_1$ y $
 <br>
 
 Sabiendo que si $Z \sim N(0, 1)$, entonces $Z^2 \sim \chi^2$ y que $\frac{\epsilon_i}{\sigma} \sim N(0, 1)$, entonces
+
+<br>
 
 $$
 \begin{align}
@@ -947,9 +958,9 @@ Propiedades de $(\mathbf{I} - \mathbf{H}) \mathbf{y}$:
 
 $$
 \begin{align}
-\frac{\partial e_i}{\partial y_j} &= (\mathbf{I} - H)_{ij} \\\\
-(\mathbf{I} - H) &= (\mathbf{I} - H)^\prime \\\\
-(\mathbf{I} - H)^2 &= (\mathbf{I} - H) \\\\
+\frac{\partial e_i}{\partial y_j} &= (\mathbf{I} - \mathbf{H})_{ij} \\\\
+(\mathbf{I} - \mathbf{H}) &= (\mathbf{I} - \mathbf{H})^\prime \\\\
+(\mathbf{I} - \mathbf{H})^2 &= (\mathbf{I} - \mathbf{H}) \\\\
 \end{align}
 $$
 
@@ -1024,7 +1035,8 @@ $$
 
 $$
 \begin{align}
-\frac{\partial MSE}{\partial \beta_0} &= \frac{1}{n}\left(- \nabla \mathbf{1}^\prime \beta_0 \mathbf{y} + \nabla \mathbf{1}^\prime \beta_0 \beta_0 \mathbf{1} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} \right) \\\\
+\frac{\partial MSE}{\partial \beta_0} &= \frac{1}{n}\left(- \nabla \mathbf{1}^\prime \beta_0 \mathbf{y} + \nabla \mathbf{1}^\prime \beta_0 \beta_0 \mathbf{1} + \\
+\nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} \right) \\\\
 &= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
 0 &= - \frac{1}{n} \mathbf{1}^\prime \mathbf{y} + \frac{1}{n} \mathbf{1}^\prime \beta_0 \mathbf{1} + \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 \widehat\beta_0 &= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
@@ -1036,7 +1048,8 @@ $$
 
 $$
 \begin{align}
-\nabla_{\boldsymbol{\beta}} \, MSE &= \frac{1}{n} \left(- \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} \right) \\\\
+\nabla_{\boldsymbol{\beta}} \, MSE &= \frac{1}{n} \left(- \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} + \\
+\nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} \right) \\\\
 &= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
 0 &= \beta_0 \frac{1}{n} \mathbf{X}^\prime \mathbf{1} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 &= \beta_0 \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
@@ -1044,7 +1057,7 @@ $$
 &= \mathbf{\bar{x}} \bar{y} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \boldsymbol{\beta} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
 \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \boldsymbol{\beta} &= \frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}} \bar{y} \\\\
 \left(\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \right) \boldsymbol{\beta} &= \frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}} \bar{y} \\\\
-\boldsymbol{\widehat\beta} &= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}}^\prime \mathbf{\bar{x}}}
+\boldsymbol{\widehat\beta} &= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime}
 \end{align}
 $$
 
@@ -1201,7 +1214,8 @@ $$
 \begin{align}
 \theta &\approx \widehat\theta + \sum_{i=1}^p \left(\psi_i - \widehat\psi_i \right) {\left. \frac{\partial f}{\partial \psi_i} \right|}_{\psi=\widehat\psi} \\\\
 \hat\theta &\approx \theta + \sum_{i=1}^p \left(\widehat\psi_i - \psi_i \right) {\left. \frac{\partial f}{\partial \psi_i} \right|}_{\psi=\widehat\psi} \\\\
-\text{VAR}\left[\hat\theta\right] &\approx \sum_{i=1}^{p} {\left. \frac{\partial^2 f}{\partial \psi_i^2} \right|}_{\psi=\widehat\psi} \, \text{VAR}\left[{\widehat{\psi_i}}\right] + 2 \sum_{i=1}^{p-1} \sum_{j=i+1}^{p} {\left. \frac{\partial f}{\partial \psi_i}\right|}_{\psi=\widehat\psi} \, {\left. \frac{\partial f}{\partial \psi_j}\right|}_{\psi=\widehat\psi} \, \text{COV}\left[{\widehat{\psi_i},\widehat{\psi_j}}\right]
+\text{VAR}\left[\hat\theta\right] &\approx \sum_{i=1}^{p} {\left. \frac{\partial^2 f}{\partial \psi_i^2} \right|}_{\psi=\widehat\psi} \, \text{VAR}\left[{\widehat{\psi_i}}\right] + \\
+& 2 \sum_{i=1}^{p-1} \sum_{j=i+1}^{p} {\left. \frac{\partial f}{\partial \psi_i}\right|}_{\psi=\widehat\psi} \, {\left. \frac{\partial f}{\partial \psi_j}\right|}_{\psi=\widehat\psi} \, \text{COV}\left[{\widehat{\psi_i},\widehat{\psi_j}}\right]
 \end{align}
 $$
 
@@ -1303,6 +1317,8 @@ Supongamos que estamos interesados en que el error tipo I de $k$ coeficientes se
 
 En un contraste estándar, cada coeficiente $\beta_i$ posee un conjunto de confianza $C_i(\alpha)$ de manera que
 
+<br>
+
 $$
 \begin{align}
 P(\beta_i \in C_i(\alpha)) &= 1 - \alpha \\\\
@@ -1319,6 +1335,8 @@ $$
 1 - P\left( \bigcup_i^k \beta_i \notin C_i(\alpha / k) \right) &\leq 1 - \alpha
 \end{align}
 $$
+
+<br>
 
 Por tanto, tras dividir por el número de contrastes $k$, la probabilidad de que, al menos, un solo parámetro no se encuentre en su intervalo de confianza es igual o inferior a $\alpha$. Por esta razón, la correción de Bonferroni es conservadora.
 
@@ -1419,10 +1437,144 @@ $$
 Si hiciéramos una expansión de Taylor,
 
 $$
-\mu(X_1, X_2) \approx \mu(X_1^*, X_2^*) + \sum_{i=1}^p (x_i - x_i^*) \, \left. \frac{\partial{\mu}}{\partial x_i} \right|_{x_i = x_i^*} + \sum_{j=1}^p (x_j - x_j^*) \, \left. \frac{\partial{\mu}}{\partial x_j} \right|_{x_j = x_j^*} + \frac{1}{2} \sum_{i=1}^p \sum_{j=1}^p (x_i - x_i^*) (x_j - x_j^*) \left. \frac{\partial^2 \mu}{\partial x_i x_j} \right|_{x_ix_j = x_i^*x_j^*}
+\begin{align}
+\mu(X_1, X_2) \approx \mu(x_1^*, x_2^*) + &\sum_{i=1}^p (x_i - x_i^*) \, \left. \frac{\partial{\mu}}{\partial x_i} \right|_{x_i = x_i^*} + \\
+& \sum_{j=1}^p (x_j - x_j^*) \, \left. \frac{\partial{\mu}}{\partial x_j} \right|_{x_j = x_j^*} + \\
+& \frac{1}{2} \sum_{i=1}^p \sum_{j=1}^p (x_i - x_i^*) (x_j - x_j^*) \left. \frac{\partial^2 \mu}{\partial x_i x_j} \right|_{x_ix_j = x_i^*x_j^*}
+\end{align}
 $$
 
 entonces podemos comprobar que una buena aproximación incluye el producto entre las variables $X_1$ y $X_2$ así como sus términos cuadráticos.
+
+<br>
+
+## *Leverage*
+
+<br>
+
+$$
+\widehat{m}(x^*) = \bar{y} + \frac{1}{n} \sum_{i=1}^n \frac{(x_i - \bar{x}) (y_i - \bar{y})}{s_x^2} (x^* - \bar{x})
+$$
+
+<br>
+
+Cuanto más se distancia $x_i$ respecto a $\bar{x}$, mayor es su contribución a $\widehat{\beta}_1$ y, por tanto, a $\widehat{m}(x^*)$. Esto quiere decir que el modelo tiende a conceder más peso a las realizaciones $y$ cuyo predictor $x$ se aleja más de su media. Si $x_i = \bar{x}$, entonces $y_i$ solo contribuye a $\bar{y}$ (la intersección) y no a la pendiente. 
+Visto de otra manera,
+
+<br>
+
+$$
+\sum_{i=1}^n e_i(x_i - \bar{x}) = 0
+$$
+
+<br>
+
+Cuando $x_i - \bar{x}$ es grande, el residuo y su minimización adquieren más importancia.
+
+La tasa de cambio del valor ajustado $\widehat{m}(x_i)$ respecto a $y_i$ viene dado por
+
+<br>
+
+$$
+\frac{\partial \widehat{m}(x_i)}{\partial y_i} = \mathbf{H}_{ii}
+$$
+
+<br>
+
+Es decir, $\mathbf{H}_{ii}$ es la influencia de $y_i$ en su propio valor ajustado y nos dice cúanto de $\widehat{m}(x_i)$ es verdaderamente $y_i$ (las filas de $\mathbf{H}$ suman 1). Por tanto, a $\mathbf{H}_{ii}$ se le conoce como el **leverage** de $x_i$.
+
+<br>
+
+$$
+\mathbf{H} \mathbf{1} = \mathbf{1}
+$$
+
+<br>
+
+El leverage promedio es $\frac{p + 1}{n}$ ya que $\text{tr}\left(\mathbf{H}\right) = p + 1$ y $\mathbf{H}$ es una matrix $n \times n$.
+
+La función de regresión es propensa a ajustar los puntos de mayor *leverage*. Cuanto más cercano sea al valor 1, más se ajusta $\widehat{m}(x_i)$ a $y_i$.
+
+Adicionalmente, $x_i - \bar{x}$ tendrá un mayor *leverage* si la varianza de dicho predictor es menor como se puede ver en
+
+<br>
+
+$$
+\widehat{m}(\mathbf{x_i}) = \bar{y} + \frac{1}{n} (\mathbf{x_i} - \mathbf{\bar{x}}) \text{VAR}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^\prime \mathbf{y_c}
+$$
+
+<br>
+
+donde $\mathbf{x}_i$ es el vector de predictores en la fila $i$, $\mathbf{X_c}$ representa la matriz de diseño centrada sin la columna para la intersección y $\mathbf{y_c}$ es el vector $\mathbf{y}$ centrado.
+
+Nota: los valores ajustados del modelo pueden interpretarse como una distancia de Mahalanobis,
+
+<br>
+
+$$
+\widehat{m}\left(\mathbf{X}\right) = \bar{y} + \mathbf{X_c} \text{VAR}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^\prime \mathbf{y_c}
+$$
+
+<br>
+
+## Residuos estandarizados
+
+<br>
+
+El problema de que la función de regresión tienda a ajustar mejor aquellas realizaciones cuyos predictores tengan un considerable *leverage* es que la varianza de los residuos sea menor,
+
+<br>
+
+$$
+\begin{align}
+\text{VAR}\left[\mathbf{e}\right] &= \sigma^2 \left(\mathbf{I} - \mathbf{H} \right) \\\\
+\text{VAR}\left[e_i\right] &= \sigma^2 \left(1 - \mathbf{H}_{ii} \right)
+\end{align}
+$$
+
+<br>
+
+Por esta razón, se suelen considerar los residuos estandarizados
+
+<br>
+
+$$
+r_i = \frac{e_i}{\widehat\sigma \sqrt{1 - \mathbf{H}_{ii}}}
+$$
+
+<br>
+
+Aunque $r_i$ resulta de la división entre una variable normalmente distribuida y otra variable con distribución $\sqrt{\chi^2}$, $e_i$ y $\widehat\sigma$ no son estadísticamente independientes: la segunda se estima empleando la primera. En realidad,
+
+<br>
+
+$$
+\frac{r_i^2}{n-p-1} \sim \beta\left(\frac{1}{2}, \frac{n-p-2}{2} \right)
+$$
+
+<br>
+
+## Residuos con validación cruzada
+
+<br>
+
+Si eliminamos del modelo de regresión la realización $y_i$, entonces el hipotético valor ajustado sería
+
+<br>
+
+$$
+\widehat{m}^{-i}(\mathbf{x_i}) = \frac{(\mathbf{Hy})_i - \mathbf{H}_{ii} y_i}{1 - \mathbf{H}_{ii}}
+$$
+
+<br>
+
+El residuo por validación cruzada es, entonces
+
+<br>
+
+$$
+e_i^{-i} = y_i - \widehat{m}^{-i}(\mathbf{x_i})
+$$
 
 <br>
 
@@ -1470,5 +1622,21 @@ $$
 $$
 
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
