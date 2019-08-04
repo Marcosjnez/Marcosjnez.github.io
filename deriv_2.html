@@ -364,7 +364,9 @@ $(document).ready(function () {
 <li><a href="#interacciones">Interacciones</a></li>
 <li><a href="#leverage"><em>Leverage</em></a></li>
 <li><a href="#residuos-estandarizados">Residuos estandarizados</a></li>
-<li><a href="#residuos-con-validacion-cruzada">Residuos con validación cruzada</a></li>
+<li><a href="#residuos-de-validacion-cruzada">Residuos de validación cruzada</a></li>
+<li><a href="#distancia-de-cook">Distancia de Cook</a></li>
+<li><a href="#regresion-lineal-robusta">Regresión lineal robusta</a></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
 <li><a href="#capture-percentage"><em>Capture percentage</em></a></li>
@@ -1508,17 +1510,24 @@ P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{
 <h2>Interacciones</h2>
 <p><br></p>
 <p>Si la verdadera función de regresión es <span class="math inline">\(\mathbb{E}\left[Y \, | \, X_1, X_2\right] = \mu(X_1, X_2)\)</span>, que incluye una interacción de forma desconocida entre las variables <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span>, ¿por qué representar la interacción entre <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span> como <span class="math inline">\(X_1X_2\)</span>?</p>
+<p><br></p>
 <p><span class="math display">\[
 Y = \beta_0 + X_1 \beta_1 + X_2 \beta_2 + X_1X_2\beta_3 + \epsilon
 \]</span></p>
+<p><br></p>
 <p>Si hiciéramos una expansión de Taylor,</p>
+<p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mu(X_1, X_2) \approx \mu(x_1^*, x_2^*) + &amp;\sum_{i=1}^p (x_i - x_i^*) \, \left. \frac{\partial{\mu}}{\partial x_i} \right|_{x_i = x_i^*} + \\
-&amp; \sum_{j=1}^p (x_j - x_j^*) \, \left. \frac{\partial{\mu}}{\partial x_j} \right|_{x_j = x_j^*} + \\
-&amp; \frac{1}{2} \sum_{i=1}^p \sum_{j=1}^p (x_i - x_i^*) (x_j - x_j^*) \left. \frac{\partial^2 \mu}{\partial x_i x_j} \right|_{x_ix_j = x_i^*x_j^*}
+\mu(x_1, x_2) \approx \mu(x_1^*, x_2^*) &amp;+ \sum_{n=1}^\infty (x_1 - x_1^*)^n \, \left. \frac{\partial^n \mu}{\partial x_1^n} \right|_{x_1 = x_1^*} + \\
+&amp;+ \sum_{n=1}^\infty (x_2 - x_2^*)^n \, \left. \frac{\partial^n \mu}{\partial x_{2}^n} \right|_{x_2 = x_2^*} + \\
+&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1 x_2} \right|_{x_1x_2 = x_1^*x_2^*} + \\
+&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1^2 x_2} \right|_{x_1x_2 = x_1^*x_2^*} + \\
+&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1 x_2^2} \right|_{x_1x_2 = x_1^*x_2^*} + \\
+&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1^2 x_2^2} \right|_{x_1x_2 = x_1^*x_2^*}
 \end{align}
 \]</span></p>
+<p><br></p>
 <p>entonces podemos comprobar que una buena aproximación incluye el producto entre las variables <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span> así como sus términos cuadráticos.</p>
 <p><br></p>
 </div>
@@ -1589,19 +1598,71 @@ r_i = \frac{e_i}{\widehat\sigma \sqrt{1 - \mathbf{H}_{ii}}}
 \]</span></p>
 <p><br></p>
 </div>
-<div id="residuos-con-validacion-cruzada" class="section level2">
-<h2>Residuos con validación cruzada</h2>
+<div id="residuos-de-validacion-cruzada" class="section level2">
+<h2>Residuos de validación cruzada</h2>
 <p><br></p>
 <p>Si eliminamos del modelo de regresión la realización <span class="math inline">\(y_i\)</span>, entonces el hipotético valor ajustado sería</p>
 <p><br></p>
 <p><span class="math display">\[
-\widehat{m}^{-i}(\mathbf{x_i}) = \frac{(\mathbf{Hy})_i - \mathbf{H}_{ii} y_i}{1 - \mathbf{H}_{ii}}
+\widehat{m}^{-i} = \frac{(\mathbf{Hy})_i - \mathbf{H}_{ii} y_i}{1 - \mathbf{H}_{ii}}
 \]</span></p>
 <p><br></p>
-<p>El residuo por validación cruzada es, entonces</p>
+<p>El residuo de validación cruzada es</p>
 <p><br></p>
 <p><span class="math display">\[
-e_i^{-i} = y_i - \widehat{m}^{-i}(\mathbf{x_i})
+e_i^{(-i)} = y_i - \widehat{m}^{-i}
+\]</span></p>
+<p><br></p>
+<p>Y su estadístico es</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+t_i &amp;= \frac{e^{(-i)}_i}{\widehat\sigma^2_{(-i)} \sqrt{1 - \mathbf{H}_{ii}}} \\\\
+&amp;= r_i \sqrt{\frac{n - p -2}{n - p -1 - r_i^2}} \\\\
+&amp;\sim t_{n-p-2}
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="distancia-de-cook" class="section level2">
+<h2>Distancia de Cook</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+D_i &amp;= \frac{\left\| \widehat{\mathbf{m}} - \widehat{\mathbf{m}}^{(-i)} \right\|^2}{\widehat\sigma^2(p+1)} \\\\
+&amp;= \frac{e_i^2 \ \mathbf{H}_{ii}}{(p+1) \ (1 - \mathbf{H}_{ii})^2} \\\\
+&amp;\sim F_{p+1, \ n-p-1}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Es decir, la influencia total de un predictor en los valores ajustados depende de su <em>leverage</em> y correspondiente residuo.</p>
+<p>También podemos obtener una expresión de la estimación de <span class="math inline">\(\beta\)</span> ante la ausencia de la realización <span class="math inline">\(i\)</span>:</p>
+<p><br></p>
+<p><span class="math display">\[
+\widehat{\beta}^{(-i)} = \widehat{\beta} - \frac{(\mathbf{X}^\prime \mathbf{X})^{-1} \ \mathbf{x}_i^\prime \ e_i}{1 - \mathbf{H}_{ii}} \\\\
+\]</span></p>
+<p><br></p>
+<p>Lo que nos permite expresar <span class="math inline">\(D_i\)</span> como una distancia de mahalanobis</p>
+<p><br></p>
+<p><span class="math display">\[
+D_i = \frac{\left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)^\prime \ \mathbf{X}^\prime \mathbf{X} \ \left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)}{(p + 1) \widehat{\sigma}^2}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="regresion-lineal-robusta" class="section level2">
+<h2>Regresión lineal robusta</h2>
+<p><br></p>
+<p><span class="math display">\[
+\widehat{\beta} = \underset{\mathbf{b}}{\text{argmin}} \ \frac{1}{n} \sum_{i=1}^n p(y_i - \mathbf{x}_i \mathbf{b})
+\]</span></p>
+<p><br></p>
+<p><span class="math inline">\(p\)</span> es una <em>loss function</em>. Si <span class="math inline">\(p(u) = |u|\)</span>, entonces incurrimos en la estimación por desviación absoluta y si <span class="math inline">\(p(u) = u^2\)</span>, entonces la estimación es por mínimos cuadrados ordinarios.</p>
+<p>El <em>loss function</em> de Huber viene definido por</p>
+<p><span class="math display">\[
+p(u) = \begin{cases} 
+      u^2 &amp; |u| \leq c \\
+      2c|u| - c^2 &amp; |u| &gt; c
+\end{cases}
 \]</span></p>
 <p><br></p>
 </div>
