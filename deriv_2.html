@@ -367,6 +367,11 @@ $(document).ready(function () {
 <li><a href="#residuos-de-validacion-cruzada">Residuos de validación cruzada</a></li>
 <li><a href="#distancia-de-cook">Distancia de Cook</a></li>
 <li><a href="#regresion-lineal-robusta">Regresión lineal robusta</a></li>
+<li><a href="#seleccion-de-modelos">Selección de modelos</a><ul>
+<li><a href="#estadistico-c_p-de-mallow">Estadístico <span class="math inline">\(C_p\)</span> de Mallow</a></li>
+<li><a href="#r2-1"><span class="math inline">\(R^2\)</span></a></li>
+<li><a href="#aic">AIC</a></li>
+</ul></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
 <li><a href="#capture-percentage"><em>Capture percentage</em></a></li>
@@ -792,12 +797,12 @@ y_0 - \widehat{m}(x_0) &amp;= \beta_0 + \beta_1x_0 - \widehat\beta_0 - \widehat\
 \begin{align}
 y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 \text{VAR}\left[y_i\right] &amp;= \sigma^2 \\\\
-\widehat{m}(x_i) &amp;= \widehat\beta_0 + \widehat\beta_1x_i \\\\
+\widehat{m}_i &amp;= \widehat\beta_0 + \widehat\beta_1x_i \\\\
 &amp;= \bar{y} - \widehat\beta_1\bar{x} + \widehat\beta_1x_i \\\\
 &amp;= \bar{y} + (x_i - \bar{x})\widehat\beta_1 \\\\
 &amp;= \bar{y} + (x_i - \bar{x})\left(\beta_1 + \frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i\right) \\\\
 &amp;= \beta_0 + \beta_1x_i + (x_i - \bar{x})\left(\frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i\right) \\\\
-\text{VAR}\left[\widehat{m}(x_i)\right] &amp;=  \frac{\sigma^2}{n} + (x_i - \bar{x})^2 \frac{\sigma^2}{ns_x^2} \\\\
+\text{VAR}\left[\widehat{m}_i\right] &amp;=  \frac{\sigma^2}{n} + (x_i - \bar{x})^2 \frac{\sigma^2}{ns_x^2} \\\\
 &amp;= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
 \end{align}
 \]</span></p>
@@ -807,22 +812,22 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 <h2>Varianza del error de estimación (Varianza de un residuo)</h2>
 <p><br></p>
 <p><span class="math display">\[
-\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] = \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\,\text{COV}\left[y_i, \widehat{m}(x_i)\right]
+\mathbb{E}\left[(y_i - \widehat{m}_i)^2\right] = \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\,\text{COV}\left[y_i, \widehat{m}_i\right]
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{COV}\left[y_i, \widehat{m}(x_i)\right] &amp;= \text{COV}\left[y_i + \widehat{m}(x_i) - \widehat{m}(x_i), \widehat{m}(x_i) \right] \\\\
-&amp;= \text{COV}\left[\widehat{m}(x_i), \widehat{m}(x_i) \right] + \text{COV}\left[y_i - \widehat{m}(x_i), \widehat{m}(x_i) \right] \\\\
-&amp;= \text{COV}\left[\widehat{m}(x_i), \widehat{m}(x_i) \right] + \text{COV}\left[e_i, \widehat{m}(x_i) \right] \\\\
-&amp;= \text{VAR}\left[\widehat{m}(x_i)\right] + 0 \\\\
+\text{COV}\left[y_i, \widehat{m}_i\right] &amp;= \text{COV}\left[y_i + \widehat{m}_i - \widehat{m}_i, \widehat{m}_i \right] \\\\
+&amp;= \text{COV}\left[\widehat{m}_i, \widehat{m}_i \right] + \text{COV}\left[y_i - \widehat{m}_i, \widehat{m}_i \right] \\\\
+&amp;= \text{COV}\left[\widehat{m}_i, \widehat{m}_i \right] + \text{COV}\left[e_i, \widehat{m}_i \right] \\\\
+&amp;= \text{VAR}\left[\widehat{m}_i\right] + 0 \\\\
 &amp;= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right)
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbb{E}\left[(y_i - \widehat{m}(x_i))^2\right] &amp;= \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
+\mathbb{E}\left[(y_i - \widehat{m}_i)^2\right] &amp;= \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
 &amp;= \sigma^2 - \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
 &amp;= \sigma^2 \left(1 - \frac{1}{n} - \frac{(x_i - \bar{x})^2}{ns_x^2}\right)
 \end{align}
@@ -853,7 +858,7 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
- \mathbb{E}\left[\sum_{i=1}^n e_i^2 \, | \, x_i, \dots, x_n\right] &amp;= \mathbb{E}\left[\sum_{i=1}^n (y_i - \widehat{m}(x_i))^2\right] \\\\
+ \mathbb{E}\left[\sum_{i=1}^n e_i^2 \, | \, x_i, \dots, x_n\right] &amp;= \mathbb{E}\left[\sum_{i=1}^n (y_i - \widehat{m}_i)^2\right] \\\\
 &amp;= \mathbb{E}\left[\sum_{i=1}^n \left(\beta_0 + \beta_1x_i + \epsilon_i - \widehat{\beta}_0 - \widehat{\beta}_1x_i\right)^2\right] \\\\
 &amp;= \mathbb{E}\left[\sum_{i=1}^n \left((\beta_0 - \widehat{\beta}_0)^2 + (\beta_1 - \widehat{\beta}_1)^2x_i^2 + \epsilon_i^2\right)\right] + \\\\
 &amp; 2 \, \mathbb{E}\left[\sum_{i=1}^n (\beta_0 - \widehat{\beta}_0)(\beta_1 - \widehat{\beta}_1)x_i + (\beta_0 - \widehat{\beta}_0)\epsilon_i + (\beta_1 - \widehat{\beta}_1)x_i\epsilon_i \right] \\\\
@@ -1518,13 +1523,12 @@ Y = \beta_0 + X_1 \beta_1 + X_2 \beta_2 + X_1X_2\beta_3 + \epsilon
 <p>Si hiciéramos una expansión de Taylor,</p>
 <p><br></p>
 <p><span class="math display">\[
-\begin{align}
-\mu(x_1, x_2) \approx \mu(x_1^*, x_2^*) &amp;+ \sum_{n=1}^\infty (x_1 - x_1^*)^n \, \left. \frac{\partial^n \mu}{\partial x_1^n} \right|_{x_1 = x_1^*} + \\
-&amp;+ \sum_{n=1}^\infty (x_2 - x_2^*)^n \, \left. \frac{\partial^n \mu}{\partial x_{2}^n} \right|_{x_2 = x_2^*} + \\
-&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1 x_2} \right|_{x_1x_2 = x_1^*x_2^*} + \\
-&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1^2 x_2} \right|_{x_1x_2 = x_1^*x_2^*} + \\
-&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1 x_2^2} \right|_{x_1x_2 = x_1^*x_2^*} + \\
-&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1^2 x_2^2} \right|_{x_1x_2 = x_1^*x_2^*}
+      \begin{align}
+\mu(x_1, x_2) \approx \mu(x_1^*, x_2^*) &amp;+ \sum_{n=1}^\infty \frac{1}{n!} (x_1 - x_1^*)^n \, \left. \frac{\partial^n \mu}{\partial x_1^n} \right|_{x_1 = x_1^*} + \\
+&amp;+ \sum_{n=1}^\infty \frac{1}{n!} (x_2 - x_2^*)^n \, \left. \frac{\partial^n \mu}{\partial x_{2}^n} \right|_{x_2 = x_2^*} + \\
+&amp;+ (x_1 - x_1^*) (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1 x_2} \right|_{x_1x_2 = x_1^*x_2^*} + \\
+&amp;+ \frac{1}{2} (x_1 - x_1^*)^2 (x_2 - x_2^*) \left. \frac{\partial^2 \mu}{\partial x_1^2 x_2} \right|_{x_1x_2 = x_1^*x_2^*} + \\
+&amp;+ \frac{1}{2} (x_1 - x_1^*) (x_2 - x_2^*)^2 \left. \frac{\partial^2 \mu}{\partial x_1 x_2^2} \right|_{x_1x_2 = x_1^*x_2^*}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1545,20 +1549,20 @@ Y = \beta_0 + X_1 \beta_1 + X_2 \beta_2 + X_1X_2\beta_3 + \epsilon
 \]</span></p>
 <p><br></p>
 <p>Cuando <span class="math inline">\(x_i - \bar{x}\)</span> es grande, el residuo y su minimización adquieren más importancia.</p>
-<p>La tasa de cambio del valor ajustado <span class="math inline">\(\widehat{m}(x_i)\)</span> respecto a <span class="math inline">\(y_i\)</span> viene dado por</p>
+<p>La tasa de cambio del valor ajustado <span class="math inline">\(\widehat{m}_i\)</span> respecto a <span class="math inline">\(y_i\)</span> viene dado por</p>
 <p><br></p>
 <p><span class="math display">\[
-\frac{\partial \widehat{m}(x_i)}{\partial y_i} = \mathbf{H}_{ii}
+\frac{\partial \widehat{m}_i}{\partial y_i} = \mathbf{H}_{ii}
 \]</span></p>
 <p><br></p>
-<p>Es decir, <span class="math inline">\(\mathbf{H}_{ii}\)</span> es la influencia de <span class="math inline">\(y_i\)</span> en su propio valor ajustado y nos dice cúanto de <span class="math inline">\(\widehat{m}(x_i)\)</span> es verdaderamente <span class="math inline">\(y_i\)</span> (las filas de <span class="math inline">\(\mathbf{H}\)</span> suman 1). Por tanto, a <span class="math inline">\(\mathbf{H}_{ii}\)</span> se le conoce como el <strong>leverage</strong> de <span class="math inline">\(x_i\)</span>.</p>
+<p>Es decir, <span class="math inline">\(\mathbf{H}_{ii}\)</span> es la influencia de <span class="math inline">\(y_i\)</span> en su propio valor ajustado y nos dice cúanto de <span class="math inline">\(\widehat{m}_i\)</span> es verdaderamente <span class="math inline">\(y_i\)</span> (las filas de <span class="math inline">\(\mathbf{H}\)</span> suman 1). Por tanto, a <span class="math inline">\(\mathbf{H}_{ii}\)</span> se le conoce como el <strong>leverage</strong> de <span class="math inline">\(x_i\)</span>.</p>
 <p><br></p>
 <p><span class="math display">\[
 \mathbf{H} \mathbf{1} = \mathbf{1}
 \]</span></p>
 <p><br></p>
 <p>El leverage promedio es <span class="math inline">\(\frac{p + 1}{n}\)</span> ya que <span class="math inline">\(\text{tr}\left(\mathbf{H}\right) = p + 1\)</span> y <span class="math inline">\(\mathbf{H}\)</span> es una matrix <span class="math inline">\(n \times n\)</span>.</p>
-<p>La función de regresión es propensa a ajustar los puntos de mayor <em>leverage</em>. Cuanto más cercano sea al valor 1, más se ajusta <span class="math inline">\(\widehat{m}(x_i)\)</span> a <span class="math inline">\(y_i\)</span>.</p>
+<p>La función de regresión es propensa a ajustar los puntos de mayor <em>leverage</em>. Cuanto más cercano sea al valor 1, más se ajusta <span class="math inline">\(\widehat{m}_i\)</span> a <span class="math inline">\(y_i\)</span>.</p>
 <p>Adicionalmente, <span class="math inline">\(x_i - \bar{x}\)</span> tendrá un mayor <em>leverage</em> si la varianza de dicho predictor es menor como se puede ver en</p>
 <p><br></p>
 <p><span class="math display">\[
@@ -1665,6 +1669,213 @@ p(u) = \begin{cases}
 \end{cases}
 \]</span></p>
 <p><br></p>
+</div>
+<div id="seleccion-de-modelos" class="section level2">
+<h2>Selección de modelos</h2>
+<p><br></p>
+<p>Si repetimos el experimento empleando los mismos valores de los predictores (<span class="math inline">\(\mathbf{X\)</span>), Las nuevas realizaciones de la variable <span class="math inline">\(Y\)</span> son:</p>
+<p><span class="math display">\[
+Y^\prime = \mathbf{X} \boldsymbol{\beta} + \epsilon^\prime
+\]</span></p>
+<p><br></p>
+<p>La esperanza del error cuadrático medio fuera de la muestra sería</p>
+<p><br></p>
+<p><span class="math display">\[
+\mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i^\prime - \widehat{m}_i\right)^2 \right]
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[ \left(Y_i - \widehat{m}_i \right)^2 \right] &amp;= \text{VAR}\left[ Y_i - \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i - \widehat{m}_i \right] \right)^2 \\\\
+&amp;= \text{VAR}\left[ Y_i \right] + \text{VAR}\left[ \widehat{m}_i \right] - 2 \ \text{COV}\left[ Y_i, \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i - \widehat{m}_i \right] \right)^2 \\\\
+\mathbb{E}\left[ \left(Y_i^\prime - \widehat{m}_i \right)^2 \right] &amp;= \text{VAR}\left[ Y_i^\prime - \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i^\prime - \widehat{m}_i \right] \right)^2 \\\\
+&amp;= \text{VAR}\left[ Y_i^\prime \right] + \text{VAR}\left[ \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i^\prime - \widehat{m}_i \right] \right)^2
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math inline">\(\text{COV}\left[ Y_i^\prime, \widehat{m}_i \right]\)</span> es necesariamente <span class="math inline">\(0\)</span> porque <span class="math inline">\(\widehat{m}_i\)</span> es independiente de <span class="math inline">\(Y^\prime\)</span>.</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[ Y_i \right] &amp;= \mathbb{E}\left[ Y_i^\prime \right] \\\\
+\text{VAR}\left[ Y_i \right] &amp;= \text{VAR}\left[ Y_i^\prime \right] \\\\
+\mathbb{E}\left[ \left(Y_i^\prime - \widehat{m}_i \right)^2 \right] &amp;= \mathbb{E}\left[ \left(Y_i - \widehat{m}_i \right)^2 \right] + 2 \ \text{COV}\left[ Y_i, \widehat{m}_i \right]
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Ahora bien,</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{COV}\left[ Y_i, \widehat{m}_i \right] &amp;= \sigma^2 \mathbf{H}_{ii} \\\\
+\mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i^\prime - \widehat{m}_i \right)^2 \right] &amp;= \mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i - \widehat{m}_i \right)^2 \right] + \frac{2}{n} \sigma^2 (p+1)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math inline">\(\frac{2}{n} \sigma^2 (p+1)\)</span> se conoce como el <strong>optimismo</strong> del modelo porque es la cantidad en la que el error cuadrático promedio de la muestra infraestima el error cuadrático promedio de futuras realizaciones de <span class="math inline">\(Y^\prime\)</span>.</p>
+<p>Si tuviéramos una expresión adecuada del optimismo, tendríamos un estimador insesgado del error cuadrático promedio de futuras realizaciones.</p>
+<p><br></p>
+<div id="estadistico-c_p-de-mallow" class="section level3">
+<h3>Estadístico <span class="math inline">\(C_p\)</span> de Mallow</h3>
+<p><br></p>
+<p><span class="math display">\[
+C_p = \frac{1}{n} \sum_{i=1}^n \left(Y_i - \widehat{m}_i \right)^2 + \frac{2}{n} \widehat\sigma^2 (p+1)
+\]</span></p>
+<p><br></p>
+<p><span class="math inline">\(\widehat\sigma^2\)</span> se corresponde con la estimación del error cuadrático promedio del modelo más general entre los que se comparan. <span class="math inline">\(\widehat\sigma^2\)</span> es un estimador insesgado de <span class="math inline">\(\sigma^2\)</span> si dicho modelo subsume el verdadero. La idea es elegir el modelo con menor <span class="math inline">\(C_p\)</span>.</p>
+<p><br></p>
+</div>
+<div id="r2-1" class="section level3">
+<h3><span class="math inline">\(R^2\)</span></h3>
+<p><br></p>
+<p>Maximizar <span class="math inline">\(R^2\)</span> es equivalente a minimizar el error cuadrático promedio ya que</p>
+<p><br></p>
+<p><span class="math display">\[
+R^2 = 1 - \frac{\bar{e^2}}{s_y^2}
+\]</span></p>
+<p><br></p>
+<p>Sin embargo,</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
+&amp;= 1 - \frac{\bar{e^2}}{\hat{s}_y^2} \ \frac{n}{n-p-1}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>En este caso, nuestra intención sería minimizar</p>
+<p><br></p>
+<p><span class="math display">\[
+\bar{e^2} \ \frac{n}{n-p-1} = \bar{e^2} \ \frac{1}{1 - (p+1)/n}
+\]</span></p>
+<p><br></p>
+<p>Empleando el teorema binomial para conseguir una aproximación de primer orden,</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\bar{e^2} \ \frac{1}{1 - (p+1)/n} &amp;\approx \bar{e^2} \ \left( 1 + \frac{p+1}{n} \right) \\\\
+&amp;\approx \bar{e^2} + \bar{e^2} \left(\frac{p+1}{n} \right)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Es decir, <span class="math inline">\(R^2_{\text{adj}}\)</span> utiliza la misma penalización que <span class="math inline">\(C_p\)</span> pero <span class="math inline">\(2\)</span> veces menor, como máximo.</p>
+<p><br></p>
+</div>
+<div id="aic" class="section level3">
+<h3>AIC</h3>
+<p><br></p>
+<p>Digamos que <span class="math inline">\(\ell(\widehat\theta)\)</span> es la esperanza del logaritmo de la verosimilitud de una nueva realización bajo el vector estimado <span class="math inline">\(\widehat\theta\)</span>. Si <span class="math inline">\(\theta^*\)</span> es el verdadero vector de parámetros, una expansión de Taylor indica que</p>
+<p><span class="math display">\[
+\ell(\widehat\theta) \approx \ell(\theta^*) + (\widehat\theta - \theta^*)^\prime \nabla \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^\prime \ \nabla \nabla \ell(\theta^*) \ (\widehat\theta - \theta^*)
+\]</span></p>
+<p><br></p>
+<p>La esperanza del logaritmo de la verosimilitud es maximizada por el vector de parámetros verdaderos, por lo que</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\nabla \ell(\theta^*) &amp;= 0 \\\\
+\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^\prime \ \nabla \nabla \ell(\theta^*) \ (\widehat\theta - \theta^*)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Si definimos la verdadera matriz hessiana como <span class="math inline">\(\mathbf{h}\)</span>, entonces</p>
+<p><span class="math display">\[
+\begin{align}
+\nabla \nabla \ell(\theta^*) &amp;= \mathbf{h} \\\\
+\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^\prime \ \mathbf{h} \ (\widehat\theta - \theta^*)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Ahora pensemos en la expansión de Taylor de la derivada del logaritmo de la verosimilitud evaluada en el vector estimado de parámetros, que por definición equivale a 0.</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\nabla L(\widehat\theta) \approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^\prime \ \nabla \nabla L(\theta^*) \\\\
+\mathbf{0} \approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^\prime \ \nabla \nabla L(\theta^*)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math inline">\(\nabla \nabla L(\theta^*)\)</span> es la matriz hessiana de nuestras estimaciones, así que, si la definimos con <span class="math inline">\(H\)</span>,</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{0} &amp;\approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^\prime \ \mathbf{H} \\\\
+\widehat\theta &amp;\approx \theta^* - \nabla L(\theta^*) \ \mathbf{H}^{-1}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Si reemplazamos esta última expresión de <span class="math inline">\(\widehat\theta\)</span> por <span class="math inline">\(\widehat\theta\)</span> en</p>
+<p><br></p>
+<p><span class="math display">\[
+\ell(\widehat\theta) \approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^\prime \ \mathbf{h} \ (\widehat\theta - \theta^*)
+\]</span></p>
+<p><br></p>
+<p>entonces,</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} \left( \theta^* - \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right)^\prime \ \mathbf{h} \ \left( \theta^* - \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right) \\\\
+&amp;\approx \ell(\theta^*) + \frac{1}{2} \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right)^\prime \ \mathbf{h} \ \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right) \\\\
+&amp;\approx \ell(\theta^*) + \frac{1}{2} \nabla L(\theta^*) \ \mathbf{H}^{-1} \ \mathbf{h} \ \mathbf{H}^{-1} \ \nabla L(\theta^*)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Si a continuación tomamos esperanzas, sabiendo que <span class="math inline">\(\text{VAR} \left[ \nabla L(\theta^*) \right] = - \mathbf{h}\)</span> según la <strong>identidad de Fisher</strong>, entonces</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E} \left[ \ell(\widehat\theta) \right] &amp;\approx \ell(\theta^*) - \frac{1}{2} \ \mathbf{h}^{-1} \ \mathbf{h} \\\\
+&amp;\approx \ell(\theta^*) - \frac{1}{2} \ \text{tr} \ \mathbf{I}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Volvamos a hacer una expansión de Taylor, esta vez del logartimo de la verosimilitud del verdadero vector de parámetros.</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+L(\theta^*) &amp;\approx L(\widehat\theta) + (\theta^* - \widehat\theta)^\prime \ \nabla L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^\prime \ \nabla \nabla L(\widehat\theta) \ (\theta^* - \widehat\theta) \\\\
+&amp;\approx L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^\prime \ \mathbf{H} \ (\theta^* - \widehat\theta) \\\\
+&amp;\approx L(\widehat\theta) + \frac{1}{2} \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right)^\prime \ \mathbf{H} \ \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right) \\\\
+&amp;\approx L(\widehat\theta) + \frac{1}{2} \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right)^\prime \ \mathbf{H} \ \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right) \\\\
+&amp;\approx L(\widehat\theta) + \frac{1}{2} \nabla L(\theta^*) \ \mathbf{H}^{-1} \ \mathbf{H} \ \mathbf{H}^{-1} \ \nabla L(\theta^*)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Sabiendo que <span class="math inline">\(\text{VAR} \left[ \nabla L(\theta^*) \right] = - \mathbf{h}\)</span> según la identidad de Fisher y volviendo a tomar esperanzas,</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\ell(\theta^*) &amp;\approx \mathbb{E} \left[ L(\widehat\theta) \right] - \frac{1}{2} \ \mathbf{h}^{-1} \ \mathbf{h} \\\\
+&amp;\approx \mathbb{E} \left[ L(\widehat\theta) \right] - \frac{1}{2} \ \text{tr} \ \mathbf{I}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Por último, combinando las expresiones</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\ell(\theta^*) &amp;\approx \mathbb{E} \left[ L(\widehat\theta) \right] - \frac{1}{2} \ \text{tr} \ \mathbf{I} \\\\
+\mathbb{E} \left[ \ell(\widehat\theta) \right] &amp;\approx \ell(\theta^*) - \frac{1}{2} \ \text{tr} \ \mathbf{I}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>obtenemos</p>
+<p><br></p>
+<p><span class="math display">\[\begin{align}
+\mathbb{E} \left[ \ell(\widehat\theta) \right] &amp;\approx \mathbb{E} \left[ L(\widehat\theta) \right] - \frac{1}{2} \ \text{tr} \ \mathbf{I} - \frac{1}{2} \ \text{tr} \ \mathbf{I} \\\\
+\mathbb{E} \left[ \ell(\widehat\theta) \right] &amp;\approx \mathbb{E} \left[ L(\widehat\theta) \right] - \text{tr} \ \mathbf{I}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Por tanto, si nuestro modelo es correcto, una estimación insesgada de <span class="math inline">\(\ell(\widehat\theta)\)</span> es</p>
+<p><br></p>
+<p><span class="math display">\[
+AIC = L(\widehat\theta) - (p+1)
+\]</span></p>
+<p><br></p>
+<p><span class="math inline">\(AIC/n\)</span> se corresponde con la esperanza del logaritmo de la verosimilitud de una nueva realización bajo el modelo estimado si dicho modelo es correcto.</p>
+<p><br></p>
+</div>
 </div>
 <div id="distribucion-de-los-valores-p-bajo-la-hipotesis-nula" class="section level2">
 <h2>Distribución de los valores p bajo la hipótesis nula</h2>
