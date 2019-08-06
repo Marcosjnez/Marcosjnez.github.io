@@ -1719,9 +1719,9 @@ $$
 
 <br>
 
-$\frac{2}{n} \sigma^2 (p+1)$ se conoce como el **optimismo** del modelo porque es la cantidad en la que el error cuadrático promedio de la muestra infraestima el error cuadrático promedio de futuras realizaciones de $Y^\prime$.
+$\frac{2}{n} \sigma^2 (p+1)$ se conoce como el **optimismo** del modelo porque es la cantidad en la que el error cuadrático medio de la muestra infraestima el error cuadrático medio de futuras realizaciones de $Y^\prime$.
 
-Si tuviéramos una expresión adecuada del optimismo, tendríamos un estimador insesgado del error cuadrático promedio de futuras realizaciones.
+Si tuviéramos una expresión adecuada del optimismo, tendríamos un estimador insesgado del error cuadrático medio de futuras realizaciones.
 
 <br>
 
@@ -1735,7 +1735,7 @@ $$
 
 <br>
 
-$\widehat\sigma^2$ se corresponde con la estimación del error cuadrático promedio del modelo más general entre los que se comparan. $\widehat\sigma^2$ es un estimador insesgado de $\sigma^2$ si dicho modelo subsume el verdadero. La idea es elegir el modelo con menor $C_p$.
+$\widehat\sigma^2$ se corresponde con la estimación del error cuadrático medio del modelo más general entre los que se comparan. $\widehat\sigma^2$ es un estimador insesgado de $\sigma^2$ si dicho modelo subsume el verdadero. La idea es elegir el modelo con menor $C_p$.
 
 <br>
 
@@ -1743,7 +1743,7 @@ $\widehat\sigma^2$ se corresponde con la estimación del error cuadrático prome
 
 <br>
 
-Maximizar $R^2$ es equivalente a minimizar el error cuadrático promedio ya que 
+Maximizar $R^2$ es equivalente a minimizar el error cuadrático medio ya que 
 
 <br>
 
@@ -1842,7 +1842,7 @@ $$
 
 <br>
 
-$\nabla \nabla L(\theta^*)$ es la matriz hessiana de nuestras estimaciones, así que, si la definimos con $H$,
+$\nabla \nabla L(\theta^*)$ es la matriz hessiana evaluada en el vector de parámetros, así que, si la definimos con $\mathbf{H}$,
 
 <br>
 
@@ -1855,7 +1855,7 @@ $$
 
 <br>
 
-Si reemplazamos esta última expresión de $\widehat\theta$ por $\widehat\theta$ en
+Si sustituimos esta última expresión de $\widehat\theta$ por $\widehat\theta$ en
 
 <br>
 
@@ -1892,28 +1892,29 @@ $$
 
 <br>
 
-Volvamos a hacer una expansión de Taylor, esta vez del logartimo de la verosimilitud del verdadero vector de parámetros.
+Volvamos a hacer una expansión de Taylor, esta vez del logaritmo de la verosimilitud del verdadero vector de parámetros.
 
 <br>
 
 $$
 \begin{align}
 L(\theta^*) &\approx L(\widehat\theta) + (\theta^* - \widehat\theta)^\prime \ \nabla L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^\prime \ \nabla \nabla L(\widehat\theta) \ (\theta^* - \widehat\theta) \\\\
-&\approx L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^\prime \ \mathbf{H} \ (\theta^* - \widehat\theta) \\\\
-&\approx L(\widehat\theta) + \frac{1}{2} \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right)^\prime \ \mathbf{H} \ \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right) \\\\
-&\approx L(\widehat\theta) + \frac{1}{2} \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right)^\prime \ \mathbf{H} \ \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right) \\\\
-&\approx L(\widehat\theta) + \frac{1}{2} \nabla L(\theta^*) \ \mathbf{H}^{-1} \ \mathbf{H} \ \mathbf{H}^{-1} \ \nabla L(\theta^*)
+&\approx L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^\prime \ \nabla \nabla L(\widehat\theta) \ (\theta^* - \widehat\theta) \\\\
+&\approx L(\widehat\theta) + \frac{1}{2} \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right)^\prime \ \nabla \nabla L(\widehat\theta) \ \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right) \\\\
+&\approx L(\widehat\theta) + \frac{1}{2} \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right)^\prime \ \nabla \nabla L(\widehat\theta) \ \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right) \\\\
+&\approx L(\widehat\theta) + \frac{1}{2} \nabla L(\theta^*) \ \mathbf{H}^{-1} \ \nabla \nabla L(\widehat\theta) \ \mathbf{H}^{-1} \ \nabla L(\theta^*)
 \end{align}
 $$
 
 <br>
 
-Sabiendo que $\text{VAR} \left[ \nabla L(\theta^*) \right] = - \mathbf{h}$ según la identidad de Fisher y volviendo a tomar esperanzas,
+Según la identidad de Fisher, $\text{VAR} \left[ \nabla L(\theta^*) \right] = - \mathbf{h}$, y volviendo a tomar esperanzas,
 
 <br>
 
 $$
 \begin{align}
+\mathbb{E} \left[ \nabla \nabla L(\widehat\theta) \right] &= \mathbb{E} \left[\nabla \nabla L(\theta^*) \right] = \nabla \nabla \ell(\theta^*) = \mathbf{h} \\\\
 \ell(\theta^*) &\approx \mathbb{E} \left[ L(\widehat\theta) \right] - \frac{1}{2} \ \mathbf{h}^{-1} \ \mathbf{h} \\\\
 &\approx \mathbb{E} \left[ L(\widehat\theta) \right] - \frac{1}{2} \ \text{tr} \ \mathbf{I}
 \end{align}
@@ -1951,12 +1952,66 @@ Por tanto, si nuestro modelo es correcto, una estimación insesgada de $\ell(\wi
 <br>
 
 $$
-AIC = L(\widehat\theta) - (p+1)
+AIC = L(\widehat\theta) - \text{número de parámetros estimados en el modelo}
 $$
 
 <br>
 
-$AIC/n$ se corresponde con la esperanza del logaritmo de la verosimilitud de una nueva realización bajo el modelo estimado si dicho modelo es correcto.
+En este caso, $AIC/n$ se corresponde con la esperanza del logaritmo de la verosimilitud de una nueva realización bajo el modelo estimado si dicho modelo es correcto.
+
+Sin embargo, si no hemos estimado el modelo correcto, entonces $\text{VAR}\left[ \nabla L(\theta^*) \right] \neq - \nabla\nabla \ \ell(\theta^*) \neq - \mathbf{h}$.
+
+<br>
+
+### Equivalencias
+
+<br>
+
+Supongamos que $L(\widehat\Theta)$ es el logaritmo de la verosimilitud del modelo más general y el verdadero mientras que $L(\widehat\theta)$ es el de un modelo más simple e incorrecto. Bajo el modelo lineal normal,
+
+<br>
+
+$$
+\begin{align}
+L(\widehat\Theta) &= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log \text{MSE}_{\ \widehat\Theta}} \\\\
+L(\widehat\theta) &= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log \text{MSE}_{\ \widehat\theta}} \\\\
+\Delta \ AIC &= L(\widehat\Theta) - L(\widehat\theta) - (p_{\Theta} - p_{\theta}) \\\\
+&= \frac{n}{2}{\log \text{MSE}_{\ \widehat\theta}} - \frac{n}{2}{\log \text{MSE}_{\ \widehat\Theta}} - (p_{\Theta} - p_{\theta}) \\\\
+&= \frac{n}{2} \log \left( \frac{\text{MSE}_{\ \widehat\theta}}{\text{MSE}_{\ \widehat\Theta}} \right) - (p_{\Theta} - p_{\theta}) \\\\
+&= \frac{n}{2} \log \left( 1 + \frac{\text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta}}{\text{MSE}_{\ \widehat\Theta}} \right) - (p_{\Theta} - p_{\theta}) \\\\
+&\approx \frac{n}{2} \ \frac{\text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta}}{\text{MSE}_{\ \widehat\Theta}} - (p_{\Theta} - p_{\theta})
+\end{align}
+$$
+
+<br>
+
+Dado que $\Theta$ es el modelo verdadero,
+
+<br>
+
+$$
+\begin{align}
+\Delta \ AIC &\approx \frac{n}{2} \ \frac{\text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta}}{\widehat\sigma^2} - (p_{\Theta} - p_{\theta}) \\\\
+\frac{2 \widehat\sigma^2}{n} \Delta \ AIC &\approx \text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta} + \frac{2 \widehat\sigma^2}{n} (p_{\Theta} - p_{\theta}) \\\\
+\frac{2 \widehat\sigma^2}{n} \Delta \ AIC &\approx \Delta \ C_p
+\end{align}
+$$
+
+<br>
+
+Por tanto, si uno de los modelos es el verdadero, entonces escoger el modelo que maximiza el $AIC$ o el que minimiza el $C_p$ convergerá, aproximadamente, en el mismo resultado.
+
+La diferencia es que $AIC$ puede aplicarse en cualquier modelo mientras que el $C_p$ solo tiene sentido cuando se emplea el error cuadrático medio.
+
+<br>
+
+### Validación cruzada *Leave-one-out* (LOOCV)
+
+<br>
+
+$$
+
+$$
 
 <br>
 
