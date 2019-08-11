@@ -55,7 +55,7 @@ $$
 
 <br>
 
-## Estimación de $\mu$
+### Estimación de $\mu$
 
 <br>
 
@@ -77,7 +77,7 @@ $$
 
 <br>
 
-## Valor esperado de $\bar{x}$
+### Valor esperado de $\bar{x}$
 
 <br>
 
@@ -87,7 +87,7 @@ $$
 
 <br>
 
-## Varianza de $\widehat\mu$
+### Varianza de $\widehat\mu$
 
 <br>
 
@@ -101,7 +101,7 @@ $$
 
 <br>
 
-## Estimación de $\sigma^2$
+### Estimación de $\sigma^2$
 
 <br>
 
@@ -121,7 +121,7 @@ $$
 
 <br>
 
-## Valor esperado de $\frac{\sum_{i=1}^n (x_i - \widehat\mu)^2}{n}$
+### Valor esperado de $\frac{\sum_{i=1}^n (x_i - \widehat\mu)^2}{n}$
 
 <br>
 
@@ -167,7 +167,7 @@ $$
 
 <br>
 
-## Varianza de $\sigma^2$ y $\widehat\sigma^2$
+### Varianza de $\sigma^2$ y $\widehat\sigma^2$
 
 <br>
 
@@ -222,7 +222,7 @@ $$
 
 <br>
 
-## Residuos
+### Residuos
 
 <br>
 
@@ -235,7 +235,7 @@ $$
 
 <br>
 
-## Estimación de $\beta_1$
+### Estimación de $\beta_1$
 
 <br>
 
@@ -287,7 +287,7 @@ $$
 
 <br>
 
-## Estimación de $\beta_0$
+### Estimación de $\beta_0$
 
 <br>
 
@@ -303,7 +303,7 @@ $$
 
 <br>
 
-## Varianza de $\widehat{\beta}_1$
+### Varianza de $\widehat{\beta}_1$
 
 <br>
 
@@ -355,7 +355,7 @@ $$
 
 <br>
 
-## Varianza de $\widehat{\beta}_0$
+### Varianza de $\widehat{\beta}_0$
 
 <br>
 
@@ -419,18 +419,18 @@ $$
 
 <br>
 
-## Predicciones
+### Predicciones
 
 <br>
 
 $$
 \begin{align}
-\widehat{m}(x_0) &= \widehat{\beta}_0 + \widehat{\beta}_1x_0 \\\\
-&= \bar{y} - \widehat{\beta}_1\bar{x} + \widehat{\beta}_1x_0 \\\\
-&= \bar{y} + (x_0 - \bar{x})\widehat{\beta}_1 \\\\
-&= \beta_0 + \beta_1\bar{x} + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x_0 - \bar{x})\left(\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \right) \\\\
-&= \beta_0 + \beta_1\bar{x} + (x_0 - \bar{x})\beta_1 + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x_0 - \bar{x}) \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
-&= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \epsilon_i \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)
+\widehat{m}(x^*) &= \widehat{\beta}_0 + \widehat{\beta}_1x^* \\\\
+&= \bar{y} - \widehat{\beta}_1\bar{x} + \widehat{\beta}_1x^* \\\\
+&= \bar{y} + (x^* - \bar{x})\widehat{\beta}_1 \\\\
+&= \beta_0 + \beta_1\bar{x} + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x^* - \bar{x})\left(\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \right) \\\\
+&= \beta_0 + \beta_1\bar{x} + (x^* - \bar{x})\beta_1 + \frac{1}{n} \sum_{i=1}^n \epsilon_i + (x^* - \bar{x}) \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+&= \beta_0 + \beta_1x^* + \frac{1}{n} \sum_{i=1}^n \epsilon_i \left(1 + (x^* - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)
 \end{align}
 $$
 
@@ -438,24 +438,24 @@ $$
 
 $$
 \begin{align}
-\mathbb{E}\left[\widehat{m}(x_0)\right] &= \beta_0 + \beta_1x_0 + \frac{1}{n} \sum_{i=1}^n \mathbb{E}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right) \\\\
-&= \beta_0 + \beta_1x_0
+\mathbb{E}\left[\widehat{m}(x^*)\right] &= \beta_0 + \beta_1x^* + \frac{1}{n} \sum_{i=1}^n \mathbb{E}[\epsilon_i] \left(1 + (x^* - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right) \\\\
+&= \beta_0 + \beta_1x^*
 \end{align}
 $$
 
 <br>
 
-## Varianza del promedio de las predicciones
+### Varianza del promedio de las predicciones
 
 <br>
 
 $$
 \begin{align}
-\text{VAR}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n \right] &= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}[\epsilon_i] \left(1 + (x_0 - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)^2 \\\\
-&= \frac{\sigma^2}{n^2} \sum_{i=1}^n \left(1 + (x_0 - \bar{x})^2 \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
-&= \frac{\sigma^2}{n^2} \left(n + (x_0 - \bar{x})^2 \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
-&= \frac{\sigma^2}{n^2} \left(n + (x_0 - \bar{x})^2 \frac{n}{s_x^2}\right) \\\\
-&= \frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)
+\text{VAR}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n \right] &= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}[\epsilon_i] \left(1 + (x^* - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)^2 \\\\
+&= \frac{\sigma^2}{n^2} \sum_{i=1}^n \left(1 + (x^* - \bar{x})^2 \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
+&= \frac{\sigma^2}{n^2} \left(n + (x^* - \bar{x})^2 \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
+&= \frac{\sigma^2}{n^2} \left(n + (x^* - \bar{x})^2 \frac{n}{s_x^2}\right) \\\\
+&= \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)
 \end{align}
 $$
 
@@ -463,8 +463,8 @@ Según la ley de la esperanza total,
 
 $$
 \begin{align}
-\text{VAR}\left[\widehat{m}(x_0)\right] &= \text{VAR}\left[\mathbb{E}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n\right]\right] + \mathbb{E}\left[\text{VAR}\left[\widehat{m}(x_0) \, | \, x_i, \dots, x_n\right]\right] \\\\
-&= \frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)
+\text{VAR}\left[\widehat{m}(x^*)\right] &= \text{VAR}\left[\mathbb{E}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n\right]\right] + \mathbb{E}\left[\text{VAR}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n\right]\right] \\\\
+&= \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)
 \end{align}
 $$
 
@@ -474,26 +474,26 @@ La propiedad de estabilidad asegura que
 
 $$
 \begin{align}
-\widehat{m}(x_0) &\sim N\left(\beta_0 + \beta_1x_0, \frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)\right) \\\\
-\frac{\widehat{m}(x_0) - m(x_0)}{\sqrt{\frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)}} &\sim N(0, 1) \\\\
-\frac{\widehat{m}(x_0) - m(x_0)}{\sqrt{\frac{\widehat\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right)}} &\sim t_{n-2} \\\\
+\widehat{m}(x^*) &\sim N\left(\beta_0 + \beta_1x^*, \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)\right) \\\\
+\frac{\widehat{m}(x^*) - m(x^*)}{\sqrt{\frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)}} &\sim N(0, 1) \\\\
+\frac{\widehat{m}(x^*) - m(x^*)}{\sqrt{\frac{\widehat\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)}} &\sim t_{n-2} \\\\
 \end{align}
 $$
 
 <br>
 
-## Varianza del error de predicción
+### Varianza del error de predicción
 
 <br>
 
 $$
 \begin{align}
-y_0 &= \beta_0 + \beta_1x_0 + \epsilon_0 \\\\
-\widehat{m}(x_0) &= \widehat\beta_0 + \widehat\beta_1x_0 \\\\
-y_0 - \widehat{m}(x_0) &= \beta_0 + \beta_1x_0 - \widehat\beta_0 - \widehat\beta_1x_0 + \epsilon_0 \\\\
-\text{COV}[\widehat{m}(x_0), \epsilon_0] &= 0 \\\\
-\text{VAR}[y_0 - \widehat{m}(x_0)] &= \frac{\sigma^2}{n} \left(1 + \frac{(x_0 - \bar{x})^2}{s_x^2}\right) + \sigma^2 \\\\
-\text{VAR}[y_0 - \widehat{m}(x_0)] &= \sigma^2 \left(1 + \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{n s_x^2}\right)
+y^* &= \beta_0 + \beta_1x^* + \epsilon^* \\\\
+\widehat{m}(x^*) &= \widehat\beta_0 + \widehat\beta_1x^* \\\\
+y^* - \widehat{m}(x^*) &= \beta_0 + \beta_1x^* - \widehat\beta_0 - \widehat\beta_1x^* + \epsilon^* \\\\
+\text{COV}[\widehat{m}(x^*), \epsilon^*] &= 0 \\\\
+\text{VAR}[y^* - \widehat{m}(x^*)] &= \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right) + \sigma^2 \\\\
+\text{VAR}[y^* - \widehat{m}(x^*)] &= \sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)
 \end{align}
 $$
 
@@ -503,15 +503,15 @@ La propiedad de estabilidad asegura que
 
 $$
 \begin{align}
-\widehat{m}(x_0) &\sim N\left(y_0, \sigma^2 \left(1 + \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{n s_x^2}\right)\right) \\\\
-\frac{y_0 - \widehat{m}(x_0)}{\sqrt{\sigma^2 \left(1 + \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{n s_x^2}\right)}} &\sim N(0, 1) \\\\
-\frac{y_0 - \widehat{m}(x_0)}{\sqrt{\widehat\sigma^2 \left(1 + \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{n s_x^2}\right)}} &\sim t_{n-2}
+\widehat{m}(x^*) &\sim N\left(y^*, \sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)\right) \\\\
+\frac{y^* - \widehat{m}(x^*)}{\sqrt{\sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)}} &\sim N(0, 1) \\\\
+\frac{y^* - \widehat{m}(x^*)}{\sqrt{\widehat\sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)}} &\sim t_{n-2}
 \end{align}
 $$
 
 <br>
 
-## Varianza de los valores ajustados
+### Varianza de los valores ajustados
 
 <br>
 
@@ -540,7 +540,7 @@ $$
 
 <br>
 
-## Varianza del error de estimación (Varianza de un residuo)
+### Varianza del error de estimación (Varianza de un residuo)
 
 <br>
 
@@ -572,7 +572,7 @@ $$
 
 <br>
 
-## Varianza de la estimación del error cuadrático, $\widehat\sigma^2$
+### Varianza de la estimación del error cuadrático medio, $\widehat\sigma^2$
 
 <br>
 
@@ -642,7 +642,7 @@ $$
 
 <br>
 
-## Modelo sin predictores
+### Modelo sin predictores
 
 <br>
 
@@ -728,10 +728,10 @@ $$
 
 $$
 \begin{align}
-L(\widehat\theta) &= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2(n-q)\widehat\sigma^2_q - \frac{1}{2(n-q)\widehat\sigma^2_q} \sum_{i=1}^n (y_i - \widehat\beta_0)^2 \\\\
+L(\widehat\theta) &= - \frac{n}{2} \ \log2\pi - \frac{n}{2} \ \log (n-q)\widehat\sigma^2_q - \frac{1}{2(n-q)\widehat\sigma^2_q} \sum_{i=1}^n (y_i - \widehat\beta_0)^2 \\\\
 &= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log (n-q)\widehat\sigma^2_q} \\\\
-L(\widehat\Theta) &= - \frac{n}{2} \log2\pi - \frac{n}{2} \log2(n-p)\widehat\sigma^2_p - \frac{1}{2(n-p)\widehat\sigma^2_p} \sum_{i=1}^n (y_i - \widehat\beta_0 - \widehat\beta_1x_i)^2 \\\\
-&= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log (n-p)\widehat\sigma^2_p}
+L(\widehat\Theta) &= - \frac{n}{2} \ \log2\pi - \frac{n}{2} \ \log (n-p)\widehat\sigma^2_p - \frac{1}{2(n-p)\widehat\sigma^2_p} \sum_{i=1}^n (y_i - \widehat\beta_0 - \widehat\beta_1x_i)^2 \\\\
+&= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\ \log (n-p)\widehat\sigma^2_p}
 \end{align}
 $$
 
@@ -804,11 +804,11 @@ $$
 $$
 \begin{align}
 \mathbf{y} &= \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
-MSE &= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
+\text{MSE} &= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (\mathbf{y}^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
 \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} &= \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} \quad \text{porque} \; \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} \; \text{es una matriz} \; 1 \times 1 \\\\
-MSE &= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
+\text{MSE} &= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
 \end{align}
 $$
 
@@ -820,7 +820,7 @@ $$
 
 $$
 \begin{align}
-\nabla MSE &= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
+\nabla \text{MSE} &= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{2}{n} (- \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
 \end{align}
@@ -918,7 +918,7 @@ $$
 
 $$
 \begin{align}
-\widehat{m}(X^*) &= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
+\widehat{\mathbf{m}}(\mathbf{X^*}) &= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
 &= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\widehat\beta} + \mathbf{e}) \\\\
 &= \mathbf{X^*} \boldsymbol{\widehat\beta}
 \end{align}
@@ -932,11 +932,25 @@ $$
 
 $$
 \begin{align}
-\text{VAR}\left[\widehat{m}(X^*)\right] &= \text{VAR}\left[\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}\right] \\\\
+\text{VAR}\left[\widehat{\mathbf{m}}(\mathbf{X^*})\right] &= \text{VAR}\left[\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}\right] \\\\
 &= \text{VAR}\left[\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
 &= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \text{VAR}\left[\boldsymbol{\epsilon}\right] \, (\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime)^\prime \\\\
 &= \sigma^2 \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X} (\mathbf{X}^\prime \mathbf{X})^{-1} \, (\mathbf{X^*})^\prime \\\\
 &= \sigma^2 \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, (\mathbf{X}^*)^\prime
+\end{align}
+$$
+
+<br>
+
+### Varianza del error de predicción
+
+<br>
+
+$$
+\begin{align}
+\text{COV}\left[\mathbf{y^*}, \widehat{\mathbf{m}}(\mathbf{X^*})\right] &= 0 \\\\
+\text{VAR}\left[\mathbf{y^*} - \widehat{\mathbf{m}}(\mathbf{X^*})\right] &= \text{VAR}\left[\mathbf{y^*} \right] + \text{VAR}\left[\widehat{\mathbf{m}}(\mathbf{X^*}) \right] \\\\
+&= \sigma^2 + \sigma^2 \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, (\mathbf{X}^*)^\prime
 \end{align}
 $$
 
@@ -968,7 +982,7 @@ $$
 
 $$
 \begin{align}
-MSE &= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
+\text{MSE} &= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
 &= \frac{1}{n} \mathbf{y}^\prime (\mathbf{I} - \mathbf{H})^\prime \, (\mathbf{I} - \mathbf{H}) \mathbf{y} \\\\
 &= \frac{1}{n} \mathbf{y}^\prime (\mathbf{I} - \mathbf{H}) \mathbf{y}
 \end{align}
@@ -1025,7 +1039,7 @@ $$
 $$
 \begin{align}
 \mathbf{y} &= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
-MSE &= \frac{1}{n} (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+\text{MSE} &= \frac{1}{n} (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0 - \boldsymbol{\beta} \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
 &= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0 - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})
 \end{align}
@@ -1035,7 +1049,7 @@ $$
 
 $$
 \begin{align}
-\frac{\partial MSE}{\partial \beta_0} &= \frac{1}{n}\left(- \nabla \mathbf{1}^\prime \beta_0 \mathbf{y} + \nabla \mathbf{1}^\prime \beta_0 \beta_0 \mathbf{1} + \\
+\frac{\partial \text{MSE}}{\partial \beta_0} &= \frac{1}{n}\left(- \nabla \mathbf{1}^\prime \beta_0 \mathbf{y} + \nabla \mathbf{1}^\prime \beta_0 \beta_0 \mathbf{1} + \\
 \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} \right) \\\\
 &= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
 0 &= - \frac{1}{n} \mathbf{1}^\prime \mathbf{y} + \frac{1}{n} \mathbf{1}^\prime \beta_0 \mathbf{1} + \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
@@ -1048,7 +1062,7 @@ $$
 
 $$
 \begin{align}
-\nabla_{\boldsymbol{\beta}} \, MSE &= \frac{1}{n} \left(- \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} + \\
+\nabla_{\boldsymbol{\beta}} \, \text{MSE} &= \frac{1}{n} \left(- \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} + \\
 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} \right) \\\\
 &= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
 0 &= \beta_0 \frac{1}{n} \mathbf{X}^\prime \mathbf{1} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
@@ -1110,7 +1124,10 @@ $$
 <br>
 
 $$
-\text{VIF}_i = \frac{\frac{\widehat\sigma^2}{n s_{x_{i}}^2}}{\widehat\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}}
+\begin{align}
+\text{VIF}_i &= \frac{\widehat\sigma^2 / n s_{x_{i}}^2}{\widehat\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}} \\\\
+&= n s_{x_{i}}^2  \ (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}
+\end{align}
 $$
 
 El factor de inflación de la varianza equivale a regresar $\mathbf{x}_i$ en el resto de predictores y calcular $\frac{1}{1 - R^2}$.
@@ -1259,7 +1276,7 @@ $$
 \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \| \boldsymbol{\beta} \|^2 = \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \boldsymbol{\beta}^\prime \boldsymbol{\beta}
 $$
 
-donde $\lambda > 0$ regula el *trade-off* entre el *MSE* y $\| \boldsymbol{\beta} \|$.
+donde $\lambda > 0$ regula el *trade-off* entre el MSE y $\| \boldsymbol{\beta} \|$.
 
 Esta regresión se emplea tras centrar predictores y variable dependiente, para que $\beta_0 = 0$ y así no se penalice el tamaño de la intersección.
 
@@ -1360,7 +1377,7 @@ Por tanto, es legítimo asumir distintos niveles de error tipo I $(\alpha/k)$ en
 
 <br>
 
-Si nuestros coeficientes siguen una dsitribución normal y son independientes unos de otros,
+Si nuestros coeficientes siguen una diitribución normal y son independientes unos de otros,
 
 $$
 \begin{align}
@@ -1417,7 +1434,7 @@ $$
 Si se utiliza $\widehat\sigma^2$ para estimar el error típico, entonces debemos emplear la distribución $F$:
 
 $$
-P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \, n-p-1, (1-\alpha)} \right) = 1 - \alpha
+P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \ \boldsymbol{\widehat\Sigma}^{-1} \ (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \, n-p-1, (1-\alpha)} \right) = 1 - \alpha
 $$
 
 <br>
@@ -1581,7 +1598,7 @@ El residuo de validación cruzada es
 <br>
 
 $$
-e_i^{(-i)} = y_i - \widehat{m}^{-i}
+e_i^{(-i)} = y_i - \widehat{m}^{(-i)}
 $$
 
 <br>
@@ -1592,7 +1609,7 @@ Y su estadístico es
 
 $$
 \begin{align}
-t_i &= \frac{e^{(-i)}_i}{\widehat\sigma^2_{(-i)} \sqrt{1 - \mathbf{H}_{ii}}} \\\\
+t_i &= \frac{e_i}{\widehat\sigma_{(-i)} \sqrt{1 - \mathbf{H}_{ii}}} \\\\
 &= r_i \sqrt{\frac{n - p -2}{n - p -1 - r_i^2}} \\\\
 &\sim t_{n-p-2}
 \end{align}
@@ -1607,7 +1624,7 @@ $$
 $$
 \begin{align}
 D_i &= \frac{\left\| \widehat{\mathbf{m}} - \widehat{\mathbf{m}}^{(-i)} \right\|^2}{\widehat\sigma^2(p+1)} \\\\
-&= \frac{e_i^2 \ \mathbf{H}_{ii}}{(p+1) \ (1 - \mathbf{H}_{ii})^2} \\\\
+&= \frac{e_i^2 \ \mathbf{H}_{ii}}{\widehat\sigma^2 (p+1) \ (1 - \mathbf{H}_{ii})^2} \\\\
 &\sim F_{p+1, \ n-p-1}
 \end{align}
 $$
@@ -1626,12 +1643,12 @@ $$
 
 <br>
 
-Lo que nos permite expresar $D_i$ como una distancia de mahalanobis
+Lo que nos permite expresar $D_i$ como
 
 <br>
 
 $$
-D_i = \frac{\left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)^\prime \ \mathbf{X}^\prime \mathbf{X} \ \left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)}{(p + 1) \widehat{\sigma}^2}
+D_i = \left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)^\prime \ \frac{\mathbf{X}^\prime \mathbf{X}}{(p + 1) \widehat{\sigma}^2}  \left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)
 $$
 
 <br>
@@ -1663,7 +1680,7 @@ $$
 
 <br>
 
-Si repetimos el experimento empleando los mismos valores de los predictores ($\mathbf{X$), Las nuevas realizaciones de la variable $Y$ son:
+Si repetimos el experimento empleando los mismos valores de los predictores ($\mathbf{X}$), Las nuevas realizaciones de la variable $Y$ son:
 
 $$
 Y^\prime = \mathbf{X} \boldsymbol{\beta} + \epsilon^\prime
@@ -1952,7 +1969,7 @@ Por tanto, si nuestro modelo es correcto, una estimación insesgada de $\ell(\wi
 <br>
 
 $$
-AIC = L(\widehat\theta) - \text{número de parámetros estimados en el modelo}
+\text{AIC} = L(\widehat\theta) - \text{número de parámetros estimados}
 $$
 
 <br>
@@ -1975,7 +1992,7 @@ $$
 \begin{align}
 L(\widehat\Theta) &= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log \text{MSE}_{\ \widehat\Theta}} \\\\
 L(\widehat\theta) &= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log \text{MSE}_{\ \widehat\theta}} \\\\
-\Delta \ AIC &= L(\widehat\Theta) - L(\widehat\theta) - (p_{\Theta} - p_{\theta}) \\\\
+\Delta \ \text{AIC} &= L(\widehat\Theta) - L(\widehat\theta) - (p_{\Theta} - p_{\theta}) \\\\
 &= \frac{n}{2}{\log \text{MSE}_{\ \widehat\theta}} - \frac{n}{2}{\log \text{MSE}_{\ \widehat\Theta}} - (p_{\Theta} - p_{\theta}) \\\\
 &= \frac{n}{2} \log \left( \frac{\text{MSE}_{\ \widehat\theta}}{\text{MSE}_{\ \widehat\Theta}} \right) - (p_{\Theta} - p_{\theta}) \\\\
 &= \frac{n}{2} \log \left( 1 + \frac{\text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta}}{\text{MSE}_{\ \widehat\Theta}} \right) - (p_{\Theta} - p_{\theta}) \\\\
@@ -1991,9 +2008,9 @@ Dado que $\Theta$ es el modelo verdadero,
 
 $$
 \begin{align}
-\Delta \ AIC &\approx \frac{n}{2} \ \frac{\text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta}}{\widehat\sigma^2} - (p_{\Theta} - p_{\theta}) \\\\
-\frac{2 \widehat\sigma^2}{n} \Delta \ AIC &\approx \text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta} + \frac{2 \widehat\sigma^2}{n} (p_{\Theta} - p_{\theta}) \\\\
-\frac{2 \widehat\sigma^2}{n} \Delta \ AIC &\approx \Delta \ C_p
+\Delta \ \text{AIC} &\approx \frac{n}{2} \ \frac{\text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta}}{\widehat\sigma^2} - (p_{\Theta} - p_{\theta}) \\\\
+\frac{2 \widehat\sigma^2}{n} \Delta \ \text{AIC} &\approx \text{MSE}_{\ \widehat\theta} - \text{MSE}_{\ \widehat\Theta} + \frac{2 \widehat\sigma^2}{n} (p_{\Theta} - p_{\theta}) \\\\
+&\approx \Delta \ C_p
 \end{align}
 $$
 
@@ -2010,8 +2027,36 @@ La diferencia es que $AIC$ puede aplicarse en cualquier modelo mientras que el $
 <br>
 
 $$
+\begin{align}
+\text{LOOCV} &= \frac{1}{n} \sum_{i=1}^n \left( Y_i - \widehat{m}_i^{(-i)} \right)^2 \\\\
+&= \frac{1}{n} \sum_{i=1}^n \left( \frac{Y_i - \widehat{m}_i}{1 - \mathbf{H}_{ii}} \right)^2 \\\\
+&\approx \frac{1}{n} \sum_{i=1}^n \left( Y_i - \widehat{m}_i \right)^2 \ \left(1 + \mathbf{H}_{ii} \right)^2 \\\\
+&\approx \frac{1}{n} \sum_{i=1}^n \left( Y_i - \widehat{m}_i \right)^2 \ \left(1 + 2 \ \mathbf{H}_{ii} \right) \\\\
+&\approx \text{MSE} + 2 \ \text{MSE} \ \text{tr} \ \mathbf{H}
+\end{align}
+$$
+
+<br>
+
+Cuando $n \rightarrow \infty$, LOOCV, $C_p$ y AIC convergerán.
+
+De la misma manera, a medida que $n \rightarrow \infty$ y si el modelo verdadero se encuentra entre los que se comparan, todos estos métodos tenderán a elegir un modelo con más parámetros que el verdadero.
+
+LOOCV, $C_p$ y AIC son estimadores insesgados del error de generalización pero no penalizan la varianza de las estimaciones que incrementa con la adición de más parámetros al modelo.
+
+<br>
+
+### BIC
+
+<br>
 
 $$
+\text{BIC} = L(\widehat\theta) - \frac{\log n}{2} \cdot \text{número de parámetros estimados}
+$$
+
+<br>
+
+A diferencia de los otros métodos, a medida que $n \rightarrow \infty$ y asi el modelo verdadero se encuentra entre los comparados, BIC tenderá a seleccionar el modelo verdadero.
 
 <br>
 
