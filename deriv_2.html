@@ -369,7 +369,6 @@ $(document).ready(function () {
 <li><a href="#residuos-estandarizados">Residuos estandarizados</a></li>
 <li><a href="#residuos-de-validacion-cruzada">Residuos de validación cruzada</a></li>
 <li><a href="#distancia-de-cook">Distancia de Cook</a></li>
-<li><a href="#regresion-lineal-robusta">Regresión lineal robusta</a></li>
 <li><a href="#seleccion-de-modelos">Selección de modelos</a><ul>
 <li><a href="#estadistico-c_p-de-mallow">Estadístico <span class="math inline">\(C_p\)</span> de Mallow</a></li>
 <li><a href="#r2-1"><span class="math inline">\(R^2\)</span></a></li>
@@ -378,6 +377,9 @@ $(document).ready(function () {
 <li><a href="#validacion-cruzada-leave-one-out-loocv">Validación cruzada <em>Leave-one-out</em> (LOOCV)</a></li>
 <li><a href="#bic">BIC</a></li>
 </ul></li>
+<li><a href="#regresion-lineal-robusta">Regresión lineal robusta</a></li>
+<li><a href="#minimos-cuadrados-ponderados">Mínimos cuadrados ponderados</a></li>
+<li><a href="#minimos-cuadrados-generalizados">Mínimos cuadrados generalizados</a></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
 <li><a href="#capture-percentage"><em>Capture percentage</em></a></li>
@@ -446,7 +448,7 @@ a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
 <p><span class="math display">\[
 \begin{align}
 \frac{\partial^2 \text{log}(L)}{\partial \mu^2} &amp;= - \frac{n}{\sigma^2} \\\\
-\text{VAR}\left[\widehat\mu\right] &amp;= \mathbb{E}\left[(\widehat\mu - \mu)^2\right] \\\\
+\text{Var}\left[\widehat\mu\right] &amp;= \mathbb{E}\left[(\widehat\mu - \mu)^2\right] \\\\
 &amp;= \frac{\sigma^2}{n}
 \end{align}
 \]</span></p>
@@ -517,7 +519,7 @@ a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
 \mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &amp;= n\sigma^2 \\\\
 \mathbb{E}\left[\frac{\partial^2 \text{log}(L)}{\partial \sigma^4}\right] &amp;= \frac{- 2n\sigma^2 + n\sigma^2}{2\sigma^6} \\\\
 &amp;= - \frac{n}{2\sigma^4} \\\\
-\text{VAR}\left[\sigma^2\right] &amp;= \frac{2\sigma^4}{n}
+\text{Var}\left[\sigma^2\right] &amp;= \frac{2\sigma^4}{n}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -526,10 +528,10 @@ a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
 \frac{\epsilon_i}{\sigma} &amp;\sim N(0, 1) \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 &amp;\sim \chi^2_n \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 = \frac{(n-1)\widehat\sigma^2}{\sigma^2} &amp;\sim \chi^2_{n-1} \\\\
-\text{VAR}\left[\chi^2_{n-1}\right] &amp;= 2(n-1) \\\\
-\text{VAR}\left[\frac{(n-1)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-1) \\\\
-\text{VAR}\left[(n-1)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-1) \\\\
-\text{VAR}\left[\widehat\sigma^2\right] &amp;= \frac{2\sigma^4}{n-1} \\\\
+\text{Var}\left[\chi^2_{n-1}\right] &amp;= 2(n-1) \\\\
+\text{Var}\left[\frac{(n-1)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-1) \\\\
+\text{Var}\left[(n-1)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-1) \\\\
+\text{Var}\left[\widehat\sigma^2\right] &amp;= \frac{2\sigma^4}{n-1} \\\\
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -558,7 +560,7 @@ L(\beta_0, \beta_1, \sigma; \mathbf{y}, \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})e_i &amp;= 0, \quad \text{COV}[X, e] = 0 \\\\
+\frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})e_i &amp;= 0, \quad \text{Cov}[X, e] = 0 \\\\
 \frac{1}{n} \sum_{i=1}^n e_i &amp;= 0
 \end{align}
 \]</span></p>
@@ -577,12 +579,12 @@ L(\beta_0, \beta_1, \sigma; \mathbf{y}, \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1
 \begin{align}
 \mathbb{E}[YX] - \beta_1\mathbb{E}[X^2] - \beta_0\mathbb{E}[X] &amp;= 0 \\\\
 \mathbb{E}[YX] - \beta_1\mathbb{E}[X^2] - (\mathbb{E}[Y] - \beta_1\mathbb{E}[X]) \, \mathbb{E}[X] &amp;= 0 \\\\
-\text{COV}[YX] - \beta_1\mathbb{E}[X^2] - \beta_1\mathbb{E}[X]^2 &amp;= 0 \\\\
-\text{COV}[YX] - \beta_1\text{VAR}[X] &amp;= 0 \\\\
+\text{Cov}[YX] - \beta_1\mathbb{E}[X^2] - \beta_1\mathbb{E}[X]^2 &amp;= 0 \\\\
+\text{Cov}[YX] - \beta_1\text{Var}[X] &amp;= 0 \\\\
 \end{align}
 \]</span> <span class="math display">\[
 \begin{align}
-\beta_1 &amp;= \frac{\text{COV}[YX]}{\text{VAR}[X]} \\\\
+\beta_1 &amp;= \frac{\text{Cov}[YX]}{\text{Var}[X]} \\\\
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -626,17 +628,17 @@ L(\beta_0, \beta_1, \sigma; \mathbf{y}, \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right] &amp;= \text{VAR}\left[\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2}\right] \\\\
-&amp;= \sum_{i=1}^n \frac{(x_i - \bar{x})^2 \, \text{VAR}\left[\epsilon_i\right]}{n^2 s_x^4} \\\\
+\text{Var}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right] &amp;= \text{Var}\left[\beta_1 + \frac{\sum_{i=1}^n (x_i - \bar{x}) \epsilon_i}{\sum_{i=1}^n (x_i - \bar{x})^2}\right] \\\\
+&amp;= \sum_{i=1}^n \frac{(x_i - \bar{x})^2 \, \text{Var}\left[\epsilon_i\right]}{n^2 s_x^4} \\\\
 &amp;= \frac{\sigma^2}{n s_x^2}
 \end{align}
 \]</span></p>
 <p>Aplicando la ley de la varianza total,</p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\widehat{\beta}_1\right] &amp;= \text{VAR}\left[\mathbb{E}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right]\right] + \mathbb{E}\left[\text{VAR}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right]\right] \\\\
+\text{Var}\left[\widehat{\beta}_1\right] &amp;= \text{Var}\left[\mathbb{E}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right]\right] + \mathbb{E}\left[\text{Var}\left[\widehat{\beta}_1 \, | \, x_1, \dots, x_n\right]\right] \\\\
 &amp;= \frac{\sigma^2}{n s_x^2} \\\\
-\widehat{\text{VAR}}\left[\widehat{\beta}_1\right] &amp;= \frac{\widehat\sigma^2}{n s_x^2}
+\widehat{\text{Var}}\left[\widehat{\beta}_1\right] &amp;= \frac{\widehat\sigma^2}{n s_x^2}
 \end{align}
 \]</span></p>
 <p>Dado que <span class="math inline">\(\epsilon_i\)</span> sigue una distribución normal, la propiedad de estabilidad asegura que</p>
@@ -668,19 +670,19 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[ \widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &amp;= \text{VAR}\left[\bar{y} - \widehat{\beta}_1\bar{x}\right] \\\\
-&amp;= \text{VAR}\left[\beta_0 + \beta_1\bar{x} + \bar{\epsilon} - \widehat{\beta}_1\bar{x}\right] \\\\
-&amp;= \text{VAR}\left[\bar{\epsilon}\right] + \bar{x}^2 \, \text{VAR}\left[\widehat{\beta}_1\right] - 2\bar{x}^2\text{COV}\left[\bar{\epsilon}, \widehat{\beta}_1\right]
+\text{Var}\left[ \widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &amp;= \text{Var}\left[\bar{y} - \widehat{\beta}_1\bar{x}\right] \\\\
+&amp;= \text{Var}\left[\beta_0 + \beta_1\bar{x} + \bar{\epsilon} - \widehat{\beta}_1\bar{x}\right] \\\\
+&amp;= \text{Var}\left[\bar{\epsilon}\right] + \bar{x}^2 \, \text{Var}\left[\widehat{\beta}_1\right] - 2\bar{x}^2\text{Cov}\left[\bar{\epsilon}, \widehat{\beta}_1\right]
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
-\text{COV}\left[\bar{\epsilon}, \widehat{\beta}_1\right] = 0
+\text{Cov}\left[\bar{\epsilon}, \widehat{\beta}_1\right] = 0
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \bar{x}^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
+\text{Var}\left[\widehat{\beta}_0 \, | \, x_i, \dots, x_n \right] &amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \bar{x}^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \\\\
 &amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2} - \sigma^2 s_x^2}{n s_x^2} \\\\
 &amp;= \frac{\sigma^2}{n} + \frac{\sigma^2 \, \overline{x^2}}{n s_x^2} - \frac{\sigma^2}{n} \\\\
 &amp;= \frac{\sigma^2 \overline{x^2}}{n s_x^2}
@@ -690,9 +692,9 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt
 <p>Según la ley de la esperanza total,</p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\widehat{\beta}_0\right] &amp;= \text{VAR}\left[\mathbb{E}\left[\widehat{\beta}_0 \, | \, x_1, \dots, x_n\right]\right] + \mathbb{E}\left[\text{VAR}\left[\widehat{\beta}_0 \, | \, x_1, \dots, x_n\right]\right] \\\\
+\text{Var}\left[\widehat{\beta}_0\right] &amp;= \text{Var}\left[\mathbb{E}\left[\widehat{\beta}_0 \, | \, x_1, \dots, x_n\right]\right] + \mathbb{E}\left[\text{Var}\left[\widehat{\beta}_0 \, | \, x_1, \dots, x_n\right]\right] \\\\
 &amp;= \frac{\sigma^2 \overline{x^2}}{n s_x^2} \\\\
-\widehat{\text{VAR}}\left[\widehat{\beta}_0\right] &amp;= \frac{\widehat\sigma^2 \overline{x^2}}{n s_x^2}
+\widehat{\text{Var}}\left[\widehat{\beta}_0\right] &amp;= \frac{\widehat\sigma^2 \overline{x^2}}{n s_x^2}
 \end{align}
 \]</span></p>
 <p>Dado que <span class="math inline">\(\epsilon_i\)</span> sigue una distribución normal, la propiedad de estabilidad asegura que</p>
@@ -739,7 +741,7 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n \right] &amp;= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}[\epsilon_i] \left(1 + (x^* - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)^2 \\\\
+\text{Var}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n \right] &amp;= \frac{1}{n^2} \sum_{i=1}^n \text{Var}[\epsilon_i] \left(1 + (x^* - \bar{x}) \frac{x_i - \bar{x}}{s_x^2}\right)^2 \\\\
 &amp;= \frac{\sigma^2}{n^2} \sum_{i=1}^n \left(1 + (x^* - \bar{x})^2 \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
 &amp;= \frac{\sigma^2}{n^2} \left(n + (x^* - \bar{x})^2 \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{s_x^4}\right) \\\\
 &amp;= \frac{\sigma^2}{n^2} \left(n + (x^* - \bar{x})^2 \frac{n}{s_x^2}\right) \\\\
@@ -749,7 +751,7 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^
 <p>Según la ley de la esperanza total,</p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\widehat{m}(x^*)\right] &amp;= \text{VAR}\left[\mathbb{E}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n\right]\right] + \mathbb{E}\left[\text{VAR}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n\right]\right] \\\\
+\text{Var}\left[\widehat{m}(x^*)\right] &amp;= \text{Var}\left[\mathbb{E}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n\right]\right] + \mathbb{E}\left[\text{Var}\left[\widehat{m}(x^*) \, | \, x_i, \dots, x_n\right]\right] \\\\
 &amp;= \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)
 \end{align}
 \]</span></p>
@@ -772,9 +774,9 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^
 y^* &amp;= \beta_0 + \beta_1x^* + \epsilon^* \\\\
 \widehat{m}(x^*) &amp;= \widehat\beta_0 + \widehat\beta_1x^* \\\\
 y^* - \widehat{m}(x^*) &amp;= \beta_0 + \beta_1x^* - \widehat\beta_0 - \widehat\beta_1x^* + \epsilon^* \\\\
-\text{COV}[\widehat{m}(x^*), \epsilon^*] &amp;= 0 \\\\
-\text{VAR}[y^* - \widehat{m}(x^*)] &amp;= \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right) + \sigma^2 \\\\
-\text{VAR}[y^* - \widehat{m}(x^*)] &amp;= \sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)
+\text{Cov}[\widehat{m}(x^*), \epsilon^*] &amp;= 0 \\\\
+\text{Var}[y^* - \widehat{m}(x^*)] &amp;= \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right) + \sigma^2 \\\\
+\text{Var}[y^* - \widehat{m}(x^*)] &amp;= \sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -801,13 +803,13 @@ y^* - \widehat{m}(x^*) &amp;= \beta_0 + \beta_1x^* - \widehat\beta_0 - \widehat\
 <p><span class="math display">\[
 \begin{align}
 y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
-\text{VAR}\left[y_i\right] &amp;= \sigma^2 \\\\
+\text{Var}\left[y_i\right] &amp;= \sigma^2 \\\\
 \widehat{m}_i &amp;= \widehat\beta_0 + \widehat\beta_1x_i \\\\
 &amp;= \bar{y} - \widehat\beta_1\bar{x} + \widehat\beta_1x_i \\\\
 &amp;= \bar{y} + (x_i - \bar{x})\widehat\beta_1 \\\\
 &amp;= \bar{y} + (x_i - \bar{x})\left(\beta_1 + \frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i\right) \\\\
 &amp;= \beta_0 + \beta_1x_i + (x_i - \bar{x})\left(\frac{1}{n} \sum_{i=1}^n \frac{x_i - \bar{x}}{s_x^2} \epsilon_i\right) \\\\
-\text{VAR}\left[\widehat{m}_i\right] &amp;=  \frac{\sigma^2}{n} + (x_i - \bar{x})^2 \frac{\sigma^2}{ns_x^2} \\\\
+\text{Var}\left[\widehat{m}_i\right] &amp;=  \frac{\sigma^2}{n} + (x_i - \bar{x})^2 \frac{\sigma^2}{ns_x^2} \\\\
 &amp;= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) \\\\
 \end{align}
 \]</span></p>
@@ -817,15 +819,15 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 <h3>Varianza del error de estimación (Varianza de un residuo)</h3>
 <p><br></p>
 <p><span class="math display">\[
-\mathbb{E}\left[(y_i - \widehat{m}_i)^2\right] = \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\,\text{COV}\left[y_i, \widehat{m}_i\right]
+\mathbb{E}\left[(y_i - \widehat{m}_i)^2\right] = \sigma^2 + \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right) - 2\,\text{Cov}\left[y_i, \widehat{m}_i\right]
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{COV}\left[y_i, \widehat{m}_i\right] &amp;= \text{COV}\left[y_i + \widehat{m}_i - \widehat{m}_i, \widehat{m}_i \right] \\\\
-&amp;= \text{COV}\left[\widehat{m}_i, \widehat{m}_i \right] + \text{COV}\left[y_i - \widehat{m}_i, \widehat{m}_i \right] \\\\
-&amp;= \text{COV}\left[\widehat{m}_i, \widehat{m}_i \right] + \text{COV}\left[e_i, \widehat{m}_i \right] \\\\
-&amp;= \text{VAR}\left[\widehat{m}_i\right] + 0 \\\\
+\text{Cov}\left[y_i, \widehat{m}_i\right] &amp;= \text{Cov}\left[y_i + \widehat{m}_i - \widehat{m}_i, \widehat{m}_i \right] \\\\
+&amp;= \text{Cov}\left[\widehat{m}_i, \widehat{m}_i \right] + \text{Cov}\left[y_i - \widehat{m}_i, \widehat{m}_i \right] \\\\
+&amp;= \text{Cov}\left[\widehat{m}_i, \widehat{m}_i \right] + \text{Cov}\left[e_i, \widehat{m}_i \right] \\\\
+&amp;= \text{Var}\left[\widehat{m}_i\right] + 0 \\\\
 &amp;= \sigma^2 \left(\frac{1}{n} + \frac{(x_i - \bar{x})^2}{ns_x^2}\right)
 \end{align}
 \]</span></p>
@@ -848,8 +850,8 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\bar{y} \, | \, x_i, \dots, x_n\right] &amp;= \text{VAR}\left[\beta_0 + \beta_1\bar{x} + \bar{\epsilon}\right] \\\\
-&amp;= \frac{1}{n^2} \sum_{i=1}^n \text{VAR}\left[\epsilon_i\right] \\\\
+\text{Var}\left[\bar{y} \, | \, x_i, \dots, x_n\right] &amp;= \text{Var}\left[\beta_0 + \beta_1\bar{x} + \bar{\epsilon}\right] \\\\
+&amp;= \frac{1}{n^2} \sum_{i=1}^n \text{Var}\left[\epsilon_i\right] \\\\
 &amp;= \frac{\sigma^2}{n}
 \end{align}
 \]</span></p>
@@ -886,10 +888,10 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 &amp;\sim \chi^2_{n-2} \\\\
 P\left(\chi^2_{n-2} \; \leq \; \chi^2_{n-2, \, 1-\alpha}\right) &amp;= 1 - \alpha \\\\
 P\left(\sigma^2 \; \leq \; \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \, 1-\alpha}}\right) &amp;= 1 - \alpha \\\\
-\text{VAR}\left[\chi^2_{n-2}\right] &amp;= 2(n-2) \\\\
-\text{VAR}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-2) \\\\
-\text{VAR}\left[(n-2)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-2) \\\\
-\text{VAR}\left[\widehat\sigma^2\right] &amp;= \frac{2\sigma^4}{n-2} \\\\
+\text{Var}\left[\chi^2_{n-2}\right] &amp;= 2(n-2) \\\\
+\text{Var}\left[\frac{(n-2)\widehat\sigma^2}{\sigma^2}\right] &amp;= 2(n-2) \\\\
+\text{Var}\left[(n-2)\widehat\sigma^2\right] &amp;= 2\sigma^4(n-2) \\\\
+\text{Var}\left[\widehat\sigma^2\right] &amp;= \frac{2\sigma^4}{n-2} \\\\
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -983,15 +985,15 @@ L(\widehat\Theta) - L(\widehat\theta)
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-R^2 &amp;= \frac{\text{COV}\left[y, \widehat{m}\right]}{s_y^2} \\\\
-\text{COV}\left[y, \widehat{m}\right] &amp;= \text{COV}\left[\widehat{m} + e, \widehat{m}\right] \\\\
-&amp;= s_\widehat{m}^2 + \text{COV}\left[e, \widehat{m}\right] \\\\
+R^2 &amp;= \frac{\text{Cov}\left[y, \widehat{m}\right]}{s_y^2} \\\\
+\text{Cov}\left[y, \widehat{m}\right] &amp;= \text{Cov}\left[\widehat{m} + e, \widehat{m}\right] \\\\
+&amp;= s_\widehat{m}^2 + \text{Cov}\left[e, \widehat{m}\right] \\\\
 &amp;= s_\widehat{m}^2 \\\\
 R^2 &amp;= \frac{s_\widehat{m}^2}{s_y^2} \\\\
 s_\widehat{m}^2 &amp;= s_{\widehat{\beta}_0 + \widehat{\beta}_1X}^2 \\\\
 &amp;= \widehat{\beta}_1^2 s_x^2 \\\\
 R^2 &amp;= \widehat{\beta}_1^2 \frac{s_x^2}{s_y^2} \\\\
-&amp;= \left(\frac{\text{COV}\left[x, y\right]}{s_x s_y}\right)^2 \\\\
+&amp;= \left(\frac{\text{Cov}\left[x, y\right]}{s_x s_y}\right)^2 \\\\
 &amp;= \frac{s_y^2 - \overline{e^2}}{s_y^2} \\\\
 R_{\text{ajustado}}^2 &amp;= \frac{\widehat{s}_y^2 - \widehat\sigma^2}{\widehat{s}_y^2}
 \end{align}
@@ -999,9 +1001,9 @@ R_{\text{ajustado}}^2 &amp;= \frac{\widehat{s}_y^2 - \widehat\sigma^2}{\widehat{
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-R^2 &amp;= \frac{\text{VAR}\left[m(X)\right]}{\text{VAR}\left[Y\right]} \\\\
-&amp;= \frac{\text{VAR}\left[\beta_0 + \beta_1X\right]}{\text{VAR}\left[\beta_0 + \beta_1X + \epsilon\right]} \\\\
-R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X\right] + \sigma}
+R^2 &amp;= \frac{\text{Var}\left[m(X)\right]}{\text{Var}\left[Y\right]} \\\\
+&amp;= \frac{\text{Var}\left[\beta_0 + \beta_1X\right]}{\text{Var}\left[\beta_0 + \beta_1X + \epsilon\right]} \\\\
+R^2 &amp;= \frac{\beta_1^2 \text{Var}\left[X\right]}{\beta_1^2 \text{Var}\left[X\right] + \sigma}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1011,8 +1013,8 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\rho_{XY} &amp;= \frac{\text{COV}\left[X, Y\right]}{\sqrt{\text{VAR}\left[X\right] \text{VAR}\left[Y\right]}} \\\\
-&amp;= \beta_1 \frac{\text{VAR}\left[X\right]}{\sqrt{\text{VAR}\left[Y\right]}}
+\rho_{XY} &amp;= \frac{\text{Cov}\left[X, Y\right]}{\sqrt{\text{Var}\left[X\right] \text{Var}\left[Y\right]}} \\\\
+&amp;= \beta_1 \frac{\text{Var}\left[X\right]}{\sqrt{\text{Var}\left[Y\right]}}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1026,11 +1028,11 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><span class="math display">\[
 \begin{align}
 \mathbf{y} &amp;= \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
-\text{MSE} &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{1}{n} (\mathbf{y}^\prime - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
-\mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} &amp;= \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} \quad \text{porque} \; \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} \; \text{es una matriz} \; 1 \times 1 \\\\
-\text{MSE} &amp;= \frac{1}{n} (\mathbf{y}^\prime \mathbf{y} - 2 \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
+\text{MSE} &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^T - \boldsymbol{\beta}^T \mathbf{X}^T) (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^T \mathbf{y} - \mathbf{y}^T \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{y} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}) \\\\
+\mathbf{y}^T \mathbf{X} \boldsymbol{\beta} &amp;= \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{y} \quad \text{porque} \; \mathbf{y}^T \mathbf{X} \boldsymbol{\beta} \; \text{es una matriz} \; 1 \times 1 \\\\
+\text{MSE} &amp;= \frac{1}{n} (\mathbf{y}^T \mathbf{y} - 2 \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{y} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta})
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1039,16 +1041,16 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\nabla \text{MSE} &amp;= \frac{1}{n} (\nabla \mathbf{y}^\prime \mathbf{y} - 2 \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{1}{n} (0 - 2 \mathbf{X}^\prime \mathbf{y} + 2 \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{2}{n} (- \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta})
+\nabla \text{MSE} &amp;= \frac{1}{n} (\nabla \mathbf{y}^T \mathbf{y} - 2 \nabla \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{y} + \nabla \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (0 - 2 \mathbf{X}^T \mathbf{y} + 2 \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{2}{n} (- \mathbf{X}^T \mathbf{y} + \mathbf{X}^T \mathbf{X} \boldsymbol{\beta})
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbf{X}^\prime \mathbf{X} \boldsymbol{\widehat\beta} - \mathbf{X}^\prime \mathbf{y} &amp;= 0 \\\\
-\boldsymbol{\widehat\beta} &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}
+\mathbf{X}^T \mathbf{X} \boldsymbol{\widehat\beta} - \mathbf{X}^T \mathbf{y} &amp;= 0 \\\\
+\boldsymbol{\widehat\beta} &amp;= (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \mathbf{y}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1058,14 +1060,14 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbf{\widehat\beta} &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
-&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}) \\\\
-&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
-&amp;= \boldsymbol{\beta} + (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \boldsymbol{\epsilon} \\\\
-\text{VAR}\left[\boldsymbol{\widehat\beta}\right] &amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \,  \text{VAR}\left[\boldsymbol{\epsilon}\right] \left((\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime\right)^\prime \\\\
-&amp;= (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
-&amp;= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X}(\mathbf{X}^\prime \mathbf{X})^{-1} \\\\
-&amp;= \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}
+\mathbf{\widehat\beta} &amp;= (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \mathbf{y} \\\\
+&amp;= (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}) \\\\
+&amp;= (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} + (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \boldsymbol{\epsilon} \\\\
+&amp;= \boldsymbol{\beta} + (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \boldsymbol{\epsilon} \\\\
+\text{Var}\left[\boldsymbol{\widehat\beta}\right] &amp;= (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \,  \text{Var}\left[\boldsymbol{\epsilon}\right] \left((\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T\right)^T \\\\
+&amp;= (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \, \sigma^2 \mathbf{I} \, \mathbf{X}(\mathbf{X}^T \mathbf{X})^{-1} \\\\
+&amp;= \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \, \mathbf{X}(\mathbf{X}^T \mathbf{X})^{-1} \\\\
+&amp;= \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1075,10 +1077,10 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\boldsymbol{\beta}} &amp;\sim MVN(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}) \\\\
-\widehat{\beta}_i &amp;\sim N(\beta_i, \sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}) \\\\
-\frac{\widehat{\beta}_i - \beta_i}{\sigma \sqrt{(\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}}} &amp;\sim N(0, 1) \\\\
-\frac{\widehat{\beta}_i - \beta_i}{\widehat\sigma \sqrt{(\mathbf{X}^\prime \mathbf{X})^{-1}_{ii}}} &amp;\sim t_{n-p-1}
+\widehat{\boldsymbol{\beta}} &amp;\sim MVN(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}) \\\\
+\widehat{\beta}_i &amp;\sim N(\beta_i, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{ii}) \\\\
+\frac{\widehat{\beta}_i - \beta_i}{\sigma \sqrt{(\mathbf{X}^T \mathbf{X})^{-1}_{ii}}} &amp;\sim N(0, 1) \\\\
+\frac{\widehat{\beta}_i - \beta_i}{\widehat\sigma \sqrt{(\mathbf{X}^T \mathbf{X})^{-1}_{ii}}} &amp;\sim t_{n-p-1}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1089,7 +1091,7 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><em>Hat</em> o <em>influence matrix</em>:</p>
 <p><span class="math display">\[
 \begin{align}
-\mathbf{H} &amp;= \mathbf{X} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \\\\
+\mathbf{H} &amp;= \mathbf{X} (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \\\\
 \mathbf{\widehat{m}}(\mathbf{X}) &amp;= \mathbf{X} \boldsymbol{\widehat\beta} \\\\
 \mathbf{\widehat{m}}(\mathbf{X}) &amp;= \mathbf{H} \mathbf{y}
 \end{align}
@@ -1098,7 +1100,7 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><span class="math display">\[
 \begin{align}
 \frac{\partial \widehat{m}_i}{\partial y_j} &amp;= H_{ij} \\\\
-\mathbf{H} &amp;= \mathbf{H}^\prime \\\\
+\mathbf{H} &amp;= \mathbf{H}^T \\\\
 \mathbf{H}^2 &amp;= \mathbf{H} \\\\
 \end{align}
 \]</span></p>
@@ -1109,9 +1111,9 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\mathbf{Hy}\right] &amp;= \text{VAR}\left[\mathbf{H (\mathbf{X} \boldsymbol{\beta + \boldsymbol{\epsilon}})}\right] \\\\
-&amp;= \text{VAR}\left[\mathbf{H} \boldsymbol{\epsilon}\right] \\\\
-&amp;= \mathbf{H} \, \text{VAR}\left[\boldsymbol{\epsilon}\right] \, \mathbf{H}^\prime \\\\
+\text{Var}\left[\mathbf{Hy}\right] &amp;= \text{Var}\left[\mathbf{H} \left( \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon} \right) \right] \\\\
+&amp;= \text{Var}\left[\mathbf{H} \boldsymbol{\epsilon}\right] \\\\
+&amp;= \mathbf{H} \, \text{Var}\left[\boldsymbol{\epsilon}\right] \, \mathbf{H}^T \\\\
 &amp;= \sigma^2 \mathbf{H}
 \end{align}
 \]</span></p>
@@ -1122,8 +1124,8 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\mathbf{m}}(\mathbf{X^*}) &amp;= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y} \\\\
-&amp;= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\widehat\beta} + \mathbf{e}) \\\\
+\widehat{\mathbf{m}}(\mathbf{X^*}) &amp;= \mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \mathbf{y} \\\\
+&amp;= \mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T (\mathbf{X} \boldsymbol{\widehat\beta} + \mathbf{e}) \\\\
 &amp;= \mathbf{X^*} \boldsymbol{\widehat\beta}
 \end{align}
 \]</span></p>
@@ -1134,11 +1136,11 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\widehat{\mathbf{m}}(\mathbf{X^*})\right] &amp;= \text{VAR}\left[\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \mathbf{y}\right] \\\\
-&amp;= \text{VAR}\left[\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
-&amp;= \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \text{VAR}\left[\boldsymbol{\epsilon}\right] \, (\mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime)^\prime \\\\
-&amp;= \sigma^2 \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, \mathbf{X}^\prime \, \mathbf{X} (\mathbf{X}^\prime \mathbf{X})^{-1} \, (\mathbf{X^*})^\prime \\\\
-&amp;= \sigma^2 \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, (\mathbf{X}^*)^\prime
+\text{Var}\left[\widehat{\mathbf{m}}(\mathbf{X^*})\right] &amp;= \text{Var}\left[\mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \mathbf{y}\right] \\\\
+&amp;= \text{Var}\left[\mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T (\mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
+&amp;= \mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \, \text{Var}\left[\boldsymbol{\epsilon}\right] \, (\mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T)^T \\\\
+&amp;= \sigma^2 \mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, \mathbf{X}^T \, \mathbf{X} (\mathbf{X}^T \mathbf{X})^{-1} \, (\mathbf{X^*})^T \\\\
+&amp;= \sigma^2 \mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, (\mathbf{X}^*)^T
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1148,9 +1150,9 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{COV}\left[\mathbf{y^*}, \widehat{\mathbf{m}}(\mathbf{X^*})\right] &amp;= 0 \\\\
-\text{VAR}\left[\mathbf{y^*} - \widehat{\mathbf{m}}(\mathbf{X^*})\right] &amp;= \text{VAR}\left[\mathbf{y^*} \right] + \text{VAR}\left[\widehat{\mathbf{m}}(\mathbf{X^*}) \right] \\\\
-&amp;= \sigma^2 + \sigma^2 \mathbf{X^*} (\mathbf{X}^\prime \mathbf{X})^{-1} \, (\mathbf{X}^*)^\prime
+\text{Cov}\left[\mathbf{y^*}, \widehat{\mathbf{m}}(\mathbf{X^*})\right] &amp;= 0 \\\\
+\text{Var}\left[\mathbf{y^*} - \widehat{\mathbf{m}}(\mathbf{X^*})\right] &amp;= \text{Var}\left[\mathbf{y^*} \right] + \text{Var}\left[\widehat{\mathbf{m}}(\mathbf{X^*}) \right] \\\\
+&amp;= \sigma^2 + \sigma^2 \mathbf{X^*} (\mathbf{X}^T \mathbf{X})^{-1} \, (\mathbf{X}^*)^T
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1169,16 +1171,16 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><span class="math display">\[
 \begin{align}
 \frac{\partial e_i}{\partial y_j} &amp;= (\mathbf{I} - \mathbf{H})_{ij} \\\\
-(\mathbf{I} - \mathbf{H}) &amp;= (\mathbf{I} - \mathbf{H})^\prime \\\\
+(\mathbf{I} - \mathbf{H}) &amp;= (\mathbf{I} - \mathbf{H})^T \\\\
 (\mathbf{I} - \mathbf{H})^2 &amp;= (\mathbf{I} - \mathbf{H}) \\\\
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{MSE} &amp;= \frac{1}{n} \mathbf{e}^\prime \mathbf{e} \\\\
-&amp;= \frac{1}{n} \mathbf{y}^\prime (\mathbf{I} - \mathbf{H})^\prime \, (\mathbf{I} - \mathbf{H}) \mathbf{y} \\\\
-&amp;= \frac{1}{n} \mathbf{y}^\prime (\mathbf{I} - \mathbf{H}) \mathbf{y}
+\text{MSE} &amp;= \frac{1}{n} \mathbf{e}^T \mathbf{e} \\\\
+&amp;= \frac{1}{n} \mathbf{y}^T (\mathbf{I} - \mathbf{H})^T \, (\mathbf{I} - \mathbf{H}) \mathbf{y} \\\\
+&amp;= \frac{1}{n} \mathbf{y}^T (\mathbf{I} - \mathbf{H}) \mathbf{y}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1188,10 +1190,10 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\mathbf{e}\right] &amp;= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) (\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
-\mathbf{HX} \boldsymbol{\beta} &amp;= \mathbf{X} \boldsymbol{\beta} \\\\
-\text{VAR}\left[\mathbf{e}\right] &amp;= \text{VAR}\left[(\mathbf{I} - \mathbf{H}) \boldsymbol{\epsilon}\right] \\\\
-&amp;= (\mathbf{I} - \mathbf{H}) \text{VAR}\left[\boldsymbol{\epsilon}\right] (\mathbf{I} - \mathbf{H})^\prime \\\\
+\text{Var}\left[\mathbf{e}\right] &amp;= \text{Var}\left[(\mathbf{I} - \mathbf{H}) (\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon})\right] \\\\
+\mathbf{H} \ \mathbf{X} \boldsymbol{\beta} &amp;= \mathbf{X} \boldsymbol{\beta} \\\\
+\text{Var}\left[\mathbf{e}\right] &amp;= \text{Var}\left[(\mathbf{I} - \mathbf{H}) \boldsymbol{\epsilon}\right] \\\\
+&amp;= (\mathbf{I} - \mathbf{H}) \text{Var}\left[\boldsymbol{\epsilon}\right] (\mathbf{I} - \mathbf{H})^T \\\\
 &amp;= \sigma^2 (\mathbf{I} - \mathbf{H})
 \end{align}
 \]</span></p>
@@ -1202,10 +1204,10 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\frac{1}{n} \mathbb{E}\left[\mathbf{e}&#39;\mathbf{e}\right] &amp;= \frac{1}{n} \mathbb{E}\left[((\mathbf{I} - \mathbf{H})\mathbf{e})^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
-&amp;= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^\prime(\mathbf{I} - \mathbf{H})^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
-&amp;= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^\prime (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
-&amp;= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \text{VAR}[\mathbf{e}]\right]\\\\
+\frac{1}{n} \mathbb{E}\left[\mathbf{e}&#39;\mathbf{e}\right] &amp;= \frac{1}{n} \mathbb{E}\left[((\mathbf{I} - \mathbf{H})\mathbf{e})^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&amp;= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^T(\mathbf{I} - \mathbf{H})^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&amp;= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+&amp;= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \text{Var}[\mathbf{e}]\right]\\\\
 &amp;= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \sigma^2 (\mathbf{I} - \mathbf{H}) \right] \\\\
 &amp;= \frac{\sigma^2}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \right] \\\\
 \text{tr}[\mathbf{I}] &amp;= n \\\\
@@ -1227,35 +1229,35 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><span class="math display">\[
 \begin{align}
 \mathbf{y} &amp;= \mathbf{1}\beta_0 + \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
-\text{MSE} &amp;= \frac{1}{n} (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0 - \boldsymbol{\beta} \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
-&amp;= \frac{1}{n} (\mathbf{y}^\prime - \mathbf{1}^\prime\beta_0 - \boldsymbol{\beta}^\prime \mathbf{X}^\prime) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})
+\text{MSE} &amp;= \frac{1}{n} (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^T - \mathbf{1}^T\beta_0 - \boldsymbol{\beta} \mathbf{X}^T) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} (\mathbf{y}^T - \mathbf{1}^T\beta_0 - \boldsymbol{\beta}^T \mathbf{X}^T) (\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta})
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\frac{\partial \text{MSE}}{\partial \beta_0} &amp;= \frac{1}{n}\left(- \nabla \mathbf{1}^\prime \beta_0 \mathbf{y} + \nabla \mathbf{1}^\prime \beta_0 \beta_0 \mathbf{1} + \\
-\nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} \right) \\\\
-&amp;= - \frac{2}{n} \mathbf{1}^\prime \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
-0 &amp;= - \frac{1}{n} \mathbf{1}^\prime \mathbf{y} + \frac{1}{n} \mathbf{1}^\prime \beta_0 \mathbf{1} + \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-\widehat\beta_0 &amp;= \frac{1}{n} \mathbf{1}^\prime \mathbf{y} - \frac{1}{n} \mathbf{1}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-&amp;= \bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta}
+\frac{\partial \text{MSE}}{\partial \beta_0} &amp;= \frac{1}{n}\left(- \nabla \mathbf{1}^T \beta_0 \mathbf{y} + \nabla \mathbf{1}^T \beta_0 \beta_0 \mathbf{1} + \\
+\nabla \mathbf{1}^T \beta_0 \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^T \beta_0 \mathbf{1} + \nabla \boldsymbol{\beta}^T \mathbf{X}^T \beta_0 \mathbf{1} \right) \\\\
+&amp;= - \frac{2}{n} \mathbf{1}^T \left(\mathbf{y} - \beta_0\mathbf{1} - \mathbf{X} \boldsymbol{\beta}\right) \\\\
+0 &amp;= - \frac{1}{n} \mathbf{1}^T \mathbf{y} + \frac{1}{n} \mathbf{1}^T \beta_0 \mathbf{1} + \frac{1}{n} \mathbf{1}^T \mathbf{X} \boldsymbol{\beta} \\\\
+\widehat\beta_0 &amp;= \frac{1}{n} \mathbf{1}^T \mathbf{y} - \frac{1}{n} \mathbf{1}^T \mathbf{X} \boldsymbol{\beta} \\\\
+&amp;= \bar{y} - \mathbf{\bar{x}}^T \boldsymbol{\beta}
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\nabla_{\boldsymbol{\beta}} \, \text{MSE} &amp;= \frac{1}{n} \left(- \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{y} + \nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \beta_0 \mathbf{1} + \\
-\nabla \boldsymbol{\beta}^\prime \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^\prime \mathbf{X} \boldsymbol{\beta} + \nabla \mathbf{1}^\prime \beta_0 \mathbf{X} \boldsymbol{\beta} \right) \\\\
-&amp;= \frac{2}{n} \left(\beta_0 \mathbf{X}^\prime \mathbf{1} - \mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta}\right) \\\\
-0 &amp;= \beta_0 \frac{1}{n} \mathbf{X}^\prime \mathbf{1} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-&amp;= \beta_0 \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-&amp;= \mathbf{\bar{x}} (\bar{y} - \mathbf{\bar{x}}^\prime \boldsymbol{\beta}) - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-&amp;= \mathbf{\bar{x}} \bar{y} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \boldsymbol{\beta} - \frac{1}{n} \mathbf{X}^\prime \mathbf{y} + \frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-\frac{1}{n} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \boldsymbol{\beta} &amp;= \frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}} \bar{y} \\\\
-\left(\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime \right) \boldsymbol{\beta} &amp;= \frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}} \bar{y} \\\\
-\boldsymbol{\widehat\beta} &amp;= \frac{\frac{1}{n} \mathbf{X}^\prime \mathbf{y} - \mathbf{\bar{x}}^\prime \bar{y}}{\frac{1}{n} \mathbf{X}^\prime \mathbf{X} - \mathbf{\bar{x}} \mathbf{\bar{x}}^\prime}
+\nabla_{\boldsymbol{\beta}} \, \text{MSE} &amp;= \frac{1}{n} \left(- \nabla \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{y} + \nabla \boldsymbol{\beta}^T \mathbf{X}^T \beta_0 \mathbf{1} + \\
+\nabla \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} - \nabla \mathbf{y}^T \mathbf{X} \boldsymbol{\beta} + \nabla \mathbf{1}^T \beta_0 \mathbf{X} \boldsymbol{\beta} \right) \\\\
+&amp;= \frac{2}{n} \left(\beta_0 \mathbf{X}^T \mathbf{1} - \mathbf{X}^T \mathbf{y} + \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}\right) \\\\
+0 &amp;= \beta_0 \frac{1}{n} \mathbf{X}^T \mathbf{1} - \frac{1}{n} \mathbf{X}^T \mathbf{y} + \frac{1}{n} \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} \\\\
+&amp;= \beta_0 \mathbf{\bar{x}} - \frac{1}{n} \mathbf{X}^T \mathbf{y} + \frac{1}{n} \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} \\\\
+&amp;= \mathbf{\bar{x}} (\bar{y} - \mathbf{\bar{x}}^T \boldsymbol{\beta}) - \frac{1}{n} \mathbf{X}^T \mathbf{y} + \frac{1}{n} \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} \\\\
+&amp;= \mathbf{\bar{x}} \bar{y} - \mathbf{\bar{x}} \mathbf{\bar{x}}^T \boldsymbol{\beta} - \frac{1}{n} \mathbf{X}^T \mathbf{y} + \frac{1}{n} \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} \\\\
+\frac{1}{n} \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} - \mathbf{\bar{x}} \mathbf{\bar{x}}^T \boldsymbol{\beta} &amp;= \frac{1}{n} \mathbf{X}^T \mathbf{y} - \mathbf{\bar{x}} \bar{y} \\\\
+\left(\frac{1}{n} \mathbf{X}^T \mathbf{X} - \mathbf{\bar{x}} \mathbf{\bar{x}}^T \right) \boldsymbol{\beta} &amp;= \frac{1}{n} \mathbf{X}^T \mathbf{y} - \mathbf{\bar{x}} \bar{y} \\\\
+\boldsymbol{\widehat\beta} &amp;= \frac{\frac{1}{n} \mathbf{X}^T \mathbf{y} - \mathbf{\bar{x}}^T \bar{y}}{\frac{1}{n} \mathbf{X}^T \mathbf{X} - \mathbf{\bar{x}} \mathbf{\bar{x}}^T}
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1265,10 +1267,10 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\widehat\beta_1 &amp;= \frac{\text{COV}\left[X_1, Y\right]}{\text{VAR}\left[X_1\right]} \\\\
-&amp;= \frac{\text{COV}\left[X_1, \beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_pX_p\right]}{\text{VAR}\left[X_1\right]} \\\\
-&amp;= \frac{\beta_1 \text{VAR}\left[X_1\right] + \sum_{i=2}^p \beta_p \text{COV}\left[X_1, X_p\right]}{\text{VAR}\left[X_1\right]} \\\\
-&amp;= \beta_1 + \sum_{i=2}^p \beta_p \frac{\text{COV}\left[X_1, X_p\right]}{\text{VAR}\left[X_1\right]} \\\\
+\widehat\beta_1 &amp;= \frac{\text{Cov}\left[X_1, Y\right]}{\text{Var}\left[X_1\right]} \\\\
+&amp;= \frac{\text{Cov}\left[X_1, \beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_pX_p\right]}{\text{Var}\left[X_1\right]} \\\\
+&amp;= \frac{\beta_1 \text{Var}\left[X_1\right] + \sum_{i=2}^p \beta_i \text{Cov}\left[X_1, X_i \right]}{\text{Var}\left[X_1\right]} \\\\
+&amp;= \beta_1 + \sum_{i=2}^p \beta_i \frac{\text{Cov}\left[ X_1, X_i \right]}{\text{Var}\left[X_1\right]} \\\\
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1280,14 +1282,14 @@ R^2 &amp;= \frac{\beta_1^2 \text{VAR}\left[X\right]}{\beta_1^2 \text{VAR}\left[X
 <p><span class="math display">\[
 a_0 + \sum_{j=1}^p a_j x_{ij} = 0
 \]</span></p>
-<p><span class="math inline">\(\mathbf{X}^\prime \mathbf{X}\)</span> no es invertible cuando <span class="math inline">\(n &lt; p + 1\)</span>, uno de los predictores es constante o alguno de los predictores es proporcional o está linealmente relacionado con otro.</p>
+<p><span class="math inline">\(\mathbf{X}^T \mathbf{X}\)</span> no es invertible cuando <span class="math inline">\(n &lt; p + 1\)</span>, uno de los predictores es constante o alguno de los predictores es proporcional o está linealmente relacionado con otro.</p>
 <p>Dos vectores son linealmente independientes si ninguna combinación lineal de ellos equivale a 0.</p>
 <p>La multicolinealidad ocurre cuando</p>
 <p><span class="math display">\[
 \begin{align}
 \sum_{i=1}^p a_i \mathbf{x}_i &amp;= a_0 \\\\
-\mathbf{a}^\prime \mathbf{X} &amp;= a_0 \\\\
-\text{VAR}\left[\mathbf{a}^\prime \mathbf{X} \right] &amp;= \mathbf{a}^\prime \, \text{VAR}\left[\mathbf{X}\right] \mathbf{a} \\\\
+\mathbf{a}^T \mathbf{X} &amp;= a_0 \\\\
+\text{Var}\left[\mathbf{a}^T \mathbf{X} \right] &amp;= \mathbf{a}^T \, \text{Var}\left[\mathbf{X}\right] \mathbf{a} \\\\
 &amp;= 0
 \end{align}
 \]</span></p>
@@ -1298,8 +1300,8 @@ a_0 + \sum_{j=1}^p a_j x_{ij} = 0
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VIF}_i &amp;= \frac{\widehat\sigma^2 / n s_{x_{i}}^2}{\widehat\sigma^2 (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}} \\\\
-&amp;= n s_{x_{i}}^2  \ (\mathbf{X}^\prime \mathbf{X})^{-1}_{i+1, i+1}
+\text{VIF}_i &amp;= \frac{\widehat\sigma^2 / n s_{x_{i}}^2}{\widehat\sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{i+1, i+1}} \\\\
+&amp;= n s_{x_{i}}^2  \ (\mathbf{X}^T \mathbf{X})^{-1}_{i+1, i+1}
 \end{align}
 \]</span></p>
 <p>El factor de inflación de la varianza equivale a regresar <span class="math inline">\(\mathbf{x}_i\)</span> en el resto de predictores y calcular <span class="math inline">\(\frac{1}{1 - R^2}\)</span>.</p>
@@ -1310,16 +1312,16 @@ a_0 + \sum_{j=1}^p a_j x_{ij} = 0
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\mathbf{X}\right] \mathbf{v}_i &amp;= \lambda_i \mathbf{v}_i \\\\
-\mathbf{V}^\prime \mathbf{V} &amp;= \mathbf{I} \\\\
-\mathbf{V}^{-1} &amp;= \mathbf{V}^\prime \\\\
-\text{VAR}\left[\mathbf{X}\right] &amp;= \mathbf{V} \, \mathbf{U} \, \mathbf{V}^\prime
+\text{Var}\left[\mathbf{X}\right] \mathbf{v}_i &amp;= \lambda_i \mathbf{v}_i \\\\
+\mathbf{V}^T \mathbf{V} &amp;= \mathbf{I} \\\\
+\mathbf{V}^{-1} &amp;= \mathbf{V}^T \\\\
+\text{Var}\left[\mathbf{X}\right] &amp;= \mathbf{V} \, \mathbf{U} \, \mathbf{V}^T
 \end{align}
 \]</span></p>
-<p>Los autovectores de <span class="math inline">\(\text{VAR}\left[\mathbf{X}\right]\)</span> se conocen como los componentes principales de los predictores.</p>
+<p>Los autovectores de <span class="math inline">\(\text{Var}\left[\mathbf{X}\right]\)</span> se conocen como los componentes principales de los predictores.</p>
 <p>Cualquier vector <span class="math inline">\(\mathbf{a}\)</span> puede ser reescrito como una suma de autovectores:</p>
 <p><span class="math display">\[
-a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
+a = \sum_{i=1}^p (\mathbf{a}^T \mathbf{v}_i) \mathbf{v}_i
 \]</span></p>
 <p><br></p>
 </div>
@@ -1329,17 +1331,17 @@ a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
 <p>Si <span class="math inline">\(\mathbf{a}\)</span> y <span class="math inline">\(\mathbf{x}\)</span> son vectores <span class="math inline">\(p \times 1\)</span>, entonces</p>
 <p><span class="math display">\[
 \begin{align}
-\nabla_{\mathbf{x}} (\mathbf{x}^\prime \mathbf{a}) &amp;= \mathbf{a} \\\\
-\nabla_{\mathbf{x}} (\mathbf{b} \mathbf{x}) &amp;= \mathbf{b}^\prime \\\\
+\nabla_{\mathbf{x}} (\mathbf{x}^T \mathbf{a}) &amp;= \mathbf{a} \\\\
+\nabla_{\mathbf{x}} (\mathbf{b} \mathbf{x}) &amp;= \mathbf{b}^T \\\\
 \end{align}
 \]</span></p>
 <p>Si <span class="math inline">\(\mathbf{c}\)</span> es una matriz de dimensiones <span class="math inline">\(p \times p\)</span>, entonces</p>
 <p><span class="math display">\[
-\nabla_{\mathbf{x}} (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = (\mathbf{c} + \mathbf{c}^\prime) \mathbf{x}
+\nabla_{\mathbf{x}} (\mathbf{x}^T \mathbf{c} \mathbf{x}) = (\mathbf{c} + \mathbf{c}^T) \mathbf{x}
 \]</span></p>
-<p>Si, además, <span class="math inline">\(\mathbf{c} = \mathbf{c}^\prime\)</span>, entonces</p>
+<p>Si, además, <span class="math inline">\(\mathbf{c} = \mathbf{c}^T\)</span>, entonces</p>
 <p><span class="math display">\[
-\nabla{\mathbf{x}} (\mathbf{x}^\prime \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
+\nabla{\mathbf{x}} (\mathbf{x}^T \mathbf{c} \mathbf{x}) = 2 \mathbf{c} \mathbf{x}
 \]</span></p>
 <p><br></p>
 </div>
@@ -1349,12 +1351,12 @@ a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
 <p>Si <span class="math inline">\(\mathbf{x}\)</span> es un vector aleatorio <span class="math inline">\(n \times 1\)</span>, entonces</p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\mathbf{x}\right] &amp;= \mathbb{E}\left[\mathbf{x} \mathbf{x}^\prime\right] - \mathbb{E}\left[\mathbf{x}\right] \mathbb{E}\left[\mathbf{x}\right]^\prime \\\\
-\text{VAR}\left[b\mathbf{x}\right] &amp;= b^2 \mathbf{x} \\\\
-\text{VAR}\left[\mathbf{cx}\right] &amp;= \mathbf{c} \text{VAR}\left[\mathbf{x} \right] \mathbf{c}^\prime \\\\
-\mathbb{E}\left[\mathbf{x}^\prime \mathbf{cx} \right] &amp;= \mathbb{E}\left[\mathbf{x}\right]^\prime \mathbf{c}\mathbb{E}\left[\mathbf{x}\right] + \text{tr} \, \mathbf{c} \text{VAR}\left[\mathbf{x}\right] \\\\
-\mathbf{x}^\prime \mathbf{cx} &amp;= \text{tr} \, \mathbf{x}^\prime \mathbf{cx} \\\\
-&amp;= \text{tr} \, \mathbf{cxx}^\prime
+\text{Var}\left[\mathbf{x}\right] &amp;= \mathbb{E}\left[\mathbf{x} \mathbf{x}^T\right] - \mathbb{E}\left[\mathbf{x}\right] \mathbb{E}\left[\mathbf{x}\right]^T \\\\
+\text{Var}\left[b\mathbf{x}\right] &amp;= b^2 \mathbf{x} \\\\
+\text{Var}\left[\mathbf{cx}\right] &amp;= \mathbf{c} \text{Var}\left[\mathbf{x} \right] \mathbf{c}^T \\\\
+\mathbb{E}\left[\mathbf{x}^T \mathbf{cx} \right] &amp;= \mathbb{E}\left[\mathbf{x}\right]^T \mathbf{c}\mathbb{E}\left[\mathbf{x}\right] + \text{tr} \, \mathbf{c} \text{Var}\left[\mathbf{x}\right] \\\\
+\mathbf{x}^T \mathbf{cx} &amp;= \text{tr} \, \mathbf{x}^T \mathbf{cx} \\\\
+&amp;= \text{tr} \, \mathbf{cxx}^T
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1378,8 +1380,8 @@ a = \sum_{i=1}^p (\mathbf{a}^\prime \mathbf{v}_i) \mathbf{v}_i
 \begin{align}
 \theta &amp;\approx \widehat\theta + \sum_{i=1}^p \left(\psi_i - \widehat\psi_i \right) {\left. \frac{\partial f}{\partial \psi_i} \right|}_{\psi=\widehat\psi} \\\\
 \hat\theta &amp;\approx \theta + \sum_{i=1}^p \left(\widehat\psi_i - \psi_i \right) {\left. \frac{\partial f}{\partial \psi_i} \right|}_{\psi=\widehat\psi} \\\\
-\text{VAR}\left[\hat\theta\right] &amp;\approx \sum_{i=1}^{p} {\left. \frac{\partial^2 f}{\partial \psi_i^2} \right|}_{\psi=\widehat\psi} \, \text{VAR}\left[{\widehat{\psi_i}}\right] + \\
-&amp; 2 \sum_{i=1}^{p-1} \sum_{j=i+1}^{p} {\left. \frac{\partial f}{\partial \psi_i}\right|}_{\psi=\widehat\psi} \, {\left. \frac{\partial f}{\partial \psi_j}\right|}_{\psi=\widehat\psi} \, \text{COV}\left[{\widehat{\psi_i},\widehat{\psi_j}}\right]
+\text{Var}\left[\hat\theta\right] &amp;\approx \sum_{i=1}^{p} {\left. \frac{\partial^2 f}{\partial \psi_i^2} \right|}_{\psi=\widehat\psi} \, \text{Var}\left[{\widehat{\psi_i}}\right] + \\
+&amp; 2 \sum_{i=1}^{p-1} \sum_{j=i+1}^{p} {\left. \frac{\partial f}{\partial \psi_i}\right|}_{\psi=\widehat\psi} \, {\left. \frac{\partial f}{\partial \psi_j}\right|}_{\psi=\widehat\psi} \, \text{Cov}\left[{\widehat{\psi_i},\widehat{\psi_j}}\right]
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1404,33 +1406,33 @@ Y = \gamma_0 + \gamma_1 W_1 + \ldots + \gamma_k W_k + \eta
 <p><br></p>
 <p>Se trata de penalizar la longitud del vector de coeficientes <span class="math inline">\((\| \boldsymbol{\beta} \|)\)</span>. En <em>OLS</em> optimizamos la ecuación</p>
 <p><span class="math display">\[
-\frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})
+\frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})
 \]</span></p>
 <p>Sin embargo, ahora optimizamos</p>
 <p><span class="math display">\[
-\frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \| \boldsymbol{\beta} \|^2 = \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \boldsymbol{\beta}^\prime \boldsymbol{\beta}
+\frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \| \boldsymbol{\beta} \|^2 = \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \boldsymbol{\beta}^T \boldsymbol{\beta}
 \]</span></p>
 <p>donde <span class="math inline">\(\lambda &gt; 0\)</span> regula el <em>trade-off</em> entre el MSE y <span class="math inline">\(\| \boldsymbol{\beta} \|\)</span>.</p>
 <p>Esta regresión se emplea tras centrar predictores y variable dependiente, para que <span class="math inline">\(\beta_0 = 0\)</span> y así no se penalice el tamaño de la intersección.</p>
 <p>Si los predictores tienen diferente escala, entonces conviene estandarizarlos para que la penalización por <span class="math inline">\(\| \boldsymbol{\beta} \|^2\)</span> tenga sentido.</p>
 <p><span class="math display">\[
 \begin{align}
-\nabla_\boldsymbol{\beta} \, \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^\prime (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \boldsymbol{\beta}^\prime \boldsymbol{\beta} &amp;= \frac{2}{n} \left(-\mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} + \lambda \boldsymbol{\beta} \right) \\\\
-\frac{2}{n} \left(-\mathbf{X}^\prime \mathbf{y} + \mathbf{X}^\prime \mathbf{X} \boldsymbol{\widehat\beta} + \lambda \boldsymbol{\widehat\beta} \right) &amp;= 0 \\\\
-\mathbf{X}^\prime \mathbf{y} &amp;= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right) \boldsymbol{\widehat\beta} \\\\
-\boldsymbol{\widehat\beta} &amp;= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{y}
+\nabla_\boldsymbol{\beta} \, \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) - \frac{\lambda}{n} \boldsymbol{\beta}^T \boldsymbol{\beta} &amp;= \frac{2}{n} \left(-\mathbf{X}^T \mathbf{y} + \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} + \lambda \boldsymbol{\beta} \right) \\\\
+\frac{2}{n} \left(-\mathbf{X}^T \mathbf{y} + \mathbf{X}^T \mathbf{X} \boldsymbol{\widehat\beta} + \lambda \boldsymbol{\widehat\beta} \right) &amp;= 0 \\\\
+\mathbf{X}^T \mathbf{y} &amp;= \left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right) \boldsymbol{\widehat\beta} \\\\
+\boldsymbol{\widehat\beta} &amp;= \left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^T \mathbf{y}
 \end{align}
 \]</span></p>
-<p>La diferencia entre el estimador <em>OLS</em> y el anterior es que se le añade <span class="math inline">\(\lambda\)</span> a la diagonal de <span class="math inline">\(\mathbf{X}^\prime \mathbf{X}\)</span> (este es el <em>ridge</em>). Como consecuencia, se minimizan posibles problemas por colinealidad y la varianza de los coeficientes en <span class="math inline">\(\boldsymbol{\widehat\beta}\)</span> es menor.</p>
+<p>La diferencia entre el estimador <em>OLS</em> y el anterior es que se le añade <span class="math inline">\(\lambda\)</span> a la diagonal de <span class="math inline">\(\mathbf{X}^T \mathbf{X}\)</span> (este es el <em>ridge</em>). Como consecuencia, se minimizan posibles problemas por colinealidad y la varianza de los coeficientes en <span class="math inline">\(\boldsymbol{\widehat\beta}\)</span> es menor.</p>
 <p>Esta menor varianza implica sesgo (<em>bias-variance trade-off</em>)</p>
 <p><span class="math display">\[
 \begin{align}
-\mathbb{E}\left[ \boldsymbol{\widehat\beta} \right] &amp;= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbb{E}\left[ \mathbf{y} \right] \\\\
-&amp;= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{X} \boldsymbol{\beta} \\\\
-\text{VAR}\left[ \boldsymbol{\widehat\beta} \right] &amp;= \text{VAR}\left[\left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{y} \right] \\\\
-&amp;= \text{VAR}\left[\left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{\epsilon} \right] \\\\
-&amp;= \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \, \sigma^2 \mathbf{I} \, \mathbf{X} \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \\\\
-&amp;= \sigma^2 \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^\prime \mathbf{X} \left( \mathbf{X}^\prime \mathbf{X} + \lambda \mathbf{I} \right)^{-1}
+\mathbb{E}\left[ \boldsymbol{\widehat\beta} \right] &amp;= \left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^T \mathbb{E}\left[ \mathbf{y} \right] \\\\
+&amp;= \left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} \\\\
+\text{Var}\left[ \boldsymbol{\widehat\beta} \right] &amp;= \text{Var}\left[\left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^T \mathbf{y} \right] \\\\
+&amp;= \text{Var}\left[\left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^T \mathbf{\epsilon} \right] \\\\
+&amp;= \left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^T \, \sigma^2 \mathbf{I} \, \mathbf{X} \left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \\\\
+&amp;= \sigma^2 \left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1} \mathbf{X}^T \mathbf{X} \left( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I} \right)^{-1}
 \end{align}
 \]</span></p>
 <p>Si <span class="math inline">\(\lambda\)</span> no es fijado sino estimado, entonces tendríamos que preocuparnos de su distribución.</p>
@@ -1501,34 +1503,34 @@ P\left(\sum_{i=1}^k \left(\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\boldsymbol{\Sigma} &amp;= \mathbf{VUV}^\prime \\\\
-\boldsymbol{\Sigma}^{1/2} &amp;= \mathbf{VU}^{1/2} \mathbf{V}^\prime \\\\
-\text{VAR}\left[ \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \right] &amp;= 
-\boldsymbol{\Sigma}^{-1/2} \, \text{VAR}\left[ \boldsymbol{\widehat\beta - \boldsymbol{\beta}} \right] \, \left(\boldsymbol{\Sigma}^{-1/2}\right)^\prime \\\\
-&amp;= \left(\mathbf{VU}^{1/2} \mathbf{V}^\prime\right)^{-1} \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\left(\mathbf{VU}^{1/2} \mathbf{V}^\prime\right)^{-1}\right)^\prime \\\\
-&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\mathbf{VU}^{-1/2} \mathbf{V}^\prime\right)^\prime \\\\
-&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \left(\mathbf{VU}^{-1/2} \mathbf{V}^\prime\right)^\prime \\\\
-&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^\prime \mathbf{V} \mathbf{U} \mathbf{V}^\prime \mathbf{VU}^{-1/2} \mathbf{V}^\prime \\\\
-&amp;= \mathbf{VU}^{-1/2} \mathbf{UU}^{-1/2} \mathbf{V}^\prime \\\\
-&amp;= \mathbf{VV}^\prime \\\\
+\boldsymbol{\Sigma} &amp;= \mathbf{VUV}^T \\\\
+\boldsymbol{\Sigma}^{1/2} &amp;= \mathbf{VU}^{1/2} \mathbf{V}^T \\\\
+\text{Var}\left[ \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \right] &amp;= 
+\boldsymbol{\Sigma}^{-1/2} \, \text{Var}\left[ \boldsymbol{\widehat\beta - \boldsymbol{\beta}} \right] \, \left(\boldsymbol{\Sigma}^{-1/2}\right)^T \\\\
+&amp;= \left(\mathbf{VU}^{1/2} \mathbf{V}^T\right)^{-1} \mathbf{V} \mathbf{U} \mathbf{V}^T \left(\left(\mathbf{VU}^{1/2} \mathbf{V}^T\right)^{-1}\right)^T \\\\
+&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^T \mathbf{V} \mathbf{U} \mathbf{V}^T \left(\mathbf{VU}^{-1/2} \mathbf{V}^T\right)^T \\\\
+&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^T \mathbf{V} \mathbf{U} \mathbf{V}^T \left(\mathbf{VU}^{-1/2} \mathbf{V}^T\right)^T \\\\
+&amp;= \mathbf{VU}^{-1/2} \mathbf{V}^T \mathbf{V} \mathbf{U} \mathbf{V}^T \mathbf{VU}^{-1/2} \mathbf{V}^T \\\\
+&amp;= \mathbf{VU}^{-1/2} \mathbf{UU}^{-1/2} \mathbf{V}^T \\\\
+&amp;= \mathbf{VV}^T \\\\
 &amp;= \mathbf{I}
 \end{align}
 \]</span></p>
 <p><span class="math display">\[
 \begin{align}
 \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim MVN(\mathbf{0}, \mathbf{I}) \\\\
-\left(\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})\right)^\prime \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k \\\\
-(\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \; \left(\boldsymbol{\Sigma}^{-1/2} \right)^\prime \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k \\\\
-(\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k
+\left(\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})\right)^T \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k \\\\
+(\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \; \left(\boldsymbol{\Sigma}^{-1/2} \right)^T \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k \\\\
+(\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
-P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  \chi^2_{k, 1-\alpha} \right) = 1 - \alpha
+P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  \chi^2_{k, 1-\alpha} \right) = 1 - \alpha
 \]</span></p>
 <p>Si se utiliza <span class="math inline">\(\widehat\sigma^2\)</span> para estimar el error típico, entonces debemos emplear la distribución <span class="math inline">\(F\)</span>:</p>
 <p><span class="math display">\[
-P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^\prime \ \boldsymbol{\widehat\Sigma}^{-1} \ (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \, n-p-1, (1-\alpha)} \right) = 1 - \alpha
+P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \ \boldsymbol{\widehat\Sigma}^{-1} \ (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \, n-p-1, (1-\alpha)} \right) = 1 - \alpha
 \]</span></p>
 <p><br></p>
 </div>
@@ -1584,17 +1586,17 @@ Y = \beta_0 + X_1 \beta_1 + X_2 \beta_2 + X_1X_2\beta_3 + \epsilon
 <p><br></p>
 <p>El leverage promedio es <span class="math inline">\(\frac{p + 1}{n}\)</span> ya que <span class="math inline">\(\text{tr}\left(\mathbf{H}\right) = p + 1\)</span> y <span class="math inline">\(\mathbf{H}\)</span> es una matrix <span class="math inline">\(n \times n\)</span>.</p>
 <p>La función de regresión es propensa a ajustar los puntos de mayor <em>leverage</em>. Cuanto más cercano sea al valor 1, más se ajusta <span class="math inline">\(\widehat{m}_i\)</span> a <span class="math inline">\(y_i\)</span>.</p>
-<p>Adicionalmente, <span class="math inline">\(x_i - \bar{x}\)</span> tendrá un mayor <em>leverage</em> si la varianza de dicho predictor es menor como se puede ver en</p>
+<p>Adicionalmente, <span class="math inline">\(x_i - \bar{x}\)</span> tendrá un mayor <em>leverage</em> si la varianza de dicho predictor es menor, como se puede ver en</p>
 <p><br></p>
 <p><span class="math display">\[
-\widehat{m}(\mathbf{x_i}) = \bar{y} + \frac{1}{n} (\mathbf{x_i} - \mathbf{\bar{x}}) \text{VAR}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^\prime \mathbf{y_c}
+\widehat{m}(\mathbf{x_i}) = \bar{y} + \frac{1}{n} (\mathbf{x_i} - \mathbf{\bar{x}}) \text{Var}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^T \mathbf{y_c}
 \]</span></p>
 <p><br></p>
 <p>donde <span class="math inline">\(\mathbf{x}_i\)</span> es el vector de predictores en la fila <span class="math inline">\(i\)</span>, <span class="math inline">\(\mathbf{X_c}\)</span> representa la matriz de diseño centrada sin la columna para la intersección y <span class="math inline">\(\mathbf{y_c}\)</span> es el vector <span class="math inline">\(\mathbf{y}\)</span> centrado.</p>
 <p>Nota: los valores ajustados del modelo pueden interpretarse como una distancia de Mahalanobis,</p>
 <p><br></p>
 <p><span class="math display">\[
-\widehat{m}\left(\mathbf{X}\right) = \bar{y} + \mathbf{X_c} \text{VAR}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^\prime \mathbf{y_c}
+\widehat{m}\left(\mathbf{X}\right) = \bar{y} + \mathbf{X_c} \text{Var}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^T \mathbf{y_c}
 \]</span></p>
 <p><br></p>
 </div>
@@ -1605,8 +1607,8 @@ Y = \beta_0 + X_1 \beta_1 + X_2 \beta_2 + X_1X_2\beta_3 + \epsilon
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VAR}\left[\mathbf{e}\right] &amp;= \sigma^2 \left(\mathbf{I} - \mathbf{H} \right) \\\\
-\text{VAR}\left[e_i\right] &amp;= \sigma^2 \left(1 - \mathbf{H}_{ii} \right)
+\text{Var}\left[\mathbf{e}\right] &amp;= \sigma^2 \left(\mathbf{I} - \mathbf{H} \right) \\\\
+\text{Var}\left[e_i\right] &amp;= \sigma^2 \left(1 - \mathbf{H}_{ii} \right)
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1622,6 +1624,17 @@ r_i = \frac{e_i}{\widehat\sigma \sqrt{1 - \mathbf{H}_{ii}}}
 \frac{r_i^2}{n-p-1} \sim \beta\left(\frac{1}{2}, \frac{n-p-2}{2} \right)
 \]</span></p>
 <p><br></p>
+<p>Definiendo <span class="math inline">\(v = \frac{(n - p - 2)}{2}\)</span>, la probabilidad de densidad de un residuo estandarizado y su función de distribución son</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+f(r) &amp;= \frac{\Gamma \left( v + \frac{1}{2} \right)}{ \Gamma(v) \sqrt{\pi (n-p-1)}} \left( 1 - \frac{r^2}{n-p-1} \right)^{v-1} \ ; \qquad |r| \leq (n-p-1)^{1/2} \\\\
+F(r) &amp;= \frac{1}{2} + r \ \frac{\Gamma \left( \frac{1}{2}+ v \right) \ _2F_1 \left( \frac{1}{2}, 1 - v, \frac{3}{2}, \frac{r^2}{2 v + 1} \right)}{\Gamma(v) \ \sqrt{\pi + 2 \pi v}}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>donde <span class="math inline">\(_2F_1\)</span> se corresponde con la función hipergeométrica.</p>
+<p><br></p>
 </div>
 <div id="residuos-de-validacion-cruzada" class="section level2">
 <h2>Residuos de validación cruzada</h2>
@@ -1629,7 +1642,7 @@ r_i = \frac{e_i}{\widehat\sigma \sqrt{1 - \mathbf{H}_{ii}}}
 <p>Si eliminamos del modelo de regresión la realización <span class="math inline">\(y_i\)</span>, entonces el hipotético valor ajustado sería</p>
 <p><br></p>
 <p><span class="math display">\[
-\widehat{m}^{-i} = \frac{(\mathbf{Hy})_i - \mathbf{H}_{ii} y_i}{1 - \mathbf{H}_{ii}}
+\widehat{m}^{(-i)} = \frac{(\mathbf{Hy})_i - \mathbf{H}_{ii} y_i}{1 - \mathbf{H}_{ii}}
 \]</span></p>
 <p><br></p>
 <p>El residuo de validación cruzada es</p>
@@ -1664,63 +1677,46 @@ D_i &amp;= \frac{\left\| \widehat{\mathbf{m}} - \widehat{\mathbf{m}}^{(-i)} \rig
 <p>También podemos obtener una expresión de la estimación de <span class="math inline">\(\beta\)</span> ante la ausencia de la realización <span class="math inline">\(i\)</span>:</p>
 <p><br></p>
 <p><span class="math display">\[
-\widehat{\beta}^{(-i)} = \widehat{\beta} - \frac{(\mathbf{X}^\prime \mathbf{X})^{-1} \ \mathbf{x}_i^\prime \ e_i}{1 - \mathbf{H}_{ii}} \\\\
+\widehat{\beta}^{(-i)} = \widehat{\beta} - \frac{(\mathbf{X}^T \mathbf{X})^{-1} \ \mathbf{x}_i^T \ e_i}{1 - \mathbf{H}_{ii}} \\\\
 \]</span></p>
 <p><br></p>
 <p>Lo que nos permite expresar <span class="math inline">\(D_i\)</span> como</p>
 <p><br></p>
 <p><span class="math display">\[
-D_i = \left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)^\prime \ \frac{\mathbf{X}^\prime \mathbf{X}}{(p + 1) \widehat{\sigma}^2}  \left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)
-\]</span></p>
-<p><br></p>
-</div>
-<div id="regresion-lineal-robusta" class="section level2">
-<h2>Regresión lineal robusta</h2>
-<p><br></p>
-<p><span class="math display">\[
-\widehat{\beta} = \underset{\mathbf{b}}{\text{argmin}} \ \frac{1}{n} \sum_{i=1}^n p(y_i - \mathbf{x}_i \mathbf{b})
-\]</span></p>
-<p><br></p>
-<p><span class="math inline">\(p\)</span> es una <em>loss function</em>. Si <span class="math inline">\(p(u) = |u|\)</span>, entonces incurrimos en la estimación por desviación absoluta y si <span class="math inline">\(p(u) = u^2\)</span>, entonces la estimación es por mínimos cuadrados ordinarios.</p>
-<p>El <em>loss function</em> de Huber viene definido por</p>
-<p><span class="math display">\[
-p(u) = \begin{cases} 
-      u^2 &amp; |u| \leq c \\
-      2c|u| - c^2 &amp; |u| &gt; c
-\end{cases}
+D_i = \left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)^T \ \frac{\mathbf{X}^T \mathbf{X}}{(p + 1) \widehat{\sigma}^2}  \left(\widehat{\beta}^{(-i)} - \widehat{\beta}\right)
 \]</span></p>
 <p><br></p>
 </div>
 <div id="seleccion-de-modelos" class="section level2">
 <h2>Selección de modelos</h2>
 <p><br></p>
-<p>Si repetimos el experimento empleando los mismos valores de los predictores (<span class="math inline">\(\mathbf{X}\)</span>), Las nuevas realizaciones de la variable <span class="math inline">\(Y\)</span> son:</p>
+<p>Si repetimos el experimento empleando los mismos valores de los predictores (<span class="math inline">\(\mathbf{X}\)</span>), las nuevas realizaciones de la variable <span class="math inline">\(Y\)</span> son:</p>
 <p><span class="math display">\[
-Y^\prime = \mathbf{X} \boldsymbol{\beta} + \epsilon^\prime
+Y^* = \mathbf{X} \boldsymbol{\beta} + \epsilon^*
 \]</span></p>
 <p><br></p>
 <p>La esperanza del error cuadrático medio fuera de la muestra sería</p>
 <p><br></p>
 <p><span class="math display">\[
-\mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i^\prime - \widehat{m}_i\right)^2 \right]
+\mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i^* - \widehat{m}_i\right)^2 \right]
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbb{E}\left[ \left(Y_i - \widehat{m}_i \right)^2 \right] &amp;= \text{VAR}\left[ Y_i - \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i - \widehat{m}_i \right] \right)^2 \\\\
-&amp;= \text{VAR}\left[ Y_i \right] + \text{VAR}\left[ \widehat{m}_i \right] - 2 \ \text{COV}\left[ Y_i, \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i - \widehat{m}_i \right] \right)^2 \\\\
-\mathbb{E}\left[ \left(Y_i^\prime - \widehat{m}_i \right)^2 \right] &amp;= \text{VAR}\left[ Y_i^\prime - \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i^\prime - \widehat{m}_i \right] \right)^2 \\\\
-&amp;= \text{VAR}\left[ Y_i^\prime \right] + \text{VAR}\left[ \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i^\prime - \widehat{m}_i \right] \right)^2
+\mathbb{E}\left[ \left(Y_i - \widehat{m}_i \right)^2 \right] &amp;= \text{Var}\left[ Y_i - \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i - \widehat{m}_i \right] \right)^2 \\\\
+&amp;= \text{Var}\left[ Y_i \right] + \text{Var}\left[ \widehat{m}_i \right] - 2 \ \text{Cov}\left[ Y_i, \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i - \widehat{m}_i \right] \right)^2 \\\\
+\mathbb{E}\left[ \left(Y_i^* - \widehat{m}_i \right)^2 \right] &amp;= \text{Var}\left[ Y_i^* - \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i^* - \widehat{m}_i \right] \right)^2 \\\\
+&amp;= \text{Var}\left[ Y_i^* \right] + \text{Var}\left[ \widehat{m}_i \right] + \left( \mathbb{E} \left[Y_i^* - \widehat{m}_i \right] \right)^2
 \end{align}
 \]</span></p>
 <p><br></p>
-<p><span class="math inline">\(\text{COV}\left[ Y_i^\prime, \widehat{m}_i \right]\)</span> es necesariamente <span class="math inline">\(0\)</span> porque <span class="math inline">\(\widehat{m}_i\)</span> es independiente de <span class="math inline">\(Y^\prime\)</span>.</p>
+<p><span class="math inline">\(\text{Cov}\left[ Y_i^*, \widehat{m}_i \right]\)</span> es necesariamente <span class="math inline">\(0\)</span> porque <span class="math inline">\(\widehat{m}_i\)</span> es independiente de <span class="math inline">\(Y^*\)</span>.</p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbb{E}\left[ Y_i \right] &amp;= \mathbb{E}\left[ Y_i^\prime \right] \\\\
-\text{VAR}\left[ Y_i \right] &amp;= \text{VAR}\left[ Y_i^\prime \right] \\\\
-\mathbb{E}\left[ \left(Y_i^\prime - \widehat{m}_i \right)^2 \right] &amp;= \mathbb{E}\left[ \left(Y_i - \widehat{m}_i \right)^2 \right] + 2 \ \text{COV}\left[ Y_i, \widehat{m}_i \right]
+\mathbb{E}\left[ Y_i \right] &amp;= \mathbb{E}\left[ Y_i^* \right] \\\\
+\text{Var}\left[ Y_i \right] &amp;= \text{Var}\left[ Y_i^* \right] \\\\
+\mathbb{E}\left[ \left(Y_i^* - \widehat{m}_i \right)^2 \right] &amp;= \mathbb{E}\left[ \left(Y_i - \widehat{m}_i \right)^2 \right] + 2 \ \text{Cov}\left[ Y_i, \widehat{m}_i \right]
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1728,12 +1724,12 @@ Y^\prime = \mathbf{X} \boldsymbol{\beta} + \epsilon^\prime
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{COV}\left[ Y_i, \widehat{m}_i \right] &amp;= \sigma^2 \mathbf{H}_{ii} \\\\
-\mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i^\prime - \widehat{m}_i \right)^2 \right] &amp;= \mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i - \widehat{m}_i \right)^2 \right] + \frac{2}{n} \sigma^2 (p+1)
+\text{Cov}\left[ Y_i, \widehat{m}_i \right] &amp;= \sigma^2 \mathbf{H}_{ii} \\\\
+\mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i^* - \widehat{m}_i \right)^2 \right] &amp;= \mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \left(Y_i - \widehat{m}_i \right)^2 \right] + \frac{2}{n} \sigma^2 (p+1)
 \end{align}
 \]</span></p>
 <p><br></p>
-<p><span class="math inline">\(\frac{2}{n} \sigma^2 (p+1)\)</span> se conoce como el <strong>optimismo</strong> del modelo porque es la cantidad en la que el error cuadrático medio de la muestra infraestima el error cuadrático medio de futuras realizaciones de <span class="math inline">\(Y^\prime\)</span>.</p>
+<p><span class="math inline">\(\frac{2}{n} \sigma^2 (p+1)\)</span> se conoce como el <strong>optimismo</strong> del modelo porque es la cantidad en la que el error cuadrático medio de la muestra infraestima el error cuadrático medio de futuras realizaciones de <span class="math inline">\(Y^*\)</span>.</p>
 <p>Si tuviéramos una expresión adecuada del optimismo, tendríamos un estimador insesgado del error cuadrático medio de futuras realizaciones.</p>
 <p><br></p>
 <div id="estadistico-c_p-de-mallow" class="section level3">
@@ -1752,7 +1748,7 @@ C_p = \frac{1}{n} \sum_{i=1}^n \left(Y_i - \widehat{m}_i \right)^2 + \frac{2}{n}
 <p>Maximizar <span class="math inline">\(R^2\)</span> es equivalente a minimizar el error cuadrático medio ya que</p>
 <p><br></p>
 <p><span class="math display">\[
-R^2 = 1 - \frac{\bar{e^2}}{s_y^2}
+R^2 = 1 - \frac{\text{MSE}}{s_y^2}
 \]</span></p>
 <p><br></p>
 <p>Sin embargo,</p>
@@ -1760,22 +1756,22 @@ R^2 = 1 - \frac{\bar{e^2}}{s_y^2}
 <p><span class="math display">\[
 \begin{align}
 R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
-&amp;= 1 - \frac{\bar{e^2}}{\hat{s}_y^2} \ \frac{n}{n-p-1}
+&amp;= 1 - \frac{\text{MSE}}{\hat{s}_y^2} \ \frac{n}{n-p-1}
 \end{align}
 \]</span></p>
 <p><br></p>
 <p>En este caso, nuestra intención sería minimizar</p>
 <p><br></p>
 <p><span class="math display">\[
-\bar{e^2} \ \frac{n}{n-p-1} = \bar{e^2} \ \frac{1}{1 - (p+1)/n}
+\text{MSE} \ \frac{n}{n-p-1} = \text{MSE} \ \frac{1}{1 - (p+1)/n}
 \]</span></p>
 <p><br></p>
 <p>Empleando el teorema binomial para conseguir una aproximación de primer orden,</p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\bar{e^2} \ \frac{1}{1 - (p+1)/n} &amp;\approx \bar{e^2} \ \left( 1 + \frac{p+1}{n} \right) \\\\
-&amp;\approx \bar{e^2} + \bar{e^2} \left(\frac{p+1}{n} \right)
+\text{MSE} \ \frac{1}{1 - (p+1)/n} &amp;\approx \text{MSE} \ \left( 1 + \frac{p+1}{n} \right) \\\\
+&amp;\approx \text{MSE} + \text{MSE} \left(\frac{p+1}{n} \right)
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1787,7 +1783,7 @@ R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
 <p><br></p>
 <p>Digamos que <span class="math inline">\(\ell(\widehat\theta)\)</span> es la esperanza del logaritmo de la verosimilitud de una nueva realización bajo el vector estimado <span class="math inline">\(\widehat\theta\)</span>. Si <span class="math inline">\(\theta^*\)</span> es el verdadero vector de parámetros, una expansión de Taylor indica que</p>
 <p><span class="math display">\[
-\ell(\widehat\theta) \approx \ell(\theta^*) + (\widehat\theta - \theta^*)^\prime \nabla \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^\prime \ \nabla \nabla \ell(\theta^*) \ (\widehat\theta - \theta^*)
+\ell(\widehat\theta) \approx \ell(\theta^*) + (\widehat\theta - \theta^*)^T \nabla \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^T \ \nabla \nabla \ell(\theta^*) \ (\widehat\theta - \theta^*)
 \]</span></p>
 <p><br></p>
 <p>La esperanza del logaritmo de la verosimilitud es maximizada por el vector de parámetros verdaderos, por lo que</p>
@@ -1795,7 +1791,7 @@ R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
 <p><span class="math display">\[
 \begin{align}
 \nabla \ell(\theta^*) &amp;= 0 \\\\
-\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^\prime \ \nabla \nabla \ell(\theta^*) \ (\widehat\theta - \theta^*)
+\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^T \ \nabla \nabla \ell(\theta^*) \ (\widehat\theta - \theta^*)
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1803,7 +1799,7 @@ R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
 <p><span class="math display">\[
 \begin{align}
 \nabla \nabla \ell(\theta^*) &amp;= \mathbf{h} \\\\
-\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^\prime \ \mathbf{h} \ (\widehat\theta - \theta^*)
+\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^T \ \mathbf{h} \ (\widehat\theta - \theta^*)
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1811,8 +1807,8 @@ R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\nabla L(\widehat\theta) \approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^\prime \ \nabla \nabla L(\theta^*) \\\\
-\mathbf{0} \approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^\prime \ \nabla \nabla L(\theta^*)
+\nabla L(\widehat\theta) \approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^T \ \nabla \nabla L(\theta^*) \\\\
+\mathbf{0} \approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^T \ \nabla \nabla L(\theta^*)
 \end{align}
 \]</span></p>
 <p><br></p>
@@ -1820,7 +1816,7 @@ R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbf{0} &amp;\approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^\prime \ \mathbf{H} \\\\
+\mathbf{0} &amp;\approx \nabla L(\theta^*) + (\widehat\theta - \theta^*)^T \ \mathbf{H} \\\\
 \widehat\theta &amp;\approx \theta^* - \nabla L(\theta^*) \ \mathbf{H}^{-1}
 \end{align}
 \]</span></p>
@@ -1828,20 +1824,20 @@ R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
 <p>Si sustituimos esta última expresión de <span class="math inline">\(\widehat\theta\)</span> por <span class="math inline">\(\widehat\theta\)</span> en</p>
 <p><br></p>
 <p><span class="math display">\[
-\ell(\widehat\theta) \approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^\prime \ \mathbf{h} \ (\widehat\theta - \theta^*)
+\ell(\widehat\theta) \approx \ell(\theta^*) + \frac{1}{2} (\widehat\theta - \theta^*)^T \ \mathbf{h} \ (\widehat\theta - \theta^*)
 \]</span></p>
 <p><br></p>
 <p>entonces,</p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} \left( \theta^* - \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right)^\prime \ \mathbf{h} \ \left( \theta^* - \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right) \\\\
-&amp;\approx \ell(\theta^*) + \frac{1}{2} \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right)^\prime \ \mathbf{h} \ \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right) \\\\
+\ell(\widehat\theta) &amp;\approx \ell(\theta^*) + \frac{1}{2} \left( \theta^* - \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right)^T \ \mathbf{h} \ \left( \theta^* - \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right) \\\\
+&amp;\approx \ell(\theta^*) + \frac{1}{2} \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right)^T \ \mathbf{h} \ \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right) \\\\
 &amp;\approx \ell(\theta^*) + \frac{1}{2} \nabla L(\theta^*) \ \mathbf{H}^{-1} \ \mathbf{h} \ \mathbf{H}^{-1} \ \nabla L(\theta^*)
 \end{align}
 \]</span></p>
 <p><br></p>
-<p>Si a continuación tomamos esperanzas, sabiendo que <span class="math inline">\(\text{VAR} \left[ \nabla L(\theta^*) \right] = - \mathbf{h}\)</span> según la <strong>identidad de Fisher</strong>, entonces</p>
+<p>Si a continuación tomamos esperanzas, sabiendo que <span class="math inline">\(\text{Var} \left[ \nabla L(\theta^*) \right] = - \mathbf{h}\)</span> según la <strong>identidad de Fisher</strong>, entonces</p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
@@ -1854,15 +1850,15 @@ R^2_{\text{adj}} &amp;= 1 - \frac{\widehat\sigma^2}{\hat{s}_y^2} \\\\
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-L(\theta^*) &amp;\approx L(\widehat\theta) + (\theta^* - \widehat\theta)^\prime \ \nabla L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^\prime \ \nabla \nabla L(\widehat\theta) \ (\theta^* - \widehat\theta) \\\\
-&amp;\approx L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^\prime \ \nabla \nabla L(\widehat\theta) \ (\theta^* - \widehat\theta) \\\\
-&amp;\approx L(\widehat\theta) + \frac{1}{2} \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right)^\prime \ \nabla \nabla L(\widehat\theta) \ \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right) \\\\
-&amp;\approx L(\widehat\theta) + \frac{1}{2} \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right)^\prime \ \nabla \nabla L(\widehat\theta) \ \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right) \\\\
+L(\theta^*) &amp;\approx L(\widehat\theta) + (\theta^* - \widehat\theta)^T \ \nabla L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^T \ \nabla \nabla L(\widehat\theta) \ (\theta^* - \widehat\theta) \\\\
+&amp;\approx L(\widehat\theta) + \frac{1}{2} (\theta^* - \widehat\theta)^T \ \nabla \nabla L(\widehat\theta) \ (\theta^* - \widehat\theta) \\\\
+&amp;\approx L(\widehat\theta) + \frac{1}{2} \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right)^T \ \nabla \nabla L(\widehat\theta) \ \left( \theta^* + \nabla L(\theta^*) \ \mathbf{H}^{-1} - \theta^* \right) \\\\
+&amp;\approx L(\widehat\theta) + \frac{1}{2} \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right)^T \ \nabla \nabla L(\widehat\theta) \ \left( \nabla L(\theta^*) \ \mathbf{H}^{-1} \right) \\\\
 &amp;\approx L(\widehat\theta) + \frac{1}{2} \nabla L(\theta^*) \ \mathbf{H}^{-1} \ \nabla \nabla L(\widehat\theta) \ \mathbf{H}^{-1} \ \nabla L(\theta^*)
 \end{align}
 \]</span></p>
 <p><br></p>
-<p>Según la identidad de Fisher, <span class="math inline">\(\text{VAR} \left[ \nabla L(\theta^*) \right] = - \mathbf{h}\)</span>, y volviendo a tomar esperanzas,</p>
+<p>Según la identidad de Fisher, <span class="math inline">\(\text{Var} \left[ \nabla L(\theta^*) \right] = - \mathbf{h}\)</span>, y volviendo a tomar esperanzas,</p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
@@ -1896,7 +1892,7 @@ L(\theta^*) &amp;\approx L(\widehat\theta) + (\theta^* - \widehat\theta)^\prime 
 \]</span></p>
 <p><br></p>
 <p>En este caso, <span class="math inline">\(AIC/n\)</span> se corresponde con la esperanza del logaritmo de la verosimilitud de una nueva realización bajo el modelo estimado si dicho modelo es correcto.</p>
-<p>Sin embargo, si no hemos estimado el modelo correcto, entonces <span class="math inline">\(\text{VAR}\left[ \nabla L(\theta^*) \right] \neq - \nabla\nabla \ \ell(\theta^*) \neq - \mathbf{h}\)</span>.</p>
+<p>Sin embargo, si no hemos estimado el modelo correcto, entonces <span class="math inline">\(\text{Var}\left[ \nabla L(\theta^*) \right] \neq - \nabla\nabla \ \ell(\theta^*) \neq - \mathbf{h}\)</span>.</p>
 <p><br></p>
 </div>
 <div id="equivalencias" class="section level3">
@@ -1958,6 +1954,88 @@ L(\widehat\theta) &amp;= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log \text{M
 <p>A diferencia de los otros métodos, a medida que <span class="math inline">\(n \rightarrow \infty\)</span> y asi el modelo verdadero se encuentra entre los comparados, BIC tenderá a seleccionar el modelo verdadero.</p>
 <p><br></p>
 </div>
+</div>
+<div id="regresion-lineal-robusta" class="section level2">
+<h2>Regresión lineal robusta</h2>
+<p><br></p>
+<p><span class="math display">\[
+\widehat{\beta} = \underset{\mathbf{b}}{\text{argmin}} \ \frac{1}{n} \sum_{i=1}^n p(y_i - \mathbf{x}_i \mathbf{b})
+\]</span></p>
+<p><br></p>
+<p><span class="math inline">\(p\)</span> es una <em>loss function</em>. Si <span class="math inline">\(p(u) = |u|\)</span>, entonces incurrimos en la estimación por desviación absoluta y si <span class="math inline">\(p(u) = u^2\)</span>, entonces la estimación es por mínimos cuadrados ordinarios.</p>
+<p>El <em>loss function</em> de Huber viene definido por</p>
+<p><span class="math display">\[
+p(u) = \begin{cases} 
+      u^2 &amp; |u| \leq c \\
+      2c|u| - c^2 &amp; |u| &gt; c
+\end{cases}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="minimos-cuadrados-ponderados" class="section level2">
+<h2>Mínimos cuadrados ponderados</h2>
+<p><br></p>
+<p><strong>Teorema de Gauss-Markov</strong>: Si los términos error no correlacionan y poseen misma varianza, entonces el mejor estimador lineal insesgado es el de mínimos cuadrados.</p>
+<p>Sin embargo, si nuestro modelo de regresión es</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{y} &amp;=  \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon} \\\\
+\mathbb{E} \left[ \boldsymbol{\epsilon} | \mathbf{X} \right] &amp;= \mathbf{0} \\\\
+\text{Var} \left[ \boldsymbol{\epsilon} | \mathbf{X} \right] &amp;= \boldsymbol{\Sigma}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>donde <span class="math inline">\(\boldsymbol{\Sigma}\)</span> representa la matriz de varianzas-covarianzas entre los términos error, entonces es conveniente minimizar</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\text{WMSE} &amp;= \frac{1}{n} (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^T \ \mathbf{W} \ (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\\\
+&amp;= \frac{1}{n} \left( \mathbf{y}^T \mathbf{W} \mathbf{y} - \mathbf{y}^T \mathbf{W} \mathbf{X} \boldsymbol{\beta} - \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{W}  \mathbf{y} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\beta} \right) \\\\
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>donde <span class="math inline">\(\mathbf{W}\)</span> es una matriz de pesos.</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\nabla_{\boldsymbol{\beta}} \text{WMSE} &amp;= \frac{2}{n} \left( - \mathbf{X}^T \mathbf{W} \mathbf{y} + \mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\beta} \right) \\\\
+\widehat{\boldsymbol{\beta}} &amp;= \left( \mathbf{X}^T \mathbf{W} \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{W} \mathbf{y} \\\\
+&amp;= \left( \mathbf{X}^T \mathbf{W} \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\beta} + \left( \mathbf{X}^T \mathbf{W} \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{W} \boldsymbol{\epsilon} \\\\
+&amp;= \boldsymbol{\beta} + \left( \mathbf{X}^T \mathbf{W} \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{W} \boldsymbol{\epsilon} \\\\
+\mathbb{E} \left[ \widehat{\boldsymbol{\beta}} \right] &amp;= \boldsymbol{\beta} \\\\
+\text{Var} \left[ \widehat{\boldsymbol{\beta}} \right] &amp;= \left( \mathbf{X}^T \mathbf{W} \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{W} \ \boldsymbol{\Sigma} \ \mathbf{W}^T \mathbf{X} \left( \mathbf{X}^T \mathbf{W} \mathbf{X} \right)^{-1}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>La explicación es esta: supongamos que conocemos la matriz <span class="math inline">\(\boldsymbol{\Sigma}\)</span> y estandarizamos el modelo de regresión, de manera que</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{SS}^T &amp;= \boldsymbol{\Sigma} \\\\
+\mathbf{S}^{-1} \mathbf{y} &amp;= \mathbf{S}^{-1} \mathbf{X} \boldsymbol{\beta} + \mathbf{S}^{-1} \boldsymbol{\Sigma} \\\\
+\text{Var} \left[ \mathbf{S}^{-1} \boldsymbol{\epsilon} | \mathbf{X} \right] &amp;= \mathbf{S}^{-1} \boldsymbol{\Sigma} \ \mathbf{S}^{-T} \\\\
+&amp;= \mathbf{I} \\\\
+\widehat{\boldsymbol{\beta}} &amp;= \left( \left( \mathbf{S}^{-1} \mathbf{X} \right)^T \mathbf{S}^{-1} \mathbf{X} \right)^{-1} \left( \mathbf{S}^{-1} \mathbf{X} \right)^T \mathbf{S}^{-1} \mathbf{y} \\\\
+&amp;= \left( \mathbf{X}^T \mathbf{S}^{-T} \mathbf{S}^{-1} \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{S}^{-T} \mathbf{S}^{-1} \mathbf{y} \\\\
+&amp;= \left( \mathbf{X}^T \boldsymbol{\Sigma}^{-1} \mathbf{X} \right)^{-1} \mathbf{X}^T \boldsymbol{\Sigma}^{-1} \mathbf{y}
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Ahora que el paralelismo es claro, vemos que la estimación de <span class="math inline">\(\boldsymbol{\beta}\)</span> es insesgada y tiene mínima varianza cuando <span class="math inline">\(\mathbf{W} = \boldsymbol{\Sigma}^{-1}\)</span>. Por esta razón conviene que los pesos sean inversamente proporcionales a la varianza-covarianza de las realizaciones. En este caso, haríamos algo equivalente a estandarizar el modelo de regresión para cancelar las covarianzas entre los errores y forzar su homocedastidad.</p>
+<p>Sin embargo, en situaciones reales no conocemos <span class="math inline">\(\boldsymbol{\Sigma}\)</span>. Ante esta situación, existen dos formas genéricas de estimar la varianza condicional:</p>
+<p><strong>Método del cuadrado de los residuos</strong>: Mediante OLS, se computa la media del cuadrado de los residuos (<span class="math inline">\(\mathbf{ee}^T = (\mathbf{y} - \widehat{\mathbf{m}}) (\mathbf{y} - \widehat{\mathbf{m}})^T\)</span>).</p>
+<p><strong>Método del logaritmo del cuadrado de los residuos</strong>: Mediante OLS, se computa la media del logaritmo del cuadrado de los residuos (<span class="math inline">\(\hat{s}^2 = \log \left( \mathbf{ee}^T \right)\)</span>) y se estima la varianza como <span class="math inline">\(\exp(\widehat{s}^2)\)</span>.</p>
+<p>Una vez estimadas las varianzas, se vuelve a estimar el modelo de regresión empleando la inversa de esta estimación como matriz de pesos <span class="math inline">\(\mathbf{W}\)</span> para luego volver a estimar la varianza condicional usando los residuos de este último modelo. La iteración se detiene cuando el cambio de coeficientes según el nuevo modelo y el anterior es pequeño.</p>
+<p>También se puede estimar la varianza condicional usando algún modelo paramétrico con sentido teórico o mediante <em>splines</em> y validación cruzada empleando el logaritmo del cuadrado de los residuos (para que la predicción sea en la recta real).</p>
+<p>Para estimar las covarianzas entre los términos error, necesitamos conocer la distancia entre los términos error (<strong>lag</strong>) en cuestión de tiempo o distancia, por ejemplo. A continuación, se toman todos los pares de observaciones con un mismo <em>lag</em> y se realiza la media de sus productos.</p>
+<p><br></p>
+</div>
+<div id="minimos-cuadrados-generalizados" class="section level2">
+<h2>Mínimos cuadrados generalizados</h2>
+<p><br></p>
+<p>En este caso, la matriz de pesos <span class="math inline">\(\mathbf{W}\)</span> no es diagonal.</p>
+<p><br></p>
 </div>
 <div id="distribucion-de-los-valores-p-bajo-la-hipotesis-nula" class="section level2">
 <h2>Distribución de los valores p bajo la hipótesis nula</h2>
