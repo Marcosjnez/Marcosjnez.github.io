@@ -1012,7 +1012,7 @@ $$
 
 $$
 \begin{align}
-\frac{1}{n} \mathbb{E}\left[\mathbf{e}'\mathbf{e}\right] &= \frac{1}{n} \mathbb{E}\left[((\mathbf{I} - \mathbf{H})\mathbf{e})^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+\frac{1}{n} \mathbb{E}\left[\mathbf{e}^T \mathbf{e}\right] &= \frac{1}{n} \mathbb{E}\left[((\mathbf{I} - \mathbf{H})\mathbf{e})^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
 &= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^T(\mathbf{I} - \mathbf{H})^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
 &= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
 &= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \text{Var}[\mathbf{e}]\right]\\\\
@@ -1020,9 +1020,9 @@ $$
 &= \frac{\sigma^2}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \right] \\\\
 \text{tr}[\mathbf{I}] &= n \\\\
 \text{tr}[\mathbf{H}] &= p + 1 \\\\
-\frac{1}{n} \mathbb{E}\left[\mathbf{e}'\mathbf{e}\right] &= \frac{\sigma^2}{n} (n - p - 1) \\\\
-\sigma^2 &= \frac{\mathbb{E}\left[\mathbf{e}'\mathbf{e}\right]}{n - p - 1} \\\\
-\widehat\sigma^2 &= \frac{\mathbf{e}'\mathbf{e}}{n - p - 1}
+\frac{1}{n} \mathbb{E}\left[ \mathbf{e}^T \mathbf{e} \right] &= \frac{\sigma^2}{n} (n - p - 1) \\\\
+\sigma^2 &= \frac{\mathbb{E}\left[\mathbf{e}^T \mathbf{e}\right]}{n - p - 1} \\\\
+\widehat\sigma^2 &= \frac{\mathbf{e}^T \mathbf{e}}{n - p - 1}
 \end{align}
 $$
 
@@ -1119,18 +1119,30 @@ $$
 
 <br>
 
-## Factor de inflación de la varianza
+## Factor de inflación de la varianza (VIF)
 
 <br>
 
 $$
 \begin{align}
-\text{VIF}_i &= \frac{\widehat\sigma^2 / n s_{x_{i}}^2}{\widehat\sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{i+1, i+1}} \\\\
+\text{VIF}_i &= \frac{\widehat\sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{i+1, i+1}}{\widehat\sigma^2 / n s_{x_{i}}^2} \\\\
 &= n s_{x_{i}}^2  \ (\mathbf{X}^T \mathbf{X})^{-1}_{i+1, i+1}
 \end{align}
 $$
 
 El factor de inflación de la varianza equivale a regresar $\mathbf{x}_i$ en el resto de predictores y calcular $\frac{1}{1 - R^2}$.
+
+Si expresamos el estadístico de la pendiente en términos del VIF, entonces podemos observar cómo su varianza es un compromiso entre la estimación del error cuadrático medio y el mismo VIF:
+
+<br>
+
+$$
+\frac{\widehat{\beta}_i}{\widehat\sigma \sqrt{\text{VIF}_i / n s_{x_i}^2}} \sim t_{n-p-1}
+$$
+
+<br>
+
+Esto quiere decir que eliminar los predictores no significativos del modelo no es el método más óptimo. Un predictor no significativo puede reducir el intervalo de confianza del parámetro $\beta_i$ si contriuye más a la reducción de $\widehat\sigma^2$ que al VIF del otro predictor.
 
 <br>
 
@@ -2149,9 +2161,9 @@ Ahora que el paralelismo es claro, vemos que la estimación de $\boldsymbol{\bet
 
 Sin embargo, en situaciones reales no conocemos $\boldsymbol{\Sigma}$. Ante esta situación, existen dos formas genéricas de estimar la varianza condicional: 
 
-**Método del cuadrado de los residuos**: Mediante OLS, se computa la media del cuadrado de los residuos ($\mathbf{ee}^T = (\mathbf{y} - \widehat{\mathbf{m}}) (\mathbf{y} - \widehat{\mathbf{m}})^T$).
+**Método del cuadrado de los residuos**: aplicando OLS, se computa el cuadrado de los residuos. Si estos residuos cuadráticos dependen de los mismos predictores, entonces se promedian.
 
-**Método del logaritmo del cuadrado de los residuos**: Mediante OLS, se computa la media del logaritmo del cuadrado de los residuos ($\hat{s}^2 = \log \left( \mathbf{ee}^T \right)$) y se estima la varianza como $\exp(\widehat{s}^2)$.
+**Método del logaritmo del cuadrado de los residuos**: aplicando OLS, se computa el logaritmo del cuadrado de los residuos y luego se exponencian. Si estos residuos cuadráticos dependen de los mismos predictores, entonces se promedian.
 
 Una vez estimadas las varianzas, se vuelve a estimar el modelo de regresión empleando la inversa de esta estimación como matriz de pesos $\mathbf{W}$ para luego volver a estimar la varianza condicional usando los residuos de este último modelo. La iteración se detiene cuando el cambio de coeficientes según el nuevo modelo y el anterior es pequeño.
 

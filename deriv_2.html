@@ -354,7 +354,7 @@ $(document).ready(function () {
 <li><a href="#derivacion-alternativa">Derivación alternativa</a></li>
 <li><a href="#sesgo-de-estimacion-por-omision-de-variables-relacionadas">Sesgo de estimación por omisión de variables relacionadas</a></li>
 <li><a href="#colinealidad">Colinealidad</a></li>
-<li><a href="#factor-de-inflacion-de-la-varianza">Factor de inflación de la varianza</a></li>
+<li><a href="#factor-de-inflacion-de-la-varianza-vif">Factor de inflación de la varianza (VIF)</a></li>
 <li><a href="#autovalores-y-autovectores">Autovalores y autovectores</a></li>
 <li><a href="#derivadas-respecto-a-vectores">Derivadas respecto a vectores</a></li>
 <li><a href="#esperanza-y-varianza-de-vectores-y-matrices">Esperanza y varianza de vectores y matrices</a></li>
@@ -1204,7 +1204,7 @@ R^2 &amp;= \frac{\beta_1^2 \text{Var}\left[X\right]}{\beta_1^2 \text{Var}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\frac{1}{n} \mathbb{E}\left[\mathbf{e}&#39;\mathbf{e}\right] &amp;= \frac{1}{n} \mathbb{E}\left[((\mathbf{I} - \mathbf{H})\mathbf{e})^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
+\frac{1}{n} \mathbb{E}\left[\mathbf{e}^T \mathbf{e}\right] &amp;= \frac{1}{n} \mathbb{E}\left[((\mathbf{I} - \mathbf{H})\mathbf{e})^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
 &amp;= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^T(\mathbf{I} - \mathbf{H})^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
 &amp;= \frac{1}{n} \mathbb{E}\left[\mathbf{e}^T (\mathbf{I} - \mathbf{H})\mathbf{e} \right] \\\\
 &amp;= \frac{1}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \text{Var}[\mathbf{e}]\right]\\\\
@@ -1212,9 +1212,9 @@ R^2 &amp;= \frac{\beta_1^2 \text{Var}\left[X\right]}{\beta_1^2 \text{Var}\left[X
 &amp;= \frac{\sigma^2}{n} \text{tr}\left[(\mathbf{I} - \mathbf{H}) \right] \\\\
 \text{tr}[\mathbf{I}] &amp;= n \\\\
 \text{tr}[\mathbf{H}] &amp;= p + 1 \\\\
-\frac{1}{n} \mathbb{E}\left[\mathbf{e}&#39;\mathbf{e}\right] &amp;= \frac{\sigma^2}{n} (n - p - 1) \\\\
-\sigma^2 &amp;= \frac{\mathbb{E}\left[\mathbf{e}&#39;\mathbf{e}\right]}{n - p - 1} \\\\
-\widehat\sigma^2 &amp;= \frac{\mathbf{e}&#39;\mathbf{e}}{n - p - 1}
+\frac{1}{n} \mathbb{E}\left[ \mathbf{e}^T \mathbf{e} \right] &amp;= \frac{\sigma^2}{n} (n - p - 1) \\\\
+\sigma^2 &amp;= \frac{\mathbb{E}\left[\mathbf{e}^T \mathbf{e}\right]}{n - p - 1} \\\\
+\widehat\sigma^2 &amp;= \frac{\mathbf{e}^T \mathbf{e}}{n - p - 1}
 \end{align}
 \]</span></p>
 <p><span class="math display">\[
@@ -1295,16 +1295,23 @@ a_0 + \sum_{j=1}^p a_j x_{ij} = 0
 \]</span></p>
 <p><br></p>
 </div>
-<div id="factor-de-inflacion-de-la-varianza" class="section level2">
-<h2>Factor de inflación de la varianza</h2>
+<div id="factor-de-inflacion-de-la-varianza-vif" class="section level2">
+<h2>Factor de inflación de la varianza (VIF)</h2>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\text{VIF}_i &amp;= \frac{\widehat\sigma^2 / n s_{x_{i}}^2}{\widehat\sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{i+1, i+1}} \\\\
+\text{VIF}_i &amp;= \frac{\widehat\sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{i+1, i+1}}{\widehat\sigma^2 / n s_{x_{i}}^2} \\\\
 &amp;= n s_{x_{i}}^2  \ (\mathbf{X}^T \mathbf{X})^{-1}_{i+1, i+1}
 \end{align}
 \]</span></p>
 <p>El factor de inflación de la varianza equivale a regresar <span class="math inline">\(\mathbf{x}_i\)</span> en el resto de predictores y calcular <span class="math inline">\(\frac{1}{1 - R^2}\)</span>.</p>
+<p>Si expresamos el estadístico de la pendiente en términos del VIF, entonces podemos observar cómo su varianza es un compromiso entre la estimación del error cuadrático medio y el mismo VIF:</p>
+<p><br></p>
+<p><span class="math display">\[
+\frac{\widehat{\beta}_i}{\widehat\sigma \sqrt{\text{VIF}_i / n s_{x_i}^2}} \sim t_{n-p-1}
+\]</span></p>
+<p><br></p>
+<p>Esto quiere decir que eliminar los predictores no significativos del modelo no es el método más óptimo. Un predictor no significativo puede reducir el intervalo de confianza del parámetro <span class="math inline">\(\beta_i\)</span> si contriuye más a la reducción de <span class="math inline">\(\widehat\sigma^2\)</span> que al VIF del otro predictor.</p>
 <p><br></p>
 </div>
 <div id="autovalores-y-autovectores" class="section level2">
@@ -2024,8 +2031,8 @@ p(u) = \begin{cases}
 <p><br></p>
 <p>Ahora que el paralelismo es claro, vemos que la estimación de <span class="math inline">\(\boldsymbol{\beta}\)</span> es insesgada y tiene mínima varianza cuando <span class="math inline">\(\mathbf{W} = \boldsymbol{\Sigma}^{-1}\)</span>. Por esta razón conviene que los pesos sean inversamente proporcionales a la varianza-covarianza de las realizaciones. En este caso, haríamos algo equivalente a estandarizar el modelo de regresión para cancelar las covarianzas entre los errores y forzar su homocedastidad.</p>
 <p>Sin embargo, en situaciones reales no conocemos <span class="math inline">\(\boldsymbol{\Sigma}\)</span>. Ante esta situación, existen dos formas genéricas de estimar la varianza condicional:</p>
-<p><strong>Método del cuadrado de los residuos</strong>: Mediante OLS, se computa la media del cuadrado de los residuos (<span class="math inline">\(\mathbf{ee}^T = (\mathbf{y} - \widehat{\mathbf{m}}) (\mathbf{y} - \widehat{\mathbf{m}})^T\)</span>).</p>
-<p><strong>Método del logaritmo del cuadrado de los residuos</strong>: Mediante OLS, se computa la media del logaritmo del cuadrado de los residuos (<span class="math inline">\(\hat{s}^2 = \log \left( \mathbf{ee}^T \right)\)</span>) y se estima la varianza como <span class="math inline">\(\exp(\widehat{s}^2)\)</span>.</p>
+<p><strong>Método del cuadrado de los residuos</strong>: aplicando OLS, se computa el cuadrado de los residuos. Si estos residuos cuadráticos dependen de los mismos predictores, entonces se promedian.</p>
+<p><strong>Método del logaritmo del cuadrado de los residuos</strong>: aplicando OLS, se computa el logaritmo del cuadrado de los residuos y luego se exponencian. Si estos residuos cuadráticos dependen de los mismos predictores, entonces se promedian.</p>
 <p>Una vez estimadas las varianzas, se vuelve a estimar el modelo de regresión empleando la inversa de esta estimación como matriz de pesos <span class="math inline">\(\mathbf{W}\)</span> para luego volver a estimar la varianza condicional usando los residuos de este último modelo. La iteración se detiene cuando el cambio de coeficientes según el nuevo modelo y el anterior es pequeño.</p>
 <p>También se puede estimar la varianza condicional usando algún modelo paramétrico con sentido teórico o mediante <em>splines</em> y validación cruzada empleando el logaritmo del cuadrado de los residuos (para que la predicción sea en la recta real).</p>
 <p>Para estimar las covarianzas entre los términos error, necesitamos conocer la distancia entre los términos error (<strong>lag</strong>) en cuestión de tiempo o distancia, por ejemplo. A continuación, se toman todos los pares de observaciones con un mismo <em>lag</em> y se realiza la media de sus productos.</p>
