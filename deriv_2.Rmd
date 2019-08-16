@@ -36,8 +36,8 @@ $$
 
 $$
 \begin{align}
-Z &\sim N(\mu, \sigma^2) \\\\
-a + bZ &\sim N(a + \mu, b^2\sigma^2)
+Z &\sim \mathcal{N}(\mu, \sigma^2) \\\\
+a + bZ &\sim \mathcal{N}(a + \mu, b^2\sigma^2)
 \end{align}
 $$
 
@@ -47,10 +47,10 @@ $$
 
 <br>
 
-Si $Z_{IID} \sim N(\mu, \sigma^2)$, entonces
+Si $Z_{IID} \sim \mathcal{N}(\mu, \sigma^2)$, entonces
 
 $$
-\sum_{i=1}^n Z_i \sim N\left(n \mu, n \sigma^2\right)
+\sum_{i=1}^n Z_i \sim \mathcal{N}\left(n \mu, n \sigma^2\right)
 $$
 
 <br>
@@ -138,8 +138,8 @@ $$
 \begin{align}
 \mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &= n\sigma^2 \\\\
 \mathbb{E}\left[\sum_{i=1}^n (\widehat\mu - \mu)^2\right] &= \sigma^2 \\\\
-\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &= \mathbb{E}\left[n(\mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu)\right] \\\\
-&= \mathbb{E}\left[n(\mu^2 + \widehat\mu^2 - 2\widehat\mu\mu)\right] \\\\
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &= \mathbb{E}\left[\mathcal{N}(\mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu)\right] \\\\
+&= \mathbb{E}\left[\mathcal{N}(\mu^2 + \widehat\mu^2 - 2\widehat\mu\mu)\right] \\\\
 &= n \, \mathbb{E}\left[(\widehat\mu - \mu)^2 \right] \\\\
 &= \sigma^2
 \end{align}
@@ -187,7 +187,7 @@ $$
 
 $$
 \begin{align}
-\frac{\epsilon_i}{\sigma} &\sim N(0, 1) \\\\
+\frac{\epsilon_i}{\sigma} &\sim \mathcal{N}(0, 1) \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 &\sim \chi^2_n \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 = \frac{(n-1)\widehat\sigma^2}{\sigma^2} &\sim \chi^2_{n-1} \\\\
 \text{Var}\left[\chi^2_{n-1}\right] &= 2(n-1) \\\\
@@ -329,8 +329,8 @@ Dado que $\epsilon_i$ sigue una distribución normal, la propiedad de estabilida
 
 $$
 \begin{align}
-\widehat{\beta}_1 &\sim N\left(\beta_1, \frac{\sigma^2}{ns_x^2} \right) \\\\\
-\frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt{n}} &\sim N\left(0, 1 \right) \\\\\
+\widehat{\beta}_1 &\sim \mathcal{N}\left(\beta_1, \frac{\sigma^2}{ns_x^2} \right) \\\\\
+\frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt{n}} &\sim \mathcal{N}\left(0, 1 \right) \\\\\
 \end{align}
 $$
 
@@ -345,10 +345,10 @@ Pero si estimamos $\sigma^2$ a través de $\widehat\sigma^2$, entonces
 $$
 \begin{align}
 \frac{\widehat{\beta}_1 - \beta_1}{\widehat\sigma / s_x\sqrt{n}} &= \frac{\frac{\widehat{\beta}_1 - \beta_1}{\sigma}}{\frac{\widehat\sigma}{\sigma s_x\sqrt{n}}} \\\\
-&\sim \frac{N(0, 1/ns_x^2)}{\frac{\widehat\sigma}{\sigma s_x\sqrt{n}}} \\\\
-&\sim \frac{N(0, 1)}{\frac{\widehat\sigma}{\sigma}} \\\\
-&\sim \frac{N(0, 1)}{\sqrt{\frac{\sum_{i=1}^n e_i^2}{\sigma^2 (n-2)}}} \\\\
-&\sim \frac{N(0, 1)}{\sqrt{\frac{\chi^2_{n-2}}{n-2}}} \\\\
+&\sim \frac{\mathcal{N}(0, 1/ns_x^2)}{\frac{\widehat\sigma}{\sigma s_x\sqrt{n}}} \\\\
+&\sim \frac{\mathcal{N}(0, 1)}{\frac{\widehat\sigma}{\sigma}} \\\\
+&\sim \frac{\mathcal{N}(0, 1)}{\sqrt{\frac{\sum_{i=1}^n e_i^2}{\sigma^2 (n-2)}}} \\\\
+&\sim \frac{\mathcal{N}(0, 1)}{\sqrt{\frac{\chi^2_{n-2}}{n-2}}} \\\\
 &\sim t_{n-2}
 \end{align}
 $$
@@ -400,8 +400,8 @@ Dado que $\epsilon_i$ sigue una distribución normal, la propiedad de estabilida
 
 $$
 \begin{align}
-\widehat{\beta}_0 &\sim N\left(\beta_0, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
-\frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} &\sim N\left(0, 1 \right) \\\\\
+\widehat{\beta}_0 &\sim \mathcal{N}\left(\beta_0, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
+\frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} &\sim \mathcal{N}\left(0, 1 \right) \\\\\
 \end{align}
 $$
 
@@ -474,8 +474,8 @@ La propiedad de estabilidad asegura que
 
 $$
 \begin{align}
-\widehat{m}(x^*) &\sim N\left(\beta_0 + \beta_1x^*, \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)\right) \\\\
-\frac{\widehat{m}(x^*) - m(x^*)}{\sqrt{\frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)}} &\sim N(0, 1) \\\\
+\widehat{m}(x^*) &\sim \mathcal{N}\left(\beta_0 + \beta_1x^*, \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)\right) \\\\
+\frac{\widehat{m}(x^*) - m(x^*)}{\sqrt{\frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)}} &\sim \mathcal{N}(0, 1) \\\\
 \frac{\widehat{m}(x^*) - m(x^*)}{\sqrt{\frac{\widehat\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)}} &\sim t_{n-2} \\\\
 \end{align}
 $$
@@ -503,8 +503,8 @@ La propiedad de estabilidad asegura que
 
 $$
 \begin{align}
-\widehat{m}(x^*) &\sim N\left(y^*, \sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)\right) \\\\
-\frac{y^* - \widehat{m}(x^*)}{\sqrt{\sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)}} &\sim N(0, 1) \\\\
+\widehat{m}(x^*) &\sim \mathcal{N}\left(y^*, \sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)\right) \\\\
+\frac{y^* - \widehat{m}(x^*)}{\sqrt{\sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)}} &\sim \mathcal{N}(0, 1) \\\\
 \frac{y^* - \widehat{m}(x^*)}{\sqrt{\widehat\sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)}} &\sim t_{n-2}
 \end{align}
 $$
@@ -623,7 +623,7 @@ $\widehat{\sigma}^2$ es estadísticamente independiente de $\widehat\beta_1$ y $
 
 <br>
 
-Sabiendo que si $Z \sim N(0, 1)$, entonces $Z^2 \sim \chi^2$ y que $\frac{\epsilon_i}{\sigma} \sim N(0, 1)$, entonces
+Sabiendo que si $Z \sim \mathcal{N}(0, 1)$, entonces $Z^2 \sim \chi^2$ y que $\frac{\epsilon_i}{\sigma} \sim \mathcal{N}(0, 1)$, entonces
 
 <br>
 
@@ -649,7 +649,7 @@ $$
 $$
 \begin{align}
 Y &= \beta_0 + \epsilon \\\\
-\widehat\beta_0 &= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
+\widehat\beta_0 &= \bar{y} \sim \mathcal{N}\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
 \widehat\sigma^2 &= \frac{1}{n-1} \sum_{i=1}^n (y_i - \bar{y})^2 \\\\
 &= s_y^2 \\\\
 \frac{(n-1) \widehat\sigma^2}{\sigma^2} &\sim \chi^2_{n-1}
@@ -862,9 +862,9 @@ $$
 
 $$
 \begin{align}
-\widehat{\boldsymbol{\beta}} &\sim MVN(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}) \\\\
-\widehat{\beta}_i &\sim N(\beta_i, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{ii}) \\\\
-\frac{\widehat{\beta}_i - \beta_i}{\sigma \sqrt{(\mathbf{X}^T \mathbf{X})^{-1}_{ii}}} &\sim N(0, 1) \\\\
+\widehat{\boldsymbol{\beta}} &\sim \mathcal{MVN}(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}) \\\\
+\widehat{\beta}_i &\sim \mathcal{N}(\beta_i, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{ii}) \\\\
+\frac{\widehat{\beta}_i - \beta_i}{\sigma \sqrt{(\mathbf{X}^T \mathbf{X})^{-1}_{ii}}} &\sim \mathcal{N}(0, 1) \\\\
 \frac{\widehat{\beta}_i - \beta_i}{\widehat\sigma \sqrt{(\mathbf{X}^T \mathbf{X})^{-1}_{ii}}} &\sim t_{n-p-1}
 \end{align}
 $$
@@ -1164,7 +1164,7 @@ Los autovectores de $\text{Var}\left[\mathbf{X}\right]$ se conocen como los comp
 Cualquier vector $\mathbf{a}$ puede ser reescrito como una suma de autovectores:
 
 $$
-a = \sum_{i=1}^p (\mathbf{a}^T \mathbf{v}_i) \mathbf{v}_i
+\mathbf{a} = \sum_{i=1}^p (\mathbf{a}^T \mathbf{v}_i) \mathbf{v}_i
 $$
 
 <br>
@@ -1393,7 +1393,7 @@ Si nuestros coeficientes siguen una diitribución normal y son independientes un
 
 $$
 \begin{align}
-\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]} \sim N(0, 1) \\\\
+\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]} \sim \mathcal{N}(0, 1) \\\\
 \sum_{i=1}^k \left(\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]}\right)^2 \sim \chi^2_k \\\\
 \end{align}
 $$
@@ -1430,7 +1430,7 @@ $$
 
 $$
 \begin{align}
-\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim MVN(\mathbf{0}, \mathbf{I}) \\\\
+\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim \mathcal{MVN}(\mathbf{0}, \mathbf{I}) \\\\
 \left(\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})\right)^T \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim \chi^2_k \\\\
 (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \; \left(\boldsymbol{\Sigma}^{-1/2} \right)^T \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim \chi^2_k \\\\
 (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &\sim \chi^2_k
@@ -1446,7 +1446,7 @@ $$
 Si se utiliza $\widehat\sigma^2$ para estimar el error típico, entonces debemos emplear la distribución $F$:
 
 $$
-P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \ \boldsymbol{\widehat\Sigma}^{-1} \ (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \, n-p-1, (1-\alpha)} \right) = 1 - \alpha
+P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \ \boldsymbol{\widehat\Sigma}^{-1} \ (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \ n-p-1}^{1-\alpha} \right) = 1 - \alpha
 $$
 
 <br>
@@ -1537,7 +1537,7 @@ Adicionalmente, $x_i - \bar{x}$ tendrá un mayor *leverage* si la varianza de di
 <br>
 
 $$
-\widehat{m}(\mathbf{x_i}) = \bar{y} + \frac{1}{n} (\mathbf{x_i} - \mathbf{\bar{x}}) \text{Var}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^T \mathbf{y_c}
+\widehat{m}(\mathbf{x}_i) = \bar{y} + \frac{1}{n} (\mathbf{x}_i - \mathbf{\bar{x}}) \text{Var}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^T \mathbf{y_c}
 $$
 
 <br>
@@ -2044,11 +2044,13 @@ $$
 
 <br>
 
-Cuando $n \rightarrow \infty$, LOOCV, $C_p$ y AIC convergerán.
+A medida que $n \rightarrow \infty$, LOOCV, $C_p$ y AIC convergen y, si el modelo verdadero se encuentra entre los que se comparan, tenderán a elegir un modelo con más parámetros que el verdadero.
 
-De la misma manera, a medida que $n \rightarrow \infty$ y si el modelo verdadero se encuentra entre los que se comparan, todos estos métodos tenderán a elegir un modelo con más parámetros que el verdadero.
+LOOCV, $C_p$ y AIC son estimadores insesgados del error de generalización pero no penalizan la varianza de las estimaciones, que incrementa con la adición de más parámetros al modelo.
 
-LOOCV, $C_p$ y AIC son estimadores insesgados del error de generalización pero no penalizan la varianza de las estimaciones que incrementa con la adición de más parámetros al modelo.
+Por otro lado, si el modelo verdadero se encuentra entre los que se comparan, la validación cruzada *k-fold* tiende a favorecer el modelo verdadero a medida que $n \rightarrow \infty$. Sin embargo, LOOCV tiende a dar mejores predicciones del error de generalización, sobre todo cuando el modelo verdadero no se encuentra entre los candidatos.
+
+Es importante recordar que los estadísticos inferenciales son válidos si el modelo elegido es independiente a los datos obtenidos. Eliminar variables en función de la significación de un estadístico incorpora una fuente de variabilidad aleatoria no considerada.
 
 <br>
 
@@ -2178,6 +2180,43 @@ Para estimar las covarianzas entre los términos error, necesitamos conocer la d
 <br>
 
 En este caso, la matriz de pesos $\mathbf{W}$ no es diagonal.
+
+<br>
+
+## Bootstrapping
+
+<br>
+
+Si definimos $\mathbf{k} = \left( \mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T$, entonces
+
+<br>
+
+$$
+\begin{align}
+\widehat{\beta}_i &= \beta_i + \sum_{j=1}^n k_{ij} \epsilon_j \\\\
+&\sim \mathcal{N} \left( \beta_i, \ \sigma^2 \sum_{j=1}^n k_{ij} \right)
+\end{align}
+$$
+
+<br>
+
+Es decir, la distribución de $\widehat{\beta}_i$ depende de la suma de variables independientes pero no idénticamente distribuidas. Aún así, según el teorema central del Lindeberg, si las constantes $k_{ij}$ no son muy distintas de otras, la suma continúa siendo gausiana asintóticamente.
+
+Sin embargo, no sabemos cómo de grande debe ser $n$ para que $\widehat{\beta}_i$ siga una distribución normal.
+
+El *bootstrap* nos permite aproximar la distribución de cualquier estadístico usando los datos o el modelo estimado.
+
+**Bootstrap paramétrico**: a los valores ajustados del modelo le añadimos ruido aleatorio procedente de su hipotética distribución y según los parámetros estimados. Es adecuado de utilizar si la relación es verdaderamente lineal y la distribución de los residuos es correcta.
+
+**Remuestreo de residuos**: a cada valor ajustado del modelo le añadimos un residuo de forma aleatoria y con reposición. También asume que la relación verdadera es lineal pero no asume una distribución específica para los residuos. Sin embargo, sí deben seguir la misma distribución y ser homocedásticos e independientes tanto de otros términos error como de los predictores.
+
+**Remuestreo de casos**: se seleccionan las realizaciones y sus predictores de manera aleatoria y con reposición para luego ajustar el modelo a dichos datos. La base de datos completa sería análoga a la población. Se asume que todos los pares $(x, y)$ son independientes y están idénticamente distribuidos pero no asume homocedasticidad, independencia entre los errores y los predictores ni que el modelo lineal es correcto.
+
+Hay dos tipos de error en *bootstrap*:
+
+**Error de simulación**: proporcional a $1\sqrt{b}$, donde $b$ es el número de muestras *bootstrap*.
+
+**Error de aproximación**: se divide en error de estimación, por emplear con una muestra finita, y en error sistemático, por usar con un modelo falso.
 
 <br>
 

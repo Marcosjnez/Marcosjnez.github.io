@@ -380,6 +380,7 @@ $(document).ready(function () {
 <li><a href="#regresion-lineal-robusta">Regresión lineal robusta</a></li>
 <li><a href="#minimos-cuadrados-ponderados">Mínimos cuadrados ponderados</a></li>
 <li><a href="#minimos-cuadrados-generalizados">Mínimos cuadrados generalizados</a></li>
+<li><a href="#bootstrapping">Bootstrapping</a></li>
 <li><a href="#distribucion-de-los-valores-p-bajo-la-hipotesis-nula">Distribución de los valores p bajo la hipótesis nula</a></li>
 <li><a href="#desigualdad-de-chebyshev">Desigualdad de Chebyshev</a></li>
 <li><a href="#capture-percentage"><em>Capture percentage</em></a></li>
@@ -404,16 +405,16 @@ L(\mu, \sigma; \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1}{\sigma \sqrt{2 \pi}} \,
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-Z &amp;\sim N(\mu, \sigma^2) \\\\
-a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
+Z &amp;\sim \mathcal{N}(\mu, \sigma^2) \\\\
+a + bZ &amp;\sim \mathcal{N}(a + \mu, b^2\sigma^2)
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><em>Stability property</em></p>
 <p><br></p>
-<p>Si <span class="math inline">\(Z_{IID} \sim N(\mu, \sigma^2)\)</span>, entonces</p>
+<p>Si <span class="math inline">\(Z_{IID} \sim \mathcal{N}(\mu, \sigma^2)\)</span>, entonces</p>
 <p><span class="math display">\[
-\sum_{i=1}^n Z_i \sim N\left(n \mu, n \sigma^2\right)
+\sum_{i=1}^n Z_i \sim \mathcal{N}\left(n \mu, n \sigma^2\right)
 \]</span></p>
 <p><br></p>
 <div id="estimacion-de-mu" class="section level3">
@@ -485,8 +486,8 @@ a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
 \begin{align}
 \mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &amp;= n\sigma^2 \\\\
 \mathbb{E}\left[\sum_{i=1}^n (\widehat\mu - \mu)^2\right] &amp;= \sigma^2 \\\\
-\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &amp;= \mathbb{E}\left[n(\mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu)\right] \\\\
-&amp;= \mathbb{E}\left[n(\mu^2 + \widehat\mu^2 - 2\widehat\mu\mu)\right] \\\\
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &amp;= \mathbb{E}\left[\mathcal{N}(\mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu)\right] \\\\
+&amp;= \mathbb{E}\left[\mathcal{N}(\mu^2 + \widehat\mu^2 - 2\widehat\mu\mu)\right] \\\\
 &amp;= n \, \mathbb{E}\left[(\widehat\mu - \mu)^2 \right] \\\\
 &amp;= \sigma^2
 \end{align}
@@ -525,7 +526,7 @@ a + bZ &amp;\sim N(a + \mu, b^2\sigma^2)
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\frac{\epsilon_i}{\sigma} &amp;\sim N(0, 1) \\\\
+\frac{\epsilon_i}{\sigma} &amp;\sim \mathcal{N}(0, 1) \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n \left(\frac{\epsilon_i}{\sigma}\right)^2 &amp;\sim \chi^2_n \\\\
 \frac{1}{\sigma^2} \sum_{i=1}^n e_i^2 = \frac{(n-1)\widehat\sigma^2}{\sigma^2} &amp;\sim \chi^2_{n-1} \\\\
 \text{Var}\left[\chi^2_{n-1}\right] &amp;= 2(n-1) \\\\
@@ -644,8 +645,8 @@ L(\beta_0, \beta_1, \sigma; \mathbf{y}, \mathbf{x}) &amp;= \prod_{i=1}^n \frac{1
 <p>Dado que <span class="math inline">\(\epsilon_i\)</span> sigue una distribución normal, la propiedad de estabilidad asegura que</p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\beta}_1 &amp;\sim N\left(\beta_1, \frac{\sigma^2}{ns_x^2} \right) \\\\\
-\frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt{n}} &amp;\sim N\left(0, 1 \right) \\\\\
+\widehat{\beta}_1 &amp;\sim \mathcal{N}\left(\beta_1, \frac{\sigma^2}{ns_x^2} \right) \\\\\
+\frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt{n}} &amp;\sim \mathcal{N}\left(0, 1 \right) \\\\\
 \end{align}
 \]</span></p>
 <p>Si conociéramos <span class="math inline">\(\sigma^2\)</span>, entonces</p>
@@ -656,10 +657,10 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt
 <p><span class="math display">\[
 \begin{align}
 \frac{\widehat{\beta}_1 - \beta_1}{\widehat\sigma / s_x\sqrt{n}} &amp;= \frac{\frac{\widehat{\beta}_1 - \beta_1}{\sigma}}{\frac{\widehat\sigma}{\sigma s_x\sqrt{n}}} \\\\
-&amp;\sim \frac{N(0, 1/ns_x^2)}{\frac{\widehat\sigma}{\sigma s_x\sqrt{n}}} \\\\
-&amp;\sim \frac{N(0, 1)}{\frac{\widehat\sigma}{\sigma}} \\\\
-&amp;\sim \frac{N(0, 1)}{\sqrt{\frac{\sum_{i=1}^n e_i^2}{\sigma^2 (n-2)}}} \\\\
-&amp;\sim \frac{N(0, 1)}{\sqrt{\frac{\chi^2_{n-2}}{n-2}}} \\\\
+&amp;\sim \frac{\mathcal{N}(0, 1/ns_x^2)}{\frac{\widehat\sigma}{\sigma s_x\sqrt{n}}} \\\\
+&amp;\sim \frac{\mathcal{N}(0, 1)}{\frac{\widehat\sigma}{\sigma}} \\\\
+&amp;\sim \frac{\mathcal{N}(0, 1)}{\sqrt{\frac{\sum_{i=1}^n e_i^2}{\sigma^2 (n-2)}}} \\\\
+&amp;\sim \frac{\mathcal{N}(0, 1)}{\sqrt{\frac{\chi^2_{n-2}}{n-2}}} \\\\
 &amp;\sim t_{n-2}
 \end{align}
 \]</span></p>
@@ -700,8 +701,8 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_1 - \beta_1}{\sigma / s_x\sqrt
 <p>Dado que <span class="math inline">\(\epsilon_i\)</span> sigue una distribución normal, la propiedad de estabilidad asegura que</p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\beta}_0 &amp;\sim N\left(\beta_0, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
-\frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} &amp;\sim N\left(0, 1 \right) \\\\\
+\widehat{\beta}_0 &amp;\sim \mathcal{N}\left(\beta_0, \frac{\sigma^2 \overline{x^2}}{n s_x^2} \right) \\\\\
+\frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^2 + \bar{x}^2} / s_x\sqrt{n}} &amp;\sim \mathcal{N}\left(0, 1 \right) \\\\\
 \end{align}
 \]</span></p>
 <p>Si conociéramos <span class="math inline">\(\sigma^2\)</span>, entonces</p>
@@ -759,8 +760,8 @@ P\left(\Phi^{-1}(.025) \leq \frac{\widehat{\beta}_0 - \beta_0}{\sigma \sqrt{s_x^
 <p>La propiedad de estabilidad asegura que</p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{m}(x^*) &amp;\sim N\left(\beta_0 + \beta_1x^*, \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)\right) \\\\
-\frac{\widehat{m}(x^*) - m(x^*)}{\sqrt{\frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)}} &amp;\sim N(0, 1) \\\\
+\widehat{m}(x^*) &amp;\sim \mathcal{N}\left(\beta_0 + \beta_1x^*, \frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)\right) \\\\
+\frac{\widehat{m}(x^*) - m(x^*)}{\sqrt{\frac{\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)}} &amp;\sim \mathcal{N}(0, 1) \\\\
 \frac{\widehat{m}(x^*) - m(x^*)}{\sqrt{\frac{\widehat\sigma^2}{n} \left(1 + \frac{(x^* - \bar{x})^2}{s_x^2}\right)}} &amp;\sim t_{n-2} \\\\
 \end{align}
 \]</span></p>
@@ -783,8 +784,8 @@ y^* - \widehat{m}(x^*) &amp;= \beta_0 + \beta_1x^* - \widehat\beta_0 - \widehat\
 <p>La propiedad de estabilidad asegura que</p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{m}(x^*) &amp;\sim N\left(y^*, \sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)\right) \\\\
-\frac{y^* - \widehat{m}(x^*)}{\sqrt{\sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)}} &amp;\sim N(0, 1) \\\\
+\widehat{m}(x^*) &amp;\sim \mathcal{N}\left(y^*, \sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)\right) \\\\
+\frac{y^* - \widehat{m}(x^*)}{\sqrt{\sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)}} &amp;\sim \mathcal{N}(0, 1) \\\\
 \frac{y^* - \widehat{m}(x^*)}{\sqrt{\widehat\sigma^2 \left(1 + \frac{1}{n} + \frac{(x^* - \bar{x})^2}{n s_x^2}\right)}} &amp;\sim t_{n-2}
 \end{align}
 \]</span></p>
@@ -880,7 +881,7 @@ y_i &amp;= \beta_0 + \beta_1x_i + \epsilon_i \\\\
 \]</span></p>
 <p><span class="math inline">\(\widehat{\sigma}^2\)</span> es estadísticamente independiente de <span class="math inline">\(\widehat\beta_1\)</span> y <span class="math inline">\(\widehat\beta_0\)</span> a pesar de que todos los estimadores son una función de <span class="math inline">\(\epsilon\)</span>.</p>
 <p><br></p>
-<p>Sabiendo que si <span class="math inline">\(Z \sim N(0, 1)\)</span>, entonces <span class="math inline">\(Z^2 \sim \chi^2\)</span> y que <span class="math inline">\(\frac{\epsilon_i}{\sigma} \sim N(0, 1)\)</span>, entonces</p>
+<p>Sabiendo que si <span class="math inline">\(Z \sim \mathcal{N}(0, 1)\)</span>, entonces <span class="math inline">\(Z^2 \sim \chi^2\)</span> y que <span class="math inline">\(\frac{\epsilon_i}{\sigma} \sim \mathcal{N}(0, 1)\)</span>, entonces</p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
@@ -902,7 +903,7 @@ P\left(\sigma^2 \; \leq \; \frac{(n-2) \widehat\sigma^2}{\chi^2_{n-2, \, 1-\alph
 <p><span class="math display">\[
 \begin{align}
 Y &amp;= \beta_0 + \epsilon \\\\
-\widehat\beta_0 &amp;= \bar{y} \sim N\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
+\widehat\beta_0 &amp;= \bar{y} \sim \mathcal{N}\left(\beta_0, \frac{\sigma^2}{n}\right) \\\\
 \widehat\sigma^2 &amp;= \frac{1}{n-1} \sum_{i=1}^n (y_i - \bar{y})^2 \\\\
 &amp;= s_y^2 \\\\
 \frac{(n-1) \widehat\sigma^2}{\sigma^2} &amp;\sim \chi^2_{n-1}
@@ -1077,9 +1078,9 @@ R^2 &amp;= \frac{\beta_1^2 \text{Var}\left[X\right]}{\beta_1^2 \text{Var}\left[X
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\boldsymbol{\beta}} &amp;\sim MVN(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}) \\\\
-\widehat{\beta}_i &amp;\sim N(\beta_i, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{ii}) \\\\
-\frac{\widehat{\beta}_i - \beta_i}{\sigma \sqrt{(\mathbf{X}^T \mathbf{X})^{-1}_{ii}}} &amp;\sim N(0, 1) \\\\
+\widehat{\boldsymbol{\beta}} &amp;\sim \mathcal{MVN}(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}) \\\\
+\widehat{\beta}_i &amp;\sim \mathcal{N}(\beta_i, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}_{ii}) \\\\
+\frac{\widehat{\beta}_i - \beta_i}{\sigma \sqrt{(\mathbf{X}^T \mathbf{X})^{-1}_{ii}}} &amp;\sim \mathcal{N}(0, 1) \\\\
 \frac{\widehat{\beta}_i - \beta_i}{\widehat\sigma \sqrt{(\mathbf{X}^T \mathbf{X})^{-1}_{ii}}} &amp;\sim t_{n-p-1}
 \end{align}
 \]</span></p>
@@ -1328,7 +1329,7 @@ a_0 + \sum_{j=1}^p a_j x_{ij} = 0
 <p>Los autovectores de <span class="math inline">\(\text{Var}\left[\mathbf{X}\right]\)</span> se conocen como los componentes principales de los predictores.</p>
 <p>Cualquier vector <span class="math inline">\(\mathbf{a}\)</span> puede ser reescrito como una suma de autovectores:</p>
 <p><span class="math display">\[
-a = \sum_{i=1}^p (\mathbf{a}^T \mathbf{v}_i) \mathbf{v}_i
+\mathbf{a} = \sum_{i=1}^p (\mathbf{a}^T \mathbf{v}_i) \mathbf{v}_i
 \]</span></p>
 <p><br></p>
 </div>
@@ -1496,7 +1497,7 @@ C(\alpha) = \prod_{i}^k C(\alpha_i / k)
 <p>Si nuestros coeficientes siguen una diitribución normal y son independientes unos de otros,</p>
 <p><span class="math display">\[
 \begin{align}
-\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]} \sim N(0, 1) \\\\
+\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]} \sim \mathcal{N}(0, 1) \\\\
 \sum_{i=1}^k \left(\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_i\right]}\right)^2 \sim \chi^2_k \\\\
 \end{align}
 \]</span></p>
@@ -1525,7 +1526,7 @@ P\left(\sum_{i=1}^k \left(\frac{\widehat\beta_i - \beta_i}{\text{se}\left[\beta_
 \]</span></p>
 <p><span class="math display">\[
 \begin{align}
-\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim MVN(\mathbf{0}, \mathbf{I}) \\\\
+\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \mathcal{MVN}(\mathbf{0}, \mathbf{I}) \\\\
 \left(\boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})\right)^T \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k \\\\
 (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \; \left(\boldsymbol{\Sigma}^{-1/2} \right)^T \; \boldsymbol{\Sigma}^{-1/2} (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k \\\\
 (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \, \boldsymbol{\Sigma}^{-1} \, (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) &amp;\sim \chi^2_k
@@ -1537,7 +1538,7 @@ P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \, \boldsymbol{\Sigm
 \]</span></p>
 <p>Si se utiliza <span class="math inline">\(\widehat\sigma^2\)</span> para estimar el error típico, entonces debemos emplear la distribución <span class="math inline">\(F\)</span>:</p>
 <p><span class="math display">\[
-P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \ \boldsymbol{\widehat\Sigma}^{-1} \ (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \, n-p-1, (1-\alpha)} \right) = 1 - \alpha
+P\left( (\boldsymbol{\widehat\beta - \boldsymbol{\beta}})^T \ \boldsymbol{\widehat\Sigma}^{-1} \ (\boldsymbol{\widehat\beta - \boldsymbol{\beta}}) \, \leq \,  F_{q, \ n-p-1}^{1-\alpha} \right) = 1 - \alpha
 \]</span></p>
 <p><br></p>
 </div>
@@ -1596,7 +1597,7 @@ Y = \beta_0 + X_1 \beta_1 + X_2 \beta_2 + X_1X_2\beta_3 + \epsilon
 <p>Adicionalmente, <span class="math inline">\(x_i - \bar{x}\)</span> tendrá un mayor <em>leverage</em> si la varianza de dicho predictor es menor, como se puede ver en</p>
 <p><br></p>
 <p><span class="math display">\[
-\widehat{m}(\mathbf{x_i}) = \bar{y} + \frac{1}{n} (\mathbf{x_i} - \mathbf{\bar{x}}) \text{Var}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^T \mathbf{y_c}
+\widehat{m}(\mathbf{x}_i) = \bar{y} + \frac{1}{n} (\mathbf{x}_i - \mathbf{\bar{x}}) \text{Var}\left[\mathbf{X_c}\right]^{-1} \mathbf{X_c}^T \mathbf{y_c}
 \]</span></p>
 <p><br></p>
 <p>donde <span class="math inline">\(\mathbf{x}_i\)</span> es el vector de predictores en la fila <span class="math inline">\(i\)</span>, <span class="math inline">\(\mathbf{X_c}\)</span> representa la matriz de diseño centrada sin la columna para la intersección y <span class="math inline">\(\mathbf{y_c}\)</span> es el vector <span class="math inline">\(\mathbf{y}\)</span> centrado.</p>
@@ -1946,9 +1947,10 @@ L(\widehat\theta) &amp;= - \frac{n}{2}(1 + \log 2\pi) - \frac{n}{2}{\log \text{M
 \end{align}
 \]</span></p>
 <p><br></p>
-<p>Cuando <span class="math inline">\(n \rightarrow \infty\)</span>, LOOCV, <span class="math inline">\(C_p\)</span> y AIC convergerán.</p>
-<p>De la misma manera, a medida que <span class="math inline">\(n \rightarrow \infty\)</span> y si el modelo verdadero se encuentra entre los que se comparan, todos estos métodos tenderán a elegir un modelo con más parámetros que el verdadero.</p>
-<p>LOOCV, <span class="math inline">\(C_p\)</span> y AIC son estimadores insesgados del error de generalización pero no penalizan la varianza de las estimaciones que incrementa con la adición de más parámetros al modelo.</p>
+<p>A medida que <span class="math inline">\(n \rightarrow \infty\)</span>, LOOCV, <span class="math inline">\(C_p\)</span> y AIC convergen y, si el modelo verdadero se encuentra entre los que se comparan, tenderán a elegir un modelo con más parámetros que el verdadero.</p>
+<p>LOOCV, <span class="math inline">\(C_p\)</span> y AIC son estimadores insesgados del error de generalización pero no penalizan la varianza de las estimaciones, que incrementa con la adición de más parámetros al modelo.</p>
+<p>Por otro lado, si el modelo verdadero se encuentra entre los que se comparan, la validación cruzada <em>k-fold</em> tiende a favorecer el modelo verdadero a medida que <span class="math inline">\(n \rightarrow \infty\)</span>. Sin embargo, LOOCV tiende a dar mejores predicciones del error de generalización, sobre todo cuando el modelo verdadero no se encuentra entre los candidatos.</p>
+<p>Es importante recordar que los estadísticos inferenciales son válidos si el modelo elegido es independiente a los datos obtenidos. Eliminar variables en función de la significación de un estadístico incorpora una fuente de variabilidad aleatoria no considerada.</p>
 <p><br></p>
 </div>
 <div id="bic" class="section level3">
@@ -2042,6 +2044,29 @@ p(u) = \begin{cases}
 <h2>Mínimos cuadrados generalizados</h2>
 <p><br></p>
 <p>En este caso, la matriz de pesos <span class="math inline">\(\mathbf{W}\)</span> no es diagonal.</p>
+<p><br></p>
+</div>
+<div id="bootstrapping" class="section level2">
+<h2>Bootstrapping</h2>
+<p><br></p>
+<p>Si definimos <span class="math inline">\(\mathbf{k} = \left( \mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T\)</span>, entonces</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{\beta}_i &amp;= \beta_i + \sum_{j=1}^n k_{ij} \epsilon_j \\\\
+&amp;\sim \mathcal{N} \left( \beta_i, \ \sigma^2 \sum_{j=1}^n k_{ij} \right)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Es decir, la distribución de <span class="math inline">\(\widehat{\beta}_i\)</span> depende de la suma de variables independientes pero no idénticamente distribuidas. Aún así, según el teorema central del Lindeberg, si las constantes <span class="math inline">\(k_{ij}\)</span> no son muy distintas de otras, la suma continúa siendo gausiana asintóticamente.</p>
+<p>Sin embargo, no sabemos cómo de grande debe ser <span class="math inline">\(n\)</span> para que <span class="math inline">\(\widehat{\beta}_i\)</span> siga una distribución normal.</p>
+<p>El <em>bootstrap</em> nos permite aproximar la distribución de cualquier estadístico usando los datos o el modelo estimado.</p>
+<p><strong>Bootstrap paramétrico</strong>: a los valores ajustados del modelo le añadimos ruido aleatorio procedente de su hipotética distribución y según los parámetros estimados. Es adecuado de utilizar si la relación es verdaderamente lineal y la distribución de los residuos es correcta.</p>
+<p><strong>Remuestreo de residuos</strong>: a cada valor ajustado del modelo le añadimos un residuo de forma aleatoria y con reposición. También asume que la relación verdadera es lineal pero no asume una distribución específica para los residuos. Sin embargo, sí deben seguir la misma distribución y ser homocedásticos e independientes tanto de otros términos error como de los predictores.</p>
+<p><strong>Remuestreo de casos</strong>: se seleccionan las realizaciones y sus predictores de manera aleatoria y con reposición para luego ajustar el modelo a dichos datos. La base de datos completa sería análoga a la población. Se asume que todos los pares <span class="math inline">\((x, y)\)</span> son independientes y están idénticamente distribuidos pero no asume homocedasticidad, independencia entre los errores y los predictores ni que el modelo lineal es correcto.</p>
+<p>Hay dos tipos de error en <em>bootstrap</em>:</p>
+<p><strong>Error de simulación</strong>: proporcional a <span class="math inline">\(1\sqrt{b}\)</span>, donde <span class="math inline">\(b\)</span> es el número de muestras <em>bootstrap</em>.</p>
+<p><strong>Error de aproximación</strong>: se divide en error de estimación, por emplear con una muestra finita, y en error sistemático, por usar con un modelo falso.</p>
 <p><br></p>
 </div>
 <div id="distribucion-de-los-valores-p-bajo-la-hipotesis-nula" class="section level2">
