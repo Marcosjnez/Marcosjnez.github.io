@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 ```
 
 <br>
@@ -77,7 +77,7 @@ $$
 
 <br>
 
-### Valor esperado de $\bar{x}$
+### Valor esperado de $\hat\mu$
 
 <br>
 
@@ -93,8 +93,12 @@ $$
 
 $$
 \begin{align}
-\frac{\partial^2 \text{log}(L)}{\partial \mu^2} &= - \frac{n}{\sigma^2} \\\\
 \text{Var}\left[\widehat\mu\right] &= \mathbb{E}\left[(\widehat\mu - \mu)^2\right] \\\\
+&= \mathbb{E}\left[(\bar{x} - \mu)^2\right] \\\\
+&= \mathbb{E}[\bar{x}^2] + \mathbb{E}[\mu^2] - 2\mu \ \mathbb{E}[\bar{x}] \\\\
+&= \text{Var}[\bar{x}] + \mathbb{E}[\bar{x}]^2 + \text{Var}[\mu] + \mathbb{E}[\mu]^2 - 2\mu \ \mathbb{E}[\bar{x}] \\\\
+&= \text{Var}[\bar{x}] \\\\
+&= \frac{1}{n^2} \text{Var} \left[ \sum_{i=1}^n x_i \right] \\\\
 &= \frac{\sigma^2}{n}
 \end{align}
 $$
@@ -115,20 +119,20 @@ $$
 \begin{align}
 \frac{\partial \text{log}(L)}{\partial \sigma^2} &= \frac{\sum_{i=1}^n (x_i - \mu)^2}{2 \sigma^4} - \frac{n}{2\sigma^2} \\\\
 \frac{\partial \text{log}(L)}{\partial \sigma^2} &= 0 \\\\
-\sigma^2 &= \frac{\sum_{i=1}^n (x_i - \mu)^2}{n}
+\hat\sigma^2 &= \frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2
 \end{align}
 $$
 
 <br>
 
-### Valor esperado de $\frac{\sum_{i=1}^n (x_i - \widehat\mu)^2}{n}$
+### Valor esperado de $\hat\sigma^2$
 
 <br>
 
 $$
 \begin{align}
 \frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right] &= \frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n ((x_i - \mu) - (\widehat\mu - \mu))^2\right] \\\\
-&= \mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2 + (\widehat\mu - \mu)^2 - 2(x_i - \mu)(\widehat\mu - \mu))\right] \\\\
+&= \mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2 + (\widehat\mu - \mu)^2 - 2(x_i - \mu)(\widehat\mu - \mu)\right] \\\\
 \end{align}
 $$
 
@@ -136,10 +140,12 @@ $$
 
 $$
 \begin{align}
-\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &= n\sigma^2 \\\\
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &= n \ \mathbb{E} \left[ \bar{x^2} + \bar{\mu^2} - 2\mu \bar{x} \right] \\\\
+&= n \left( \text{Var}[X] + \mathbb{E} [\bar{x}]^2 + \text{Var}[\mu] + \mathbb{E} [\bar{\mu}]^2 - 2\mu \mathbb{E} [\bar{x}] \right) \\\\
+&= n\sigma^2 \\\\
 \mathbb{E}\left[\sum_{i=1}^n (\widehat\mu - \mu)^2\right] &= \sigma^2 \\\\
-\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &= \mathbb{E}\left[\mathcal{N}(\mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu)\right] \\\\
-&= \mathbb{E}\left[\mathcal{N}(\mu^2 + \widehat\mu^2 - 2\widehat\mu\mu)\right] \\\\
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &= n \ \mathbb{E}\left[ \mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu \right] \\\\
+&= n \  \mathbb{E}\left[ \mu^2 + \widehat\mu^2 - 2\widehat\mu\mu \right] \\\\
 &= n \, \mathbb{E}\left[(\widehat\mu - \mu)^2 \right] \\\\
 &= \sigma^2
 \end{align}
@@ -155,19 +161,23 @@ $$
 $$
 $$
 \begin{align}
-\sigma^2 &= \frac{\mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right]}{n - 1}
+\sigma^2 &= \frac{1}{n - 1} \ \mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right]
 \end{align}
 $$
 
 <br>
 
+Por tanto, una estimación insesgada de $\sigma^2$ es
+
+<br>
+
 $$
-\widehat\sigma^2 = \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n - 1}
+\widehat\sigma^2 = \frac{1}{n - 1} \ \sum_{i=1}^n (x_i - \bar{x})^2
 $$
 
 <br>
 
-### Varianza de $\sigma^2$ y $\widehat\sigma^2$
+### Varianza de $\sigma^2$
 
 <br>
 
@@ -182,6 +192,10 @@ $$
 \text{Var}\left[\sigma^2\right] &= \frac{2\sigma^4}{n}
 \end{align}
 $$
+
+<br>
+
+### Varianza de $\widehat\sigma^2$
 
 <br>
 
@@ -1077,7 +1091,63 @@ $$
 
 <br>
 
-## Sesgo de estimación por omisión de variables relacionadas
+## Transformación de la realización
+
+<br>
+
+$$
+\begin{align}
+g(Y) &= \beta_0 + \beta_1X + \epsilon \qquad \epsilon \sim \mathcal{N}(0, \sigma^2) \\\\
+Y &= g^{-1}(\beta_0 + \beta_1X + \epsilon)
+\end{align}
+$$
+
+<br>
+
+Esta transformación puede impedir que $Y$ no siga una distribución gaussiana, que la relación entre $Y$ y $X$ no sea lineal, que su varianza no sea constante para todo $x$ o que los errores no sean aditivos.
+
+Si $g$ se corresponde con la función logarítmica,
+
+<br>
+
+$$
+\begin{align}
+\log Y &= \beta_0 + \beta_1X + \epsilon \qquad \epsilon \sim \mathcal{N}(0, \sigma^2) \\\\
+Y &= e^{\ \beta_0 + \beta_1X} e^{\epsilon} \\\\
+&= e^{\ \beta_0 + \beta_1X}  \xi \qquad \xi \sim \log\mathcal{N} \left( e^{\sigma^2/2}, (e^{\sigma^2} - 1) e^{\sigma^2} \right)
+\end{align}
+$$
+
+<br>
+
+## Transformación de Box y Cox
+
+<br>
+
+$$
+\begin{align}
+b_\lambda(Y) &= \frac{Y^\lambda - 1}{\lambda} \\\\
+&= \beta_0 + \beta_1X + \epsilon \qquad \epsilon \sim \mathcal{N}(0, \sigma^2)
+\end{align}
+$$
+
+<br>
+
+$$
+\begin{align}
+\lim_{\lambda \rightarrow 0} \frac{Y^\lambda - 1}{\lambda} &= \lim_{\lambda \rightarrow 0} \frac{\frac{d}{d\lambda} \ Y^\lambda - 1}{\frac{d}{d\lambda} \quad \ \lambda \quad \; \;} \\\\
+&= \lim_{\lambda \rightarrow 0} \frac{Y^\lambda \log Y}{1} \\\\
+&= \log Y
+\end{align}
+$$
+
+<br>
+
+La función ```boxcox``` del paquete ```MASS``` puede utilizarse para estimar el parámetro $\lambda$.
+
+<br>
+
+## Sesgo de estimación por omisión de variables correlacionadas
 
 <br>
 
@@ -1096,11 +1166,19 @@ $$
 
 <br>
 
-Existen constantes $a_0, a_1, \ldots, a_p$ de manera que, para dos filas $i$,
+Existen constantes $a_j, \ldots, a_p$ de manera que
 
 $$
-a_0 + \sum_{j=1}^p a_j x_{ij} = 0
+\sum_{j=1}^p a_j x_{ij} = 0
 $$
+para dos filas $i$.
+
+```{r collinealidad}
+x <- rnorm(5)
+X <- cbind(x, x*3.5)
+a <- c(-3.5, 1)
+X %*% a
+```
 
 $\mathbf{X}^T \mathbf{X}$ no es invertible cuando $n < p + 1$, uno de los predictores es constante o alguno de los predictores es proporcional o está linealmente relacionado con otro.
 
@@ -1110,12 +1188,22 @@ La multicolinealidad ocurre cuando
 
 $$
 \begin{align}
-\sum_{i=1}^p a_i \mathbf{x}_i &= a_0 \\\\
-\mathbf{a}^T \mathbf{X} &= a_0 \\\\
-\text{Var}\left[\mathbf{a}^T \mathbf{X} \right] &= \mathbf{a}^T \, \text{Var}\left[\mathbf{X}\right] \mathbf{a} \\\\
+\sum_{i=1}^p a_i \mathbf{x}_i &= 0 \\\\
+\mathbf{Xa} &= \mathbf{0} \\\\
+\text{Var}\left[\mathbf{Xa} \right] &= \mathbf{a}^T \, \text{Var}\left[\mathbf{X}\right] \mathbf{a} \\\\
 &= 0
 \end{align}
 $$
+
+```{r collinealidad_2}
+x <- rnorm(5)
+X <- cbind(x, x*2, x*6)
+a <- c(-10, 2, 1)
+
+X %*% a
+
+t(a) %*% var(X) %*% a
+```
 
 <br>
 

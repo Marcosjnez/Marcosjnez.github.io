@@ -86,7 +86,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -314,11 +313,12 @@ $(document).ready(function () {
 <ul>
 <li><a href="#distribucion-normal">Distribución normal</a><ul>
 <li><a href="#estimacion-de-mu">Estimación de <span class="math inline">\(\mu\)</span></a></li>
-<li><a href="#valor-esperado-de-barx">Valor esperado de <span class="math inline">\(\bar{x}\)</span></a></li>
+<li><a href="#valor-esperado-de-hatmu">Valor esperado de <span class="math inline">\(\hat\mu\)</span></a></li>
 <li><a href="#varianza-de-widehatmu">Varianza de <span class="math inline">\(\widehat\mu\)</span></a></li>
 <li><a href="#estimacion-de-sigma2">Estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
-<li><a href="#valor-esperado-de-fracsum_i1n-x_i---widehatmu2n">Valor esperado de <span class="math inline">\(\frac{\sum_{i=1}^n (x_i - \widehat\mu)^2}{n}\)</span></a></li>
-<li><a href="#varianza-de-sigma2-y-widehatsigma2">Varianza de <span class="math inline">\(\sigma^2\)</span> y <span class="math inline">\(\widehat\sigma^2\)</span></a></li>
+<li><a href="#valor-esperado-de-hatsigma2">Valor esperado de <span class="math inline">\(\hat\sigma^2\)</span></a></li>
+<li><a href="#varianza-de-sigma2">Varianza de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li><a href="#varianza-de-widehatsigma2">Varianza de <span class="math inline">\(\widehat\sigma^2\)</span></a></li>
 </ul></li>
 <li><a href="#funcion-afin">Función afín</a><ul>
 <li><a href="#residuos">Residuos</a></li>
@@ -352,7 +352,9 @@ $(document).ready(function () {
 <li><a href="#varianza-de-la-estimacion-del-error-cuadratico-widehatsigma2">Varianza de la estimación del error cuadrático, <span class="math inline">\(\widehat\sigma^2\)</span></a></li>
 </ul></li>
 <li><a href="#derivacion-alternativa">Derivación alternativa</a></li>
-<li><a href="#sesgo-de-estimacion-por-omision-de-variables-relacionadas">Sesgo de estimación por omisión de variables relacionadas</a></li>
+<li><a href="#transformacion-de-la-realizacion">Transformación de la realización</a></li>
+<li><a href="#transformacion-de-box-y-cox">Transformación de Box y Cox</a></li>
+<li><a href="#sesgo-de-estimacion-por-omision-de-variables-correlacionadas">Sesgo de estimación por omisión de variables correlacionadas</a></li>
 <li><a href="#colinealidad">Colinealidad</a></li>
 <li><a href="#factor-de-inflacion-de-la-varianza-vif">Factor de inflación de la varianza (VIF)</a></li>
 <li><a href="#autovalores-y-autovectores">Autovalores y autovectores</a></li>
@@ -435,8 +437,8 @@ a + bZ &amp;\sim \mathcal{N}(a + \mu, b^2\sigma^2)
 \]</span></p>
 <p><br></p>
 </div>
-<div id="valor-esperado-de-barx" class="section level3">
-<h3>Valor esperado de <span class="math inline">\(\bar{x}\)</span></h3>
+<div id="valor-esperado-de-hatmu" class="section level3">
+<h3>Valor esperado de <span class="math inline">\(\hat\mu\)</span></h3>
 <p><br></p>
 <p><span class="math display">\[
 \frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n x_i \right] = \mu
@@ -448,8 +450,12 @@ a + bZ &amp;\sim \mathcal{N}(a + \mu, b^2\sigma^2)
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\frac{\partial^2 \text{log}(L)}{\partial \mu^2} &amp;= - \frac{n}{\sigma^2} \\\\
 \text{Var}\left[\widehat\mu\right] &amp;= \mathbb{E}\left[(\widehat\mu - \mu)^2\right] \\\\
+&amp;= \mathbb{E}\left[(\bar{x} - \mu)^2\right] \\\\
+&amp;= \mathbb{E}[\bar{x}^2] + \mathbb{E}[\mu^2] - 2\mu \ \mathbb{E}[\bar{x}] \\\\
+&amp;= \text{Var}[\bar{x}] + \mathbb{E}[\bar{x}]^2 + \text{Var}[\mu] + \mathbb{E}[\mu]^2 - 2\mu \ \mathbb{E}[\bar{x}] \\\\
+&amp;= \text{Var}[\bar{x}] \\\\
+&amp;= \frac{1}{n^2} \text{Var} \left[ \sum_{i=1}^n x_i \right] \\\\
 &amp;= \frac{\sigma^2}{n}
 \end{align}
 \]</span></p>
@@ -467,27 +473,29 @@ a + bZ &amp;\sim \mathcal{N}(a + \mu, b^2\sigma^2)
 \begin{align}
 \frac{\partial \text{log}(L)}{\partial \sigma^2} &amp;= \frac{\sum_{i=1}^n (x_i - \mu)^2}{2 \sigma^4} - \frac{n}{2\sigma^2} \\\\
 \frac{\partial \text{log}(L)}{\partial \sigma^2} &amp;= 0 \\\\
-\sigma^2 &amp;= \frac{\sum_{i=1}^n (x_i - \mu)^2}{n}
+\hat\sigma^2 &amp;= \frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2
 \end{align}
 \]</span></p>
 <p><br></p>
 </div>
-<div id="valor-esperado-de-fracsum_i1n-x_i---widehatmu2n" class="section level3">
-<h3>Valor esperado de <span class="math inline">\(\frac{\sum_{i=1}^n (x_i - \widehat\mu)^2}{n}\)</span></h3>
+<div id="valor-esperado-de-hatsigma2" class="section level3">
+<h3>Valor esperado de <span class="math inline">\(\hat\sigma^2\)</span></h3>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
 \frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right] &amp;= \frac{1}{n}\mathbb{E}\left[\sum_{i=1}^n ((x_i - \mu) - (\widehat\mu - \mu))^2\right] \\\\
-&amp;= \mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2 + (\widehat\mu - \mu)^2 - 2(x_i - \mu)(\widehat\mu - \mu))\right] \\\\
+&amp;= \mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2 + (\widehat\mu - \mu)^2 - 2(x_i - \mu)(\widehat\mu - \mu)\right] \\\\
 \end{align}
 \]</span></p>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
-\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &amp;= n\sigma^2 \\\\
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)^2\right] &amp;= n \ \mathbb{E} \left[ \bar{x^2} + \bar{\mu^2} - 2\mu \bar{x} \right] \\\\
+&amp;= n \left( \text{Var}[X] + \mathbb{E} [\bar{x}]^2 + \text{Var}[\mu] + \mathbb{E} [\bar{\mu}]^2 - 2\mu \mathbb{E} [\bar{x}] \right) \\\\
+&amp;= n\sigma^2 \\\\
 \mathbb{E}\left[\sum_{i=1}^n (\widehat\mu - \mu)^2\right] &amp;= \sigma^2 \\\\
-\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &amp;= \mathbb{E}\left[\mathcal{N}(\mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu)\right] \\\\
-&amp;= \mathbb{E}\left[\mathcal{N}(\mu^2 + \widehat\mu^2 - 2\widehat\mu\mu)\right] \\\\
+\mathbb{E}\left[\sum_{i=1}^n (x_i - \mu)(\widehat\mu - \mu) \right] &amp;= n \ \mathbb{E}\left[ \mu^2 + \bar{x}\widehat\mu - \bar{x}\mu - \widehat\mu\mu \right] \\\\
+&amp;= n \  \mathbb{E}\left[ \mu^2 + \widehat\mu^2 - 2\widehat\mu\mu \right] \\\\
 &amp;= n \, \mathbb{E}\left[(\widehat\mu - \mu)^2 \right] \\\\
 &amp;= \sigma^2
 \end{align}
@@ -500,17 +508,19 @@ a + bZ &amp;\sim \mathcal{N}(a + \mu, b^2\sigma^2)
 \end{align}
 \]</span> <span class="math display">\[
 \begin{align}
-\sigma^2 &amp;= \frac{\mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right]}{n - 1}
+\sigma^2 &amp;= \frac{1}{n - 1} \ \mathbb{E}\left[\sum_{i=1}^n (x_i - \widehat\mu)^2\right]
 \end{align}
 \]</span></p>
 <p><br></p>
+<p>Por tanto, una estimación insesgada de <span class="math inline">\(\sigma^2\)</span> es</p>
+<p><br></p>
 <p><span class="math display">\[
-\widehat\sigma^2 = \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n - 1}
+\widehat\sigma^2 = \frac{1}{n - 1} \ \sum_{i=1}^n (x_i - \bar{x})^2
 \]</span></p>
 <p><br></p>
 </div>
-<div id="varianza-de-sigma2-y-widehatsigma2" class="section level3">
-<h3>Varianza de <span class="math inline">\(\sigma^2\)</span> y <span class="math inline">\(\widehat\sigma^2\)</span></h3>
+<div id="varianza-de-sigma2" class="section level3">
+<h3>Varianza de <span class="math inline">\(\sigma^2\)</span></h3>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
@@ -523,6 +533,10 @@ a + bZ &amp;\sim \mathcal{N}(a + \mu, b^2\sigma^2)
 \text{Var}\left[\sigma^2\right] &amp;= \frac{2\sigma^4}{n}
 \end{align}
 \]</span></p>
+<p><br></p>
+</div>
+<div id="varianza-de-widehatsigma2" class="section level3">
+<h3>Varianza de <span class="math inline">\(\widehat\sigma^2\)</span></h3>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
@@ -1263,8 +1277,51 @@ R^2 &amp;= \frac{\beta_1^2 \text{Var}\left[X\right]}{\beta_1^2 \text{Var}\left[X
 \]</span></p>
 <p><br></p>
 </div>
-<div id="sesgo-de-estimacion-por-omision-de-variables-relacionadas" class="section level2">
-<h2>Sesgo de estimación por omisión de variables relacionadas</h2>
+<div id="transformacion-de-la-realizacion" class="section level2">
+<h2>Transformación de la realización</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+g(Y) &amp;= \beta_0 + \beta_1X + \epsilon \qquad \epsilon \sim \mathcal{N}(0, \sigma^2) \\\\
+Y &amp;= g^{-1}(\beta_0 + \beta_1X + \epsilon)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>Esta transformación puede impedir que <span class="math inline">\(Y\)</span> no siga una distribución gaussiana, que la relación entre <span class="math inline">\(Y\)</span> y <span class="math inline">\(X\)</span> no sea lineal, que su varianza no sea constante para todo <span class="math inline">\(x\)</span> o que los errores no sean aditivos.</p>
+<p>Si <span class="math inline">\(g\)</span> se corresponde con la función logarítmica,</p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\log Y &amp;= \beta_0 + \beta_1X + \epsilon \qquad \epsilon \sim \mathcal{N}(0, \sigma^2) \\\\
+Y &amp;= e^{\ \beta_0 + \beta_1X} e^{\epsilon} \\\\
+&amp;= e^{\ \beta_0 + \beta_1X}  \xi \qquad \xi \sim \log\mathcal{N} \left( e^{\sigma^2/2}, (e^{\sigma^2} - 1) e^{\sigma^2} \right)
+\end{align}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="transformacion-de-box-y-cox" class="section level2">
+<h2>Transformación de Box y Cox</h2>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+b_\lambda(Y) &amp;= \frac{Y^\lambda - 1}{\lambda} \\\\
+&amp;= \beta_0 + \beta_1X + \epsilon \qquad \epsilon \sim \mathcal{N}(0, \sigma^2)
+\end{align}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+\begin{align}
+\lim_{\lambda \rightarrow 0} \frac{Y^\lambda - 1}{\lambda} &amp;= \lim_{\lambda \rightarrow 0} \frac{\frac{d}{d\lambda} \ Y^\lambda - 1}{\frac{d}{d\lambda} \quad \ \lambda \quad \; \;} \\\\
+&amp;= \lim_{\lambda \rightarrow 0} \frac{Y^\lambda \log Y}{1} \\\\
+&amp;= \log Y
+\end{align}
+\]</span></p>
+<p><br></p>
+<p>La función <code>boxcox</code> del paquete <code>MASS</code> puede utilizarse para estimar el parámetro <span class="math inline">\(\lambda\)</span>.</p>
+<p><br></p>
+</div>
+<div id="sesgo-de-estimacion-por-omision-de-variables-correlacionadas" class="section level2">
+<h2>Sesgo de estimación por omisión de variables correlacionadas</h2>
 <p><br></p>
 <p><span class="math display">\[
 \begin{align}
@@ -1279,21 +1336,46 @@ R^2 &amp;= \frac{\beta_1^2 \text{Var}\left[X\right]}{\beta_1^2 \text{Var}\left[X
 <div id="colinealidad" class="section level2">
 <h2>Colinealidad</h2>
 <p><br></p>
-<p>Existen constantes <span class="math inline">\(a_0, a_1, \ldots, a_p\)</span> de manera que, para dos filas <span class="math inline">\(i\)</span>,</p>
+<p>Existen constantes <span class="math inline">\(a_j, \ldots, a_p\)</span> de manera que</p>
 <p><span class="math display">\[
-a_0 + \sum_{j=1}^p a_j x_{ij} = 0
-\]</span></p>
+\sum_{j=1}^p a_j x_{ij} = 0
+\]</span> para dos filas <span class="math inline">\(i\)</span>.</p>
+<pre class="r"><code>x &lt;- rnorm(5)
+X &lt;- cbind(x, x*3.5)
+a &lt;- c(-3.5, 1)
+X %*% a
+##      [,1]
+## [1,]    0
+## [2,]    0
+## [3,]    0
+## [4,]    0
+## [5,]    0</code></pre>
 <p><span class="math inline">\(\mathbf{X}^T \mathbf{X}\)</span> no es invertible cuando <span class="math inline">\(n &lt; p + 1\)</span>, uno de los predictores es constante o alguno de los predictores es proporcional o está linealmente relacionado con otro.</p>
 <p>Dos vectores son linealmente independientes si ninguna combinación lineal de ellos equivale a 0.</p>
 <p>La multicolinealidad ocurre cuando</p>
 <p><span class="math display">\[
 \begin{align}
-\sum_{i=1}^p a_i \mathbf{x}_i &amp;= a_0 \\\\
-\mathbf{a}^T \mathbf{X} &amp;= a_0 \\\\
-\text{Var}\left[\mathbf{a}^T \mathbf{X} \right] &amp;= \mathbf{a}^T \, \text{Var}\left[\mathbf{X}\right] \mathbf{a} \\\\
+\sum_{i=1}^p a_i \mathbf{x}_i &amp;= 0 \\\\
+\mathbf{Xa} &amp;= \mathbf{0} \\\\
+\text{Var}\left[\mathbf{Xa} \right] &amp;= \mathbf{a}^T \, \text{Var}\left[\mathbf{X}\right] \mathbf{a} \\\\
 &amp;= 0
 \end{align}
 \]</span></p>
+<pre class="r"><code>x &lt;- rnorm(5)
+X &lt;- cbind(x, x*2, x*6)
+a &lt;- c(-10, 2, 1)
+
+X %*% a
+##               [,1]
+## [1,] -8.881784e-16
+## [2,] -5.551115e-17
+## [3,] -4.440892e-16
+## [4,]  8.881784e-16
+## [5,]  0.000000e+00
+
+t(a) %*% var(X) %*% a
+##              [,1]
+## [1,] 8.881784e-16</code></pre>
 <p><br></p>
 </div>
 <div id="factor-de-inflacion-de-la-varianza-vif" class="section level2">
