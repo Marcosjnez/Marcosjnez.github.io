@@ -3,9 +3,9 @@ output_dir: '.'
 navbar:
   title: Marcos Jiménez
   left:
-  - text: Home
-    href: index.html
-  - text: About me
+  - text: Sobre mí
+    href: about.html
+  - text: Blog
     href: about.html
   - text: Estadística
     href: deriv_2.html
