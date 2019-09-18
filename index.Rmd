@@ -1,7 +1,39 @@
 ---
 title: "Marcos Jimenez"
+header-includes:
+  - \usepackage{fontawesome}
 output:
   html_document:
     theme: united
     css: style.css
 ---
+
+<style type="text/css">
+
+.title {
+  display: none;
+}
+
+#getting-started img {
+  margin-right: 20px;
+}
+
+</style>
+
+<div class="row" style="padding-top: 100px;">
+<div class="col-sm-6">
+
+```{r dpi = 100, echo = FALSE, fig.height = 0.398, fig.width = 0.512}
+knitr::include_graphics("logo.png")
+```
+
+<br>
+    
+<img src="twitter.svg" width="20" height="20"> [Twitter](https://twitter.com/skeptpsych)
+
+<img src="github.svg" width="20" height="20"> [GitHub](https://github.com/Marcosjnez/)
+
+<img src="linkedin.svg" width="20" height="20"> [Linkedin](https://github.com/Marcosjnez/)
+  
+</div>
+<div class="col-sm-6">

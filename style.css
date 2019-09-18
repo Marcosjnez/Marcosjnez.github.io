@@ -1,12 +1,32 @@
 /* Whole document: */
 body{
-  font-family: CMU;
+  font-style: normal; /* italic oblique */
+  font-family: Helvetica;
   font-size: 15pt;
+  color: black;
+  border: 0px solid orange;
+  background-color: white;
+  margin-left: 0px; /* márgenes horizontales */
+  margin-right: 0px; /* márgenes horizontales */
+  margin-top: 30px; /* márgenes verticales */
+  /* margin-left: 20px; */
+  line-height: 0.8cm;
 }
 /* Headers */
-h1,h2,h3,h4,h5,h6{
-  font-family: CMU;
-  font-size: 22pt;
+h1{
+  font-weight: 300; /* boldness level */
+  font-family: Helvetica; 
+  font-size: 20pt;
+  text-align: center;
+}
+h2{
+  font-family: Helvetica; 
+  font-size: 18pt;
+  text-align: center;
+}
+h3{
+  font-family: Helvetica; 
+  font-size: 16pt;
 }
 .math {
   font-size: 12pt;
