@@ -1,9 +1,11 @@
 ---
-title: "Información"
+title: "Información "
 output:
   html_document:
     theme: united
     css: style.css
 ---
+
+<br>
 
 Graduado en Psicología y estudiante de máster en Metodología de las Ciencias del Comportamiento y la Salud por la Universidad Autónoma de Madrid.
