@@ -1,11 +1,12 @@
 /* Whole document: */
 body{
-  font-family: Helvetica;
+  font-family: CMU;
   font-size: 15pt;
 }
 /* Headers */
 h1,h2,h3,h4,h5,h6{
-  font-size: 24pt;
+  font-family: CMU;
+  font-size: 22pt;
 }
 .math {
   font-size: 12pt;
