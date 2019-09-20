@@ -4,20 +4,22 @@ body{
   font-family: Helvetica;
   font-size: 15pt;
   color: black;
-  border: 0px solid orange;
+  /* border: 0px solid orange; */
+  padding-left: 1px;
+  padding-right: 1px;
   background-color: white;
-  margin-left: 0px; /* márgenes horizontales */
-  margin-right: 0px; /* márgenes horizontales */
+  /* margin-left: 0px; */
+  /* margin-right: 0px; */
   margin-top: 30px; /* márgenes verticales */
   /* margin-left: 20px; */
   line-height: 0.8cm;
 }
 /* Headers */
 h1{
-  font-weight: 300; /* boldness level */
+  font-weight: 500; /* boldness level */
   font-family: Helvetica; 
   font-size: 20pt;
-  text-align: center;
+  text-align: left;
 }
 h2{
   font-family: Helvetica; 

@@ -8,32 +8,123 @@ output:
     css: style.css
 ---
 
+<!-- css text -->
+
 <style type="text/css">
 
 .title {
   display: none;
 }
 
-#getting-started img {
-  margin-right: 20px;
+.avatar{
+border-radius: 40%;
+width: 315px;
+height: 282px;
+}
+
+#leftcolumn {
+  margin: 100px 0px 0px 50px;
+  width: 500px;
+  float: left;
+}
+
+#rightcolumn {
+  float: right;
+  margin: 0px 0px 0px 0px;
+  width: 1000px;
+}
+
+.main-container {
+  max-width: 1800px;
+  margin-top: 100px;
+  margin-left: 200px;
+  margin-right: 100px;
 }
 
 </style>
 
-<div class="row" style="padding-top: 100px;">
-<div class="col-sm-6">
+<!-- layout -->
 
-```{r dpi = 100, echo = FALSE, fig.height = 0.398, fig.width = 0.512}
-knitr::include_graphics("logo.png")
-```
+<div id="leftcolumn">
+
+<img src="Avatar/avatar.jpg" class="avatar">
 
 <br>
     
-<img src="twitter.svg" width="20" height="20"> [Twitter](https://twitter.com/skeptpsych)
+<img src="Logos/twitter.svg" width="20" height="20"> [Twitter](https://twitter.com/skeptpsych)
 
-<img src="github.svg" width="20" height="20"> [GitHub](https://github.com/Marcosjnez/)
+<img src="Logos/github.svg" width="20" height="20"> [GitHub](https://github.com/Marcosjnez/)
 
-<img src="linkedin.svg" width="20" height="20"> [Linkedin](https://github.com/Marcosjnez/)
+<!-- <img src="Logos/linkedin.svg" width="20" height="20"> [Linkedin](https://github.com/Marcosjnez/) -->
   
 </div>
-<div class="col-sm-6">
+
+<!-- layout -->
+
+<div id="rightcolumn">
+
+# Estudios
+
+- Grado en Psicología (2013-2018)
+
+- Máster en Metodología de las Ciencias del Comportamiento (2018 - actualidad)
+
+<br>
+
+# Contibuciones
+
+- Miembro de la organización del XVI Congreso de Métodología de las Ciencias Sociales y de la Salud (2019) en la Universidad Autónoma de Madrid
+
+- Ilustrador del libro *Statistical Inference as Severe Testing* (2018), de la editorial *Cambridge University Press*.
+
+<br>
+
+# Habilidades 
+
+- Dominio de R
+
+- Dominio de R Markdown (editor de texto)
+
+- Shiny (herramienta para elaborar aplicaciones con R)
+
+- Estadística bayesiana, principalmente con Stan (Lenguaje probabilístico bayesiano)
+
+- LaTeX (editor de texto)
+
+- Beamer (editor de presentaciones)
+
+- SPSS
+
+- Uso básico de HTML, C++ y Mathematica
+
+- Linux
+
+<br>
+    
+# Intereses
+
+- Medición
+
+- Psicometría
+
+- Estadística (particularmente bayesiana)
+
+- Inferencia causal
+
+- Elaboración de informes
+
+<br>
+
+# Idiomas
+
+- Español (nativo)
+
+- Inglés
+
+</div>
+
+
+
+
+
+
