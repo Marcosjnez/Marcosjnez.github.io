@@ -295,6 +295,7 @@ $(document).ready(function () {
 </div>
 
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- css text -->
 <style type="text/css">
 
@@ -308,28 +309,16 @@ width: 315px;
 height: 282px;
 }
 
-#leftcolumn {
-  margin: 100px 0px 0px 50px;
-  width: 500px;
-  float: left;
-}
-
-#rightcolumn {
-  float: right;
-  margin: 0px 0px 0px 0px;
-  width: 1000px;
-}
-
 .main-container {
   max-width: 1800px;
   margin-top: 100px;
-  margin-left: 200px;
-  margin-right: 100px;
+  margin-left: 100px;
+  margin-right: 0px;
 }
 
 </style>
 <!-- layout -->
-<div id="leftcolumn">
+<div class="col-sm-3">
 <p><img src="Avatar/avatar.jpg" class="avatar"></p>
 <p><br></p>
 <p><img src="Logos/twitter.svg" width="20" height="20"> <a href="https://twitter.com/skeptpsych">Twitter</a></p>
@@ -337,11 +326,11 @@ height: 282px;
 <!-- <img src="Logos/linkedin.svg" width="20" height="20"> [Linkedin](https://github.com/Marcosjnez/) -->
 </div>
 <!-- layout -->
-<div id="rightcolumn">
+<div class="col-sm-9">
 <h1 id="estudios">Estudios</h1>
 <ul>
 <li><p>Grado en Psicología (2013-2018)</p></li>
-<li><p>Máster en Metodología de las Ciencias del Comportamiento (2018 - actualidad)</p></li>
+<li><p>Máster en Metodología de las Ciencias del Comportamiento y de la Salud (2018 - actualidad)</p></li>
 </ul>
 <p><br></p>
 <h1 id="contibuciones">Contibuciones</h1>
