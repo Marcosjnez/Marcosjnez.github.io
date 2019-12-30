@@ -6,5 +6,4 @@ navbar:
   - text: Página Principal
     href: index.html
 output:
-  html_document:
-    css: css/hugo-academic.css
+  html_document
