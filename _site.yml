@@ -1,0 +1,9 @@
+name: marcos-website
+output_dir: '.'
+navbar:
+  title: Marcos Jiménez
+  left:
+  - text: Página Principal
+    href: index.html
+output:
+  html_document
