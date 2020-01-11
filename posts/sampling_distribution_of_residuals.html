@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Marcos Jiménez">
+  <meta name="description" content="Student">
+
+  
+  <link rel="stylesheet" href="css/highlight.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fontawesome.min.css">
+  <link rel="stylesheet" href="css/academicons.min.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono">
+  <link rel="stylesheet" href="css/hugo-academic.css">
+  
+
+  <link rel="icon" type="image/svg" href="img/psi.svg">
+
+  <link rel="canonical" href="https://marcosjnez.github.io/">
+
+  <title>Marcos Jiménez</title> <!-- nombre de la pestaña en el buscador -->
+
+  <!-- Archivo css en línea para los birretes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<!--
+Código para visualizar ecuaciones en LaTeX 
+-->
+<script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+    </script>
+    <script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+
+<style type="text/css">
+.main-container {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+<!--
+Scroll the navigation bar in small screens
+-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+
+<!-- Body -->
+
+
+<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
+
+<!-- Barra de arriba -->
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target=".navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Marcos Jiménez</a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="nav-item">
+          <a href="https://marcosjnez.github.io#about" data-target="#about">
+            
+            <span>Home</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="https://marcosjnez.github.io#posts" data-target="#posts">
+            
+            <span>Posts</span>
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+<!-- Tags [Poner debajo del título]
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2020-07-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Weekday, Month day, year
+    </time>
+  </span>
+
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/psychometrics">Psychometrics</a
+    >, 
+    
+    <a href="/tags/r">R</a
+    >
+    
+  </span>
+
+</div>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Sampling distribution of residuals</h1>
+
+</div>
+
+
+<style>
+div.red pre.r { background-color: #f6fcfe; }
+div.red pre { background-color: #f8fbfc; }
+</style>
+<div id="varianza-de-los-residuos" class="section level2">
+<h2>Varianza de los residuos</h2>
+<p><span class="math display">\[
+\begin{align}
+\text{Var}\left[\mathbf{e}\right] &amp;= \sigma^2 \left(\mathbf{I} - \mathbf{H} \right) \\\\
+\text{Var}\left[e_i\right] &amp;= \sigma^2 \left(1 - h_{ii} \right)
+\end{align}
+\]</span></p>
+<p><span class="math display">\[
+r_i = \frac{e_i}{\widehat\sigma \sqrt{1 - h_{ii}}}
+\]</span></p>
+<p>Aunque $r_i$ resulta de la división entre una variable normalmente distribuida y otra variable con distribución $\sqrt{\chi^2}$, $e_i$ y $\widehat\sigma$ no son estadísticamente independientes: la segunda se estima empleando la primera.</p>
+<p><span class="math display">\[
+\frac{r_i^2}{n-p-1} \sim \mathit{Beta}\left(\frac{1}{2}, \frac{n-p-2}{2} \right)
+\]</span></p>
+<p>Definiendo $v = \frac{(n - p - 2)}{2}$, la densidad de probabilidad de un residuo estandarizado y su función de distribución son</p>
+<p><span class="math display">\[
+\begin{align}
+f(r) &amp;= \frac{\Gamma \left( \frac{1}{2} + v \right)}{\sqrt{n-p-1} \; \Gamma \left(\frac{1}{2} \right) \ \Gamma(v)} \left( 1 - \frac{r^2}{n-p-1} \right)^{v-1} \ ; \qquad |r| \leq \sqrt{n-p-1} \\\\
+F(r) &amp;= \frac{\Gamma \left( \frac{1}{2} + v \right) \ _2F_1 \left( \frac{1}{2}, 1 - v, \frac{3}{2}, \frac{r^2}{2 v + 1} \right)}{ \sqrt{n-p-1} \; \Gamma \left(\frac{1}{2} \right) \; \Gamma(v)} + \frac{1}{2}
+\end{align}
+\]</span></p>
+<p>donde $_2F_1$ se corresponde con la función hipergeométrica.</p>
+<div class="red">
+<pre class="r"><code>n &lt;- 30
+X &lt;- cbind(1, runif(n, -1, 1), runif(n, -1, 1), runif(n, -1, 1))
+beta &lt;- c(1, 0.2, 0.5, 0.8)
+sigma &lt;- 1
+H &lt;- X %*% solve(t(X) %*% X) %*% t(X)            # Influence matrix
+h &lt;- diag(H)
+se &lt;- sqrt(sigma^2 * (1 - h))
+
+simulation &lt;- function(n, X, beta, sigma, se, alpha) {
+  y &lt;- X %*% beta + rnorm(n, 0, sigma)
+  hat_beta &lt;- solve(t(X) %*% X) %*% t(X) %*% y   # Estimated coefficients
+  e &lt;- y - X %*% hat_beta
+  CI &lt;- sapply(1:n, FUN = function(x) e[x] + c(-1, 1)*qnorm(1-alpha/2) * se[x])
+  reject &lt;- apply(CI, MARGIN = 2, FUN = function(x) x[1] &gt; 0 | x[2] &lt; 0)
+  return(sum(reject))
+}
+
+N &lt;- 1e4
+rejections &lt;- replicate(N, simulation(n, X, beta, sigma, se, alpha = .05))
+mean(rejections)/n</code></pre>
+<pre><code>## [1] 0.04984</code></pre>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+</article>
+
+
+<div class="container">
+  <nav>
+  <ul class="pager">
+    
+    <li class="previous"><a href="https://marcosjnez.github.io/"><span
+      aria-hidden="true">&larr;</span> Following post</a></li>
+    
+  </ul>
+</nav>
+
+</div>
+
+<div class="article-container">
+  
+<!-- Comments
+<section id="comments">
+  <div id="disqus_thread">
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "graemeleehickey" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<!--
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+</section>
+</div>
+-->
+
+
+
+      <span class="pull-right" aria-hidden="true">
+        <a href="#" id="back_to_top">
+          <span class="button_icon">
+            <i class="fa fa-chevron-up fa-2x"></i>
+          </span>
+        </a>
+      </span>
+
+    </p>
+  </div>
+
+  </body>
+</html>
+
