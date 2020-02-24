@@ -133,7 +133,7 @@ Scroll the navigation bar in small screens
 
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
 
-<!-- Barra de arriba -->
+<!-- Barra de navegación -->
 
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
   <div class="container">
@@ -148,7 +148,7 @@ Scroll the navigation bar in small screens
       </button>
       <a class="navbar-brand" href="/">Marcos Jiménez</a>
     </div>
-
+  
     <div class="collapse navbar-collapse">
 
       <ul class="nav navbar-nav navbar-right">
@@ -177,28 +177,7 @@ Scroll the navigation bar in small screens
 
   
 
-<!-- Tags [Poner debajo del título]
-<div class="article-metadata">
 
-  <span class="article-date">
-    <time datetime="2020-07-01 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Weekday, Month day, year
-    </time>
-  </span>
-
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/psychometrics">Psychometrics</a
-    >, 
-    
-    <a href="/tags/r">R</a
-    >
-    
-  </span>
-
-</div>
--->
 
 
 
@@ -221,7 +200,28 @@ Scroll the navigation bar in small screens
 
 
 
-<h1 class="title toc-ignore">Sampling distribution of residuals</h1>
+<h1 class="title toc-ignore">Confidence intervals for raw residuals</h1>
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2020-25-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Tuesday, February, 2020
+    </time>
+  </span>
+
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/statistics">Statistics</a
+    >, 
+    
+    <a href="/tags/r">R</a
+    >
+    
+  </span>
+
+</div>
 
 </div>
 
@@ -230,68 +230,104 @@ Scroll the navigation bar in small screens
 div.red pre.r { background-color: #f6fcfe; }
 div.red pre { background-color: #f8fbfc; }
 </style>
-<div id="varianza-de-los-residuos" class="section level2">
-<h2>Varianza de los residuos</h2>
-<p><span class="math display">\[
-\begin{align}
-\text{Var}\left[\mathbf{e}\right] &amp;= \sigma^2 \left(\mathbf{I} - \mathbf{H} \right) \\\\
-\text{Var}\left[e_i\right] &amp;= \sigma^2 \left(1 - h_{ii} \right)
-\end{align}
+<p>Checking the normality and equal variance of standardized residuals is one of the most common routines when fitting linear models and, although <a href="https://statmodeling.stat.columbia.edu/2013/08/04/19470/">some statisticians</a> argue they are the less important assumptions to consider <a href="https://statmodeling.stat.columbia.edu/2013/10/01/ill-say-it-again/">unless you focus on prediction</a>, easily available software prompts anyone to either display all kinds of graphical inspections and null hypothesis tests.</p>
+<p>Consider we fit the model $\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}$ with $n$ observations and $p$ predictors. Asumming the error terms follow a multivariate normal distribution with mean vector $\mathbf{0}$ and covariance matrix $\sigma^2 \mathbf{I}$, we already know the covariance matrix of the residual vector $\mathbf{e}$ is $\sigma^2(\mathbf{I} - \mathbf{H})$, where $\mathbf{H}$ is the influence matrix. If $\sigma^2$ was known, confidence intervals could then be constructed because $\mathbf{e}$ would also follows a multivariate normal distribution. Nonetheless, that situation is utopian because we actually need to estimate the error variance. In that case, we may think that the <em>ith</em> studentized residual, $r_i = \frac{e_i}{\widehat\sigma \sqrt{1 - h_{ii}}}$, follows a t-distribution with $n-p-1$ degrees of freedom but $e_i$ and $\widehat{\sigma}$ are not independent. At this point, we may appeal to asimptotic approximations to simply use the t-distribution or compute the <em>externally studentized residuals</em>, which employ the error variance estimate that excludes the <em>ith</em> case. If we however want to to use the whole data, <span class="citation">Ellenberg (1973)</span> derived the joint distribution of a kind of standardized residuals. We will follow his derivation to get the joint density of the internally studentized residuals instead and will supply <code>R</code> code to plot the confidence interval of raw residuals.</p>
+<p>Let $\mathbf{M} = \mathbf{I} - \mathbf{H}$ so that $\mathbf{e} = \mathbf{M} \boldsymbol{\epsilon}$. Consider a $k$-subset of residuals. The sum of squared residuals obtained by removing that subset from the regression is <span class="math display">\[
+S_k^2 = S^2 - \mathbf{e}_k^\top \mathbf{M}_{k\times k}^{-1} \mathbf{e}_k,
+\]</span> where $S^2$ is the sum of squared residuals from the full model, $\mathbf{e}_k$ is the vector containing the subset of $k$ residuals and $\mathbf{M}_{k \times k}$ is the corresponding partition matrix of $\mathbf{M}$. We can rewrite that as <span class="math display">\[
+\begin{aligned}
+S_k^2 &amp;= \boldsymbol{\epsilon}^\top \mathbf{M} \boldsymbol{\epsilon} - \boldsymbol{\epsilon}^\top (\mathbf{MM^*M}) \boldsymbol{\epsilon} \\
+&amp;= \boldsymbol{\epsilon}^\top (\mathbf{M} - \mathbf{MM^*M}) \boldsymbol{\epsilon},
+\end{aligned}
+\]</span> where $\mathbf{M^*}$ is a $n \times n$ matrix with all the entries not related to the $k$-subset set to zero. That’s a quadratic form where $M$ is idempotent and the rank of $(\mathbf{M} - \mathbf{MM^*M})$ is $n-p-k$, so <span class="math display">\[
+\frac{S_k^2}{\sigma^2} \sim \chi^2 \Big(n-p-k \Big).
 \]</span></p>
+<p>$\mathbf{e}_k$ is independent of $S_k^2$ so their joint probability density is <span class="math display">\[
+f(\mathbf{e}_k, S_k^2) = {\sf MVN} \Big(\mathbf{e}_k; \ \mathbf{0}, \sigma^2 \boldsymbol{\Sigma} \Big) \ \chi^2 \Big(S_k^2/\sigma^2; \ n-p-k \Big) / \sigma^2,
+\]</span> where $\boldsymbol{\Sigma} = \sigma^2 \mathbf{M}_{k \times k}$. Let’s just focus on the residual $i$ from now on. Considering $\widehat{\sigma} = \sqrt{S^2 / (n-k)}$, we apply a change of variables,</p>
 <p><span class="math display">\[
-r_i = \frac{e_i}{\widehat\sigma \sqrt{1 - h_{ii}}}
+\begin{aligned}
+r_i &amp;= \frac{e_i}{\widehat{\sigma} \sqrt{m_{ii}}} \\
+\widehat{\sigma}^2 &amp;= \frac{S_i^2 + \widehat{\sigma}^2 r_i^2}{(n-p)}
+\end{aligned},
 \]</span></p>
-<p>Aunque $r_i$ resulta de la división entre una variable normalmente distribuida y otra variable con distribución $\sqrt{\chi^2}$, $e_i$ y $\widehat\sigma$ no son estadísticamente independientes: la segunda se estima empleando la primera.</p>
-<p><span class="math display">\[
-\frac{r_i^2}{n-p-1} \sim \mathit{Beta}\left(\frac{1}{2}, \frac{n-p-2}{2} \right)
+<p>Notice that by standardazing the residuals we ensure that $\sigma^2 = 1$. The joint probability density now looks like <span class="math display">\[
+f(e_i, S_i^2) = \mathcal{N} \Big(r_i \widehat{\sigma} \sqrt{m_{ii}}; \ 0, m_{ii} \Big) \ \chi^2 \left(\widehat{\sigma}^2 (n-p-r_i^2); \ n-p-1 \right).
 \]</span></p>
-<p>Definiendo $v = \frac{(n - p - 2)}{2}$, la densidad de probabilidad de un residuo estandarizado y su función de distribución son</p>
-<p><span class="math display">\[
-\begin{align}
-f(r) &amp;= \frac{\Gamma \left( \frac{1}{2} + v \right)}{\sqrt{n-p-1} \; \Gamma \left(\frac{1}{2} \right) \ \Gamma(v)} \left( 1 - \frac{r^2}{n-p-1} \right)^{v-1} \ ; \qquad |r| \leq \sqrt{n-p-1} \\\\
-F(r) &amp;= \frac{\Gamma \left( \frac{1}{2} + v \right) \ _2F_1 \left( \frac{1}{2}, 1 - v, \frac{3}{2}, \frac{r^2}{2 v + 1} \right)}{ \sqrt{n-p-1} \; \Gamma \left(\frac{1}{2} \right) \; \Gamma(v)} + \frac{1}{2}
-\end{align}
+<p>Denoting $v = n-p$, the Jacobian of the transformation is <span class="math display">\[
+\begin{equation} 
+   \begin{vmatrix} 
+   \widehat{\sigma} \sqrt{m_{ii}} &amp; r_i \sqrt{m_{ii}} \\
+   -2 \widehat{\sigma}^2r_i &amp; 2 \widehat{\sigma}v - 2\widehat{\sigma} ri^2
+   \end{vmatrix} = 2\widehat{\sigma}^2v \sqrt{m_{ii}}
+\end{equation}.
 \]</span></p>
-<p>donde $_2F_1$ se corresponde con la función hipergeométrica.</p>
+<p>Hence, <span class="math display">\[
+f(r_i, \widehat{\sigma}) = 2\widehat{\sigma}^2v \sqrt{m_{ii}} \ \mathcal{N} \Big(r_i \widehat{\sigma} \sqrt{m_{ii}}; \ 0, m_{ii} \Big) \ \chi^2 \Big(\widehat{\sigma}^2 (v-r_i^2); \ v-1 \Big).
+\]</span></p>
+<p>Finally, simplifying and integrating over $\widehat{\sigma}$ yields <span class="math display">\[
+f(r_i) = \frac{v^{1-v/2} (v-r_i^2)^{(v-3)/2} \Gamma \left(\frac{v}{2} \right)}{\Gamma \left(\frac{v-1}{2} \right) \sqrt{\pi}}.
+\]</span></p>
+<p>Using $\tt Mathematica$ we find that <span class="math display">\[
+F(r_i) = \frac{v^{1-\frac{v}{2}} \Gamma \left(\frac{v}{2} \right)}{\Gamma \left(\frac{v-1}{2} \right) \sqrt{\pi}} r_i \left(1 - \frac{r_i^2}{v} \right)^{\frac{3-v}{2}} \Big(v-r_i^2 \Big)^{\frac{v-3}{2}} \ _2F_1 \left( \frac{1}{2}, \frac{3-v}{2}, \frac{3}{2}, \frac{r^2}{v} \right) + C,
+\]</span> where $_2F_1$ is the hypergeometric function. A visual inspection of that function indicates that $C = \frac{1}{2}$ and the calculation of p-values and confidence intervals is straightforward.</p>
 <div class="red">
-<pre class="r"><code>n &lt;- 30
-X &lt;- cbind(1, runif(n, -1, 1), runif(n, -1, 1), runif(n, -1, 1))
-beta &lt;- c(1, 0.2, 0.5, 0.8)
-sigma &lt;- 1
-H &lt;- X %*% solve(t(X) %*% X) %*% t(X)            # Influence matrix
-h &lt;- diag(H)
-se &lt;- sqrt(sigma^2 * (1 - h))
 
-simulation &lt;- function(n, X, beta, sigma, se, alpha) {
-  y &lt;- X %*% beta + rnorm(n, 0, sigma)
-  hat_beta &lt;- solve(t(X) %*% X) %*% t(X) %*% y   # Estimated coefficients
-  e &lt;- y - X %*% hat_beta
-  CI &lt;- sapply(1:n, FUN = function(x) e[x] + c(-1, 1)*qnorm(1-alpha/2) * se[x])
-  reject &lt;- apply(CI, MARGIN = 2, FUN = function(x) x[1] &gt; 0 | x[2] &lt; 0)
-  return(sum(reject))
+
+<p>This derivation was mainly a matter of curiosity rather than of practical value.</p>
+<div id="reference" class="section level1 unnumbered">
+<h1>Reference</h1>
+<div id="refs" class="references">
+<div id="ref-ellenberg_1973">
+<p>Ellenberg, J. H. (1973). The Joint Distribution of the Standardized Least Squares Residuals from a General Linear Regression. <em>Journal of the American Statistical Association</em>, <em>68</em>(344), 941–943. <a href="https://doi.org/10.1080/01621459.1973.10481450">https://doi.org/10.1080/01621459.1973.10481450</a></p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
-
-N &lt;- 1e4
-rejections &lt;- replicate(N, simulation(n, X, beta, sigma, se, alpha = .05))
-mean(rejections)/n</code></pre>
-<pre><code>## [1] 0.04984</code></pre>
-</div>
-</div>
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
 
 
-
-
-
-
-
-
-
-
-
-  </div>
-
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </article>
 
 
