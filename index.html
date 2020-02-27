@@ -64,23 +64,22 @@
 }
 </style>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="author" content="Marcos Jiménez">
-  <meta name="description" content="Student">
-
-  <link rel="stylesheet" href="css/highlight.min.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/fontawesome.min.css">
   <link rel="stylesheet" href="css/academicons.min.css">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono">
   <link rel="stylesheet" href="css/hugo-academic.css">
-  
-
   <link rel="icon" type="image/svg" href="img/psi.svg">
-
   <link rel="canonical" href="https://marcosjnez.github.io/">
+
+<style type="text/css">
+.main-container {
+code {
+  color: #fb6e6e;
+  background-color: rgba(0, 0, 0, 0.04);
+  white-space: pre;
+}
+</style>
 
   <title>Marcos Jiménez</title> <!-- nombre de la pestaña en el buscador -->
 
@@ -91,11 +90,27 @@
 Código para visualizar ecuaciones en LaTeX 
 -->
   <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-  </script>
-  <script type="text/javascript"
+  MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        },
+        "HTML-CSS": { availableFonts: ["TeX"],
+        scale: 90}
+    });
+</script>
+<script type="text/javascript"
   src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  </script>
+  if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 <!--
 Scroll the navigation bar in small screens
